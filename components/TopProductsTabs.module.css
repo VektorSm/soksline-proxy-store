@@ -1,0 +1,165 @@
+.section {
+  margin-top: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, #f2f6ff 100%);
+  padding: clamp(3rem, 7vw, 5.5rem) 0;
+}
+
+.sectionInner {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 6vw, 5.5rem);
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  box-sizing: border-box;
+}
+
+.header {
+  display: grid;
+  gap: 0.6rem;
+  max-width: 40rem;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #111827;
+}
+
+.subtitle {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.tablistWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.tabButton {
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.3rem;
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+  cursor: pointer;
+  transition: background 150ms ease, transform 150ms ease, color 150ms ease;
+}
+
+.tabButton:hover {
+  transform: translateY(-1px);
+}
+
+.tabButton:focus-visible {
+  outline: 3px solid rgba(56, 189, 248, 0.65);
+  outline-offset: 3px;
+}
+
+.tabButtonActive {
+  background: #111b2e;
+  color: #f8fafc;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1.4rem, 3vw, 2.25rem);
+  display: grid;
+  gap: clamp(1.4rem, 2.5vw, 2rem);
+  box-shadow: 0 28px 64px -48px rgba(15, 23, 42, 0.55);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(1.1rem, 2.5vw, 1.75rem);
+}
+
+.card {
+  background: rgba(246, 249, 255, 0.7);
+  border-radius: 1.4rem;
+  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+  display: grid;
+  gap: 0.8rem;
+  min-height: 100%;
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.cardPrice {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.35rem;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.featureDot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: #38bdf8;
+}
+
+.cardMeta {
+  margin: 0;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.note {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 2.75rem 0;
+  }
+
+  .sectionInner {
+    padding: 0 1.25rem;
+  }
+
+  .tabButton {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

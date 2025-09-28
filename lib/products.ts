@@ -1,13 +1,17 @@
-﻿export type Product = {
+export type CategoryId = "isp" | "ipv6" | "rotating";
+
+export type ProductOffering = {
   name: string;
-  price?: string;         // строкой, чтобы легко писать "from $X"
-  features?: string[];
+  price: string;
+  features: string[];
+  bestFor?: string;
 };
 
 export type Category = {
-  id: "isp" | "ipv6" | "rotating";
+  id: CategoryId;
   title: string;
-  items: Product[];
+  tagline: string;
+  items: ProductOffering[];
   note?: string;
 };
 
@@ -15,28 +19,61 @@ export const CATEGORIES: Category[] = [
   {
     id: "isp",
     title: "Static Residential (ISP)",
+    tagline: "Статичные резидентские прокси для стабильной работы и кабинетных задач.",
     items: [
-      { name: "US / EU (shared pool)", price: "from $2.50/IP", features: ["Sticky", "HTTP/SOCKS", "KYC free"] },
-      { name: "Dedicated country",      price: "from $3.50/IP", features: ["Geo-targeting", "Replace 1x/mo"] }
+      {
+        name: "US / EU (shared pool)",
+        price: "от $2.50 / IP",
+        features: ["Sticky до 24 ч", "HTTP / SOCKS5", "Без KYC"],
+        bestFor: "Управление рекламой и аккаунтами."
+      },
+      {
+        name: "Dedicated country",
+        price: "от $3.50 / IP",
+        features: ["Точный геотаргетинг", "Замена 1 раз/мес", "Поддержка API"],
+        bestFor: "Создание фермы под конкретный регион."
+      }
     ],
-    note: "Оптимально для стабильных задач: антидетект, кабинеты, маркетплейсы."
+    note: "Оптимально для стабильных задач: антидетект, кабинеты и маркетплейсы."
   },
   {
     id: "ipv6",
     title: "Static Residential (ISP) IPv6",
+    tagline: "Доступные IPv6-пулы с высокой пропускной способностью и нативным резолвингом.",
     items: [
-      { name: "Global IPv6 pool", price: "from $1.20/IP", features: ["IPv6 only", "High throughput"] },
-      { name: "Country IPv6",     price: "from $1.60/IP", features: ["Geo-targeting", "Low price per IP"] }
+      {
+        name: "Global IPv6 pool",
+        price: "от $1.20 / IP",
+        features: ["IPv6 only", "Высокая скорость", "HTTP / SOCKS5"],
+        bestFor: "Парсинг и регистрация с минимальной себестоимостью."
+      },
+      {
+        name: "Country IPv6",
+        price: "от $1.60 / IP",
+        features: ["Гео по требованию", "Автоматическая выдача", "Готово к масштабированию"],
+        bestFor: "Проекты с геопривязкой и массовыми потоками."
+      }
     ],
-    note: "IPv6 — дешево и быстро; убедись, что целевые сайты поддерживают IPv6."
+    note: "IPv6 — дешево и быстро; убедитесь, что целевые сайты поддерживают IPv6."
   },
   {
     id: "rotating",
     title: "Rotating Residential",
+    tagline: "Ротация IP по запросу с балансом между скоростью и анонимностью.",
     items: [
-      { name: "Standard rotation", price: "from $10/GB", features: ["Residential pool", "Sticky up to 30 min"] },
-      { name: "Premium rotation",  price: "from $15/GB", features: ["Low spam", "Top ISPs"] }
+      {
+        name: "Standard rotation",
+        price: "от $10 / GB",
+        features: ["Резидентский пул", "Sticky до 30 мин", "HTTP / SOCKS5"],
+        bestFor: "Сбор данных и массовые проверки."
+      },
+      {
+        name: "Premium rotation",
+        price: "от $15 / GB",
+        features: ["Минимум спама", "Топовые ASN", "Выделенные сессии"],
+        bestFor: "Чувствительные сценарии с повышенным контролем качества."
+      }
     ],
-    note: "Ротация для парсинга/скрейпа и высоких объёмов."
+    note: "Ротация для парсинга, скрейпа и высоких объёмов."
   }
 ];

@@ -1,0 +1,311 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  background: #0b1220;
+  min-height: 100vh;
+  color: #0f172a;
+}
+
+.hero {
+  padding: clamp(4rem, 6vw, 6rem) 0;
+  background: linear-gradient(135deg, #0f172a 0%, #1e2a46 60%, #111827 100%);
+  color: #f8fafc;
+}
+
+.heroInner {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 6vw, 5.5rem);
+  box-sizing: border-box;
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  text-align: center;
+}
+
+.heroEyebrow {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.heroDescription {
+  margin: 0 auto;
+  max-width: 48rem;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.heroActions {
+  display: flex;
+  justify-content: center;
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2.6rem;
+  border-radius: 999px;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 18px 32px -20px rgba(56, 189, 248, 0.9);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.primaryCta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 22px 40px -22px rgba(56, 189, 248, 0.95);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: clamp(1rem, 3vw, 1.8rem);
+  margin: 0;
+}
+
+.metricCard {
+  background: rgba(15, 23, 42, 0.55);
+  border-radius: 1.4rem;
+  padding: 1.4rem 1.6rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.metricLabel {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.metricValue {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.offers {
+  padding: clamp(3.5rem, 6vw, 6rem) 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, #eef2ff 100%);
+}
+
+.offersInner {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 6vw, 5.5rem);
+  box-sizing: border-box;
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.offersHeader {
+  display: grid;
+  gap: 0.6rem;
+  max-width: 46rem;
+}
+
+.offersTitle {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.offersDescription {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #475569;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1.2rem, 3vw, 2rem);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1.5rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  box-shadow: 0 24px 48px -40px rgba(15, 23, 42, 0.55);
+  display: grid;
+  gap: 1rem;
+}
+
+.cardFeatured {
+  border: 2px solid rgba(37, 99, 235, 0.35);
+  box-shadow: 0 28px 50px -34px rgba(37, 99, 235, 0.4);
+}
+
+.cardHeader {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cardTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.cardBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1d4ed8;
+  background: rgba(59, 130, 246, 0.16);
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem;
+}
+
+.cardPriceBlock {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.cardPriceLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.cardPrice {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+.cardCompareAt {
+  text-decoration: line-through;
+  color: #ef4444;
+  font-size: 0.95rem;
+}
+
+.cardPriceValue {
+  font-size: 1.35rem;
+}
+
+.cardPricePeriod {
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.cardSummary {
+  margin: 0;
+  color: #334155;
+  line-height: 1.55;
+}
+
+.cardFeatures {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.cardFeature {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.featureIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.featureIncluded {
+  color: #1f2937;
+}
+
+.featureIncluded .featureIcon {
+  background: rgba(34, 197, 94, 0.16);
+  color: #15803d;
+}
+
+.featureExcluded {
+  color: #9ca3af;
+}
+
+.featureExcluded .featureIcon {
+  background: rgba(248, 113, 113, 0.16);
+  color: #dc2626;
+}
+
+.cardCta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  background: #111b2e;
+  color: #f8fafc;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.cardCta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px -28px rgba(15, 23, 42, 0.85);
+}
+
+.offersNote {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+@media (max-width: 640px) {
+  .heroActions {
+    justify-content: stretch;
+  }
+
+  .primaryCta {
+    width: 100%;
+  }
+
+  .card {
+    padding: 1.35rem;
+  }
+}
