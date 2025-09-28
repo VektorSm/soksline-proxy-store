@@ -60,6 +60,7 @@ export default function ProductTemplate({ data }: ProductTemplateProps) {
                       {plan.period && <span className={styles.cardPricePeriod}>{plan.period}</span>}
                     </p>
                   </div>
+
                 </header>
 
                 {plan.summary && <p className={styles.cardSummary}>{plan.summary}</p>}
