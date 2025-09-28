@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, FocusEvent } from "react";
+import { useState, useRef, useCallback, FocusEvent, MouseEvent } from "react";
 import styles from "./HeaderNav.module.css";
 
 type DropdownItem = {
@@ -122,13 +122,42 @@ const AUX_LINKS = [
 
 export default function HeaderNav() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleOpen = (id: string | null) => setOpenDropdown(id);
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  }, []);
+
+  const handleOpen = useCallback(
+    (id: string | null) => {
+      clearCloseTimer();
+      setOpenDropdown(id);
+    },
+    [clearCloseTimer]
+  );
+
+  const handleScheduleClose = useCallback(() => {
+    clearCloseTimer();
+    closeTimer.current = setTimeout(() => {
+      setOpenDropdown(null);
+      closeTimer.current = null;
+    }, 150);
+  }, [clearCloseTimer]);
 
   const handleBlur = (event: FocusEvent<HTMLLIElement>) => {
     const nextFocus = event.relatedTarget as Node | null;
     if (!nextFocus || !event.currentTarget.contains(nextFocus)) {
       setOpenDropdown(null);
+    }
+  };
+
+  const handleMouseLeave = (event: MouseEvent<HTMLLIElement>) => {
+    const related = event.relatedTarget as Node | null;
+    if (!related || !event.currentTarget.contains(related)) {
+      handleScheduleClose();
     }
   };
 
@@ -152,7 +181,7 @@ export default function HeaderNav() {
                 key={menu.id}
                 className={styles.navItem}
                 onMouseEnter={() => handleOpen(menu.id)}
-                onMouseLeave={() => handleOpen(null)}
+                onMouseLeave={handleMouseLeave}
                 onFocus={() => handleOpen(menu.id)}
                 onBlur={handleBlur}
               >
@@ -171,6 +200,8 @@ export default function HeaderNav() {
                 <div
                   className={`${styles.dropdown} ${openDropdown === menu.id ? styles.dropdownOpen : ""}`}
                   role="menu"
+                  onMouseEnter={() => handleOpen(menu.id)}
+                  onMouseLeave={handleScheduleClose}
                 >
                   {menu.sections.map(section => (
                     <div key={section.heading ?? menu.id} className={styles.dropdownColumn}>
