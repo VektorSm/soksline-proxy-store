@@ -31,17 +31,17 @@ const PRODUCT_MENU: DropdownConfig = {
         {
           label: "ISP Proxies (DC/ISP)",
           description: "Доступ к дата-центровым и ISP пуллам для стабильных проектов",
-          href: "#top-products"
+          href: "/products/isp-proxies"
         },
         {
           label: "Static Residential",
           description: "Реальные жилые IP для долгих сессий и антидетект браузеров",
-          href: "#top-products"
+          href: "/products/static-residential"
         },
         {
           label: "Rotating Residential",
           description: "Автоматическая ротация IP и гибкие лимиты",
-          href: "#top-products"
+          href: "/products/rotating-residential"
         }
       ]
     }
@@ -147,6 +147,11 @@ export default function HeaderNav() {
     }, 150);
   }, [clearCloseTimer]);
 
+  const handleItemClick = useCallback(() => {
+    clearCloseTimer();
+    setOpenDropdown(null);
+  }, [clearCloseTimer]);
+
   const handleBlur = (event: FocusEvent<HTMLLIElement>) => {
     const nextFocus = event.relatedTarget as Node | null;
     if (!nextFocus || !event.currentTarget.contains(nextFocus)) {
@@ -214,6 +219,7 @@ export default function HeaderNav() {
                               className={styles.dropdownLink}
                               target={item.href.startsWith("http") ? "_blank" : undefined}
                               rel={item.href.startsWith("http") ? "noopener" : undefined}
+                              onClick={handleItemClick}
                             >
                               <span>
                                 <span className={styles.dropdownLabel}>{item.label}</span>

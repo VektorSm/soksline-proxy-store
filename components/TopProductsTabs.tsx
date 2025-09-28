@@ -35,7 +35,7 @@ export default function TopProductsTabs() {
     <section className={styles.section} id="top-products">
       <div className={styles.sectionInner}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Top Products by SoksLine</h2>
+          <h2 className={styles.title}>Топ продукты SoksLine</h2>
           <p className={styles.subtitle}>{current.tagline}</p>
         </div>
 
