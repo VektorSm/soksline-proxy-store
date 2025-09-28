@@ -1,20 +1,29 @@
-﻿import { render, screen } from "@testing-library/react";
+import React from "react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TopProductsTabs from "../components/TopProductsTabs";
 
-test("переключение вкладок меняет активную", async () => {
+test("переключение вкладок меняет активную и контент", async () => {
   render(<TopProductsTabs />);
   const user = userEvent.setup();
 
-  const tabs = screen.getAllByRole("tab"); // ожидаем 3 штуки
+  const tablist = screen.getByRole("tablist", { name: /Категории продуктов/i });
+  const tabs = within(tablist).getAllByRole("tab");
   expect(tabs).toHaveLength(3);
 
-  // 0 — ISP, 1 — IPv6, 2 — Rotating
   expect(tabs[0]).toHaveAttribute("aria-selected", "true");
+  const initialPanel = screen.getByRole("tabpanel");
+  expect(within(initialPanel).getByText("US / EU (shared pool)")).toBeInTheDocument();
 
   await user.click(tabs[1]);
+  expect(tabs[0]).toHaveAttribute("aria-selected", "false");
   expect(tabs[1]).toHaveAttribute("aria-selected", "true");
+  const ipv6Panel = screen.getByRole("tabpanel");
+  expect(within(ipv6Panel).getByText("Global IPv6 pool")).toBeInTheDocument();
 
   await user.click(tabs[2]);
+  expect(tabs[1]).toHaveAttribute("aria-selected", "false");
   expect(tabs[2]).toHaveAttribute("aria-selected", "true");
+  const rotatingPanel = screen.getByRole("tabpanel");
+  expect(within(rotatingPanel).getByText("Standard rotation")).toBeInTheDocument();
 });

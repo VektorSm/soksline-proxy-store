@@ -1,0 +1,270 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  background: #0b1220;
+  min-height: 100vh;
+  padding-top: clamp(4.5rem, 8vw, 5.25rem);
+  scroll-padding-top: clamp(4.5rem, 8vw, 5.25rem);
+}
+
+.section {
+  padding: clamp(3rem, 6vw, 5.5rem) 0;
+}
+
+.sectionInner {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 6vw, 5.5rem);
+  box-sizing: border-box;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0f172a 0%, #17233d 55%, #111927 100%);
+  color: #f8fafc;
+  text-align: center;
+}
+
+.heroInner {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  justify-items: center;
+}
+
+.heroEyebrow {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.75);
+}
+
+.heroContent {
+  display: grid;
+  gap: clamp(1.25rem, 2.5vw, 1.9rem);
+  max-width: 52rem;
+}
+
+.heroTitle {
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 700;
+}
+
+.heroSubtitle {
+  margin: 0;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.media {
+  background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 60%, #f8fafc 100%);
+  color: #3730a3;
+}
+
+.mediaInner {
+  display: grid;
+  place-items: center;
+  min-height: clamp(14rem, 35vw, 18rem);
+  text-align: center;
+}
+
+.mediaLabel {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.sectionHeader {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 38rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: #0b1b38;
+}
+
+.sectionDescription {
+  margin: 0;
+  color: #475569;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.advantages {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, #eff6ff 100%);
+}
+
+.advantagesInner {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.4rem);
+}
+
+.showcase {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 45%, #e2e8f0 100%);
+}
+
+.showcaseInner {
+  display: grid;
+  gap: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+.showcaseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.showcaseCard {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1.5rem;
+  padding: clamp(1.25rem, 2.5vw, 1.8rem);
+  box-shadow: 0 24px 48px -40px rgba(15, 23, 42, 0.5);
+  display: grid;
+  gap: 1.1rem;
+}
+
+.showcaseCardHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.showcaseCardTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.showcaseCardPrice {
+  font-weight: 600;
+  color: #2563eb;
+  font-size: 0.95rem;
+}
+
+.showcaseList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+  color: #1f2937;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.showcaseFootnotes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: 0.01em;
+}
+
+.advantagesGrid {
+  display: grid;
+  gap: clamp(1.1rem, 2vw, 1.6rem);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.advantageCard {
+  background: rgba(255, 255, 255, 0.86);
+  border-radius: 1.5rem;
+  padding: clamp(1.1rem, 2.2vw, 1.6rem);
+  box-shadow: 0 24px 48px -42px rgba(15, 23, 42, 0.65);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.advantageTitle {
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
+  color: #111827;
+}
+
+.advantageText {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.payments {
+  background: linear-gradient(135deg, #0b1220 0%, #172036 100%);
+  color: #f8fafc;
+}
+
+.paymentsInner {
+  display: grid;
+  gap: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.paymentsHeader {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 38rem;
+}
+
+.paymentsTitle {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+}
+
+.paymentsDescription {
+  margin: 0;
+  color: rgba(226, 232, 240, 0.78);
+  line-height: 1.6;
+}
+
+.paymentsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.paymentBadge {
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  background: rgba(248, 250, 252, 0.08);
+  color: #f8fafc;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(6px);
+}
+
+@media (max-width: 768px) {
+  .heroContent {
+    gap: 1.1rem;
+  }
+
+  .showcaseFootnotes {
+    gap: 0.75rem 1.25rem;
+  }
+
+  .sectionTitle,
+  .paymentsTitle {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 2.5rem 0;
+  }
+
+  .sectionInner {
+    padding: 0 1.25rem;
+  }
+}
