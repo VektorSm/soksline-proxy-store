@@ -1,74 +1,146 @@
-﻿import TopProductsTabs from "../components/TopProductsTabs";
+import TopProductsTabs from "../components/TopProductsTabs";
+import styles from "./page.module.css";
 
-const BOT_URL = process.env.NEXT_PUBLIC_BOT_URL || "https://t.me/your_proxy_bot";
+const ADVANTAGES = [
+  {
+    title: "Скорость без просадок",
+    description: "Чистые пулы и аплинки уровня Tier-1 поддерживают стабильную полосу даже при пиковой нагрузке."
+  },
+  {
+    title: "Глубокая фильтрация",
+    description: "Тонкая настройка по ASN, городу и прокси-типу помогает подбирать доступы точечно."
+  },
+  {
+    title: "Гибкие тарифы",
+    description: "Статика, IPv6 и ротация — комбинируйте форматы и удерживайте расходы под контролем."
+  },
+  {
+    title: "Платёжные сценарии",
+    description: "От криптовалют до карт — подключите удобный метод и автоматизируйте пополнения."
+  }
+];
+
+const PROXY_SHOWCASE = [
+  {
+    title: "Static ISP",
+    price: "от $5.90 / месяц",
+    points: [
+      "Дедикейт IPv4-подключения для долгих сессий",
+      "Выбор гео по городу и ASN"
+    ]
+  },
+  {
+    title: "Static ISP IPv6",
+    price: "от $3.40 / месяц",
+    points: [
+      "IPv6-пулы для масштабных задач",
+      "Лёгкая интеграция через SOCKS5"
+    ]
+  },
+  {
+    title: "Rotating Residential",
+    price: "от $4.80 / GB",
+    points: [
+      "Автообновление IP по расписанию",
+      "Лимиты и сессии через API"
+    ]
+  }
+];
+
+const PROXY_METRICS = ["180+ Proxy Locations", "99.9% Uptime"];
+
+const PAYMENT_METHODS = ["USDT", "BTC", "ETH", "Visa/Mastercard", "SEPA", "СБП"];
 
 export default function Page() {
   return (
-    <main style={{ display: "grid", gap: 32, padding: 32 }}>
-      {/* Хиро — центрированный слоган */}
-      <section style={{ textAlign: "center", padding: "40px 0" }}>
-        <h1 style={{ fontSize: 42, margin: 0 }}>Чистые SOCKS-прокси. Прямая линия скорости.</h1>
-        <p style={{ fontSize: 18, color: "#555" }}>
-          Покупайте и продавайте прокси. Умные фильтры, актуальная аналитика и многое другое.
-        </p>
-        <a
-          href={BOT_URL}
-          target="_blank"
-          rel="noopener"
-          style={{
-            display: "inline-block",
-            marginTop: 14,
-            padding: "12px 18px",
-            borderRadius: 10,
-            background: "#111",
-            color: "#fff",
-            textDecoration: "none",
-            fontWeight: 600
-          }}
-        >
-          Открыть бот
-        </a>
-      </section>
-
-      {/* Изображение под слоганом (плейсхолдер) */}
-      <section style={{ background: "#f4f4f4", borderRadius: 16, height: 240, display: "grid", placeItems: "center" }}>
-        <span style={{ color: "#777" }}>[Тут будет изображение/баннер]</span>
-      </section>
-
-      {/* Блок «3-й скрин» — заглушка со структурой */}
-      <section style={{ background: "#fafafa", borderRadius: 16, padding: 24, border: "1px solid rgba(0,0,0,0.06)" }}>
-        <h2 style={{ marginTop: 0 }}>Почему SoksLine</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 16 }}>
-          <div style={{ background: "#fff", borderRadius: 12, padding: 16, border: "1px solid rgba(0,0,0,0.06)" }}>
-            <strong>Скорость</strong>
-            <p style={{ margin: "6px 0 0" }}>Высокая пропускная способность без просадок.</p>
-          </div>
-          <div style={{ background: "#fff", borderRadius: 12, padding: 16, border: "1px solid rgba(0,0,0,0.06)" }}>
-            <strong>Чистота пулов</strong>
-            <p style={{ margin: "6px 0 0" }}>Фильтрация по ASN/стране, низкий спам-рейт.</p>
-          </div>
-          <div style={{ background: "#fff", borderRadius: 12, padding: 16, border: "1px solid rgba(0,0,0,0.06)" }}>
-            <strong>Гибкость тарифов</strong>
-            <p style={{ margin: "6px 0 0" }}>Статика, IPv6 и ротация — под разные задачи.</p>
-          </div>
-          <div style={{ background: "#fff", borderRadius: 12, padding: 16, border: "1px solid rgba(0,0,0,0.06)" }}>
-            <strong>Оплата</strong>
-            <p style={{ margin: "6px 0 0" }}>Крипта и классические методы (отображение ниже).</p>
+    <main className={styles.page}>
+      <section className={`${styles.section} ${styles.hero}`} id="hero">
+        <div className={`${styles.sectionInner} ${styles.heroInner}`}>
+          <span className={styles.heroEyebrow}>SoksLine Proxy Store</span>
+          <div className={styles.heroContent}>
+            <h1 className={styles.heroTitle}>Чистые SOCKS-прокси. Прямая линия скорости.</h1>
+            <p className={styles.heroSubtitle}>
+              Покупайте и продавайте прокси в пару кликов. Умные фильтры, актуальная аналитика и прозрачные тарифы
+              помогают командам запускать инфраструктуру без задержек.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Табы продуктов */}
+      <section className={`${styles.section} ${styles.media}`} aria-label="Промо-изображение" id="media-preview">
+        <div className={`${styles.sectionInner} ${styles.mediaInner}`}>
+          <span className={styles.mediaLabel}>[Плейсхолдер изображения / видео превью]</span>
+        </div>
+      </section>
+
+      <section className={`${styles.section} ${styles.showcase}`} id="proxy-formats">
+        <div className={`${styles.sectionInner} ${styles.showcaseInner}`}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Выберите формат прокси</h2>
+            <p className={styles.sectionDescription}>
+              ISP-статика, IPv6 и ротация — фиксируйте нужные параметры, комбинируйте пулы и управляйте подключениями через
+              единый кабинет.
+            </p>
+          </div>
+          <div className={styles.showcaseGrid}>
+            {PROXY_SHOWCASE.map(item => (
+              <article key={item.title} className={styles.showcaseCard}>
+                <div className={styles.showcaseCardHeader}>
+                  <h3 className={styles.showcaseCardTitle}>{item.title}</h3>
+                  <span className={styles.showcaseCardPrice}>{item.price}</span>
+                </div>
+                <ul className={styles.showcaseList}>
+                  {item.points.map(point => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <ul className={styles.showcaseFootnotes} aria-label="Ключевые показатели">
+            {PROXY_METRICS.map(metric => (
+              <li key={metric}>{metric}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className={`${styles.section} ${styles.advantages}`} id="advantages">
+        <div className={`${styles.sectionInner} ${styles.advantagesInner}`}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Почему SoksLine</h2>
+            <p className={styles.sectionDescription}>
+              Инструменты для маркетологов, команд по парсингу и продавцов аккаунтов. Фокус на стабильности и контроле.
+            </p>
+          </div>
+          <div className={styles.advantagesGrid}>
+            {ADVANTAGES.map(item => (
+              <article key={item.title} className={styles.advantageCard}>
+                <h3 className={styles.advantageTitle}>{item.title}</h3>
+                <p className={styles.advantageText}>{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <TopProductsTabs />
 
-      {/* Способы оплаты */}
-      <section style={{ background: "#fff", borderRadius: 16, padding: 24, border: "1px solid rgba(0,0,0,0.06)" }}>
-        <h2 style={{ marginTop: 0 }}>Способы оплаты</h2>
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <span style={{ padding: "8px 12px", borderRadius: 8, background: "#f4f4f4" }}>USDT</span>
-          <span style={{ padding: "8px 12px", borderRadius: 8, background: "#f4f4f4" }}>BTC</span>
-          <span style={{ padding: "8px 12px", borderRadius: 8, background: "#f4f4f4" }}>ETH</span>
-          <span style={{ padding: "8px 12px", borderRadius: 8, background: "#f4f4f4" }}>Visa/Mastercard (опц.)</span>
+      <section className={`${styles.section} ${styles.payments}`} id="payments">
+        <div className={`${styles.sectionInner} ${styles.paymentsInner}`}>
+          <div className={styles.paymentsHeader}>
+            <h2 className={styles.paymentsTitle}>Способы оплаты</h2>
+            <p className={styles.paymentsDescription}>
+              Пополняйте баланс удобным способом: автоматические инвойсы, моментальные зачёты и выгрузки для бухгалтерии.
+            </p>
+          </div>
+          <div className={styles.paymentsList}>
+            {PAYMENT_METHODS.map(method => (
+              <span key={method} className={styles.paymentBadge}>
+                {method}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
     </main>
