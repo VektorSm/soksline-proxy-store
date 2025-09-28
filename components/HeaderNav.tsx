@@ -113,12 +113,9 @@ const PRICING_MENU: DropdownConfig = {
   ]
 };
 
-const NAV_LINKS = [PRODUCT_MENU, RESOURCES_MENU, PRICING_MENU];
+const NAV_LINKS = [PRODUCT_MENU, PRICING_MENU, RESOURCES_MENU];
 
-const AUX_LINKS = [
-  { label: "Решения", href: "#advantages" },
-  { label: "Инфоцентр", href: "https://soksline.com/support" }
-];
+const AUX_LINKS = [{ label: "Инфоцентр", href: "https://soksline.com/support" }];
 
 export default function HeaderNav() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);

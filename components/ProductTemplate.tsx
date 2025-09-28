@@ -43,21 +43,45 @@ export default function ProductTemplate({ data }: ProductTemplateProps) {
 
           <div className={styles.cards}>
             {data.offers.plans.map(plan => (
-              <article key={plan.id} className={styles.card}>
+              <article
+                key={plan.id}
+                className={`${styles.card} ${plan.badge ? styles.cardFeatured : ""}`.trim()}
+              >
                 <header className={styles.cardHeader}>
-                  <h3 className={styles.cardTitle}>{plan.name}</h3>
-                  <p className={styles.cardPrice}>
-                    <span className={styles.cardPriceValue}>{plan.price}</span>
-                    {plan.period && <span className={styles.cardPricePeriod}>{plan.period}</span>}
-                  </p>
+                  <div className={styles.cardTitleRow}>
+                    <h3 className={styles.cardTitle}>{plan.name}</h3>
+                    {plan.badge && <span className={styles.cardBadge}>{plan.badge}</span>}
+                  </div>
+                  <div className={styles.cardPriceBlock}>
+                    {plan.priceLabel && <span className={styles.cardPriceLabel}>{plan.priceLabel}</span>}
+                    <p className={styles.cardPrice}>
+                      {plan.compareAt && <span className={styles.cardCompareAt}>{plan.compareAt}</span>}
+                      <span className={styles.cardPriceValue}>{plan.price}</span>
+                      {plan.period && <span className={styles.cardPricePeriod}>{plan.period}</span>}
+                    </p>
+                  </div>
+
                 </header>
 
                 {plan.summary && <p className={styles.cardSummary}>{plan.summary}</p>}
 
                 <ul className={styles.cardFeatures}>
-                  {plan.features.map(feature => (
-                    <li key={feature}>{feature}</li>
-                  ))}
+                  {plan.features.map(feature => {
+                    const included = feature.included ?? true;
+                    return (
+                      <li
+                        key={feature.label}
+                        className={`${styles.cardFeature} ${
+                          included ? styles.featureIncluded : styles.featureExcluded
+                        }`}
+                      >
+                        <span className={styles.featureIcon} aria-hidden="true">
+                          {included ? "✓" : "✕"}
+                        </span>
+                        <span>{feature.label}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 <Link href={plan.ctaHref} className={styles.cardCta} target="_blank" rel="noopener">

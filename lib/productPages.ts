@@ -3,13 +3,21 @@ export type ProductMetric = {
   value: string;
 };
 
+export type ProductPlanFeature = {
+  label: string;
+  included?: boolean;
+};
+
 export type ProductPlan = {
   id: string;
   name: string;
   price: string;
   period?: string;
   summary?: string;
-  features: string[];
+  priceLabel?: string;
+  compareAt?: string;
+  badge?: string;
+  features: ProductPlanFeature[];
   ctaLabel: string;
   ctaHref: string;
 };
@@ -58,30 +66,52 @@ export const ISP_PRODUCT_PAGE: ProductPageData = {
       {
         id: "basic",
         name: "Basic",
-        price: "$5.90",
+        priceLabel: "Starts at",
+        compareAt: "$29.21",
+        price: "$19.50",
         period: "/month",
-        summary: "Shared ISP pool with quick replacements for lightweight projects.",
-        features: ["Shared subnets", "Sticky up to 24h", "Pay per IP"],
+        summary: "Entry plan for single-seat access with limited bandwidth.",
+        features: [
+          { label: "Used by up to 3 users" },
+          { label: "Limited to 1GB bandwidth", included: false },
+          { label: "No speed upgrades", included: false },
+          { label: "No concurrency upgrades", included: false }
+        ],
         ctaLabel: "Continue",
         ctaHref: "https://soksline.com/checkout/static-isp/basic"
       },
       {
         id: "dedicated",
         name: "Dedicated",
-        price: "$18.90",
+        badge: "Popular",
+        priceLabel: "Starts at",
+        compareAt: "$42.90",
+        price: "$32.10",
         period: "/month",
         summary: "Dedicated IPv4 access with configurable ASN and geo targeting.",
-        features: ["Individual IPs", "City level targeting", "Unlimited bandwidth"],
+        features: [
+          { label: "Dedicated to a single user" },
+          { label: "Unlimited bandwidth" },
+          { label: "Speed upgrades" },
+          { label: "Concurrency upgrades" }
+        ],
         ctaLabel: "Continue",
         ctaHref: "https://soksline.com/checkout/static-isp/dedicated"
       },
       {
         id: "premium",
         name: "Premium",
-        price: "$42.90",
+        priceLabel: "Starts at",
+        compareAt: "$79.40",
+        price: "$54.70",
         period: "/month",
         summary: "Enterprise grade pools with custom rotation windows and SLA.",
-        features: ["Premium ASN", "99.99% uptime SLA", "Personal manager"],
+        features: [
+          { label: "Never used IP" },
+          { label: "Unlimited bandwidth" },
+          { label: "Speed upgrades" },
+          { label: "Concurrency upgrades" }
+        ],
         ctaLabel: "Continue",
         ctaHref: "https://soksline.com/checkout/static-isp/premium"
       }
@@ -118,7 +148,11 @@ export const STATIC_RESIDENTIAL_PAGE: ProductPageData = {
         price: "$29.67",
         period: "/month",
         summary: "Dedicated IPv6 lines with instant provisioning and dashboard management.",
-        features: ["Unlimited traffic", "Custom rotation", "API & dashboard"],
+        features: [
+          { label: "Unlimited traffic" },
+          { label: "Custom rotation" },
+          { label: "API & dashboard" }
+        ],
         ctaLabel: "Continue",
         ctaHref: "https://soksline.com/checkout/static-ipv6/dedicated"
       }
@@ -155,7 +189,11 @@ export const ROTATING_RESIDENTIAL_PAGE: ProductPageData = {
         price: "$24.95",
         period: "/GB",
         summary: "Pay per traffic with granular limits and country selection.",
-        features: ["API rotation", "Sticky up to 30 min", "Unlimited concurrency"],
+        features: [
+          { label: "API rotation" },
+          { label: "Sticky up to 30 min" },
+          { label: "Unlimited concurrency" }
+        ],
         ctaLabel: "Continue",
         ctaHref: "https://soksline.com/checkout/rotating/bandwidth"
       }
