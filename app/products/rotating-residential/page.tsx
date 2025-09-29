@@ -8,5 +8,5 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <ProductTemplate data={ROTATING_RESIDENTIAL_PAGE} />;
+  return <ProductTemplate data={ROTATING_RESIDENTIAL_PAGE} cardsVariant="compact" />;
 }

@@ -119,12 +119,15 @@
   box-sizing: border-box;
   display: grid;
   gap: clamp(2rem, 4vw, 3rem);
+  justify-items: center;
+  text-align: center;
 }
 
 .offersHeader {
   display: grid;
   gap: 0.6rem;
   max-width: 46rem;
+  justify-items: center;
 }
 
 .offersTitle {
@@ -145,6 +148,16 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: clamp(1.2rem, 3vw, 2rem);
+  width: 100%;
+}
+
+.cardsCompact {
+  grid-template-columns: repeat(auto-fit, minmax(160px, min(60%, 312px)));
+  justify-content: center;
+}
+
+.cardsCompact .card {
+  justify-self: center;
 }
 
 .card {
@@ -154,6 +167,8 @@
   box-shadow: 0 24px 48px -40px rgba(15, 23, 42, 0.55);
   display: grid;
   gap: 1rem;
+  text-align: left;
+  justify-items: stretch;
 }
 
 .cardFeatured {
@@ -161,14 +176,18 @@
   box-shadow: 0 28px 50px -34px rgba(37, 99, 235, 0.4);
 }
 
+
 .cardHeader {
   display: grid;
   gap: 0.75rem;
+  justify-items: start;
 }
+
 
 .cardTitleRow {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.6rem;
   flex-wrap: wrap;
 }
@@ -194,6 +213,7 @@
 .cardPriceBlock {
   display: grid;
   gap: 0.2rem;
+  justify-items: start;
 }
 
 .cardPriceLabel {
@@ -209,6 +229,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
+  justify-content: flex-start;
   gap: 0.35rem;
   font-weight: 600;
   color: #1d4ed8;
@@ -241,6 +262,7 @@
   padding: 0;
   display: grid;
   gap: 0.55rem;
+  justify-items: stretch;
 }
 
 .cardFeature {
@@ -249,6 +271,8 @@
   gap: 0.6rem;
   font-size: 0.95rem;
   line-height: 1.5;
+  justify-content: flex-start;
+  text-align: left;
 }
 
 .featureIcon {
@@ -292,6 +316,7 @@
   font-weight: 600;
   text-decoration: none;
   transition: transform 150ms ease, box-shadow 150ms ease;
+  justify-self: center;
 }
 
 .cardCta:hover {
@@ -303,6 +328,7 @@
   margin: 0;
   font-size: 0.95rem;
   color: #475569;
+  text-align: center;
 }
 
 @media (max-width: 640px) {

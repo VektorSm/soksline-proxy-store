@@ -7,11 +7,15 @@ import styles from "./ProductTemplate.module.css";
 
 type ProductTemplateProps = {
   data: LocalizedProductPage;
+  cardsVariant?: "default" | "compact";
 };
 
-export default function ProductTemplate({ data }: ProductTemplateProps) {
+export default function ProductTemplate({ data, cardsVariant = "default" }: ProductTemplateProps) {
   const { locale } = useLocale();
   const copy = data[locale];
+  const cardsClassName = `${styles.cards} ${
+    cardsVariant === "compact" ? styles.cardsCompact : ""
+  }`.trim();
 
   return (
     <main className={styles.page}>
@@ -57,7 +61,7 @@ export default function ProductTemplate({ data }: ProductTemplateProps) {
             {copy.offers.description && <p className={styles.offersDescription}>{copy.offers.description}</p>}
           </header>
 
-          <div className={styles.cards}>
+          <div className={cardsClassName}>
             {copy.offers.plans.map(plan => (
               <article
                 key={plan.id}
