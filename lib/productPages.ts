@@ -74,7 +74,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
           name: "Basic",
           priceLabel: "От",
           compareAt: "$29.21",
-          price: "$19.50",
+          price: "$18.51",
           period: "/месяц",
           summary: "Для одиночных пользователей с ограничением по трафику.",
           features: [
@@ -91,8 +91,8 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
           name: "Dedicated",
           badge: "Популярно",
           priceLabel: "От",
-          compareAt: "$42.90",
-          price: "$32.10",
+          compareAt: "$43.90",
+          price: "$32.17",
           period: "/месяц",
           summary: "Выделенные IPv4 с гибкой настройкой ASN и гео.",
           features: [
@@ -108,8 +108,8 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
           id: "premium",
           name: "Premium",
           priceLabel: "От",
-          compareAt: "$79.40",
-          price: "$54.70",
+          compareAt: "$74.11",
+          price: "$54.87",
           period: "/месяц",
           summary: "Enterprise-пулы с кастомной ротацией и SLA.",
           features: [
@@ -153,7 +153,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
           name: "Basic",
           priceLabel: "Starts at",
           compareAt: "$29.21",
-          price: "$19.50",
+          price: "$18.51",
           period: "/month",
           summary: "Entry plan for single-seat access with limited bandwidth.",
           features: [
@@ -170,8 +170,8 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
           name: "Dedicated",
           badge: "Popular",
           priceLabel: "Starts at",
-          compareAt: "$42.90",
-          price: "$32.10",
+          compareAt: "$43.90",
+          price: "$32.17",
           period: "/month",
           summary: "Dedicated IPv4 access with configurable ASN and geo targeting.",
           features: [
@@ -187,8 +187,8 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
           id: "premium",
           name: "Premium",
           priceLabel: "Starts at",
-          compareAt: "$79.40",
-          price: "$54.70",
+          compareAt: "$74.11",
+          price: "$54.87",
           period: "/month",
           summary: "Enterprise grade pools with custom rotation windows and SLA.",
           features: [
