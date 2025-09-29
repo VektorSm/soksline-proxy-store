@@ -303,7 +303,6 @@ export default function HeaderNav() {
       document.documentElement.lang = locale;
     }
   }, [locale]);
-
   return (
     <header className={styles.wrapper}>
       <div className={styles.inner}>
