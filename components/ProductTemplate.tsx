@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
 import type { LocalizedProductPage } from "../lib/productPages";
 import { useLocale } from "./LocaleContext";
 import styles from "./ProductTemplate.module.css";
@@ -16,6 +17,21 @@ export default function ProductTemplate({ data, cardsVariant = "default" }: Prod
   const cardsClassName = `${styles.cards} ${
     cardsVariant === "compact" ? styles.cardsCompact : ""
   }`.trim();
+  const planIds = useMemo(() => copy.offers.plans.map(plan => plan.id), [copy.offers.plans]);
+  const [activePlanId, setActivePlanId] = useState<string | null>(planIds[0] ?? null);
+
+  useEffect(() => {
+    if (!activePlanId || !planIds.includes(activePlanId)) {
+      setActivePlanId(planIds[0] ?? null);
+    }
+  }, [planIds, activePlanId]);
+
+  const handleCardKeyDown = (planId: string) => (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setActivePlanId(planId);
+    }
+  };
 
   return (
     <main className={styles.page}>
@@ -65,7 +81,14 @@ export default function ProductTemplate({ data, cardsVariant = "default" }: Prod
             {copy.offers.plans.map(plan => (
               <article
                 key={plan.id}
-                className={`${styles.card} ${plan.badge ? styles.cardFeatured : ""}`.trim()}
+                className={`${styles.card} ${
+                  plan.badge ? styles.cardFeatured : ""
+                } ${plan.id === activePlanId ? styles.cardActive : ""}`.trim()}
+                onClick={() => setActivePlanId(plan.id)}
+                onKeyDown={handleCardKeyDown(plan.id)}
+                role="button"
+                tabIndex={0}
+                aria-pressed={plan.id === activePlanId}
               >
                 <header className={styles.cardHeader}>
                   <div className={styles.cardTitleRow}>
