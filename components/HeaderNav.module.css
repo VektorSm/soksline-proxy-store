@@ -1,0 +1,300 @@
+.wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(90deg, rgba(10, 15, 28, 0.95) 0%, rgba(12, 21, 40, 0.95) 100%);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.inner {
+  margin: 0 auto;
+  width: min(100%, 1180px);
+  padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  color: #f8fafc;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.brandIcon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.brandCopy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  font-size: 0.9rem;
+}
+
+.brandCopy strong {
+  font-size: 1rem;
+}
+
+.brandCopy span {
+  color: rgba(226, 232, 240, 0.7);
+  font-weight: 500;
+  font-size: 0.78rem;
+}
+
+.nav {
+  flex: 1;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.6rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navItem,
+.navItemSimple {
+  position: relative;
+}
+
+.navTrigger {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  padding: 0.35rem 0;
+  border-radius: 0.75rem;
+  transition: color 0.2s ease;
+}
+
+.navTriggerActive,
+.navTrigger:hover,
+.navTrigger:focus-visible {
+  color: #38bdf8;
+}
+
+.navCaret {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 0;
+  background: rgba(15, 23, 42, 0.95);
+  color: #e2e8f0;
+  padding: 1.25rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 28px 60px -40px rgba(2, 6, 23, 0.6);
+  display: none;
+  min-width: 19.2rem;
+  gap: 1.5rem;
+}
+
+.dropdownOpen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.dropdownColumn {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.dropdownHeading {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.85);
+}
+
+.dropdownList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.dropdownLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.9rem;
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdownLink:hover,
+.dropdownLink:focus-visible {
+  background: rgba(59, 130, 246, 0.15);
+  color: #bae6fd;
+}
+
+.dropdownLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: block;
+}
+
+.dropdownDescription {
+  display: block;
+  font-size: 0.78rem;
+  color: rgba(203, 213, 225, 0.78);
+  margin-top: 0.25rem;
+}
+
+.dropdownMeta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #38bdf8;
+}
+
+.navLink {
+  color: rgba(226, 232, 240, 0.8);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: #38bdf8;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.localeSwitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.localeButton {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 600;
+  color: rgba(226, 232, 240, 0.9);
+  transition: color 0.2s ease;
+}
+
+.localeButtonInactive {
+  color: rgba(148, 163, 184, 0.65);
+  font-weight: 500;
+}
+
+.localeButtonActive {
+  color: #f8fafc;
+}
+
+.localeButton:focus-visible {
+  outline: none;
+  color: #38bdf8;
+}
+
+.localeDivider {
+  color: rgba(148, 163, 184, 0.4);
+}
+
+.loginButton {
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #0b1220;
+  background: #f8fafc;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.loginButton:hover,
+.loginButton:focus-visible {
+  background: #bae6fd;
+  color: #0f172a;
+}
+
+@media (max-width: 960px) {
+  .inner {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+  }
+
+  .navList {
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+  }
+
+  .dropdown {
+    position: static;
+    margin-top: 0.4rem;
+    background: rgba(15, 23, 42, 0.85);
+    box-shadow: none;
+  }
+
+  .dropdownOpen {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .inner {
+    justify-content: center;
+  }
+
+  .brandCopy span {
+    display: none;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navList {
+    justify-content: center;
+  }
+}
