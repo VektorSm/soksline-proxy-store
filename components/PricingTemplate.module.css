@@ -1,0 +1,238 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding-bottom: 6rem;
+}
+
+.hero {
+  background: radial-gradient(120% 120% at 50% 0%, rgba(79, 70, 229, 0.08), rgba(15, 23, 42, 0.05));
+  padding: 6rem 1.5rem 3rem;
+}
+
+.heroInner {
+  margin: 0 auto;
+  max-width: 960px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.heroHighlight {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6366f1;
+}
+
+.heroTitle {
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  line-height: 1.1;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.heroSubtitle {
+  color: rgba(226, 232, 240, 0.88);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.toggle {
+  display: inline-flex;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(99, 102, 241, 0.08);
+  padding: 0.25rem;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+.toggleButton {
+  border: none;
+  background: transparent;
+  padding: 0.55rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  color: #4338ca;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.toggleButtonActive {
+  background: #4f46e5;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+}
+
+.plans {
+  padding: 0 1.5rem;
+}
+
+.plansInner {
+  margin: 0 auto;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cardsGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.planCard {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.9));
+  border-radius: 1.5rem;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 25px 45px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border: 1px solid rgba(99, 102, 241, 0.08);
+}
+
+.planRibbon {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: #f97316;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.planName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.planHeadline {
+  color: #22c55e;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.planPrice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.planPriceValue {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1e1b4b;
+}
+
+.planPricePeriod {
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.planFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  color: #334155;
+}
+
+.planFeatures li::before {
+  content: "";
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  margin-right: 0.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  flex-shrink: 0;
+}
+
+.planFeatures li {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.planCta {
+  margin-top: auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999px;
+  background: #4f46e5;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.85rem 1.5rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.planCta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(79, 70, 229, 0.25);
+}
+
+.footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+}
+
+.paymentNote {
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.paymentMethods {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.paymentChip {
+  border-radius: 9999px;
+  background: rgba(148, 163, 184, 0.2);
+  color: #0f172a;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 4rem;
+  }
+
+  .page {
+    gap: 3rem;
+  }
+
+  .planCard {
+    border-radius: 1.25rem;
+    padding: 1.75rem 1.5rem;
+  }
+}
