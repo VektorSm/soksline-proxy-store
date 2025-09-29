@@ -99,32 +99,28 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
             heading: "Материалы",
             items: [
               {
+                label: "What is a rotating proxy?",
+                href: "https://soksline.com/blog/what-is-a-rotating-proxy",
+              },
+              {
                 label: "Can I select a proxy location?",
                 href: "https://soksline.com/blog/can-i-select-a-proxy-location",
               },
               {
-                label: "What are the targeting options for our proxies?",
-                href: "https://soksline.com/blog/what-are-the-targeting-options-for-our-proxies",
+                label: "How long does it take to receive my ordered proxies?",
+                href: "https://soksline.com/blog/how-long-does-it-take-to-receive-my-ordered-proxies",
               },
               {
                 label: "What solutions do you offer?",
                 href: "https://soksline.com/blog/what-solutions-do-you-offer",
-              },
-            ],
-          },
-          {
-            items: [
-              {
-                label: "How long does it take to receive my ordered proxies?",
-                href: "https://soksline.com/blog/how-long-does-it-take-to-receive-my-ordered-proxies",
               },
               {
                 label: "Why Residential Proxies?",
                 href: "https://soksline.com/blog/why-residential-proxies",
               },
               {
-                label: "What is a rotating proxy?",
-                href: "https://soksline.com/blog/what-is-a-rotating-proxy",
+                label: "What are the targeting options for our proxies?",
+                href: "https://soksline.com/blog/what-are-the-targeting-options-for-our-proxies",
               },
             ],
           },
@@ -207,31 +203,28 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
             heading: "Resources",
             items: [
               {
+                label: "What is a rotating proxy?",
+                href: "https://soksline.com/blog/what-is-a-rotating-proxy",
+              },
+              {
                 label: "Can I select a proxy location?",
                 href: "https://soksline.com/blog/can-i-select-a-proxy-location",
               },
               {
-                label: "What are the targeting options for our proxies?",
-                href: "https://soksline.com/blog/what-are-the-targeting-options-for-our-proxies",
+                label: "How long does it take to receive my ordered proxies?",
+                href: "https://soksline.com/blog/how-long-does-it-take-to-receive-my-ordered-proxies",
               },
               {
                 label: "What solutions do you offer?",
                 href: "https://soksline.com/blog/what-solutions-do-you-offer",
-            ],
-          },
-          {
-            items: [
-              {
-                label: "How long does it take to receive my ordered proxies?",
-                href: "https://soksline.com/blog/how-long-does-it-take-to-receive-my-ordered-proxies",
               },
               {
                 label: "Why Residential Proxies?",
                 href: "https://soksline.com/blog/why-residential-proxies",
               },
               {
-                label: "What is a rotating proxy?",
-                href: "https://soksline.com/blog/what-is-a-rotating-proxy",
+                label: "What are the targeting options for our proxies?",
+                href: "https://soksline.com/blog/what-are-the-targeting-options-for-our-proxies",
               },
             ],
           },
