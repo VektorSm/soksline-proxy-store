@@ -96,32 +96,16 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
         label: "Ресурсы",
         sections: [
           {
-            heading: "Решения",
-            items: [
-              { label: "Корпоративные решения", href: "https://soksline.com/enterprise" },
-              { label: "Партнерская витрина", href: "https://soksline.com/reseller" },
-              { label: "Партнерская программа", href: "https://soksline.com/referral" },
-            ],
-          },
-          {
-            heading: "Разработчикам",
-            items: [{ label: "API документация", href: "https://soksline.com/api" }],
-          },
-          {
             heading: "Материалы",
             items: [
               { label: "С чего начать", href: "https://soksline.com/getting-started" },
               { label: "Блог", href: "https://soksline.com/blog" },
-              { label: "Расширение для Chrome", href: "https://soksline.com/chrome" },
-              { label: "Расширение для Firefox", href: "https://soksline.com/firefox" },
+              { label: "Политика AML", href: "https://soksline.com/aml-policy" },
             ],
           },
           {
             heading: "Компания",
-            items: [
-              { label: "Вакансии", href: "https://soksline.com/careers" },
-              { label: "Связаться", href: "https://soksline.com/contact" },
-            ],
+            items: [{ label: "Связаться", href: "https://soksline.com/contact" }],
           },
         ],
       },
@@ -192,32 +176,16 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
         label: "Resources",
         sections: [
           {
-            heading: "Solutions",
-            items: [
-              { label: "Enterprise Solutions", href: "https://soksline.com/enterprise" },
-              { label: "White Label Reseller", href: "https://soksline.com/reseller" },
-              { label: "Referral Program", href: "https://soksline.com/referral" },
-            ],
-          },
-          {
-            heading: "Developers",
-            items: [{ label: "API Documentation", href: "https://soksline.com/api" }],
-          },
-          {
             heading: "Resources",
             items: [
               { label: "Getting Started", href: "https://soksline.com/getting-started" },
               { label: "Blog", href: "https://soksline.com/blog" },
-              { label: "Google Chrome Proxy Extension", href: "https://soksline.com/chrome" },
-              { label: "Mozilla Firefox Proxy Add-On", href: "https://soksline.com/firefox" },
+              { label: "AML Policy", href: "https://soksline.com/aml-policy" },
             ],
           },
           {
             heading: "Company",
-            items: [
-              { label: "Careers", href: "https://soksline.com/careers" },
-              { label: "Contact Us", href: "https://soksline.com/contact" },
-            ],
+            items: [{ label: "Contact Us", href: "https://soksline.com/contact" }],
           },
         ],
       },
