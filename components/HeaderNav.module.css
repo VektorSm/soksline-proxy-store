@@ -107,7 +107,7 @@
   border-radius: 1.2rem;
   box-shadow: 0 28px 60px -40px rgba(2, 6, 23, 0.6);
   display: none;
-  min-width: 19.2rem;
+  min-width: 23rem;
   gap: 1.5rem;
 }
 
@@ -139,7 +139,7 @@
 
 .dropdownLink {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
   text-decoration: none;
