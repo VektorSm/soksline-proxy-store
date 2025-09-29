@@ -98,14 +98,38 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
           {
             heading: "Материалы",
             items: [
-              { label: "С чего начать", href: "https://soksline.com/getting-started" },
-              { label: "Блог", href: "https://soksline.com/blog" },
-              { label: "Политика AML", href: "https://soksline.com/aml-policy" },
+              {
+                label: "What is a rotating proxy?",
+                href: "https://soksline.com/blog/what-is-a-rotating-proxy",
+              },
+              {
+                label: "Can I select a proxy location?",
+                href: "https://soksline.com/blog/can-i-select-a-proxy-location",
+              },
+              {
+                label: "How long does it take to receive my ordered proxies?",
+                href: "https://soksline.com/blog/how-long-does-it-take-to-receive-my-ordered-proxies",
+              },
+              {
+                label: "What solutions do you offer?",
+                href: "https://soksline.com/blog/what-solutions-do-you-offer",
+              },
+              {
+                label: "Why Residential Proxies?",
+                href: "https://soksline.com/blog/why-residential-proxies",
+              },
+              {
+                label: "What are the targeting options for our proxies?",
+                href: "https://soksline.com/blog/what-are-the-targeting-options-for-our-proxies",
+              },
             ],
           },
           {
             heading: "Компания",
-            items: [{ label: "Связаться", href: "https://soksline.com/contact" }],
+            items: [
+              { label: "AMP Policy", href: "https://soksline.com/aml-policy" },
+              { label: "Contacts", href: "https://soksline.com/contact" },
+            ],
           },
         ],
       },
@@ -178,14 +202,38 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
           {
             heading: "Resources",
             items: [
-              { label: "Getting Started", href: "https://soksline.com/getting-started" },
-              { label: "Blog", href: "https://soksline.com/blog" },
-              { label: "AML Policy", href: "https://soksline.com/aml-policy" },
+              {
+                label: "What is a rotating proxy?",
+                href: "https://soksline.com/blog/what-is-a-rotating-proxy",
+              },
+              {
+                label: "Can I select a proxy location?",
+                href: "https://soksline.com/blog/can-i-select-a-proxy-location",
+              },
+              {
+                label: "How long does it take to receive my ordered proxies?",
+                href: "https://soksline.com/blog/how-long-does-it-take-to-receive-my-ordered-proxies",
+              },
+              {
+                label: "What solutions do you offer?",
+                href: "https://soksline.com/blog/what-solutions-do-you-offer",
+              },
+              {
+                label: "Why Residential Proxies?",
+                href: "https://soksline.com/blog/why-residential-proxies",
+              },
+              {
+                label: "What are the targeting options for our proxies?",
+                href: "https://soksline.com/blog/what-are-the-targeting-options-for-our-proxies",
+              },
             ],
           },
           {
             heading: "Company",
-            items: [{ label: "Contact Us", href: "https://soksline.com/contact" }],
+            items: [
+              { label: "AMP Policy", href: "https://soksline.com/aml-policy" },
+              { label: "Contacts", href: "https://soksline.com/contact" },
+            ],
           },
         ],
       },
