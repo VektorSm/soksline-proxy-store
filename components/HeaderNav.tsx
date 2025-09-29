@@ -217,7 +217,6 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
               {
                 label: "What solutions do you offer?",
                 href: "https://soksline.com/blog/what-solutions-do-you-offer",
-              },
             ],
           },
           {
