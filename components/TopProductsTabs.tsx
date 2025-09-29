@@ -1,8 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
-import { CATEGORIES, CategoryId } from "../lib/products";
+import React, { useEffect, useMemo, useState } from "react";
+import { getCategories, type CategoryId } from "../lib/products";
+import { useLocale } from "./LocaleContext";
+import type { Locale } from "./LocaleContext";
 import styles from "./TopProductsTabs.module.css";
+
+const SECTION_TITLE: Record<Locale, string> = {
+  ru: "Топ продукты SoksLine",
+  en: "Top products by SoksLine",
+};
+
+const TABLIST_LABEL: Record<Locale, string> = {
+  ru: "Категории продуктов",
+  en: "Product categories",
+};
 
 type TabButtonProps = {
   categoryId: CategoryId;
@@ -28,19 +40,28 @@ function TabButton({ categoryId, label, isActive, onSelect }: TabButtonProps) {
 }
 
 export default function TopProductsTabs() {
-  const [activeCategory, setActiveCategory] = useState<CategoryId>(CATEGORIES[0].id);
-  const current = CATEGORIES.find(category => category.id === activeCategory)!;
+  const { locale } = useLocale();
+  const categories = useMemo(() => getCategories(locale), [locale]);
+  const [activeCategory, setActiveCategory] = useState<CategoryId>(categories[0].id);
+
+  useEffect(() => {
+    if (!categories.some(category => category.id === activeCategory)) {
+      setActiveCategory(categories[0].id);
+    }
+  }, [categories, activeCategory]);
+
+  const current = categories.find(category => category.id === activeCategory) ?? categories[0];
 
   return (
     <section className={styles.section} id="top-products">
       <div className={styles.sectionInner}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Топ продукты SoksLine</h2>
+          <h2 className={styles.title}>{SECTION_TITLE[locale]}</h2>
           <p className={styles.subtitle}>{current.tagline}</p>
         </div>
 
-        <div role="tablist" aria-label="Категории продуктов" className={styles.tablistWrapper}>
-          {CATEGORIES.map(category => (
+        <div role="tablist" aria-label={TABLIST_LABEL[locale]} className={styles.tablistWrapper}>
+          {categories.map(category => (
             <TabButton
               key={category.id}
               categoryId={category.id}

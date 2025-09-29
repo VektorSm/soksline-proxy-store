@@ -1,15 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import {
-  useState,
-  useRef,
-  useCallback,
-  useEffect,
-  FocusEvent,
-  MouseEvent,
-  Fragment,
-} from "react";
+import { useState, useRef, useCallback, FocusEvent, MouseEvent, Fragment } from "react";
+import { Locale, useLocale } from "./LocaleContext";
+
 import styles from "./HeaderNav.module.css";
 
 type DropdownItem = {
@@ -29,8 +23,6 @@ type DropdownConfig = {
   label: string;
   sections: DropdownSection[];
 };
-
-type Locale = "ru" | "en";
 
 type NavigationCopy = {
   navLabel: string;
@@ -244,7 +236,7 @@ const LOCALES: Locale[] = ["ru", "en"];
 
 export default function HeaderNav() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [locale, setLocale] = useState<Locale>("ru");
+  const { locale, setLocale } = useLocale();
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navContent = NAV_CONTENT[locale];
 
@@ -281,7 +273,7 @@ export default function HeaderNav() {
       setLocale(nextLocale);
       setOpenDropdown(null);
     },
-    []
+    [setLocale]
   );
 
   const handleBlur = (event: FocusEvent<HTMLLIElement>) => {
@@ -297,12 +289,6 @@ export default function HeaderNav() {
       handleScheduleClose();
     }
   };
-
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.documentElement.lang = locale;
-    }
-  }, [locale]);
 
   return (
     <header className={styles.wrapper}>

@@ -2,12 +2,18 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TopProductsTabs from "../components/TopProductsTabs";
+import { LocaleProvider } from "../components/LocaleContext";
 
 test("переключение вкладок меняет активную и контент", async () => {
-  render(<TopProductsTabs />);
+  render(
+    <LocaleProvider initialLocale="en">
+      <TopProductsTabs />
+    </LocaleProvider>
+  );
   const user = userEvent.setup();
 
-  const tablist = screen.getByRole("tablist", { name: /Категории продуктов/i });
+  const tablist = screen.getByRole("tablist", { name: /Product categories/i });
+
   const tabs = within(tablist).getAllByRole("tab");
   expect(tabs).toHaveLength(3);
 

@@ -1,32 +1,36 @@
+"use client";
+
 import Link from "next/link";
-import type { ProductPageData } from "../lib/productPages";
+import type { LocalizedProductPage } from "../lib/productPages";
+import { useLocale } from "./LocaleContext";
 import styles from "./ProductTemplate.module.css";
 
 type ProductTemplateProps = {
-  data: ProductPageData;
+  data: LocalizedProductPage;
 };
 
 export default function ProductTemplate({ data }: ProductTemplateProps) {
+  const { locale } = useLocale();
+  const copy = data[locale];
+
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroInner}>
-          {data.hero.eyebrow && <p className={styles.heroEyebrow}>{data.hero.eyebrow}</p>}
-          <h1 className={styles.heroTitle}>{data.hero.title}</h1>
-          <p className={styles.heroDescription}>{data.hero.description}</p>
+          {copy.hero.eyebrow && <p className={styles.heroEyebrow}>{copy.hero.eyebrow}</p>}
+          <h1 className={styles.heroTitle}>{copy.hero.title}</h1>
+          <p className={styles.heroDescription}>{copy.hero.description}</p>
 
           <div className={styles.heroActions}>
-            <Link href={data.hero.cta.href} className={styles.primaryCta} target="_blank" rel="noopener">
-              {data.hero.cta.label}
+            <Link href={copy.hero.cta.href} className={styles.primaryCta} target="_blank" rel="noopener">
+              {copy.hero.cta.label}
             </Link>
           </div>
 
-          {data.hero.metrics.length > 0 && (
+          {copy.hero.metrics.length > 0 && (
             <dl className={styles.metrics}>
-              {data.hero.metrics.map(metric => {
-                const values = Array.isArray(metric.value)
-                  ? metric.value
-                  : [metric.value];
+              {copy.hero.metrics.map(metric => {
+                const values = Array.isArray(metric.value) ? metric.value : [metric.value];
 
                 return (
                   <div key={metric.label} className={styles.metricCard}>
@@ -49,12 +53,12 @@ export default function ProductTemplate({ data }: ProductTemplateProps) {
       <section className={styles.offers}>
         <div className={styles.offersInner}>
           <header className={styles.offersHeader}>
-            <h2 className={styles.offersTitle}>{data.offers.title}</h2>
-            {data.offers.description && <p className={styles.offersDescription}>{data.offers.description}</p>}
+            <h2 className={styles.offersTitle}>{copy.offers.title}</h2>
+            {copy.offers.description && <p className={styles.offersDescription}>{copy.offers.description}</p>}
           </header>
 
           <div className={styles.cards}>
-            {data.offers.plans.map(plan => (
+            {copy.offers.plans.map(plan => (
               <article
                 key={plan.id}
                 className={`${styles.card} ${plan.badge ? styles.cardFeatured : ""}`.trim()}
@@ -102,7 +106,7 @@ export default function ProductTemplate({ data }: ProductTemplateProps) {
             ))}
           </div>
 
-          {data.offers.note && <p className={styles.offersNote}>{data.offers.note}</p>}
+          {copy.offers.note && <p className={styles.offersNote}>{copy.offers.note}</p>}
         </div>
       </section>
     </main>

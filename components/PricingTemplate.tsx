@@ -1,12 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import type { PricingCategory, PricingPageData } from "../lib/pricing";
+import { useMemo, useState } from "react";
+import type { PricingCategory, LocalizedPricingPage } from "../lib/pricing";
+import { useLocale } from "./LocaleContext";
+import type { Locale } from "./LocaleContext";
 import styles from "./PricingTemplate.module.css";
 
 type PricingTemplateProps = {
-  data: PricingPageData;
+  data: LocalizedPricingPage;
+};
+
+const CTA_FALLBACK: Record<Locale, string> = {
+  ru: "Купить",
+  en: "Buy Now",
+};
+
+const TOGGLE_ARIA_LABEL: Record<Locale, string> = {
+  ru: "Варианты тарифов",
+  en: "Pricing options",
+};
+
+const PAYMENTS_ARIA_LABEL: Record<Locale, string> = {
+  ru: "Поддерживаемые способы оплаты",
+  en: "Supported payment methods",
 };
 
 function resolveInitialCategory(categories: PricingCategory[]): string {
@@ -14,21 +31,26 @@ function resolveInitialCategory(categories: PricingCategory[]): string {
 }
 
 export default function PricingTemplate({ data }: PricingTemplateProps) {
-  const [activeCategoryId, setActiveCategoryId] = useState<string>(() => resolveInitialCategory(data.categories));
+  const { locale } = useLocale();
+  const copy = data[locale];
+  const [activeCategoryId, setActiveCategoryId] = useState<string>(() => resolveInitialCategory(copy.categories));
 
-  const activeCategory = data.categories.find(category => category.id === activeCategoryId) ?? data.categories[0];
+  const activeCategory = useMemo(
+    () => copy.categories.find(category => category.id === activeCategoryId) ?? copy.categories[0],
+    [copy.categories, activeCategoryId]
+  );
 
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroInner}>
-          <p className={styles.heroHighlight}>{data.highlight}</p>
-          <h1 className={styles.heroTitle}>{data.title}</h1>
-          <p className={styles.heroSubtitle}>{data.subtitle}</p>
+          <p className={styles.heroHighlight}>{copy.highlight}</p>
+          <h1 className={styles.heroTitle}>{copy.title}</h1>
+          <p className={styles.heroSubtitle}>{copy.subtitle}</p>
 
-          {data.categories.length > 1 && (
-            <div className={styles.toggle} role="tablist" aria-label="Pricing options">
-              {data.categories.map(category => {
+          {copy.categories.length > 1 && (
+            <div className={styles.toggle} role="tablist" aria-label={TOGGLE_ARIA_LABEL[locale]}>
+              {copy.categories.map(category => {
                 const isActive = category.id === activeCategory?.id;
                 return (
                   <button
@@ -66,16 +88,16 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
                   ))}
                 </ul>
                 <Link href={tier.ctaHref} className={styles.planCta} target="_blank" rel="noopener">
-                  {tier.ctaLabel ?? "Buy Now"}
+                  {tier.ctaLabel ?? CTA_FALLBACK[locale]}
                 </Link>
               </article>
             ))}
           </div>
 
           <footer className={styles.footer}>
-            <p className={styles.paymentNote}>{data.paymentNote}</p>
-            <div className={styles.paymentMethods} aria-label="Supported payment methods">
-              {data.paymentMethods.map(method => (
+            <p className={styles.paymentNote}>{copy.paymentNote}</p>
+            <div className={styles.paymentMethods} aria-label={PAYMENTS_ARIA_LABEL[locale]}>
+              {copy.paymentMethods.map(method => (
                 <span key={method} className={styles.paymentChip}>
                   {method}
                 </span>
