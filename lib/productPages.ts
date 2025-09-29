@@ -175,7 +175,6 @@ export const ROTATING_RESIDENTIAL_PAGE: ProductPageData = {
       { label: "IP Addresses", value: "85M+" },
       { label: "Available Countries", value: "180+" },
       { label: "Protocols", value: ["HTTP", "SOCKS5"] },
-
       { label: "Targeting", value: "Country / City" },
       { label: "Uptime", value: "99.9%" }
     ]
