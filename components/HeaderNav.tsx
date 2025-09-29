@@ -1,7 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef, useCallback, FocusEvent, MouseEvent } from "react";
+import {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  FocusEvent,
+  MouseEvent,
+  Fragment,
+} from "react";
 import styles from "./HeaderNav.module.css";
 
 type DropdownItem = {
@@ -22,104 +30,223 @@ type DropdownConfig = {
   sections: DropdownSection[];
 };
 
-const PRODUCT_MENU: DropdownConfig = {
-  id: "products",
-  label: "Продукты",
-  sections: [
-    {
-      items: [
-        {
-          label: "ISP Proxies (DC/ISP)",
-          description: "Доступ к дата-центровым и ISP пуллам для стабильных проектов",
-          href: "/products/isp-proxies"
-        },
-        {
-          label: "Static Residential",
-          description: "Реальные жилые IP для долгих сессий и антидетект браузеров",
-          href: "/products/static-residential"
-        },
-        {
-          label: "Rotating Residential",
-          description: "Автоматическая ротация IP и гибкие лимиты",
-          href: "/products/rotating-residential"
-        }
-      ]
-    }
-  ]
+type Locale = "ru" | "en";
+
+type NavigationCopy = {
+  navLabel: string;
+  brandTagline: string;
+  navLinks: DropdownConfig[];
+  auxLinks: { label: string; href: string }[];
+  loginLabel: string;
 };
 
-const RESOURCES_MENU: DropdownConfig = {
-  id: "resources",
-  label: "Ресурсы",
-  sections: [
-    {
-      heading: "Solutions",
-      items: [
-        { label: "Enterprise Solutions", href: "https://soksline.com/enterprise" },
-        { label: "White Label Reseller", href: "https://soksline.com/reseller" },
-        { label: "Referral Program", href: "https://soksline.com/referral" }
-      ]
-    },
-    {
-      heading: "Developers",
-      items: [{ label: "API Documentation", href: "https://soksline.com/api" }]
-    },
-    {
-      heading: "Resources",
-      items: [
-        { label: "Getting Started", href: "https://soksline.com/getting-started" },
-        { label: "Blog", href: "https://soksline.com/blog" },
-        { label: "Google Chrome Proxy Extension", href: "https://soksline.com/chrome" },
-        { label: "Mozilla Firefox Proxy Add-On", href: "https://soksline.com/firefox" }
-      ]
-    },
-    {
-      heading: "Company",
-      items: [
-        { label: "Careers", href: "https://soksline.com/careers" },
-        { label: "Contact Us", href: "https://soksline.com/contact" }
-      ]
-    }
-  ]
+const NAV_CONTENT: Record<Locale, NavigationCopy> = {
+  ru: {
+    navLabel: "Главное меню",
+    brandTagline: "Proxy Store и выделенная ротация",
+    loginLabel: "Войти",
+    navLinks: [
+      {
+        id: "products",
+        label: "Продукты",
+        sections: [
+          {
+            items: [
+              {
+                label: "Статические ISP прокси (DC/ISP)",
+                description: "Дата-центровые и ISP пуллы для стабильных проектов",
+                href: "/products/isp-proxies",
+              },
+              {
+                label: "Статические резидентские",
+                description: "Реальные жилые IP для долгих сессий и антидетект браузеров",
+                href: "/products/static-residential",
+              },
+              {
+                label: "Ротационные резидентские",
+                description: "Автоматическая смена IP и гибкие лимиты",
+                href: "/products/rotating-residential",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "pricing",
+        label: "Цены",
+        sections: [
+          {
+            heading: "Резидентские прокси",
+            items: [
+              {
+                label: "Статические Residential",
+                description: "Бизнес IP для стабильной работы",
+                meta: "От $1.27 за IP",
+                href: "/pricing/static-residential",
+              },
+              {
+                label: "Статические Residential IPv6",
+                description: "Триллионы ISP IPv6 из США",
+                meta: "От $0.52 за IP",
+                href: "/pricing/static-residential-ipv6",
+              },
+              {
+                label: "Ротационные Residential",
+                description: "Этичный пул резидентских IP",
+                meta: "От $4.99 за IP",
+                href: "/pricing/rotating-residential",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "resources",
+        label: "Ресурсы",
+        sections: [
+          {
+            heading: "Решения",
+            items: [
+              { label: "Корпоративные решения", href: "https://soksline.com/enterprise" },
+              { label: "Партнерская витрина", href: "https://soksline.com/reseller" },
+              { label: "Партнерская программа", href: "https://soksline.com/referral" },
+            ],
+          },
+          {
+            heading: "Разработчикам",
+            items: [{ label: "API документация", href: "https://soksline.com/api" }],
+          },
+          {
+            heading: "Материалы",
+            items: [
+              { label: "С чего начать", href: "https://soksline.com/getting-started" },
+              { label: "Блог", href: "https://soksline.com/blog" },
+              { label: "Расширение для Chrome", href: "https://soksline.com/chrome" },
+              { label: "Расширение для Firefox", href: "https://soksline.com/firefox" },
+            ],
+          },
+          {
+            heading: "Компания",
+            items: [
+              { label: "Вакансии", href: "https://soksline.com/careers" },
+              { label: "Связаться", href: "https://soksline.com/contact" },
+            ],
+          },
+        ],
+      },
+    ],
+    auxLinks: [{ label: "Инфоцентр", href: "https://soksline.com/support" }],
+  },
+  en: {
+    navLabel: "Primary navigation",
+    brandTagline: "Proxy Store & Dedicated rotation",
+    loginLabel: "Log in",
+    navLinks: [
+      {
+        id: "products",
+        label: "Products",
+        sections: [
+          {
+            items: [
+              {
+                label: "Static ISP Proxies (DC/ISP)",
+                description: "Datacenter and ISP pools for uptime-critical use cases",
+                href: "/products/isp-proxies",
+              },
+              {
+                label: "Static Residential",
+                description: "Real residential IPs for long sessions and antidetect browsers",
+                href: "/products/static-residential",
+              },
+              {
+                label: "Rotating Residential",
+                description: "Automated IP rotation with flexible limits",
+                href: "/products/rotating-residential",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "pricing",
+        label: "Pricing",
+        sections: [
+          {
+            heading: "Residential proxies",
+            items: [
+              {
+                label: "Static Residential Proxies",
+                description: "Real business IPs for long-term use",
+                meta: "Starts at $1.27 / proxy",
+                href: "/pricing/static-residential",
+              },
+              {
+                label: "Static Residential IPv6 Proxies",
+                description: "Trillions of ISP IPv6 addresses from the USA",
+                meta: "Starts at $0.52 / proxy",
+                href: "/pricing/static-residential-ipv6",
+              },
+              {
+                label: "Rotating Residential Proxies",
+                description: "Ethically sourced residential proxy pool",
+                meta: "Starts at $4.99 / proxy",
+                href: "/pricing/rotating-residential",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "resources",
+        label: "Resources",
+        sections: [
+          {
+            heading: "Solutions",
+            items: [
+              { label: "Enterprise Solutions", href: "https://soksline.com/enterprise" },
+              { label: "White Label Reseller", href: "https://soksline.com/reseller" },
+              { label: "Referral Program", href: "https://soksline.com/referral" },
+            ],
+          },
+          {
+            heading: "Developers",
+            items: [{ label: "API Documentation", href: "https://soksline.com/api" }],
+          },
+          {
+            heading: "Resources",
+            items: [
+              { label: "Getting Started", href: "https://soksline.com/getting-started" },
+              { label: "Blog", href: "https://soksline.com/blog" },
+              { label: "Google Chrome Proxy Extension", href: "https://soksline.com/chrome" },
+              { label: "Mozilla Firefox Proxy Add-On", href: "https://soksline.com/firefox" },
+            ],
+          },
+          {
+            heading: "Company",
+            items: [
+              { label: "Careers", href: "https://soksline.com/careers" },
+              { label: "Contact Us", href: "https://soksline.com/contact" },
+            ],
+          },
+        ],
+      },
+    ],
+    auxLinks: [{ label: "Help Center", href: "https://soksline.com/support" }],
+  },
 };
 
-const PRICING_MENU: DropdownConfig = {
-  id: "pricing",
-  label: "Цены",
-  sections: [
-    {
-      heading: "Residential Proxies",
-      items: [
-        {
-          label: "Static Residential Proxies",
-          description: "Real business IPs for long-term use",
-          meta: "Starts at $1.27 / proxy",
-          href: "/pricing/static-residential"
-        },
-        {
-          label: "Static Residential IPv6 Proxies",
-          description: "Trillions ISP Static IPs from USA",
-          meta: "Starts at $0.52 / proxy",
-          href: "/pricing/static-residential-ipv6"
-        },
-        {
-          label: "Rotating Residential Proxies",
-          description: "Ethically sourced residential proxy pool",
-          meta: "Starts at $4.99 / proxy",
-          href: "/pricing/rotating-residential"
-        }
-      ]
-    }
-  ]
+const LOCALE_LABELS: Record<Locale, { short: string; full: string }> = {
+  ru: { short: "Ru", full: "Русский" },
+  en: { short: "En", full: "English" },
 };
 
-const NAV_LINKS = [PRODUCT_MENU, PRICING_MENU, RESOURCES_MENU];
-
-const AUX_LINKS = [{ label: "Инфоцентр", href: "https://soksline.com/support" }];
+const LOCALES: Locale[] = ["ru", "en"];
 
 export default function HeaderNav() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [locale, setLocale] = useState<Locale>("ru");
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navContent = NAV_CONTENT[locale];
 
   const clearCloseTimer = useCallback(() => {
     if (closeTimer.current) {
@@ -149,6 +276,14 @@ export default function HeaderNav() {
     setOpenDropdown(null);
   }, [clearCloseTimer]);
 
+  const handleLocaleChange = useCallback(
+    (nextLocale: Locale) => {
+      setLocale(nextLocale);
+      setOpenDropdown(null);
+    },
+    []
+  );
+
   const handleBlur = (event: FocusEvent<HTMLLIElement>) => {
     const nextFocus = event.relatedTarget as Node | null;
     if (!nextFocus || !event.currentTarget.contains(nextFocus)) {
@@ -163,6 +298,11 @@ export default function HeaderNav() {
     }
   };
 
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = locale;
+    }
+  }, [locale]);
   return (
     <header className={styles.wrapper}>
       <div className={styles.inner}>
@@ -172,13 +312,13 @@ export default function HeaderNav() {
           </span>
           <span className={styles.brandCopy}>
             <strong>SoksLine</strong>
-            <span>Proxy Store &amp; Dedicated rotation</span>
+            <span>{navContent.brandTagline}</span>
           </span>
         </Link>
 
-        <nav className={styles.nav} aria-label="Главное меню">
+        <nav className={styles.nav} aria-label={navContent.navLabel}>
           <ul className={styles.navList}>
-            {NAV_LINKS.map(menu => (
+            {navContent.navLinks.map(menu => (
               <li
                 key={menu.id}
                 className={styles.navItem}
@@ -232,7 +372,7 @@ export default function HeaderNav() {
                 </div>
               </li>
             ))}
-            {AUX_LINKS.map(link => (
+            {navContent.auxLinks.map(link => (
               <li key={link.label} className={styles.navItemSimple}>
                 <Link
                   href={link.href}
@@ -249,18 +389,29 @@ export default function HeaderNav() {
 
         <div className={styles.actions}>
           <div className={styles.localeSwitch}>
-            <button type="button" className={styles.localeButton} aria-label="Русский">
-              Ru
-            </button>
-            <span className={styles.localeDivider} aria-hidden="true">
-              |
-            </span>
-            <button type="button" className={styles.localeButtonMuted} aria-label="English">
-              En
-            </button>
+            {LOCALES.map((option, index) => (
+              <Fragment key={option}>
+                <button
+                  type="button"
+                  className={`${styles.localeButton} ${
+                    locale === option ? styles.localeButtonActive : styles.localeButtonInactive
+                  }`}
+                  onClick={() => handleLocaleChange(option)}
+                  aria-pressed={locale === option}
+                  aria-label={LOCALE_LABELS[option].full}
+                >
+                  {LOCALE_LABELS[option].short}
+                </button>
+                {index < LOCALES.length - 1 && (
+                  <span className={styles.localeDivider} aria-hidden="true">
+                    |
+                  </span>
+                )}
+              </Fragment>
+            ))}
           </div>
           <Link href="https://soksline.com/login" className={styles.loginButton} target="_blank" rel="noopener">
-            Войти
+            {navContent.loginLabel}
           </Link>
         </div>
       </div>

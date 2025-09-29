@@ -1,6 +1,6 @@
 export type ProductMetric = {
   label: string;
-  value: string;
+  value: string | string[];
 };
 
 export type ProductPlanFeature = {
@@ -54,7 +54,7 @@ export const ISP_PRODUCT_PAGE: ProductPageData = {
     metrics: [
       { label: "Speed", value: "Up to 1 Gbps" },
       { label: "Supported ISPs", value: "37+" },
-      { label: "Protocols", value: "HTTP/SOCKS5" },
+      { label: "Protocols", value: ["HTTP", "SOCKS5"] },
       { label: "Bandwidth", value: "Unlimited" },
       { label: "Dedicated IPs", value: "Available" }
     ]
@@ -133,7 +133,7 @@ export const STATIC_RESIDENTIAL_PAGE: ProductPageData = {
     metrics: [
       { label: "Unique IP Addresses", value: "5B+" },
       { label: "Dedicated Nodes", value: "United States" },
-      { label: "Protocols", value: "HTTP/SOCKS5" },
+      { label: "Protocols", value: ["HTTP", "SOCKS5"] },
       { label: "Traffic up to 1 Gbps", value: "Unlimited" },
       { label: "Uptime", value: "99.9%" }
     ]
@@ -174,7 +174,8 @@ export const ROTATING_RESIDENTIAL_PAGE: ProductPageData = {
     metrics: [
       { label: "IP Addresses", value: "85M+" },
       { label: "Available Countries", value: "180+" },
-      { label: "Protocols", value: "HTTP/SOCKS5" },
+      { label: "Protocols", value: ["HTTP", "SOCKS5"] },
+
       { label: "Targeting", value: "Country / City" },
       { label: "Uptime", value: "99.9%" }
     ]

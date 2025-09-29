@@ -23,12 +23,24 @@ export default function ProductTemplate({ data }: ProductTemplateProps) {
 
           {data.hero.metrics.length > 0 && (
             <dl className={styles.metrics}>
-              {data.hero.metrics.map(metric => (
-                <div key={metric.label} className={styles.metricCard}>
-                  <dt className={styles.metricLabel}>{metric.label}</dt>
-                  <dd className={styles.metricValue}>{metric.value}</dd>
-                </div>
-              ))}
+              {data.hero.metrics.map(metric => {
+                const values = Array.isArray(metric.value)
+                  ? metric.value
+                  : [metric.value];
+
+                return (
+                  <div key={metric.label} className={styles.metricCard}>
+                    <dt className={styles.metricLabel}>{metric.label}</dt>
+                    <dd className={styles.metricValue}>
+                      {values.map((line, index) => (
+                        <span key={`${metric.label}-${index}`} className={styles.metricValueLine}>
+                          {line}
+                        </span>
+                      ))}
+                    </dd>
+                  </div>
+                );
+              })}
             </dl>
           )}
         </div>
@@ -60,7 +72,6 @@ export default function ProductTemplate({ data }: ProductTemplateProps) {
                       {plan.period && <span className={styles.cardPricePeriod}>{plan.period}</span>}
                     </p>
                   </div>
-
                 </header>
 
                 {plan.summary && <p className={styles.cardSummary}>{plan.summary}</p>}

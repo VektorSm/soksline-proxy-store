@@ -83,6 +83,8 @@
   padding: 1.4rem 1.6rem;
   display: grid;
   gap: 0.35rem;
+  justify-items: center;
+  text-align: center;
 }
 
 .metricLabel {
@@ -96,6 +98,13 @@
   font-size: 1.35rem;
   font-weight: 700;
   color: #f8fafc;
+  display: grid;
+  justify-items: center;
+  gap: 0.1rem;
+}
+
+.metricValueLine {
+  display: block;
 }
 
 .offers {

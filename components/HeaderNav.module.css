@@ -206,22 +206,29 @@
   border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
-.localeButton,
-.localeButtonMuted {
+.localeButton {
   background: none;
   border: none;
-  color: inherit;
   font: inherit;
   cursor: pointer;
   padding: 0;
-}
-
-.localeButton {
   font-weight: 600;
+  color: rgba(226, 232, 240, 0.9);
+  transition: color 0.2s ease;
 }
 
-.localeButtonMuted {
-  color: rgba(148, 163, 184, 0.75);
+.localeButtonInactive {
+  color: rgba(148, 163, 184, 0.65);
+  font-weight: 500;
+}
+
+.localeButtonActive {
+  color: #f8fafc;
+}
+
+.localeButton:focus-visible {
+  outline: none;
+  color: #38bdf8;
 }
 
 .localeDivider {
