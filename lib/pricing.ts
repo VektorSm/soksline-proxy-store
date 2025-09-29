@@ -3,6 +3,7 @@ import type { Locale } from "../components/LocaleContext";
 export type PricingTier = {
   id: string;
   name: string;
+  subLabel?: string;
   headline?: string;
   price: string;
   period: string;
@@ -40,7 +41,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
     subtitle: "Статические резидентские прокси обеспечивают стабильный доступ на нужный срок.",
     highlight: "Надёжные IP • Высокая производительность • Sticky-сессии",
     paymentNote: "SSL Secure Payment. Ваши данные защищены 256-битным шифрованием.",
-    paymentMethods: ["Visa", "Mastercard", "AMEX", "PayPal", "BTC", "USDT"],
+    paymentMethods: ["BTC", "ETH", "USDT", "TRX", "LTC"],
     categories: [
       {
         id: "basic",
@@ -49,6 +50,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
           {
             id: "trial",
             name: "7 дней",
+            subLabel: "Пробный",
             price: "$1.99",
             period: "за прокси",
             features: [
@@ -156,7 +158,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
     subtitle: "Static residential proxies to guarantee consistent access for as long as you need.",
     highlight: "Reliable residential IPs • High-performance routing • Sticky sessions",
     paymentNote: "SSL Secure Payment. Your information is protected by 256-bit SSL.",
-    paymentMethods: ["Visa", "Mastercard", "AMEX", "PayPal", "BTC", "USDT"],
+    paymentMethods: ["BTC", "ETH", "USDT", "TRX", "LTC"],
     categories: [
       {
         id: "basic",
@@ -165,6 +167,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
           {
             id: "trial",
             name: "7 Day Trial",
+            subLabel: "Trial",
             price: "$1.99",
             period: "per proxy",
             features: [
@@ -269,7 +272,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
     subtitle: "IPv6-статик без ограничений для любых задач и автоматизации.",
     highlight: "Гибкая стоимость • Поддержка SOCKS5 и HTTP • Ротация подсетей",
     paymentNote: "SSL Secure Payment. Ваши данные защищены 256-битным шифрованием.",
-    paymentMethods: ["Visa", "Mastercard", "AMEX", "PayPal", "BTC", "USDT"],
+    paymentMethods: ["BTC", "ETH", "USDT", "TRX", "LTC"],
     categories: [
       {
         id: "monthly",
@@ -382,7 +385,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
     subtitle: "Access the web safely and without any restrictions with Static Residential Proxies IPv6 for all your needs.",
     highlight: "Flexible pricing • SOCKS5 and HTTP support • Rotating subnets",
     paymentNote: "SSL Secure Payment. Your information is protected by 256-bit SSL.",
-    paymentMethods: ["Visa", "Mastercard", "AMEX", "PayPal", "BTC", "USDT"],
+    paymentMethods: ["BTC", "ETH", "USDT", "TRX", "LTC"],
     categories: [
       {
         id: "monthly",
@@ -492,7 +495,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
     subtitle: "Ротационные резидентские прокси с прозрачной ценой за трафик или лимиты.",
     highlight: "85M+ IP • Ротация по API • Страны и города",
     paymentNote: "SSL Secure Payment. Ваши данные защищены 256-битным шифрованием.",
-    paymentMethods: ["Visa", "Mastercard", "AMEX", "PayPal", "BTC", "USDT"],
+    paymentMethods: ["BTC", "ETH", "USDT", "TRX", "LTC"],
     categories: [
       {
         id: "bandwidth",
@@ -590,7 +593,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
     subtitle: "Transparent pricing for rotating residential proxies billed per traffic or dedicated ports.",
     highlight: "85M+ IPs • API rotation • Country & city targeting",
     paymentNote: "SSL Secure Payment. Your information is protected by 256-bit SSL.",
-    paymentMethods: ["Visa", "Mastercard", "AMEX", "PayPal", "BTC", "USDT"],
+    paymentMethods: ["BTC", "ETH", "USDT", "TRX", "LTC"],
     categories: [
       {
         id: "bandwidth",

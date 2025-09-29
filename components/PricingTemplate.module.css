@@ -99,6 +99,14 @@
   border: 1px solid rgba(99, 102, 241, 0.08);
 }
 
+.planHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 4.25rem;
+  justify-content: center;
+}
+
 .planRibbon {
   position: absolute;
   top: 1.25rem;
@@ -117,6 +125,12 @@
   font-size: 1.25rem;
   font-weight: 700;
   color: #0f172a;
+}
+
+.planSubLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #16a34a;
 }
 
 .planHeadline {
@@ -202,7 +216,7 @@
 }
 
 .paymentNote {
-  color: #475569;
+  color: rgba(248, 250, 252, 0.92);
   font-size: 0.95rem;
 }
 
@@ -215,8 +229,9 @@
 
 .paymentChip {
   border-radius: 9999px;
-  background: rgba(148, 163, 184, 0.2);
-  color: #0f172a;
+  background: rgba(148, 163, 184, 0.22);
+  color: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.35);
   font-weight: 600;
   padding: 0.4rem 1rem;
   font-size: 0.85rem;

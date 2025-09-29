@@ -88,7 +88,7 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
       title: "Способы оплаты",
       description:
         "Пополняйте баланс удобным способом: автоматические инвойсы, моментальные зачёты и выгрузки для бухгалтерии.",
-      methods: ["USDT", "BTC", "ETH", "Visa/Mastercard", "SEPA", "СБП"],
+      methods: ["BTC", "ETH", "USDT", "TRX", "LTC"],
     },
   },
   en: {
@@ -149,7 +149,7 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
       title: "Payment methods",
       description:
         "Top up your balance the easy way: automated invoices, instant confirmations, and exports for finance teams.",
-      methods: ["USDT", "BTC", "ETH", "Visa/Mastercard", "SEPA", "Faster Payments"],
+      methods: ["BTC", "ETH", "USDT", "TRX", "LTC"],
     },
   },
 };
@@ -178,7 +178,7 @@ export default function Page() {
 
       <section className={`${styles.section} ${styles.showcase}`} id="proxy-formats">
         <div className={`${styles.sectionInner} ${styles.showcaseInner}`}>
-          <div className={styles.sectionHeader}>
+          <div className={`${styles.sectionHeader} ${styles.showcaseHeader}`}>
             <h2 className={styles.sectionTitle}>{copy.showcase.title}</h2>
             <p className={styles.sectionDescription}>{copy.showcase.description}</p>
           </div>

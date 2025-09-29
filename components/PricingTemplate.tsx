@@ -76,8 +76,11 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
             {activeCategory?.tiers.map(tier => (
               <article key={tier.id} className={styles.planCard}>
                 {tier.ribbon && <span className={styles.planRibbon}>{tier.ribbon}</span>}
-                <h2 className={styles.planName}>{tier.name}</h2>
-                {tier.headline && <p className={styles.planHeadline}>{tier.headline}</p>}
+                <div className={styles.planHeader}>
+                  <h2 className={styles.planName}>{tier.name}</h2>
+                  {tier.subLabel && <p className={styles.planSubLabel}>{tier.subLabel}</p>}
+                  {tier.headline && <p className={styles.planHeadline}>{tier.headline}</p>}
+                </div>
                 <p className={styles.planPrice}>
                   <span className={styles.planPriceValue}>{tier.price}</span>
                   <span className={styles.planPricePeriod}>{tier.period}</span>
