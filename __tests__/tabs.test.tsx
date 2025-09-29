@@ -13,6 +13,7 @@ test("переключение вкладок меняет активную и �
   const user = userEvent.setup();
 
   const tablist = screen.getByRole("tablist", { name: /Product categories/i });
+
   const tabs = within(tablist).getAllByRole("tab");
   expect(tabs).toHaveLength(3);
 

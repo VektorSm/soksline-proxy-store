@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useRef, useCallback, FocusEvent, MouseEvent, Fragment } from "react";
 import { Locale, useLocale } from "./LocaleContext";
+
 import styles from "./HeaderNav.module.css";
 
 type DropdownItem = {
