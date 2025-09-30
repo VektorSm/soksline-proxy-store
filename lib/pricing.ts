@@ -32,7 +32,7 @@ export type PricingPageData = {
 
 export type LocalizedPricingPage = Record<Locale, PricingPageData>;
 
-const ORDER_LINK = "https://soksline.com/order";
+const ORDER_LINK = "/order";
 
 export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
   ru: {
@@ -60,7 +60,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "SOCKS5 и HTTP/S",
               "Таргетинг по стране и ISP",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=basic&duration=weekly",
             ctaLabel: "Оформить",
           },
           {
@@ -77,7 +77,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "SOCKS5 и HTTP/S",
               "Таргетинг по стране и ISP",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=basic&duration=monthly",
             ctaLabel: "Оформить",
           },
           {
@@ -93,7 +93,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "SOCKS5 и HTTP/S",
               "Таргетинг по стране и ISP",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=basic&duration=yearly",
             ctaLabel: "Оформить",
           },
         ],
@@ -114,7 +114,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Двойная авторизация",
               "Приоритетная поддержка",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=premium&duration=monthly",
             ctaLabel: "Оформить",
           },
           {
@@ -130,7 +130,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Двойная авторизация",
               "Приоритетная поддержка",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=premium&duration=monthly",
             ctaLabel: "Оформить",
           },
           {
@@ -145,7 +145,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Двойная авторизация",
               "Приоритетная поддержка",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=premium&duration=monthly",
             ctaLabel: "Оформить",
           },
         ],
@@ -177,7 +177,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "SOCKS5 and HTTP/S",
               "Country & ISP-level targeting",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=basic&duration=weekly",
           },
           {
             id: "month",
@@ -193,7 +193,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "SOCKS5 and HTTP/S",
               "Country & ISP-level targeting",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=basic&duration=monthly",
           },
           {
             id: "year",
@@ -208,7 +208,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "SOCKS5 and HTTP/S",
               "Country & ISP-level targeting",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=basic&duration=yearly",
           },
         ],
       },
@@ -228,7 +228,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Dual Authentication",
               "Priority Support",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=premium&duration=monthly",
           },
           {
             id: "premium-100",
@@ -243,7 +243,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Dual Authentication",
               "Priority Support",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=premium&duration=monthly",
           },
           {
             id: "premium-250",
@@ -257,7 +257,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Dual Authentication",
               "Priority Support",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-isp&plan=premium&duration=monthly",
           },
         ],
       },
@@ -290,7 +290,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Таргетинг по стране",
               "Безлимитные потоки",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=monthly",
             ctaLabel: "Оформить",
           },
           {
@@ -305,7 +305,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Таргетинг по стране",
               "Безлимитные потоки",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=monthly",
             ctaLabel: "Оформить",
           },
           {
@@ -320,7 +320,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Таргетинг по стране",
               "Безлимитные потоки",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=monthly",
             ctaLabel: "Оформить",
           },
         ],
@@ -341,7 +341,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Геотаргетинг",
               "Безлимитные потоки",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=quarterly",
             ctaLabel: "Оформить",
           },
           {
@@ -357,7 +357,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Геотаргетинг",
               "Безлимитные потоки",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=quarterly",
             ctaLabel: "Оформить",
           },
           {
@@ -372,7 +372,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Геотаргетинг",
               "Безлимитные потоки",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=quarterly",
             ctaLabel: "Оформить",
           },
         ],
@@ -403,7 +403,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Country targeting",
               "Unlimited threads",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=monthly",
           },
           {
             id: "ipv6-50",
@@ -417,7 +417,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Country targeting",
               "Unlimited threads",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=monthly",
           },
           {
             id: "ipv6-100",
@@ -431,7 +431,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Country targeting",
               "Unlimited threads",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=monthly",
           },
         ],
       },
@@ -451,7 +451,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Geo targeting",
               "Unlimited threads",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=quarterly",
           },
           {
             id: "ipv6-q-50",
@@ -466,7 +466,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Geo targeting",
               "Unlimited threads",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=quarterly",
           },
           {
             id: "ipv6-q-100",
@@ -480,7 +480,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
               "Geo targeting",
               "Unlimited threads",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6&duration=quarterly",
           },
         ],
       },
@@ -513,7 +513,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Поддержка ISP",
               "Доступ к дашборду",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=rotating-residential",
             ctaLabel: "Оформить",
           },
           {
@@ -528,7 +528,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Поддержка ISP",
               "Доступ к дашборду",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=rotating-residential",
             ctaLabel: "Оформить",
           },
           {
@@ -543,7 +543,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Поддержка ISP",
               "Приоритетная поддержка",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=rotating-residential&plan=bandwidth&duration=3gb",
             ctaLabel: "Оформить",
           },
         ],
@@ -564,7 +564,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Безлимитные потоки",
               "Поддержка 24/7",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=rotating-residential&plan=bandwidth&duration=3gb",
             ctaLabel: "Оформить",
           },
           {
@@ -580,7 +580,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Безлимитные потоки",
               "Поддержка 24/7",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=rotating-residential&plan=bandwidth&duration=10gb",
             ctaLabel: "Оформить",
           },
         ],
@@ -599,20 +599,20 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
         id: "bandwidth",
         label: "Bandwidth",
         tiers: [
-          {
-            id: "rotating-3",
-            name: "3 GB",
-            price: "$14.99",
-            period: "per GB",
-            features: [
-              "API rotation",
-              "Sticky up to 30 min",
-              "Country targeting",
-              "ISP filtering",
-              "Dashboard access",
-            ],
-            ctaHref: ORDER_LINK,
-          },
+            {
+              id: "rotating-3",
+              name: "3 GB",
+              price: "$14.99",
+              period: "per GB",
+              features: [
+                "API rotation",
+                "Sticky up to 30 min",
+                "Country targeting",
+                "ISP filtering",
+                "Dashboard access",
+              ],
+              ctaHref: "/order?service=rotating-residential&plan=bandwidth&duration=3gb",
+            },
           {
             id: "rotating-10",
             name: "10 GB",
@@ -625,7 +625,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "ISP filtering",
               "Dashboard access",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=rotating-residential&plan=bandwidth&duration=10gb",
           },
           {
             id: "rotating-50",
@@ -639,7 +639,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "ISP filtering",
               "Priority support",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=rotating-residential&plan=bandwidth&duration=50gb",
           },
         ],
       },
@@ -659,7 +659,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Unlimited threads",
               "24/7 support",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=rotating-residential",
           },
           {
             id: "rotating-port-20",
@@ -674,7 +674,7 @@ export const ROTATING_RESIDENTIAL_PRICING: LocalizedPricingPage = {
               "Unlimited threads",
               "24/7 support",
             ],
-            ctaHref: ORDER_LINK,
+            ctaHref: "/order?service=rotating-residential",
           },
         ],
       },
