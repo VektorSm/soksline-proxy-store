@@ -1,9 +1,9 @@
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "Why Residential Proxies? | SoksLine",
+  title: "Зачем нужны резидентские прокси? | SoksLine",
   description:
-    "Understand the value of residential proxies, including stability, rotation, privacy, and affordable security for long-term projects.",
+    "Разберитесь, какие преимущества дают резидентские прокси: стабильность, ротацию, приватность и доступную защиту для долгосрочных проектов.",
 };
 
 export default function Page() {
@@ -11,32 +11,32 @@ export default function Page() {
     <main className={styles.page}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <span className={styles.eyebrow}>Guide</span>
-          <h1 className={styles.title}>Why Residential Proxies?</h1>
-          <p className={styles.meta}>12 days ago · Updated</p>
+          <span className={styles.eyebrow}>Справка</span>
+          <h1 className={styles.title}>Зачем нужны резидентские прокси?</h1>
+          <p className={styles.meta}>12 дней назад · Обновлено</p>
         </header>
 
         <section className={styles.section}>
           <p>
-            A residential proxy is an address provided directly by your Internet Service Provider (ISP). It leverages real
-            household IPs that legitimate proxy users rely on for trusted access.
+            Резидентский прокси — это адрес, который предоставляет ваш интернет-провайдер (ISP). Это реальные домашние IP,
+            на которые полагаются легальные пользователи прокси для надежного доступа.
           </p>
           <p>
-            Residential proxies are ideal as a long-term solution for teams and operators who need consistency and stability
-            throughout their projects.
+            Такие прокси идеально подходят как долгосрочное решение для команд и специалистов, которым важны стабильность и
+            предсказуемость на протяжении всего проекта.
           </p>
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>What residential proxies provide</h2>
+          <h2 className={styles.sectionTitle}>Что дают резидентские прокси</h2>
           <p>
-            Residential proxy networks deliver the core elements you need to run resilient operations without sacrificing
-            performance or privacy:
+            Сети резидентских прокси обеспечивают ключевые элементы для устойчивой работы без ущерба для скорости и
+            приватности:
           </p>
           <ul className={styles.list}>
-            <li>IP rotation</li>
-            <li>Super speedy bandwidth privacy</li>
-            <li>Security for an approachable price tag</li>
+            <li>Ротацию IP</li>
+            <li>Высокую скорость при сохранении приватности</li>
+            <li>Защиту по доступной цене</li>
           </ul>
         </section>
       </article>

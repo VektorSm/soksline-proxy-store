@@ -1,9 +1,9 @@
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "How long does it take to receive my ordered proxies? | SoksLine",
+  title: "Сколько времени занимает получение заказанных прокси? | SoksLine",
   description:
-    "Understand how quickly SoksLine delivers proxy orders and what happens if additional information is required for setup.",
+    "Узнайте, как быстро SoksLine поставляет прокси и что происходит, если для настройки нужна дополнительная информация.",
 };
 
 export default function Page() {
@@ -11,16 +11,15 @@ export default function Page() {
     <main className={styles.page}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <span className={styles.eyebrow}>Guide</span>
-          <h1 className={styles.title}>How long does it take to receive my ordered proxies?</h1>
-          <p className={styles.meta}>11 days ago · Updated</p>
+          <span className={styles.eyebrow}>Справка</span>
+          <h1 className={styles.title}>Сколько времени занимает получение заказанных прокси?</h1>
+          <p className={styles.meta}>11 дней назад · Обновлено</p>
         </header>
 
         <section className={styles.section}>
-          <p>Proxies are delivered within 24 hours from your order payment.</p>
+          <p>Прокси доставляются в течение 24 часов после оплаты заказа.</p>
           <p>
-            In case any additional information is required from your side, a Proxy-Cheap account manager will get in touch
-            with you as soon as possible.
+            Если от вас потребуется дополнительная информация, аккаунт-менеджер Proxy-Cheap свяжется с вами как можно быстрее.
           </p>
         </section>
       </article>

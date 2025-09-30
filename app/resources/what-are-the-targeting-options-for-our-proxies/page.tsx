@@ -1,9 +1,9 @@
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "What are the targeting options for our proxies? | SoksLine",
+  title: "Какие варианты таргетинга есть у ваших прокси? | SoksLine",
   description:
-    "Explore the geo-targeting coverage for SoksLine rotating residential, static ISP, and static ISP IPv6 proxies, plus guidance on choosing the right option.",
+    "Изучите уровни геотаргетинга в пулах Rotating Residential, Static ISP и Static ISP IPv6 от SoksLine и получите советы по выбору нужного решения.",
 };
 
 function CheckBadge({ label }: { label: string }) {
@@ -33,30 +33,30 @@ export default function Page() {
     <main className={styles.page}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <span className={styles.eyebrow}>Guide</span>
-          <h1 className={styles.title}>What are the targeting options for our proxies?</h1>
+          <span className={styles.eyebrow}>Справка</span>
+          <h1 className={styles.title}>Какие варианты таргетинга есть у ваших прокси?</h1>
           <p className={styles.lead}>
-            Choose the best targeting level for your workflow across the rotating residential, Static ISP, and Static ISP IPv6
-            pools we provide at SoksLine.
+            Подберите уровень таргетинга, который лучше всего подходит для вашей задачи, в пулах Rotating Residential, Static
+            ISP и Static ISP IPv6 от SoksLine.
           </p>
         </header>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Geo-targeting coverage</h2>
+          <h2 className={styles.sectionTitle}>Возможности геотаргетинга</h2>
           <p>
-            The matrix below outlines the available targeting depth for each proxy type we offer. We focus on residential-grade
-            access, so the list is limited to the options you can purchase from SoksLine today.
+            Таблица ниже показывает глубину таргетинга для каждого типа прокси. Мы сосредоточены на резидентских решениях,
+            поэтому перечислены только доступные сегодня варианты от SoksLine.
           </p>
 
           <div className={styles.tableWrapper}>
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th scope="col">Proxy type</th>
-                  <th scope="col">Country</th>
-                  <th scope="col">Region / State</th>
-                  <th scope="col">City</th>
-                  <th scope="col">ISP / Carrier</th>
+                  <th scope="col">Тип прокси</th>
+                  <th scope="col">Страна</th>
+                  <th scope="col">Регион / Штат</th>
+                  <th scope="col">Город</th>
+                  <th scope="col">Провайдер / Оператор</th>
                 </tr>
               </thead>
               <tbody>
@@ -65,16 +65,16 @@ export default function Page() {
                     Rotating Residential
                   </th>
                   <td className={styles.checkCell}>
-                    <CheckBadge label="Country-level targeting available" />
+                    <CheckBadge label="Доступен таргетинг на уровне страны" />
                   </td>
                   <td className={styles.checkCell}>
-                    <CheckBadge label="Region-level targeting available" />
+                    <CheckBadge label="Доступен таргетинг на уровне региона" />
                   </td>
                   <td className={styles.checkCell}>
-                    <CheckBadge label="City-level targeting available" />
+                    <CheckBadge label="Доступен таргетинг на уровне города" />
                   </td>
                   <td className={styles.checkCell}>
-                    <CheckBadge label="ISP and carrier targeting available" />
+                    <CheckBadge label="Доступен таргетинг по провайдерам" />
                   </td>
                 </tr>
                 <tr>
@@ -82,16 +82,16 @@ export default function Page() {
                     Static ISP
                   </th>
                   <td className={styles.checkCell}>
-                    <CheckBadge label="Country-level targeting available" />
+                    <CheckBadge label="Доступен таргетинг на уровне страны" />
                   </td>
                   <td className={styles.checkCell}>
-                    <CheckBadge label="Region-level targeting available" />
+                    <CheckBadge label="Доступен таргетинг на уровне региона" />
                   </td>
                   <td className={styles.checkCell}>
-                    <CheckBadge label="City-level targeting available" />
+                    <CheckBadge label="Доступен таргетинг на уровне города" />
                   </td>
                   <td className={styles.checkCell}>
-                    <CrossBadge label="ISP targeting not supported" />
+                    <CrossBadge label="Таргетинг по провайдерам не поддерживается" />
                   </td>
                 </tr>
                 <tr>
@@ -99,16 +99,16 @@ export default function Page() {
                     Static ISP IPv6
                   </th>
                   <td className={styles.checkCell}>
-                    <CheckBadge label="Country-level targeting available" />
+                    <CheckBadge label="Доступен таргетинг на уровне страны" />
                   </td>
                   <td className={styles.checkCell}>
-                    <CrossBadge label="Region targeting not supported" />
+                    <CrossBadge label="Таргетинг по регионам не поддерживается" />
                   </td>
                   <td className={styles.checkCell}>
-                    <CrossBadge label="City targeting not supported" />
+                    <CrossBadge label="Таргетинг по городам не поддерживается" />
                   </td>
                   <td className={styles.checkCell}>
-                    <CrossBadge label="ISP targeting not supported" />
+                    <CrossBadge label="Таргетинг по провайдерам не поддерживается" />
                   </td>
                 </tr>
               </tbody>
@@ -117,28 +117,27 @@ export default function Page() {
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>How to pick the right targeting level</h2>
+          <h2 className={styles.sectionTitle}>Как выбрать подходящий уровень таргетинга</h2>
           <ul className={styles.list}>
             <li>
-              <strong>Rotating Residential</strong> delivers the most granular controls. Choose this pool when you need to lock
-              sessions to a specific metro area or carrier for localized SEO, user experience testing, or ad verification.
+              <strong>Rotating Residential</strong> дает самые гибкие настройки. Выбирайте этот пул, если нужно закрепить сессии
+              за определённым городом или провайдером для локального SEO, тестирования UX или проверки рекламы.
             </li>
             <li>
-              <strong>Static ISP</strong> covers the same cities and regions as our rotating pool, but keeps a single IP tied to
-              your project. It&apos;s ideal for long-running automations, e-commerce operations, or account management tasks that
-              must retain a consistent identity.
+              <strong>Static ISP</strong> охватывает те же города и регионы, что и ротационный пул, но сохраняет один IP за вашим
+              проектом. Идеально для долгих автоматизаций, e-commerce и управления аккаунтами, где важна постоянная идентичность.
             </li>
             <li>
-              <strong>Static ISP IPv6</strong> is perfect for projects that only require national presence at massive scale. Use it
-              when you want affordable U.S. coverage without needing specific municipalities or carriers.
+              <strong>Static ISP IPv6</strong> подходит проектам, которым нужна только национальная представленность в большом
+              масштабе. Используйте его, когда нужен недорогой охват по США без привязки к конкретным городам или провайдерам.
             </li>
           </ul>
         </section>
 
         <section className={styles.section}>
           <p className={styles.note}>
-            Need help matching your use case to the right pool? Reach out to your account manager or the SoksLine support team
-            and we&apos;ll recommend the best option based on your targeting requirements.
+            Нужна помощь с выбором подходящего пула? Свяжитесь с вашим аккаунт-менеджером или командой поддержки SoksLine — мы
+            предложим оптимальное решение с учётом ваших требований к таргетингу.
           </p>
         </section>
       </article>

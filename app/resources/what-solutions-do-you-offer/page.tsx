@@ -1,9 +1,9 @@
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "What solutions do you offer? | SoksLine",
+  title: "Какие решения вы предлагаете? | SoksLine",
   description:
-    "Discover the proxy solutions SoksLine provides, including static ISP, IPv6 ISP, and rotating residential networks tailored to your workflows.",
+    "Узнайте о решениях SoksLine: статических ISP, IPv6 ISP и ротационных резидентских сетях, адаптированных под ваши рабочие процессы.",
 };
 
 export default function Page() {
@@ -11,29 +11,29 @@ export default function Page() {
     <main className={styles.page}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <span className={styles.eyebrow}>Guide</span>
-          <h1 className={styles.title}>What solutions do you offer?</h1>
-          <p className={styles.meta}>12 days ago · Updated</p>
+          <span className={styles.eyebrow}>Справка</span>
+          <h1 className={styles.title}>Какие решения вы предлагаете?</h1>
+          <p className={styles.meta}>12 дней назад · Обновлено</p>
         </header>
 
         <section className={styles.section}>
           <p>
-            At SoksLine, we pair every customer with proxy solutions that keep critical workflows online and compliant, no
-            matter the scale of their projects.
+            В SoksLine мы подбираем каждому клиенту решения, которые обеспечивают бесперебойную и легальную работу ключевых
+            процессов вне зависимости от масштаба проекта.
           </p>
-          <p>Here&apos;s the lineup of services available today:</p>
+          <p>Вот какие услуги доступны уже сейчас:</p>
           <ul className={styles.list}>
             <li>
-              <strong>Static ISP</strong> — dedicated ISP IPs with datacenter-grade reliability for automation, traffic
-              management, and verified browsing.
+              <strong>Static ISP</strong> — выделенные ISP-IP с надежностью дата-центров для автоматизации, управления трафиком
+              и безопасного серфинга.
             </li>
             <li>
-              <strong>Static ISP IPv6</strong> — massive U.S. IPv6 ranges powered by ISP carriers for bandwidth-heavy tasks
-              that demand unique addresses.
+              <strong>Static ISP IPv6</strong> — огромные диапазоны IPv6 из США на базе ISP-провайдеров для задач с высоким
+              потреблением трафика и уникальными адресами.
             </li>
             <li>
-              <strong>Rotating Residential</strong> — ethically sourced household connections that refresh on demand to power
-              geo-targeted research and multi-account operations.
+              <strong>Rotating Residential</strong> — этичные жилые подключения с автоматической сменой IP для геотаргетинга,
+              исследований и мультиаккаунтных операций.
             </li>
           </ul>
         </section>

@@ -1,9 +1,9 @@
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "What is a Rotating Proxy? | SoksLine",
+  title: "Что такое ротационный прокси? | SoksLine",
   description:
-    "Learn what rotating residential proxies are, how sessions work, and what to expect from expiration and renewals at SoksLine.",
+    "Узнайте, что такое ротационные резидентские прокси, как работают сессии и что ожидать от сроков действия и продлений в SoksLine.",
 };
 
 export default function Page() {
@@ -11,45 +11,45 @@ export default function Page() {
     <main className={styles.page}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <span className={styles.eyebrow}>Guide</span>
-          <h1 className={styles.title}>What is a rotating proxy?</h1>
+          <span className={styles.eyebrow}>Справка</span>
+          <h1 className={styles.title}>Что такое ротационный прокси?</h1>
           <p className={styles.lead}>
-            A rotating residential proxy routes your internet traffic through multiple real residential IP addresses. This keeps
-            your browsing private, automates IP changes, and helps prevent websites from blocking access to your requests.
+            Ротационный резидентский прокси направляет ваш трафик через несколько реальных домашних IP-адресов. Это сохраняет
+            приватность, автоматизирует смену IP и помогает избежать блокировок со стороны сайтов.
           </p>
         </header>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>How rotating residential proxies work</h2>
+          <h2 className={styles.sectionTitle}>Как работают ротационные резидентские прокси</h2>
           <p>
-            Our residential proxies offer flexible rotation options. You can let the IP change with every request, or keep the
-            same IP active for the length of a session. A session is simply a randomly generated string that locks in one IP for
-            that window of time, giving you a stable identity while the session lasts.
+            Наши резидентские прокси предлагают гибкие варианты ротации. IP может меняться с каждым запросом или оставаться
+            неизменным на протяжении всей сессии. Сессия — это случайно сгенерированная строка, которая закрепляет один IP на
+            выбранный период, обеспечивая стабильную идентичность, пока сессия активна.
           </p>
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Expiration &amp; renewals</h2>
+          <h2 className={styles.sectionTitle}>Срок действия и продления</h2>
           <ul className={styles.list}>
             <li>
-              <strong>No extensions or renewals.</strong> Rotating residential proxies cannot be extended. Once a package
-              expires, you will need to purchase a new one.
+              <strong>Без продлений.</strong> Ротационные резидентские прокси нельзя продлить. После окончания срока действия
+              пакета необходимо оформить новый.
             </li>
             <li>
-              <strong>Additional bandwidth.</strong> If your rotating traffic runs out, it cannot be topped up. Simply buy a new
-              package to continue working without interruptions.
+              <strong>Дополнительный трафик.</strong> Если израсходован весь трафик, пополнить его нельзя. Купите новый пакет,
+              чтобы продолжить работу без пауз.
             </li>
             <li>
-              <strong>120-day expiration.</strong> Each proxy is valid for 120 days. After that period, the proxy expires and a
-              new purchase is required.
+              <strong>Срок 120 дней.</strong> Каждый прокси действует 120 дней. По истечении этого времени он деактивируется и
+              требуется новая покупка.
             </li>
           </ul>
         </section>
 
         <footer className={styles.footer}>
           <p>
-            Keep an eye on your usage to avoid unexpected service interruptions, and plan your rotations ahead of time for smooth
-            automation.
+            Следите за потреблением, чтобы избежать неожиданных перерывов в работе, и планируйте ротации заранее для плавной
+            автоматизации.
           </p>
         </footer>
       </article>

@@ -99,15 +99,15 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
             heading: "Ресурсы",
             items: [
               {
-                label: "Can I select a proxy location?",
+                label: "Могу ли я выбрать геолокацию прокси?",
                 href: "/resources/can-i-select-a-proxy-location",
               },
               {
-                label: "What are the targeting options for our proxies?",
+                label: "Какие варианты таргетинга есть у ваших прокси?",
                 href: "/resources/what-are-the-targeting-options-for-our-proxies",
               },
               {
-                label: "What solutions do you offer?",
+                label: "Какие решения вы предлагаете?",
                 href: "/resources/what-solutions-do-you-offer",
               },
             ],
@@ -115,15 +115,15 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
           {
             items: [
               {
-                label: "How long does it take to receive my ordered proxies?",
+                label: "Сколько времени занимает получение заказанных прокси?",
                 href: "/resources/how-long-to-receive-my-ordered-proxies",
               },
               {
-                label: "Why Residential Proxies?",
+                label: "Зачем нужны резидентские прокси?",
                 href: "/resources/why-residential-proxies",
               },
               {
-                label: "What is a rotating proxy?",
+                label: "Что такое ротационный прокси?",
                 href: "/resources/what-is-a-rotating-proxy",
               },
             ],
