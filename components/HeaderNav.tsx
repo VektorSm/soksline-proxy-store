@@ -120,11 +120,11 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
               },
               {
                 label: "Why Residential Proxies?",
-                href: "https://soksline.com/blog/why-residential-proxies",
+                href: "/resources/why-residential-proxies",
               },
               {
                 label: "What is a rotating proxy?",
-                href: "https://soksline.com/blog/what-is-a-rotating-proxy",
+                href: "/resources/what-is-a-rotating-proxy",
               },
             ],
           },
@@ -228,11 +228,11 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
               },
               {
                 label: "Why Residential Proxies?",
-                href: "https://soksline.com/blog/why-residential-proxies",
+                href: "/resources/why-residential-proxies",
               },
               {
                 label: "What is a rotating proxy?",
-                href: "https://soksline.com/blog/what-is-a-rotating-proxy",
+                href: "/resources/what-is-a-rotating-proxy",
               },
             ],
           },
