@@ -138,7 +138,7 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
         ],
       },
     ],
-    auxLinks: [{ label: "Инфоцентр", href: "https://soksline.com/support" }],
+    auxLinks: [{ label: "Техподдержка", href: "/help-center" }],
   },
   en: {
     navLabel: "Primary navigation",
@@ -246,7 +246,7 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
         ],
       },
     ],
-    auxLinks: [{ label: "Help Center", href: "https://soksline.com/support" }],
+    auxLinks: [{ label: "Help Center", href: "/help-center" }],
   },
 };
 
