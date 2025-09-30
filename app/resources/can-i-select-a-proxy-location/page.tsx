@@ -1,9 +1,9 @@
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "Can I select a proxy location? | SoksLine",
+  title: "Могу ли я выбрать геолокацию прокси? | SoksLine",
   description:
-    "Learn how SoksLine proxies let you choose the exact location you need across Static ISP, Static ISP IPv6, and Rotating Residential pools.",
+    "Узнайте, как прокси SoksLine позволяют выбрать нужную вам геолокацию в пулах Static ISP, Static ISP IPv6 и Rotating Residential.",
 };
 
 export default function Page() {
@@ -11,40 +11,40 @@ export default function Page() {
     <main className={styles.page}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <span className={styles.eyebrow}>Guide</span>
-          <h1 className={styles.title}>Can I select a proxy location?</h1>
+          <span className={styles.eyebrow}>Справка</span>
+          <h1 className={styles.title}>Могу ли я выбрать геолокацию прокси?</h1>
           <p className={styles.lead}>
-            Yes. Every SoksLine proxy order lets you choose the location that best fits your use case. Pick the country you
-            need at checkout and tailor your traffic without extra configuration or delays.
+            Да. Каждый заказ прокси SoksLine позволяет выбрать локацию, которая лучше всего подходит под ваш сценарий.
+            Укажите нужную страну при оформлении и управляйте трафиком без дополнительной настройки и задержек.
           </p>
         </header>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Location controls by proxy type</h2>
+          <h2 className={styles.sectionTitle}>Управление локациями по типам прокси</h2>
           <p>
-            Each proxy family gives you precise geo-targeting so you can deploy accounts, run automations, or monitor
-            campaigns in the markets that matter most to you.
+            Каждый тип прокси дает точный геотаргетинг, чтобы вы могли запускать аккаунты, автоматизацию или мониторинг
+            кампаний в нужных вам регионах.
           </p>
           <ul className={styles.list}>
             <li>
-              <strong>Static ISP proxies.</strong> Select country-level locations across our premium ISP and datacenter blend
-              for consistent uptime and low-latency scraping.
+              <strong>Static ISP прокси.</strong> Выбирайте страну в нашем премиальном пуле ISP и дата-центров для стабильной
+              работы и низкой задержки при сборе данных.
             </li>
             <li>
-              <strong>Static ISP IPv6 proxies.</strong> Choose the country you need (including state-level routing across the
-              United States) to tap into our vast IPv6 supply for high-volume tasks.
+              <strong>Static ISP IPv6 прокси.</strong> Укажите нужную страну (включая маршрутизацию по штатам в США), чтобы
+              использовать наш огромный запас IPv6 для задач с большим объемом трафика.
             </li>
             <li>
-              <strong>Rotating Residential proxies.</strong> Target countries worldwide and drill down to popular
-              states/regions for localized testing, ad verification, and automation.
+              <strong>Rotating Residential прокси.</strong> Настраивайте таргетинг на страны по всему миру и углубляйтесь до
+              популярных штатов и регионов для локализованного тестирования, проверки рекламы и автоматизации.
             </li>
           </ul>
         </section>
 
         <footer className={styles.footer}>
           <p>
-            Need a specific city or custom location mix? Message your account manager or reach us at support@soksline.com, and
-            we&apos;ll provision the routing you require.
+            Нужен конкретный город или индивидуальный набор локаций? Напишите вашему аккаунт-менеджеру или на
+            support@soksline.com — мы настроим нужную вам маршрутизацию.
           </p>
         </footer>
       </article>
