@@ -1,0 +1,62 @@
+.page {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  padding: 6rem 1.5rem 4rem;
+  box-sizing: border-box;
+}
+
+.article {
+  width: min(720px, 100%);
+  background: linear-gradient(160deg, rgba(34, 49, 96, 0.75), rgba(16, 24, 44, 0.9));
+  border: 1px solid rgba(124, 144, 212, 0.25);
+  border-radius: 24px;
+  padding: 3.5rem clamp(1.5rem, 4vw, 3rem);
+  color: #f4f6ff;
+  box-shadow: 0 24px 40px rgba(9, 14, 30, 0.6);
+  backdrop-filter: blur(12px);
+}
+
+.header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(172, 192, 255, 0.85);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  line-height: 1.1;
+}
+
+.meta {
+  margin: 0;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  color: rgba(214, 223, 255, 0.7);
+}
+
+.section {
+  margin-top: 2.5rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.section p {
+  margin: 0;
+  line-height: 1.7;
+  color: rgba(230, 234, 255, 0.9);
+}
+
+@media (max-width: 640px) {
+  .article {
+    padding: 2.5rem 1.5rem;
+  }
+}
