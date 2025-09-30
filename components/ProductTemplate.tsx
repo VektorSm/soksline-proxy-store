@@ -6,6 +6,14 @@ import type { LocalizedProductPage } from "../lib/productPages";
 import { useLocale } from "./LocaleContext";
 import styles from "./ProductTemplate.module.css";
 
+function getLinkProps(href: string) {
+  if (/^https?:\/\//i.test(href)) {
+    return { target: "_blank", rel: "noopener" as const };
+  }
+
+  return {};
+}
+
 type ProductTemplateProps = {
   data: LocalizedProductPage;
   cardsVariant?: "default" | "compact";
@@ -42,7 +50,7 @@ export default function ProductTemplate({ data, cardsVariant = "default" }: Prod
           <p className={styles.heroDescription}>{copy.hero.description}</p>
 
           <div className={styles.heroActions}>
-            <Link href={copy.hero.cta.href} className={styles.primaryCta} target="_blank" rel="noopener">
+            <Link href={copy.hero.cta.href} className={styles.primaryCta} {...getLinkProps(copy.hero.cta.href)}>
               {copy.hero.cta.label}
             </Link>
           </div>
@@ -126,7 +134,7 @@ export default function ProductTemplate({ data, cardsVariant = "default" }: Prod
                   })}
                 </ul>
 
-                <Link href={plan.ctaHref} className={styles.cardCta} target="_blank" rel="noopener">
+                <Link href={plan.ctaHref} className={styles.cardCta} {...getLinkProps(plan.ctaHref)}>
                   {plan.ctaLabel}
                 </Link>
               </article>

@@ -54,7 +54,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
         "Стабильность, высокая скорость и безопасность с статическими резидентскими прокси. Настройте доступ за минуты и управляйте сессиями через готовые дашборды.",
       cta: {
         label: "Купить",
-        href: "https://soksline.com/buy/static-isp",
+        href: "/order?service=static-isp",
       },
       metrics: [
         { label: "Скорость", value: "До 1 Гбит/с" },
@@ -84,7 +84,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
             { label: "Без роста одновременных сессий", included: false },
           ],
           ctaLabel: "Продолжить",
-          ctaHref: "https://soksline.com/checkout/static-isp/basic",
+          ctaHref: "/order?service=static-isp&plan=basic",
         },
         {
           id: "dedicated",
@@ -102,7 +102,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
             { label: "Расширение по одновременным сессиям" },
           ],
           ctaLabel: "Продолжить",
-          ctaHref: "https://soksline.com/checkout/static-isp/dedicated",
+          ctaHref: "/order?service=static-isp&plan=dedicated",
         },
         {
           id: "premium",
@@ -119,7 +119,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
             { label: "Расширение по сессиям" },
           ],
           ctaLabel: "Продолжить",
-          ctaHref: "https://soksline.com/checkout/static-isp/premium",
+          ctaHref: "/order?service=static-isp&plan=premium",
         },
       ],
       note: "Нужны объёмы под заказ? Напишите в отдел продаж для кастомных пулов ISP.",
@@ -133,7 +133,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
         "Experience high success rates, stability, security, and speed with static residential proxies. Set up access within minutes and manage sessions with ready-made dashboards.",
       cta: {
         label: "Buy Now",
-        href: "https://soksline.com/buy/static-isp",
+        href: "/order?service=static-isp",
       },
       metrics: [
         { label: "Speed", value: "Up to 1 Gbps" },
@@ -163,7 +163,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
             { label: "No concurrency upgrades", included: false },
           ],
           ctaLabel: "Continue",
-          ctaHref: "https://soksline.com/checkout/static-isp/basic",
+          ctaHref: "/order?service=static-isp&plan=basic",
         },
         {
           id: "dedicated",
@@ -181,7 +181,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
             { label: "Concurrency upgrades" },
           ],
           ctaLabel: "Continue",
-          ctaHref: "https://soksline.com/checkout/static-isp/dedicated",
+          ctaHref: "/order?service=static-isp&plan=dedicated",
         },
         {
           id: "premium",
@@ -198,7 +198,7 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
             { label: "Concurrency upgrades" },
           ],
           ctaLabel: "Continue",
-          ctaHref: "https://soksline.com/checkout/static-isp/premium",
+          ctaHref: "/order?service=static-isp&plan=premium",
         },
       ],
       note: "Need custom volumes? Contact sales for bespoke ISP proxy pools.",
@@ -215,7 +215,7 @@ export const STATIC_RESIDENTIAL_PAGE: LocalizedProductPage = {
         "Работайте безопасно и без блокировок. IPv6-статик сочетает высокую скорость с широкой географией, а управление доступно через панель или API.",
       cta: {
         label: "Купить",
-        href: "https://soksline.com/buy/static-ipv6",
+        href: "/order?service=static-residential-ipv6",
       },
       metrics: [
         { label: "Уникальные IP", value: "5B+" },
@@ -242,7 +242,7 @@ export const STATIC_RESIDENTIAL_PAGE: LocalizedProductPage = {
             { label: "API и панель" },
           ],
           ctaLabel: "Продолжить",
-          ctaHref: "https://soksline.com/checkout/static-ipv6/dedicated",
+          ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6",
         },
       ],
       note: "IPv6 лучше всего подходит сервисам, поддерживающим новый протокол.",
@@ -256,7 +256,7 @@ export const STATIC_RESIDENTIAL_PAGE: LocalizedProductPage = {
         "Access the web safely and without restrictions with Static Residential IPv6. Combine fast response times with diverse geo coverage and manage sessions via dashboard or API.",
       cta: {
         label: "Buy Now",
-        href: "https://soksline.com/buy/static-ipv6",
+        href: "/order?service=static-residential-ipv6",
       },
       metrics: [
         { label: "Unique IP Addresses", value: "5B+" },
@@ -282,7 +282,7 @@ export const STATIC_RESIDENTIAL_PAGE: LocalizedProductPage = {
             { label: "API & dashboard" },
           ],
           ctaLabel: "Continue",
-          ctaHref: "https://soksline.com/checkout/static-ipv6/dedicated",
+          ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6",
         },
       ],
       note: "IPv6 works best with services that support the new protocol stack.",
@@ -299,7 +299,7 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
         "Если важны анонимность, безопасность и высокий процент успешных запросов — ротационная резиденция справится. Настраивайте смену IP по расписанию или через API.",
       cta: {
         label: "Купить",
-        href: "https://soksline.com/buy/rotating",
+        href: "/order?service=rotating-residential",
       },
       metrics: [
         { label: "IP-адреса", value: "85M+" },
@@ -325,7 +325,7 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
             { label: "Неограниченная параллельность" },
           ],
           ctaLabel: "Продолжить",
-          ctaHref: "https://soksline.com/checkout/rotating/bandwidth",
+          ctaHref: "/order?service=rotating-residential&plan=bandwidth",
         },
       ],
       note: "Персональные требования по комплаенсу и KYC доступны по запросу.",
@@ -339,7 +339,7 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
         "When you value anonymity, a high level of online security, and increased success in scraping activities — rotating residential proxies deliver. Rotate on schedule or via API triggers.",
       cta: {
         label: "Buy Now",
-        href: "https://soksline.com/buy/rotating",
+        href: "/order?service=rotating-residential",
       },
       metrics: [
         { label: "IP Addresses", value: "85M+" },
@@ -365,7 +365,7 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
             { label: "Unlimited concurrency" },
           ],
           ctaLabel: "Continue",
-          ctaHref: "https://soksline.com/checkout/rotating/bandwidth",
+          ctaHref: "/order?service=rotating-residential&plan=bandwidth",
         },
       ],
       note: "Custom compliance or KYC requirements available upon request.",

@@ -40,6 +40,14 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
     [copy.categories, activeCategoryId]
   );
 
+  const getLinkProps = (href: string) => {
+    if (/^https?:\/\//i.test(href)) {
+      return { target: "_blank", rel: "noopener" as const };
+    }
+
+    return {};
+  };
+
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
@@ -90,7 +98,7 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
                     <li key={feature}>{feature}</li>
                   ))}
                 </ul>
-                <Link href={tier.ctaHref} className={styles.planCta} target="_blank" rel="noopener">
+                <Link href={tier.ctaHref} className={styles.planCta} {...getLinkProps(tier.ctaHref)}>
                   {tier.ctaLabel ?? CTA_FALLBACK[locale]}
                 </Link>
               </article>
