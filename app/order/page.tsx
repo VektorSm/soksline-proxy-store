@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import OrderConfigurator from "./OrderConfigurator";
 
 export const metadata = {
@@ -7,5 +9,9 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <OrderConfigurator />;
+  return (
+    <Suspense fallback={null}>
+      <OrderConfigurator />
+    </Suspense>
+  );
 }
