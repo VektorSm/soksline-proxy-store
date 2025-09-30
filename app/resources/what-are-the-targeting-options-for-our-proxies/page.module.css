@@ -1,0 +1,186 @@
+.page {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  padding: 6rem 1.5rem 4rem;
+  box-sizing: border-box;
+}
+
+.article {
+  width: min(760px, 100%);
+  background: linear-gradient(160deg, rgba(34, 49, 96, 0.7), rgba(16, 24, 44, 0.85));
+  border: 1px solid rgba(124, 144, 212, 0.25);
+  border-radius: 24px;
+  padding: 3.5rem clamp(1.5rem, 4vw, 3rem);
+  color: #f4f6ff;
+  box-shadow: 0 24px 40px rgba(9, 14, 30, 0.6);
+  backdrop-filter: blur(12px);
+}
+
+.header {
+  display: grid;
+  gap: 1rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(172, 192, 255, 0.85);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  line-height: 1.1;
+}
+
+.lead {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: rgba(230, 234, 255, 0.88);
+}
+
+.section {
+  margin-top: 2.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #9fb6ff;
+}
+
+.section p {
+  margin: 0;
+  line-height: 1.7;
+  color: rgba(230, 234, 255, 0.9);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(124, 144, 212, 0.3);
+  background: rgba(12, 19, 38, 0.6);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+.table thead {
+  background: rgba(21, 32, 60, 0.75);
+}
+
+.table th,
+.table td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(124, 144, 212, 0.2);
+}
+
+.table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: rgba(180, 198, 255, 0.85);
+}
+
+.table tbody tr:last-of-type td {
+  border-bottom: none;
+}
+
+.proxyName {
+  font-weight: 600;
+  color: #f4f6ff;
+}
+
+.checkCell {
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: rgba(91, 207, 176, 0.18);
+  color: #5bcfb0;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.crossBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: rgba(255, 107, 107, 0.18);
+  color: #ff6b6b;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.badgeLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.85rem;
+  line-height: 1.6;
+  color: rgba(230, 234, 255, 0.9);
+}
+
+.list strong {
+  color: #f4f6ff;
+}
+
+.note {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(124, 144, 212, 0.25);
+  background: rgba(21, 32, 60, 0.6);
+  color: rgba(214, 224, 255, 0.88);
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .article {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 1rem;
+  }
+}
