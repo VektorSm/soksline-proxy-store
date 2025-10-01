@@ -25,7 +25,7 @@ export type OrderServiceCard = {
   badge?: string;
 };
 
-export type OrderService = {
+type OrderSectionSource = {
   id: string;
   card: OrderServiceCard;
   detailTitle: string;
