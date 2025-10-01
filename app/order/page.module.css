@@ -294,7 +294,7 @@
   background: rgba(8, 14, 28, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  padding: 22px;
+  padding: 22px 22px 64px;
   text-align: left;
   color: inherit;
   cursor: pointer;
@@ -316,10 +316,11 @@
 }
 
 .tierFooter {
-  margin-top: auto;
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
   display: flex;
   justify-content: flex-end;
-  padding-top: 12px;
 }
 
 .tierRibbon {
