@@ -13,6 +13,7 @@ export type PricingTier = {
   ctaHref: string;
   ribbon?: string;
   ribbonPlacement?: "top" | "bottom";
+  totalMultiplier?: number;
 };
 
 export type PricingCategory = {
@@ -54,6 +55,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             subLabel: "Пробный",
             price: "$1.99",
             period: "за прокси",
+            totalMultiplier: 7 / 30,
             features: [
               "Безлимитный трафик",
               "Неограниченные потоки",
@@ -88,6 +90,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             headline: "Экономия 15%",
             price: "$1.27",
             period: "за прокси",
+            totalMultiplier: 12,
             features: [
               "Безлимитный трафик",
               "Неограниченные потоки",
@@ -109,6 +112,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             name: "25 прокси",
             price: "$2.39",
             period: "за прокси / мес",
+            totalMultiplier: 25,
             features: [
               "Безлимитный трафик",
               "Выделенные подсети",
@@ -125,6 +129,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             ribbon: "-10%",
             price: "$2.19",
             period: "за прокси / мес",
+            totalMultiplier: 100,
             features: [
               "Безлимитный трафик",
               "Выделенные подсети",
@@ -140,6 +145,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             name: "250 прокси",
             price: "$1.99",
             period: "за прокси / мес",
+            totalMultiplier: 250,
             features: [
               "Безлимитный трафик",
               "Выделенные подсети",
@@ -172,6 +178,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             subLabel: "Trial",
             price: "$1.99",
             period: "per proxy",
+            totalMultiplier: 7 / 30,
             features: [
               "Unlimited Bandwidth",
               "Unlimited Threads",
@@ -204,6 +211,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             headline: "Save 15%",
             price: "$1.27",
             period: "per proxy",
+            totalMultiplier: 12,
             features: [
               "Unlimited Bandwidth",
               "Unlimited Threads",
@@ -224,6 +232,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             name: "25 Proxies",
             price: "$2.39",
             period: "per proxy / month",
+            totalMultiplier: 25,
             features: [
               "Unlimited Bandwidth",
               "Dedicated Subnets",
@@ -239,6 +248,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             ribbon: "SAVE 10%",
             price: "$2.19",
             period: "per proxy / month",
+            totalMultiplier: 100,
             features: [
               "Unlimited Bandwidth",
               "Dedicated Subnets",
@@ -253,6 +263,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             name: "250 Proxies",
             price: "$1.99",
             period: "per proxy / month",
+            totalMultiplier: 250,
             features: [
               "Unlimited Bandwidth",
               "Dedicated Subnets",
