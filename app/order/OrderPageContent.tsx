@@ -199,17 +199,15 @@ export default function OrderPageContent() {
                           <span className={styles.tierPeriod}>{tier.period}</span>
                         </p>
                       </header>
+                      {tier.ribbon ? (
+                        <span className={styles.tierRibbon}>{tier.ribbon}</span>
+                      ) : null}
                       {tier.description && <p className={styles.tierDescription}>{tier.description}</p>}
                       <ul className={styles.tierFeatures}>
                         {tier.features.map((feature: string) => (
                           <li key={feature}>{feature}</li>
                         ))}
                       </ul>
-                      {tier.ribbon && (
-                        <div className={styles.tierFooter}>
-                          <span className={styles.tierRibbon}>{tier.ribbon}</span>
-                        </div>
-                      )}
                     </button>
                   );
                 })}
