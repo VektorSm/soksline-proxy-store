@@ -17,6 +17,9 @@
   display: grid;
   gap: 0.6rem;
   max-width: 40rem;
+  margin: 0 auto;
+  text-align: center;
+  justify-items: center;
 }
 
 .title {
@@ -36,6 +39,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
+  justify-content: center;
 }
 
 .tabButton {
@@ -138,7 +142,7 @@
 }
 
 .note {
-  margin: 0;
+  margin: 1rem 0 0;
   color: #475569;
   line-height: 1.6;
 }
