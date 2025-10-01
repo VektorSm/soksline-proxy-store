@@ -1,4 +1,4 @@
-import styles from "./page.module.css";
+import PageClient from "./page.client";
 
 export const metadata = {
   title: "Что такое ротационный прокси? | SoksLine",
@@ -7,52 +7,5 @@ export const metadata = {
 };
 
 export default function Page() {
-  return (
-    <main className={styles.page}>
-      <article className={styles.article}>
-        <header className={styles.header}>
-          <span className={styles.eyebrow}>Справка</span>
-          <h1 className={styles.title}>Что такое ротационный прокси?</h1>
-          <p className={styles.lead}>
-            Ротационный резидентский прокси направляет ваш трафик через несколько реальных домашних IP-адресов. Это сохраняет
-            приватность, автоматизирует смену IP и помогает избежать блокировок со стороны сайтов.
-          </p>
-        </header>
-
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Как работают ротационные резидентские прокси</h2>
-          <p>
-            Наши резидентские прокси предлагают гибкие варианты ротации. IP может меняться с каждым запросом или оставаться
-            неизменным на протяжении всей сессии. Сессия — это случайно сгенерированная строка, которая закрепляет один IP на
-            выбранный период, обеспечивая стабильную идентичность, пока сессия активна.
-          </p>
-        </section>
-
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Срок действия и продления</h2>
-          <ul className={styles.list}>
-            <li>
-              <strong>Без продлений.</strong> Ротационные резидентские прокси нельзя продлить. После окончания срока действия
-              пакета необходимо оформить новый.
-            </li>
-            <li>
-              <strong>Дополнительный трафик.</strong> Если израсходован весь трафик, пополнить его нельзя. Купите новый пакет,
-              чтобы продолжить работу без пауз.
-            </li>
-            <li>
-              <strong>Срок 120 дней.</strong> Каждый прокси действует 120 дней. По истечении этого времени он деактивируется и
-              требуется новая покупка.
-            </li>
-          </ul>
-        </section>
-
-        <footer className={styles.footer}>
-          <p>
-            Следите за потреблением, чтобы избежать неожиданных перерывов в работе, и планируйте ротации заранее для плавной
-            автоматизации.
-          </p>
-        </footer>
-      </article>
-    </main>
-  );
+  return <PageClient />;
 }
