@@ -284,41 +284,124 @@
   background: rgba(126, 158, 255, 0.16);
 }
 
-.tierGrid {
+.planSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.planHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.planTitle {
+  margin: 0;
+  font-size: 20px;
+}
+
+.planSubtitle {
+  margin: 0;
+  color: #aab7dd;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.planCards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 18px;
 }
 
-.tierCard {
+.planCard {
   background: rgba(8, 14, 28, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  padding: 22px 22px 64px;
+  padding: 24px;
   text-align: left;
   color: inherit;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   position: relative;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.tierCard:hover {
+.planCard:hover {
   border-color: rgba(129, 158, 255, 0.6);
   transform: translateY(-4px);
 }
 
-.tierCardActive {
+.planCardActive {
   border-color: #7e9eff;
   box-shadow: 0 0 0 1px rgba(126, 158, 255, 0.4);
 }
 
-.tierRibbon {
+.planCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.planName {
+  margin: 0;
+  font-size: 18px;
+}
+
+.planSubLabel,
+.planHeadline {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9bb7ff;
+  font-weight: 700;
+}
+
+.planHeadline {
+  color: #f7cfa7;
+}
+
+.planPrice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-weight: 700;
+  color: #f4f7ff;
+}
+
+.planPeriod {
+  font-size: 13px;
+  color: #aab7dd;
+}
+
+.planDescription {
+  margin: 0;
+  color: #aab7dd;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.planFeatures {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #9fb4eb;
+  font-size: 14px;
+}
+
+.planRibbon {
   position: absolute;
-  right: 22px;
-  bottom: 22px;
+  right: 24px;
+  bottom: 24px;
   background: linear-gradient(135deg, #f7c354, #f5a623);
   color: #061024;
   font-size: 12px;
@@ -332,59 +415,182 @@
   white-space: nowrap;
 }
 
-.tierHeader {
+.configurator {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
+  flex-direction: column;
+  gap: 18px;
+  padding: 26px;
+  background: rgba(7, 12, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
 }
 
-.tierName {
+.configTitle {
   margin: 0;
   font-size: 18px;
 }
 
-.tierSubLabel,
-.tierHeadline {
-  display: inline-block;
-  margin-top: 6px;
-  font-size: 12px;
-  letter-spacing: 0.1em;
+.configGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.configField {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.configLabel {
+  font-size: 13px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #9bb7ff;
-  font-weight: 700;
+  color: #7d8bb5;
 }
 
-.tierHeadline {
-  color: #f7cfa7;
+.configSelect {
+  appearance: none;
+  background: rgba(6, 11, 29, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: #f4f7ff;
+  padding: 14px 16px;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
-.tierPrice {
+.configSelect:focus {
+  outline: none;
+  border-color: rgba(126, 158, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(126, 158, 255, 0.15);
+}
+
+.configToggle {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.configDescription {
+  margin-top: 6px;
+  display: block;
+  color: #9fb4eb;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.toggle {
+  width: 56px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(90, 104, 147, 0.4);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.toggleActive {
+  background: linear-gradient(135deg, #7e9eff, #9ed8ff);
+  justify-content: flex-end;
+}
+
+.toggleHandle {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0a1024;
+  box-shadow: 0 4px 10px rgba(6, 16, 36, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.rotatingConfigurator {
+  display: flex;
+  flex-direction: column;
+}
+
+.rotatingCard {
+  background: rgba(8, 14, 28, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rotatingHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.rotatingTitle {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.rotatingSubtitle {
   margin: 0;
+  color: #aab7dd;
+  line-height: 1.6;
+}
+
+.rotatingPrice {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 4px;
+  gap: 6px;
   font-weight: 700;
   color: #f4f7ff;
 }
 
-.tierPeriod {
+.rotatingPeriod {
   font-size: 13px;
   color: #aab7dd;
 }
 
-.tierDescription {
-  margin: 0;
-  color: #aab7dd;
-  line-height: 1.6;
-  font-size: 14px;
+.rotatingSlider {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.tierFeatures {
+.rotatingSlider input[type="range"] {
+  width: 100%;
+  accent-color: #7e9eff;
+}
+
+.rotatingMarks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 12px;
+}
+
+.rotatingMark {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(9, 15, 30, 0.8);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: #d7e2ff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.rotatingMarkActive {
+  border-color: #7e9eff;
+  background: rgba(126, 158, 255, 0.18);
+}
+
+.rotatingFeatures {
   margin: 0;
-  padding: 0;
-  list-style: none;
+  padding-left: 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
