@@ -78,10 +78,6 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
           title: "Гибкие тарифы",
           description: "Статика, IPv6 и ротация — комбинируйте форматы и удерживайте расходы под контролем.",
         },
-        {
-          title: "Платёжные сценарии",
-          description: "От криптовалют до карт — подключите удобный метод и автоматизируйте пополнения.",
-        },
       ],
     },
     payments: {
@@ -138,10 +134,6 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
         {
           title: "Flexible pricing",
           description: "Combine static, IPv6, and rotating formats to balance costs and performance.",
-        },
-        {
-          title: "Payment scenarios",
-          description: "From crypto to cards — plug in convenient methods and automate top-ups.",
         },
       ],
     },
