@@ -24,6 +24,12 @@ export type ProductPlan = {
   ctaHref: string;
 };
 
+export type ProductOfferTextSection = {
+  id: string;
+  title: string;
+  body: string;
+};
+
 export type ProductPageData = {
   hero: {
     eyebrow?: string;
@@ -38,7 +44,9 @@ export type ProductPageData = {
   offers: {
     title: string;
     description?: string;
-    plans: ProductPlan[];
+    layout?: "cards" | "text";
+    plans?: ProductPlan[];
+    textSections?: ProductOfferTextSection[];
     note?: string;
   };
 };
@@ -68,58 +76,25 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
       title: "Static ISP",
       description:
         "Подберите тариф под свою нагрузку и географию. Каждый план включает API для автоматизации и мгновенную выдачу.",
-      plans: [
+      layout: "text",
+      textSections: [
         {
           id: "basic",
-          name: "Basic",
-          priceLabel: "От",
-          compareAt: "$2.29",
-          price: "$1.95",
-          period: "/месяц",
-          summary: "Для одиночных пользователей с ограничением по трафику.",
-          features: [
-            { label: "До 3 пользователей" },
-            { label: "1 ГБ трафика", included: false },
-            { label: "Без апгрейда скорости", included: false },
-            { label: "Без роста одновременных сессий", included: false },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=static-isp&plan=basic",
+          title: "Basic",
+          body:
+            "Подходит для личных проектов и тестовых запусков. Вы получаете выделенный статический IP с базовыми лимитами по трафику и управляете доступом через простой дашборд.",
         },
         {
           id: "dedicated",
-          name: "Dedicated",
-          badge: "Популярно",
-          priceLabel: "От",
-          compareAt: "$2.49",
-          price: "$2.12",
-          period: "/месяц",
-          summary: "Выделенные IPv4 с гибкой настройкой ASN и гео.",
-          features: [
-            { label: "Для одного пользователя" },
-            { label: "Безлимитный трафик" },
-            { label: "Апгрейды скорости" },
-            { label: "Расширение по одновременным сессиям" },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=static-isp&plan=dedicated",
+          title: "Dedicated",
+          body:
+            "Оптимален для регулярных задач с повышенными требованиями. Выделенный IPv4, гибкая настройка ASN и географии, безлимитный трафик и поддержка расширения скорости.",
         },
         {
           id: "premium",
-          name: "Premium",
-          priceLabel: "От",
-          compareAt: "$7.49",
-          price: "$5.47",
-          period: "/месяц",
-          summary: "Enterprise-пулы с кастомной ротацией и SLA.",
-          features: [
-            { label: "IP без истории" },
-            { label: "Безлимитный трафик" },
-            { label: "Апгрейды скорости" },
-            { label: "Расширение по сессиям" },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=static-isp&plan=premium",
+          title: "Premium",
+          body:
+            "Корпоративный уровень с кастомной ротацией, SLA и приоритетной поддержкой. Подходит для крупных пулов, где важна высочайшая стабильность и масштабируемость.",
         },
       ],
       note: "Нужны объёмы под заказ? Напишите в отдел продаж для кастомных пулов ISP.",
@@ -147,58 +122,25 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
       title: "Static ISP",
       description:
         "Pick a tier that matches your concurrency and geo requirements. Every plan comes with automation-ready APIs and instant delivery.",
-      plans: [
+      layout: "text",
+      textSections: [
         {
           id: "basic",
-          name: "Basic",
-          priceLabel: "Starts at",
-          compareAt: "$2.29",
-          price: "$1.95",
-          period: "/month",
-          summary: "Entry plan for single-seat access with limited bandwidth.",
-          features: [
-            { label: "Used by up to 3 users" },
-            { label: "Limited to 1GB bandwidth", included: false },
-            { label: "No speed upgrades", included: false },
-            { label: "No concurrency upgrades", included: false },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=static-isp&plan=basic",
+          title: "Basic",
+          body:
+            "Ideal for pilots and side projects. You get a dedicated static IP with lightweight bandwidth allowances and simple dashboard management.",
         },
         {
           id: "dedicated",
-          name: "Dedicated",
-          badge: "Popular",
-          priceLabel: "Starts at",
-          compareAt: "$2.49",
-          price: "$2.12",
-          period: "/month",
-          summary: "Dedicated IPv4 access with configurable ASN and geo targeting.",
-          features: [
-            { label: "Dedicated to a single user" },
-            { label: "Unlimited bandwidth" },
-            { label: "Speed upgrades" },
-            { label: "Concurrency upgrades" },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=static-isp&plan=dedicated",
+          title: "Dedicated",
+          body:
+            "Built for steady workloads that need reliability. Dedicated IPv4 with configurable ASN and geo, unlimited traffic, and available speed upgrades.",
         },
         {
           id: "premium",
-          name: "Premium",
-          priceLabel: "Starts at",
-          compareAt: "$7.49",
-          price: "$5.47",
-          period: "/month",
-          summary: "Enterprise grade pools with custom rotation windows and SLA.",
-          features: [
-            { label: "Never used IP" },
-            { label: "Unlimited bandwidth" },
-            { label: "Speed upgrades" },
-            { label: "Concurrency upgrades" },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=static-isp&plan=premium",
+          title: "Premium",
+          body:
+            "Enterprise-grade delivery with custom rotation windows, contractual SLA, and priority support. Designed for large pools that demand maximum stability.",
         },
       ],
       note: "Need custom volumes? Contact sales for bespoke ISP proxy pools.",
@@ -228,21 +170,38 @@ export const STATIC_RESIDENTIAL_PAGE: LocalizedProductPage = {
     offers: {
       title: "Static ISP",
       description:
-        "Простые тарифы и предсказуемая цена. IPv6-прокси помогают масштабировать автоматизацию и парсинг.",
-      plans: [
+        "Выделенные IPv6-адреса для проектов, которым важны стабильность, скорость и изоляция ресурсов.",
+      layout: "text",
+      textSections: [
         {
-          id: "dedicated-ipv6",
-          name: "Dedicated IPv6",
-          price: "$29.67",
-          period: "/месяц",
-          summary: "Выделенные IPv6-линии с мгновенной выдачей и управлением через дашборд.",
-          features: [
-            { label: "Безлимитный трафик" },
-            { label: "Кастомная ротация" },
-            { label: "API и панель" },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6",
+          id: "bandwidth",
+          title: "Безлимитный трафик",
+          body:
+            "Прокси не ограничены по объёму передаваемых данных — поддерживайте длительные сессии и интенсивный парсинг без рисков по достижению лимитов.",
+        },
+        {
+          id: "threads",
+          title: "100 потоков",
+          body:
+            "Одновременная работа до ста соединений с одной учётной записи помогает ускорить сбор данных и автоматизацию даже при плотных расписаниях.",
+        },
+        {
+          id: "speed",
+          title: "100+ Mbps",
+          body:
+            "Высокая пропускная способность сохраняет скорость загрузки страниц и стабильность соединений, даже когда трафик распределён на множество задач.",
+        },
+        {
+          id: "dedicated",
+          title: "Выделенный IP-адрес",
+          body:
+            "Каждый IPv6-адрес закреплён за вами, что исключает пересечения с соседями и снижает вероятность блокировок со стороны целевых ресурсов.",
+        },
+        {
+          id: "geography",
+          title: "IPv6-адреса из США",
+          body:
+            "Арендуйте пул адресов из американских дата-центров, чтобы работать с сервисами, требующими присутствия в США.",
         },
       ],
       note: "IPv6 лучше всего подходит сервисам, поддерживающим новый протокол.",
@@ -268,24 +227,42 @@ export const STATIC_RESIDENTIAL_PAGE: LocalizedProductPage = {
     },
     offers: {
       title: "Static ISP",
-      description: "Simple plans with predictable pricing. IPv6 proxies deliver scale for large automation tasks.",
-      plans: [
+      description:
+        "Dedicated IPv6 addresses for teams that need consistent performance, private resources, and US presence.",
+      layout: "text",
+      textSections: [
         {
-          id: "dedicated-ipv6",
-          name: "Dedicated IPv6",
-          price: "$29.67",
-          period: "/month",
-          summary: "Dedicated IPv6 lines with instant provisioning and dashboard management.",
-          features: [
-            { label: "Unlimited traffic" },
-            { label: "Custom rotation" },
-            { label: "API & dashboard" },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6",
+          id: "bandwidth",
+          title: "Unlimited Bandwidth",
+          body:
+            "Push large volumes of requests and sustain always-on sessions without worrying about overage fees or throttling.",
+        },
+        {
+          id: "threads",
+          title: "100 Threads",
+          body:
+            "Run up to one hundred concurrent connections per account so your crawlers and automation workflows finish faster.",
+        },
+        {
+          id: "speed",
+          title: "100+ Mbps",
+          body:
+            "Maintain quick page loads and reliable throughput even when your traffic is spread across multiple projects.",
+        },
+        {
+          id: "dedicated",
+          title: "Dedicated IP Address",
+          body:
+            "Each IPv6 address is reserved for you, keeping neighbors out of your pool and reducing the chance of destination blocks.",
+        },
+        {
+          id: "geography",
+          title: "IPv6 Addresses from the US",
+          body:
+            "Leverage US-based infrastructure to satisfy location requirements and maintain compliance with geo-sensitive platforms.",
         },
       ],
-      note: "IPv6 works best with services that support the new protocol stack.",
+      note: "IPv6 works best with services that support the modern protocol stack.",
     },
   },
 };
@@ -311,21 +288,39 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
     },
     offers: {
       title: "Rotating Residential",
-      description: "Выбирайте тип биллинга под задачу. Прозрачная цена и предсказуемые списания.",
-      plans: [
+      description:
+        "Раскройте всю мощь динамических IP: управляемая ротация, гибкий таргетинг и устойчивая скорость для задач любого масштаба.",
+      layout: "text",
+      textSections: [
         {
-          id: "bandwidth",
-          name: "Bandwidth Pool",
-          price: "$24.95",
-          period: "/GB",
-          summary: "Оплата за трафик с точными лимитами и выбором стран.",
-          features: [
-            { label: "API-ротация" },
-            { label: "Sticky до 30 минут" },
-            { label: "Неограниченная параллельность" },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=rotating-residential&plan=bandwidth",
+          id: "coverage",
+          title: "Глобальный охват",
+          body:
+            "85+ миллионов резидентских IP в 180 странах помогают имитировать поведение реальных пользователей и обходить фильтры на любых площадках.",
+        },
+        {
+          id: "rotation",
+          title: "Гибкая ротация",
+          body:
+            "Настраивайте смену адресов по таймеру или по API-событиям, чтобы поддерживать чистые сессии и сохранять высокий процент успешных запросов.",
+        },
+        {
+          id: "targeting",
+          title: "Точный таргетинг",
+          body:
+            "Выбирайте страну и город, комбинируйте фильтры ASN и оператора для локализованных проверок, маркетинга и сбора данных.",
+        },
+        {
+          id: "performance",
+          title: "Скорость и стабильность",
+          body:
+            "Неограниченная параллельность, sticky-сессии до 30 минут и пропускная способность до 1 Гбит/с обеспечивают плавную работу даже под нагрузкой.",
+        },
+        {
+          id: "tooling",
+          title: "Инструменты и поддержка",
+          body:
+            "Панель управления, API, белые списки IP и помощь команды 24/7 помогают быстро интегрировать прокси в ваши процессы.",
         },
       ],
       note: "Персональные требования по комплаенсу и KYC доступны по запросу.",
@@ -351,21 +346,39 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
     },
     offers: {
       title: "Rotating Residential",
-      description: "Choose the traffic type that fits your workload. Transparent pricing with predictable billing.",
-      plans: [
+      description:
+        "Unlock the full power of dynamic IPs with scheduled rotation, precise targeting, and resilient throughput for any workload.",
+      layout: "text",
+      textSections: [
         {
-          id: "bandwidth",
-          name: "Bandwidth Pool",
-          price: "$24.95",
-          period: "/GB",
-          summary: "Pay per traffic with granular limits and country selection.",
-          features: [
-            { label: "API rotation" },
-            { label: "Sticky up to 30 min" },
-            { label: "Unlimited concurrency" },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=rotating-residential&plan=bandwidth",
+          id: "coverage",
+          title: "Global coverage",
+          body:
+            "85M+ residential IPs across 180 countries help you mirror real-user behavior and bypass filters on the sites that matter.",
+        },
+        {
+          id: "rotation",
+          title: "Flexible rotation",
+          body:
+            "Trigger IP changes on a timer or via API events to maintain clean sessions and protect your success rates at scale.",
+        },
+        {
+          id: "targeting",
+          title: "Precise targeting",
+          body:
+            "Pick country and city combinations, layer ASN and carrier filters, and localize your marketing, QA, or data-collection workflows.",
+        },
+        {
+          id: "performance",
+          title: "Performance you can trust",
+          body:
+            "Unlimited concurrency, sticky sessions up to 30 minutes, and throughput up to 1 Gbps keep high-volume automation stable.",
+        },
+        {
+          id: "tooling",
+          title: "Tooling & support",
+          body:
+            "Manage access through dashboards, APIs, and IP whitelists with round-the-clock help from our support engineers.",
         },
       ],
       note: "Custom compliance or KYC requirements available upon request.",
