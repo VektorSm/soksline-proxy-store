@@ -205,11 +205,6 @@ export default function OrderPageContent() {
                           <li key={feature}>{feature}</li>
                         ))}
                       </ul>
-                      {tier.ribbon && (
-                        <div className={styles.tierFooter}>
-                          <span className={styles.tierRibbon}>{tier.ribbon}</span>
-                        </div>
-                      )}
                     </button>
                   );
                 })}

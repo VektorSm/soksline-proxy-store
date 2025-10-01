@@ -294,7 +294,7 @@
   background: rgba(8, 14, 28, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  padding: 22px;
+  padding: 22px 22px 64px;
   text-align: left;
   color: inherit;
   cursor: pointer;
@@ -313,27 +313,6 @@
 .tierCardActive {
   border-color: #7e9eff;
   box-shadow: 0 0 0 1px rgba(126, 158, 255, 0.4);
-}
-
-.tierFooter {
-  margin-top: auto;
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 12px;
-}
-
-.tierRibbon {
-  display: inline-flex;
-  align-items: center;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, #f8c390, #f28f6b);
-  color: #1a0c0a;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-weight: 700;
-  line-height: 1;
 }
 
 .tierHeader {
