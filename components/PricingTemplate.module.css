@@ -99,6 +99,13 @@
   position: relative;
 }
 
+.planBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex: 1;
+}
+
 .planHeader {
   display: flex;
   flex-direction: column;
@@ -175,6 +182,7 @@
   flex-direction: column;
   gap: 0.6rem;
   color: #334155;
+  flex-grow: 1;
 }
 
 .planFeatures li::before {
