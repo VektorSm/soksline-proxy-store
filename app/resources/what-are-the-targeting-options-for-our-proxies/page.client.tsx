@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale, type Locale } from "../../../components/LocaleContext";
+import type { ComponentType } from "react";
 import styles from "./page.module.css";
 
 type BadgeType = "check" | "cross";
@@ -188,7 +189,7 @@ function CrossBadge({ label }: { label: string }) {
   );
 }
 
-const BADGE_COMPONENT: Record<BadgeType, (props: { label: string }) => JSX.Element> = {
+const BADGE_COMPONENT: Record<BadgeType, ComponentType<{ label: string }>> = {
   check: CheckBadge,
   cross: CrossBadge,
 };
