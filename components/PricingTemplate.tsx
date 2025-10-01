@@ -97,20 +97,22 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
               return (
                 <article key={tier.id} className={styles.planCard}>
                   {ribbonPlacement === "top" && renderRibbon("top")}
-                  <div className={styles.planHeader}>
-                    <h2 className={styles.planName}>{tier.name}</h2>
-                    {tier.subLabel && <p className={styles.planSubLabel}>{tier.subLabel}</p>}
-                    {tier.headline && <p className={styles.planHeadline}>{tier.headline}</p>}
+                  <div className={styles.planBody}>
+                    <div className={styles.planHeader}>
+                      <h2 className={styles.planName}>{tier.name}</h2>
+                      {tier.subLabel && <p className={styles.planSubLabel}>{tier.subLabel}</p>}
+                      {tier.headline && <p className={styles.planHeadline}>{tier.headline}</p>}
+                    </div>
+                    <p className={styles.planPrice}>
+                      <span className={styles.planPriceValue}>{tier.price}</span>
+                      <span className={styles.planPricePeriod}>{tier.period}</span>
+                    </p>
+                    <ul className={styles.planFeatures}>
+                      {tier.features.map(feature => (
+                        <li key={feature}>{feature}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className={styles.planPrice}>
-                    <span className={styles.planPriceValue}>{tier.price}</span>
-                    <span className={styles.planPricePeriod}>{tier.period}</span>
-                  </p>
-                  <ul className={styles.planFeatures}>
-                    {tier.features.map(feature => (
-                      <li key={feature}>{feature}</li>
-                    ))}
-                  </ul>
                   <div className={styles.planFooter}>
                     <Link
                       href={tier.ctaHref}
