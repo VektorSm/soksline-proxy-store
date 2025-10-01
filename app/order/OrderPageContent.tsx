@@ -78,11 +78,13 @@ export default function OrderPageContent() {
   const currency = activeService?.currency ?? "USD";
   const unitAmount = activeTier?.priceAmount ?? 0;
   const hasUnitPrice = unitAmount > 0;
+  const totalMultiplier = activeTier?.totalMultiplier ?? 1;
+  const totalAmount = unitAmount * totalMultiplier;
   const unitPrice = hasUnitPrice
     ? formatCurrency(unitAmount, locale, currency)
     : activeTier?.price ?? "—";
   const totalPrice = hasUnitPrice
-    ? formatCurrency(unitAmount, locale, currency)
+    ? formatCurrency(totalAmount, locale, currency)
     : activeTier?.price ?? "—";
 
   return (
