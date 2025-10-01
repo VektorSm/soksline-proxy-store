@@ -11,6 +11,7 @@ import {
 
 export type OrderTier = PricingTier & {
   priceAmount: number;
+  totalMultiplier: number;
 };
 
 export type OrderCategory = Omit<PricingCategory, "tiers"> & {
@@ -242,6 +243,7 @@ function buildCategories(data: PricingPageData): OrderCategory[] {
     tiers: category.tiers.map(tier => ({
       ...tier,
       priceAmount: parsePriceAmount(tier.price),
+      totalMultiplier: tier.totalMultiplier ?? 1,
     })),
   }));
 }

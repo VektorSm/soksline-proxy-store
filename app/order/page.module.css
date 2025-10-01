@@ -413,6 +413,9 @@
 }
 
 .contactCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, #7e9eff, #9ed8ff);
   color: #061024;
   border-radius: 999px;
