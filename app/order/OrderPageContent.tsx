@@ -53,6 +53,16 @@ function getDiscountMultiplier(tier: Nullable<OrderTier>): number {
   return multiplier > 0 ? multiplier : 0;
 }
 
+type Option = { value: string; label: string };
+
+function getDefaultOptionValue(options: Option[], fallbackIndex = 0): string {
+  if (options[fallbackIndex]) {
+    return options[fallbackIndex].value;
+  }
+
+  return options[0]?.value ?? "";
+}
+
 export default function OrderPageContent() {
   const { locale } = useLocale();
   const page = useMemo(() => getOrderPage(locale), [locale]);
@@ -106,6 +116,68 @@ export default function OrderPageContent() {
   const totalPrice = hasUnitPrice
     ? formatCurrency(totalAmount, locale, currency)
     : activeTier?.price ?? "—";
+
+  const isRotatingService = activeService?.id === "rotating-residential";
+  const activeTiers = activeCategory?.tiers ?? [];
+  const activeTierIndex = Math.max(
+    0,
+    activeTiers.findIndex((tier: OrderTier) => tier.id === activeTier?.id),
+  );
+  const rotatingSliderMax = Math.max(0, activeTiers.length - 1);
+
+  const configurationOptions = useMemo(() => {
+    const base = {
+      locations: [
+        { value: "us", label: locale === "ru" ? "США" : "United States" },
+        { value: "gb", label: locale === "ru" ? "Великобритания" : "United Kingdom" },
+        { value: "de", label: locale === "ru" ? "Германия" : "Germany" },
+        { value: "fr", label: locale === "ru" ? "Франция" : "France" },
+        { value: "nl", label: locale === "ru" ? "Нидерланды" : "Netherlands" },
+      ],
+      isps: [
+        { value: "default", label: locale === "ru" ? "Любой" : "Any" },
+        { value: "att", label: "AT&T" },
+        { value: "verizon", label: "Verizon" },
+        { value: "charter", label: locale === "ru" ? "Charter" : "Charter" },
+      ],
+      quantities: [
+        { value: "10", label: locale === "ru" ? "10 прокси" : "10 proxies" },
+        { value: "50", label: locale === "ru" ? "50 прокси" : "50 proxies" },
+        { value: "100", label: locale === "ru" ? "100 прокси" : "100 proxies" },
+        { value: "250", label: locale === "ru" ? "250 прокси" : "250 proxies" },
+      ],
+      periods: [
+        { value: "weekly", label: locale === "ru" ? "7 дней" : "7 days" },
+        { value: "monthly", label: locale === "ru" ? "1 месяц" : "1 month" },
+        { value: "quarterly", label: locale === "ru" ? "3 месяца" : "3 months" },
+        { value: "yearly", label: locale === "ru" ? "12 месяцев" : "12 months" },
+      ],
+    };
+
+    return base;
+  }, [locale]);
+
+  const [selectedLocation, setSelectedLocation] = useState(() =>
+    getDefaultOptionValue(configurationOptions.locations),
+  );
+  const [selectedIsp, setSelectedIsp] = useState(() =>
+    getDefaultOptionValue(configurationOptions.isps),
+  );
+  const [selectedQuantity, setSelectedQuantity] = useState(() =>
+    getDefaultOptionValue(configurationOptions.quantities),
+  );
+  const [selectedPeriod, setSelectedPeriod] = useState(() =>
+    getDefaultOptionValue(configurationOptions.periods, 1),
+  );
+  const [autoRenew, setAutoRenew] = useState(true);
+
+  useEffect(() => {
+    setSelectedLocation(getDefaultOptionValue(configurationOptions.locations));
+    setSelectedIsp(getDefaultOptionValue(configurationOptions.isps));
+    setSelectedQuantity(getDefaultOptionValue(configurationOptions.quantities));
+    setSelectedPeriod(getDefaultOptionValue(configurationOptions.periods, 1));
+    setAutoRenew(true);
+  }, [activeService, configurationOptions]);
 
   return (
     <main className={styles.page}>
@@ -165,7 +237,7 @@ export default function OrderPageContent() {
 
               <p className={styles.detailHighlight}>{activeService.detailHighlight}</p>
 
-              {activeService.categories.length > 1 && (
+              {!isRotatingService && activeService.categories.length > 1 && (
                 <div className={styles.categoryTabs}>
                   {activeService.categories.map((category: OrderCategory) => {
                     const isActive = category.id === activeCategory?.id;
@@ -184,41 +256,217 @@ export default function OrderPageContent() {
                 </div>
               )}
 
-              <div className={styles.tierGrid}>
-                {(activeCategory?.tiers ?? []).map((tier: OrderTier) => {
-                  const isActive = tier.id === activeTier?.id;
-                  return (
-                    <button
-                      key={tier.id}
-                      type="button"
-                      className={`${styles.tierCard} ${isActive ? styles.tierCardActive : ""}`.trim()}
-                      onClick={() => setTierId(tier.id)}
-                      aria-pressed={isActive}
-                    >
-                      <header className={styles.tierHeader}>
+              {!isRotatingService ? (
+                <>
+                  <div className={styles.planSection}>
+                    <div className={styles.planHeader}>
+                      <h3 className={styles.planTitle}>
+                        {locale === "ru" ? "План" : "Plan"}
+                      </h3>
+                      <p className={styles.planSubtitle}>
+                        {locale === "ru"
+                          ? "Выберите подходящий тариф и настройте детали ниже."
+                          : "Pick the plan that fits and configure the details below."}
+                      </p>
+                    </div>
+                    <div className={styles.planCards}>
+                      {(activeCategory?.tiers ?? []).map((tier: OrderTier) => {
+                        const isActive = tier.id === activeTier?.id;
+                        return (
+                          <button
+                            key={tier.id}
+                            type="button"
+                            className={`${styles.planCard} ${isActive ? styles.planCardActive : ""}`.trim()}
+                            onClick={() => setTierId(tier.id)}
+                            aria-pressed={isActive}
+                          >
+                            <header className={styles.planCardHeader}>
+                              <div>
+                                <h4 className={styles.planName}>{tier.name}</h4>
+                                {tier.subLabel && (
+                                  <span className={styles.planSubLabel}>{tier.subLabel}</span>
+                                )}
+                                {tier.headline && (
+                                  <span className={styles.planHeadline}>{tier.headline}</span>
+                                )}
+                              </div>
+                              <div className={styles.planPrice}>
+                                <span>{tier.price}</span>
+                                <span className={styles.planPeriod}>{tier.period}</span>
+                              </div>
+                            </header>
+                            {tier.description && (
+                              <p className={styles.planDescription}>{tier.description}</p>
+                            )}
+                            <ul className={styles.planFeatures}>
+                              {tier.features.map((feature: string) => (
+                                <li key={feature}>{feature}</li>
+                              ))}
+                            </ul>
+                            {tier.ribbon ? (
+                              <span className={styles.planRibbon}>{tier.ribbon}</span>
+                            ) : null}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className={styles.configurator}>
+                    <h3 className={styles.configTitle}>
+                      {locale === "ru" ? "Настройки" : "Configuration"}
+                    </h3>
+                    <div className={styles.configGrid}>
+                      <label className={styles.configField}>
+                        <span className={styles.configLabel}>
+                          {locale === "ru" ? "Местоположение прокси" : "Proxy location"}
+                        </span>
+                        <select
+                          className={styles.configSelect}
+                          value={selectedLocation}
+                          onChange={(event) => setSelectedLocation(event.target.value)}
+                        >
+                          {configurationOptions.locations.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className={styles.configField}>
+                        <span className={styles.configLabel}>ISP</span>
+                        <select
+                          className={styles.configSelect}
+                          value={selectedIsp}
+                          onChange={(event) => setSelectedIsp(event.target.value)}
+                        >
+                          {configurationOptions.isps.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className={styles.configField}>
+                        <span className={styles.configLabel}>
+                          {locale === "ru" ? "Количество прокси (IP)" : "Number of proxies"}
+                        </span>
+                        <select
+                          className={styles.configSelect}
+                          value={selectedQuantity}
+                          onChange={(event) => setSelectedQuantity(event.target.value)}
+                        >
+                          {configurationOptions.quantities.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className={styles.configField}>
+                        <span className={styles.configLabel}>
+                          {locale === "ru" ? "Временной период" : "Billing period"}
+                        </span>
+                        <select
+                          className={styles.configSelect}
+                          value={selectedPeriod}
+                          onChange={(event) => setSelectedPeriod(event.target.value)}
+                        >
+                          {configurationOptions.periods.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className={`${styles.configField} ${styles.configToggle}`}>
                         <div>
-                          <h3 className={styles.tierName}>{tier.name}</h3>
-                          {tier.subLabel && <span className={styles.tierSubLabel}>{tier.subLabel}</span>}
-                          {tier.headline && <span className={styles.tierHeadline}>{tier.headline}</span>}
+                          <span className={styles.configLabel}>
+                            {locale === "ru" ? "Автопродление" : "Auto renewal"}
+                          </span>
+                          <span className={styles.configDescription}>
+                            {locale === "ru"
+                              ? "Оплата продлевается автоматически"
+                              : "Enable automatic renewal"}
+                          </span>
                         </div>
-                        <p className={styles.tierPrice}>
-                          <span>{tier.price}</span>
-                          <span className={styles.tierPeriod}>{tier.period}</span>
+                        <button
+                          type="button"
+                          className={`${styles.toggle} ${autoRenew ? styles.toggleActive : ""}`.trim()}
+                          onClick={() => setAutoRenew((prev) => !prev)}
+                          aria-pressed={autoRenew}
+                        >
+                          <span className={styles.toggleHandle} />
+                        </button>
+                      </label>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className={styles.rotatingConfigurator}>
+                  <div className={styles.rotatingCard}>
+                    <header className={styles.rotatingHeader}>
+                      <div>
+                        <h3 className={styles.rotatingTitle}>
+                          {locale === "ru"
+                            ? "Оплата за трафик"
+                            : "Pay per traffic"}
+                        </h3>
+                        <p className={styles.rotatingSubtitle}>
+                          {locale === "ru"
+                            ? "Выберите, сколько гигабайт трафика требуется в месяц."
+                            : "Choose how many gigabytes you need each month."}
                         </p>
-                      </header>
-                      {tier.ribbon ? (
-                        <span className={styles.tierRibbon}>{tier.ribbon}</span>
-                      ) : null}
-                      {tier.description && <p className={styles.tierDescription}>{tier.description}</p>}
-                      <ul className={styles.tierFeatures}>
-                        {tier.features.map((feature: string) => (
-                          <li key={feature}>{feature}</li>
-                        ))}
-                      </ul>
-                    </button>
-                  );
-                })}
-              </div>
+                      </div>
+                      <div className={styles.rotatingPrice}>
+                        <span>{activeTier?.price ?? "—"}</span>
+                        {activeTier?.period && (
+                          <span className={styles.rotatingPeriod}>{activeTier.period}</span>
+                        )}
+                      </div>
+                    </header>
+                    <div className={styles.rotatingSlider}>
+                      <input
+                        type="range"
+                        min={0}
+                        max={rotatingSliderMax}
+                        step={1}
+                        value={activeTierIndex}
+                        onChange={(event) => {
+                          const index = Number.parseInt(event.target.value, 10);
+                          const nextTier = activeTiers[index];
+                          if (nextTier) {
+                            setTierId(nextTier.id);
+                          }
+                        }}
+                        aria-valuemin={0}
+                        aria-valuemax={rotatingSliderMax}
+                      />
+                      <div className={styles.rotatingMarks}>
+                        {activeTiers.map((tier: OrderTier) => {
+                          const isActive = tier.id === activeTier?.id;
+                          return (
+                            <button
+                              key={tier.id}
+                              type="button"
+                              className={`${styles.rotatingMark} ${isActive ? styles.rotatingMarkActive : ""}`.trim()}
+                              onClick={() => setTierId(tier.id)}
+                              aria-pressed={isActive}
+                            >
+                              {tier.name}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <ul className={styles.rotatingFeatures}>
+                      {activeTier?.features.map((feature: string) => (
+                        <li key={feature}>{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </section>
           )}
 
