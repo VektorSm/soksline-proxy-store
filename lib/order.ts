@@ -13,7 +13,7 @@ export type OrderTier = PricingTier & {
   priceAmount: number;
 };
 
-export type OrderCategory = PricingCategory & {
+export type OrderCategory = Omit<PricingCategory, "tiers"> & {
   tiers: OrderTier[];
 };
 
