@@ -317,7 +317,7 @@
 
 .tierRibbon {
   position: absolute;
-  top: 18px;
+  bottom: 18px;
   right: 18px;
   font-size: 11px;
   letter-spacing: 0.08em;
