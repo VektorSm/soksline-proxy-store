@@ -79,6 +79,7 @@ type ServiceDefinition = {
   pricing: LocalizedPricingPage;
   currency: string;
   cardCopy: Record<Locale, OrderServiceCard>;
+  orderCategories?: Record<Locale, OrderCategory[]>;
 };
 
 const SERVICE_DEFINITIONS: ServiceDefinition[] = [
@@ -109,6 +110,122 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
         ],
         badge: "Popular",
       },
+    },
+    orderCategories: {
+      ru: [
+        {
+          id: "core-plans",
+          label: "Планы",
+          tiers: [
+            {
+              id: "static-basic",
+              name: "Базовый",
+              price: "$1.95",
+              period: "за прокси / мес",
+              description: "Стартовый набор возможностей для небольших команд.",
+              features: [
+                "До 3 пользователей",
+                "1 ГБ пропускной способности",
+                "Без обновлений скорости",
+                "Без расширения параллельности",
+              ],
+              ctaHref: "/order",
+              priceAmount: 1.95,
+              totalMultiplier: 1,
+            },
+            {
+              id: "static-dedicated",
+              name: "Выделенный",
+              ribbon: "Популярное",
+              price: "$3.95",
+              period: "за прокси / мес",
+              description: "Выделенные ресурсы и комфорт для постоянной работы.",
+              features: [
+                "Выделенные IP для одного пользователя",
+                "Неограниченная пропускная способность",
+                "Обновления скорости включены",
+                "Обновления параллельности включены",
+              ],
+              ctaHref: "/order",
+              priceAmount: 3.95,
+              totalMultiplier: 1,
+            },
+            {
+              id: "static-premium",
+              name: "Премиум",
+              price: "$5.47",
+              period: "за прокси / мес",
+              description: "Чистые IP и максимум возможностей без ограничений.",
+              features: [
+                "Неиспользованные ранее IP",
+                "Неограниченная пропускная способность",
+                "Максимальные обновления скорости",
+                "Максимальная параллельность",
+              ],
+              ctaHref: "/order",
+              priceAmount: 5.47,
+              totalMultiplier: 1,
+            },
+          ],
+        },
+      ],
+      en: [
+        {
+          id: "core-plans",
+          label: "Plans",
+          tiers: [
+            {
+              id: "static-basic",
+              name: "Basic",
+              price: "$1.95",
+              period: "per proxy / mo",
+              description: "Everything you need to get started with a small team.",
+              features: [
+                "Up to 3 users",
+                "1 GB bandwidth cap",
+                "No speed upgrades",
+                "No parallelism upgrades",
+              ],
+              ctaHref: "/order",
+              priceAmount: 1.95,
+              totalMultiplier: 1,
+            },
+            {
+              id: "static-dedicated",
+              name: "Dedicated",
+              ribbon: "Popular",
+              price: "$3.95",
+              period: "per proxy / mo",
+              description: "Dedicated resources tuned for consistent performance.",
+              features: [
+                "Dedicated IP for a single user",
+                "Unlimited bandwidth",
+                "Speed upgrades included",
+                "Parallelism upgrades included",
+              ],
+              ctaHref: "/order",
+              priceAmount: 3.95,
+              totalMultiplier: 1,
+            },
+            {
+              id: "static-premium",
+              name: "Premium",
+              price: "$5.47",
+              period: "per proxy / mo",
+              description: "Fresh IPs and the full power of the SoksLine stack.",
+              features: [
+                "Never-before-used IPs",
+                "Unlimited bandwidth",
+                "Maximum speed upgrades",
+                "Maximum parallelism",
+              ],
+              ctaHref: "/order",
+              priceAmount: 5.47,
+              totalMultiplier: 1,
+            },
+          ],
+        },
+      ],
     },
   },
   {
@@ -251,6 +368,7 @@ function buildCategories(data: PricingPageData): OrderCategory[] {
 function buildService(locale: Locale, definition: ServiceDefinition): OrderService {
   const pricingData = definition.pricing[locale];
   const card = definition.cardCopy[locale];
+  const categories = definition.orderCategories?.[locale] ?? buildCategories(pricingData);
 
   return {
     id: definition.id,
@@ -259,7 +377,7 @@ function buildService(locale: Locale, definition: ServiceDefinition): OrderServi
     detailSubtitle: pricingData.subtitle,
     detailHighlight: pricingData.highlight,
     viewAllHref: `/pricing/${pricingData.slug}`,
-    categories: buildCategories(pricingData),
+    categories,
     currency: definition.currency,
   };
 }

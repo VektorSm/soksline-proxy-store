@@ -225,18 +225,6 @@ export default function OrderPageContent() {
 
           {activeService && (
             <section className={styles.detailSection}>
-              <header className={styles.detailHeader}>
-                <div>
-                  <h2 className={styles.detailTitle}>{activeService.detailTitle}</h2>
-                  <p className={styles.detailSubtitle}>{activeService.detailSubtitle}</p>
-                </div>
-                <Link href={activeService.viewAllHref} className={styles.viewAllLink}>
-                  {page.copy.moreInfoLabel}
-                </Link>
-              </header>
-
-              <p className={styles.detailHighlight}>{activeService.detailHighlight}</p>
-
               {!isRotatingService && activeService.categories.length > 1 && (
                 <div className={styles.categoryTabs}>
                   {activeService.categories.map((category: OrderCategory) => {
