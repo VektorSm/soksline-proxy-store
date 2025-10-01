@@ -170,21 +170,38 @@ export const STATIC_RESIDENTIAL_PAGE: LocalizedProductPage = {
     offers: {
       title: "Static ISP",
       description:
-        "Простые тарифы и предсказуемая цена. IPv6-прокси помогают масштабировать автоматизацию и парсинг.",
-      plans: [
+        "Выделенные IPv6-адреса для проектов, которым важны стабильность, скорость и изоляция ресурсов.",
+      layout: "text",
+      textSections: [
         {
-          id: "dedicated-ipv6",
-          name: "Dedicated IPv6",
-          price: "$29.67",
-          period: "/месяц",
-          summary: "Выделенные IPv6-линии с мгновенной выдачей и управлением через дашборд.",
-          features: [
-            { label: "Безлимитный трафик" },
-            { label: "Кастомная ротация" },
-            { label: "API и панель" },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6",
+          id: "bandwidth",
+          title: "Безлимитный трафик",
+          body:
+            "Прокси не ограничены по объёму передаваемых данных — поддерживайте длительные сессии и интенсивный парсинг без рисков по достижению лимитов.",
+        },
+        {
+          id: "threads",
+          title: "100 потоков",
+          body:
+            "Одновременная работа до ста соединений с одной учётной записи помогает ускорить сбор данных и автоматизацию даже при плотных расписаниях.",
+        },
+        {
+          id: "speed",
+          title: "100+ Mbps",
+          body:
+            "Высокая пропускная способность сохраняет скорость загрузки страниц и стабильность соединений, даже когда трафик распределён на множество задач.",
+        },
+        {
+          id: "dedicated",
+          title: "Выделенный IP-адрес",
+          body:
+            "Каждый IPv6-адрес закреплён за вами, что исключает пересечения с соседями и снижает вероятность блокировок со стороны целевых ресурсов.",
+        },
+        {
+          id: "geography",
+          title: "IPv6-адреса из США",
+          body:
+            "Арендуйте пул адресов из американских дата-центров, чтобы работать с сервисами, требующими присутствия в США.",
         },
       ],
       note: "IPv6 лучше всего подходит сервисам, поддерживающим новый протокол.",
@@ -210,24 +227,42 @@ export const STATIC_RESIDENTIAL_PAGE: LocalizedProductPage = {
     },
     offers: {
       title: "Static ISP",
-      description: "Simple plans with predictable pricing. IPv6 proxies deliver scale for large automation tasks.",
-      plans: [
+      description:
+        "Dedicated IPv6 addresses for teams that need consistent performance, private resources, and US presence.",
+      layout: "text",
+      textSections: [
         {
-          id: "dedicated-ipv6",
-          name: "Dedicated IPv6",
-          price: "$29.67",
-          period: "/month",
-          summary: "Dedicated IPv6 lines with instant provisioning and dashboard management.",
-          features: [
-            { label: "Unlimited traffic" },
-            { label: "Custom rotation" },
-            { label: "API & dashboard" },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=static-residential-ipv6&plan=dedicated-ipv6",
+          id: "bandwidth",
+          title: "Unlimited Bandwidth",
+          body:
+            "Push large volumes of requests and sustain always-on sessions without worrying about overage fees or throttling.",
+        },
+        {
+          id: "threads",
+          title: "100 Threads",
+          body:
+            "Run up to one hundred concurrent connections per account so your crawlers and automation workflows finish faster.",
+        },
+        {
+          id: "speed",
+          title: "100+ Mbps",
+          body:
+            "Maintain quick page loads and reliable throughput even when your traffic is spread across multiple projects.",
+        },
+        {
+          id: "dedicated",
+          title: "Dedicated IP Address",
+          body:
+            "Each IPv6 address is reserved for you, keeping neighbors out of your pool and reducing the chance of destination blocks.",
+        },
+        {
+          id: "geography",
+          title: "IPv6 Addresses from the US",
+          body:
+            "Leverage US-based infrastructure to satisfy location requirements and maintain compliance with geo-sensitive platforms.",
         },
       ],
-      note: "IPv6 works best with services that support the new protocol stack.",
+      note: "IPv6 works best with services that support the modern protocol stack.",
     },
   },
 };
