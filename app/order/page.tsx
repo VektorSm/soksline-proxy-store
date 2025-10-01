@@ -1,17 +1,17 @@
 import { Suspense } from "react";
 
-import OrderConfigurator from "./OrderConfigurator";
+import OrderPageContent from "./OrderPageContent";
 
 export const metadata = {
-  title: "SoksLine — Configure your proxy order",
+  title: "SoksLine — Order residential proxies",
   description:
-    "Choose a SoksLine proxy service, plan, geo targeting, and billing preferences before completing your purchase.",
+    "Compare residential proxy products and jump to checkout with data synced from the latest SoksLine pricing tiers.",
 };
 
 export default function Page() {
   return (
     <Suspense fallback={null}>
-      <OrderConfigurator />
+      <OrderPageContent />
     </Suspense>
   );
 }
