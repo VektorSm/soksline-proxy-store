@@ -315,28 +315,6 @@
   box-shadow: 0 0 0 1px rgba(126, 158, 255, 0.4);
 }
 
-.tierFooter {
-  position: absolute;
-  right: 22px;
-  bottom: 22px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.tierRibbon {
-  display: inline-flex;
-  align-items: center;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, #f8c390, #f28f6b);
-  color: #1a0c0a;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-weight: 700;
-  line-height: 1;
-}
-
 .tierHeader {
   display: flex;
   justify-content: space-between;
