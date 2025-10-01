@@ -188,7 +188,6 @@ export default function OrderPageContent() {
                       onClick={() => setTierId(tier.id)}
                       aria-pressed={isActive}
                     >
-                      {tier.ribbon && <span className={styles.tierRibbon}>{tier.ribbon}</span>}
                       <header className={styles.tierHeader}>
                         <div>
                           <h3 className={styles.tierName}>{tier.name}</h3>
@@ -206,6 +205,11 @@ export default function OrderPageContent() {
                           <li key={feature}>{feature}</li>
                         ))}
                       </ul>
+                      {tier.ribbon && (
+                        <div className={styles.tierFooter}>
+                          <span className={styles.tierRibbon}>{tier.ribbon}</span>
+                        </div>
+                      )}
                     </button>
                   );
                 })}

@@ -12,6 +12,7 @@ export type PricingTier = {
   ctaLabel?: string;
   ctaHref: string;
   ribbon?: string;
+  ribbonPlacement?: "top" | "bottom";
 };
 
 export type PricingCategory = {
@@ -70,6 +71,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             price: "$1.49",
             period: "за прокси",
             ribbon: "ЛУЧШИЙ ПАКЕТ",
+            ribbonPlacement: "top",
             features: [
               "Безлимитный трафик",
               "Неограниченные потоки",
@@ -186,6 +188,7 @@ export const STATIC_RESIDENTIAL_PRICING: LocalizedPricingPage = {
             price: "$1.49",
             period: "per proxy",
             ribbon: "BEST FORMULA",
+            ribbonPlacement: "top",
             features: [
               "Unlimited Bandwidth",
               "Unlimited Threads",

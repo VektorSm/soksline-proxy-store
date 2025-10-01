@@ -315,10 +315,16 @@
   box-shadow: 0 0 0 1px rgba(126, 158, 255, 0.4);
 }
 
+.tierFooter {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+
 .tierRibbon {
-  position: absolute;
-  top: 18px;
-  right: 18px;
+  display: inline-flex;
+  align-items: center;
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -327,6 +333,7 @@
   padding: 4px 10px;
   border-radius: 999px;
   font-weight: 700;
+  line-height: 1;
 }
 
 .tierHeader {
