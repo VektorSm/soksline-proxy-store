@@ -3,217 +3,337 @@
   padding: 120px 24px 96px;
   display: flex;
   justify-content: center;
+  background: radial-gradient(circle at top right, rgba(71, 97, 255, 0.1), transparent 55%),
+    #060b1d;
   color: #f4f7ff;
 }
 
-.container {
+.layout {
   width: min(1180px, 100%);
   display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.contentColumn {
+  flex: 1;
+  display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 32px;
+}
+
+.summaryColumn {
+  width: min(340px, 100%);
+  position: sticky;
+  top: 112px;
+}
+
+.cardBase {
+  background: rgba(13, 21, 42, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 32px;
+  backdrop-filter: blur(12px);
 }
 
 .hero {
-  background: rgba(15, 24, 45, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  padding: 36px;
+  composes: cardBase;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  backdrop-filter: blur(12px);
 }
 
 .heroEyebrow {
   text-transform: uppercase;
-  font-size: 13px;
   letter-spacing: 0.22em;
+  font-size: 13px;
   color: #9bb7ff;
 }
 
 .heroTitle {
-  font-size: clamp(32px, 4vw, 40px);
   margin: 0;
-  line-height: 1.15;
+  font-size: clamp(32px, 4vw, 44px);
+  line-height: 1.1;
 }
 
 .heroSubtitle {
   margin: 0;
-  color: #c6d3f5;
   font-size: 18px;
+  color: #c6d3f5;
   line-height: 1.5;
 }
 
 .heroDescription {
   margin: 0;
-  color: #aab7dd;
   font-size: 15px;
+  color: #aab7dd;
   line-height: 1.7;
-  max-width: 760px;
+  max-width: 720px;
 }
 
 .paymentCard {
+  composes: cardBase;
   display: flex;
   justify-content: space-between;
   gap: 24px;
   align-items: center;
-  padding: 28px 32px;
-  border-radius: 20px;
-  background: rgba(9, 15, 30, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .paymentTitle {
   margin: 0 0 8px;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .paymentNote {
   margin: 0;
-  color: #aab7dd;
-  font-size: 15px;
+  color: #b5c5f0;
   line-height: 1.6;
 }
 
 .paymentMethods {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   align-items: flex-end;
+  gap: 10px;
 }
 
 .paymentMethodsLabel {
-  font-size: 13px;
   text-transform: uppercase;
+  font-size: 13px;
   letter-spacing: 0.18em;
   color: #7d8bb5;
 }
 
 .paymentMethodsList {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
-  list-style: none;
+  gap: 10px;
   margin: 0;
   padding: 0;
-  color: #f4f7ff;
+  list-style: none;
   font-weight: 600;
 }
 
-.sections {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.sectionCard {
-  background: rgba(15, 24, 45, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  padding: 32px;
+.servicesSection {
+  composes: cardBase;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  backdrop-filter: blur(12px);
 }
 
-.sectionHeader {
+.servicesHeader {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.servicesTitle {
+  margin: 0;
+  font-size: 24px;
+}
+
+.servicesSubtitle {
+  margin: 0;
+  color: #aab7dd;
+  line-height: 1.6;
+}
+
+.serviceCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.serviceCard {
+  background: rgba(9, 15, 30, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 22px;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+  position: relative;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-.sectionTitle {
+.serviceCard:hover {
+  border-color: rgba(129, 158, 255, 0.6);
+  transform: translateY(-4px);
+}
+
+.serviceCardActive {
+  border-color: #7e9eff;
+  box-shadow: 0 0 0 1px rgba(126, 158, 255, 0.4);
+}
+
+.serviceBadge {
+  align-self: flex-start;
+  background: linear-gradient(135deg, #7e9eff, #9ed8ff);
+  color: #060b1d;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.serviceCardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.serviceName {
   margin: 0;
-  font-size: 26px;
+  font-size: 18px;
 }
 
-.sectionSubtitle {
-  margin: 6px 0 0;
+.serviceHeadline {
+  margin: 0;
   color: #c6d3f5;
-  max-width: 720px;
-}
-
-.moreLink {
   font-size: 14px;
-  color: #9bb7ff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
 }
 
-.moreLink:hover {
-  color: #c4d5ff;
-}
-
-.sectionHighlight {
+.servicePriceHint {
   margin: 0;
+  font-weight: 600;
+  color: #9bb7ff;
+}
+
+.serviceHighlights {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   color: #aab7dd;
   font-size: 15px;
   line-height: 1.6;
 }
 
-.categories {
-  display: grid;
+.detailSection {
+  composes: cardBase;
+  display: flex;
+  flex-direction: column;
   gap: 24px;
 }
 
-.category {
+.detailHeader {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.categoryTitle {
+.detailTitle {
   margin: 0;
-  font-size: 18px;
-  color: #dbe5ff;
+  font-size: 26px;
 }
 
-.tiers {
+.detailSubtitle {
+  margin: 8px 0 0;
+  color: #c6d3f5;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.viewAllLink {
+  align-self: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #9bb7ff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.viewAllLink:hover {
+  color: #c4d5ff;
+}
+
+.detailHighlight {
+  margin: 0;
+  color: #9fb4eb;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.categoryTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.categoryTab {
+  background: rgba(9, 15, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #d7e2ff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.categoryTabActive {
+  border-color: #7e9eff;
+  background: rgba(126, 158, 255, 0.16);
+}
+
+.tierGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 18px;
 }
 
 .tierCard {
-  background: rgba(9, 15, 30, 0.92);
+  background: rgba(8, 14, 28, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   position: relative;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .tierCard:hover {
-  border-color: rgba(126, 158, 255, 0.5);
+  border-color: rgba(129, 158, 255, 0.6);
   transform: translateY(-4px);
+}
+
+.tierCardActive {
+  border-color: #7e9eff;
+  box-shadow: 0 0 0 1px rgba(126, 158, 255, 0.4);
 }
 
 .tierRibbon {
   position: absolute;
   top: 18px;
   right: 18px;
-  background: rgba(126, 158, 255, 0.2);
-  color: #c4d5ff;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #f8c390, #f28f6b);
+  color: #1a0c0a;
   padding: 4px 10px;
   border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-weight: 700;
 }
 
 .tierHeader {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .tierName {
@@ -221,105 +341,214 @@
   font-size: 18px;
 }
 
-.tierSubLabel {
+.tierSubLabel,
+.tierHeadline {
   display: inline-block;
-  margin-top: 4px;
-  font-size: 13px;
+  margin-top: 6px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: #9bb7ff;
+  font-weight: 700;
+}
+
+.tierHeadline {
+  color: #f7cfa7;
 }
 
 .tierPrice {
   margin: 0;
-  font-size: 22px;
-  font-weight: 700;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 2px;
+  gap: 4px;
+  font-weight: 700;
+  color: #f4f7ff;
 }
 
 .tierPeriod {
   font-size: 13px;
   color: #aab7dd;
-  font-weight: 500;
 }
 
 .tierDescription {
   margin: 0;
-  color: #c6d3f5;
+  color: #aab7dd;
+  line-height: 1.6;
   font-size: 14px;
-  line-height: 1.5;
 }
 
 .tierFeatures {
   margin: 0;
-  padding-left: 18px;
-  color: #aab7dd;
-  font-size: 14px;
+  padding: 0;
+  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-}
-
-.tierCta {
-  align-self: flex-start;
-  margin-top: auto;
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: rgba(126, 158, 255, 0.18);
-  color: #dbe5ff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.tierCta:hover {
-  background: rgba(126, 158, 255, 0.28);
-  color: #ffffff;
+  gap: 8px;
+  color: #9fb4eb;
+  font-size: 14px;
 }
 
 .contactCard {
+  composes: cardBase;
   display: flex;
   justify-content: space-between;
+  gap: 18px;
   align-items: center;
-  gap: 24px;
-  padding: 30px 32px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, rgba(74, 110, 255, 0.25), rgba(34, 49, 94, 0.85));
-  border: 1px solid rgba(132, 159, 255, 0.2);
 }
 
 .contactTitle {
-  margin: 0 0 8px;
-  font-size: 24px;
+  margin: 0 0 6px;
+  font-size: 22px;
 }
 
 .contactSubtitle {
   margin: 0;
-  color: #e5ecff;
-  font-size: 16px;
+  color: #aab7dd;
   line-height: 1.6;
-  max-width: 620px;
+  max-width: 520px;
 }
 
 .contactCta {
-  padding: 12px 24px;
+  background: linear-gradient(135deg, #7e9eff, #9ed8ff);
+  color: #061024;
   border-radius: 999px;
-  background: rgba(12, 18, 36, 0.85);
-  color: #ffffff;
+  padding: 12px 24px;
+  font-weight: 700;
   text-decoration: none;
-  font-weight: 600;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .contactCta:hover {
-  background: rgba(12, 18, 36, 1);
   transform: translateY(-2px);
 }
 
-@media (max-width: 960px) {
+.summaryCard {
+  composes: cardBase;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tierPrice {
+  margin: 0;
+  font-size: 24px;
+}
+
+.summaryList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summaryLabel {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #7d8bb5;
+}
+
+.summaryValue {
+  display: block;
+  color: #f4f7ff;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.summaryPriceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.summaryPeriod {
+  margin: 0;
+  font-size: 13px;
+  color: #aab7dd;
+}
+
+.summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  background: rgba(9, 15, 30, 0.92);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.summaryTotalValue {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.summaryFeaturesTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #aab7dd;
+}
+
+.summaryFeaturesList {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #9fb4eb;
+  font-size: 14px;
+}
+
+.summaryCta {
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7e9eff, #9ed8ff);
+  color: #05122a;
+  font-weight: 700;
+  padding: 14px 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.summaryCta:hover {
+  transform: translateY(-2px);
+}
+
+.summaryDisclaimer {
+  margin: 0;
+  font-size: 13px;
+  color: #8091bd;
+  line-height: 1.6;
+}
+
+@media (max-width: 1080px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .summaryColumn {
+    position: static;
+    width: 100%;
+  }
+
+@media (max-width: 720px) {
   .page {
-    padding: 96px 20px 72px;
+    padding: 96px 16px 72px;
+  }
+}
+
+  .cardBase,
+  .hero,
+  .paymentCard,
+  .servicesSection,
+  .detailSection,
+  .contactCard,
+  .summaryCard {
+    padding: 24px;
   }
 
   .paymentCard,
@@ -328,31 +557,8 @@
     align-items: flex-start;
   }
 
-  .paymentMethods {
-    align-items: flex-start;
-  }
-
-  .tierHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .tierPrice {
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 640px) {
-  .hero,
-  .sectionCard {
-    padding: 24px;
-  }
-
-  .paymentCard {
-    padding: 24px;
-  }
-
-  .contactCard {
-    padding: 24px;
+  .paymentMethods,
+  .contactCta {
+    align-self: stretch;
   }
 }
