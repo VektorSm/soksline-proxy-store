@@ -315,6 +315,23 @@
   box-shadow: 0 0 0 1px rgba(126, 158, 255, 0.4);
 }
 
+.tierRibbon {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  background: linear-gradient(135deg, #f7c354, #f5a623);
+  color: #061024;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(245, 166, 35, 0.3);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
 .tierHeader {
   display: flex;
   justify-content: space-between;
