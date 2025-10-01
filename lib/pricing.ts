@@ -297,6 +297,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "10 прокси",
             price: "$0.63",
             period: "за прокси / мес",
+            totalMultiplier: 10,
             features: [
               "SOCKS5 и HTTP/S",
               "Sticky-сессии",
@@ -312,6 +313,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "50 прокси",
             price: "$0.59",
             period: "за прокси / мес",
+            totalMultiplier: 50,
             features: [
               "SOCKS5 и HTTP/S",
               "Sticky-сессии",
@@ -327,6 +329,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "100 прокси",
             price: "$0.56",
             period: "за прокси / мес",
+            totalMultiplier: 100,
             features: [
               "SOCKS5 и HTTP/S",
               "Sticky-сессии",
@@ -348,6 +351,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "10 прокси",
             price: "$0.58",
             period: "за прокси / мес",
+            totalMultiplier: 10 * 3,
             features: [
               "SOCKS5 и HTTP/S",
               "Sticky-сессии",
@@ -364,6 +368,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             ribbon: "-8%",
             price: "$0.55",
             period: "за прокси / мес",
+            totalMultiplier: 50 * 3,
             features: [
               "SOCKS5 и HTTP/S",
               "Sticky-сессии",
@@ -379,6 +384,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "100 прокси",
             price: "$0.52",
             period: "за прокси / мес",
+            totalMultiplier: 100 * 3,
             features: [
               "SOCKS5 и HTTP/S",
               "Sticky-сессии",
@@ -410,6 +416,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "10 Proxies",
             price: "$0.63",
             period: "per proxy / month",
+            totalMultiplier: 10,
             features: [
               "SOCKS5 and HTTP/S",
               "Sticky Sessions",
@@ -424,6 +431,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "50 Proxies",
             price: "$0.59",
             period: "per proxy / month",
+            totalMultiplier: 50,
             features: [
               "SOCKS5 and HTTP/S",
               "Sticky Sessions",
@@ -438,6 +446,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "100 Proxies",
             price: "$0.56",
             period: "per proxy / month",
+            totalMultiplier: 100,
             features: [
               "SOCKS5 and HTTP/S",
               "Sticky Sessions",
@@ -458,6 +467,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "10 Proxies",
             price: "$0.58",
             period: "per proxy / month",
+            totalMultiplier: 10 * 3,
             features: [
               "SOCKS5 and HTTP/S",
               "Sticky Sessions",
@@ -473,6 +483,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             ribbon: "SAVE 8%",
             price: "$0.55",
             period: "per proxy / month",
+            totalMultiplier: 50 * 3,
             features: [
               "SOCKS5 and HTTP/S",
               "Sticky Sessions",
@@ -487,6 +498,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
             name: "100 Proxies",
             price: "$0.52",
             period: "per proxy / month",
+            totalMultiplier: 100 * 3,
             features: [
               "SOCKS5 and HTTP/S",
               "Sticky Sessions",
