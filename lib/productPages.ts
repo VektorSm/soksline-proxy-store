@@ -24,6 +24,12 @@ export type ProductPlan = {
   ctaHref: string;
 };
 
+export type ProductOfferTextSection = {
+  id: string;
+  title: string;
+  body: string;
+};
+
 export type ProductPageData = {
   hero: {
     eyebrow?: string;
@@ -38,7 +44,9 @@ export type ProductPageData = {
   offers: {
     title: string;
     description?: string;
-    plans: ProductPlan[];
+    layout?: "cards" | "text";
+    plans?: ProductPlan[];
+    textSections?: ProductOfferTextSection[];
     note?: string;
   };
 };
@@ -68,58 +76,25 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
       title: "Static ISP",
       description:
         "Подберите тариф под свою нагрузку и географию. Каждый план включает API для автоматизации и мгновенную выдачу.",
-      plans: [
+      layout: "text",
+      textSections: [
         {
           id: "basic",
-          name: "Basic",
-          priceLabel: "От",
-          compareAt: "$2.29",
-          price: "$1.95",
-          period: "/месяц",
-          summary: "Для одиночных пользователей с ограничением по трафику.",
-          features: [
-            { label: "До 3 пользователей" },
-            { label: "1 ГБ трафика", included: false },
-            { label: "Без апгрейда скорости", included: false },
-            { label: "Без роста одновременных сессий", included: false },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=static-isp&plan=basic",
+          title: "Basic",
+          body:
+            "Подходит для личных проектов и тестовых запусков. Вы получаете выделенный статический IP с базовыми лимитами по трафику и управляете доступом через простой дашборд.",
         },
         {
           id: "dedicated",
-          name: "Dedicated",
-          badge: "Популярно",
-          priceLabel: "От",
-          compareAt: "$2.49",
-          price: "$2.12",
-          period: "/месяц",
-          summary: "Выделенные IPv4 с гибкой настройкой ASN и гео.",
-          features: [
-            { label: "Для одного пользователя" },
-            { label: "Безлимитный трафик" },
-            { label: "Апгрейды скорости" },
-            { label: "Расширение по одновременным сессиям" },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=static-isp&plan=dedicated",
+          title: "Dedicated",
+          body:
+            "Оптимален для регулярных задач с повышенными требованиями. Выделенный IPv4, гибкая настройка ASN и географии, безлимитный трафик и поддержка расширения скорости.",
         },
         {
           id: "premium",
-          name: "Premium",
-          priceLabel: "От",
-          compareAt: "$7.49",
-          price: "$5.47",
-          period: "/месяц",
-          summary: "Enterprise-пулы с кастомной ротацией и SLA.",
-          features: [
-            { label: "IP без истории" },
-            { label: "Безлимитный трафик" },
-            { label: "Апгрейды скорости" },
-            { label: "Расширение по сессиям" },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=static-isp&plan=premium",
+          title: "Premium",
+          body:
+            "Корпоративный уровень с кастомной ротацией, SLA и приоритетной поддержкой. Подходит для крупных пулов, где важна высочайшая стабильность и масштабируемость.",
         },
       ],
       note: "Нужны объёмы под заказ? Напишите в отдел продаж для кастомных пулов ISP.",
@@ -147,58 +122,25 @@ export const ISP_PRODUCT_PAGE: LocalizedProductPage = {
       title: "Static ISP",
       description:
         "Pick a tier that matches your concurrency and geo requirements. Every plan comes with automation-ready APIs and instant delivery.",
-      plans: [
+      layout: "text",
+      textSections: [
         {
           id: "basic",
-          name: "Basic",
-          priceLabel: "Starts at",
-          compareAt: "$2.29",
-          price: "$1.95",
-          period: "/month",
-          summary: "Entry plan for single-seat access with limited bandwidth.",
-          features: [
-            { label: "Used by up to 3 users" },
-            { label: "Limited to 1GB bandwidth", included: false },
-            { label: "No speed upgrades", included: false },
-            { label: "No concurrency upgrades", included: false },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=static-isp&plan=basic",
+          title: "Basic",
+          body:
+            "Ideal for pilots and side projects. You get a dedicated static IP with lightweight bandwidth allowances and simple dashboard management.",
         },
         {
           id: "dedicated",
-          name: "Dedicated",
-          badge: "Popular",
-          priceLabel: "Starts at",
-          compareAt: "$2.49",
-          price: "$2.12",
-          period: "/month",
-          summary: "Dedicated IPv4 access with configurable ASN and geo targeting.",
-          features: [
-            { label: "Dedicated to a single user" },
-            { label: "Unlimited bandwidth" },
-            { label: "Speed upgrades" },
-            { label: "Concurrency upgrades" },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=static-isp&plan=dedicated",
+          title: "Dedicated",
+          body:
+            "Built for steady workloads that need reliability. Dedicated IPv4 with configurable ASN and geo, unlimited traffic, and available speed upgrades.",
         },
         {
           id: "premium",
-          name: "Premium",
-          priceLabel: "Starts at",
-          compareAt: "$7.49",
-          price: "$5.47",
-          period: "/month",
-          summary: "Enterprise grade pools with custom rotation windows and SLA.",
-          features: [
-            { label: "Never used IP" },
-            { label: "Unlimited bandwidth" },
-            { label: "Speed upgrades" },
-            { label: "Concurrency upgrades" },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=static-isp&plan=premium",
+          title: "Premium",
+          body:
+            "Enterprise-grade delivery with custom rotation windows, contractual SLA, and priority support. Designed for large pools that demand maximum stability.",
         },
       ],
       note: "Need custom volumes? Contact sales for bespoke ISP proxy pools.",

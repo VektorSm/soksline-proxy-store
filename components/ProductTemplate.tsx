@@ -22,17 +22,28 @@ type ProductTemplateProps = {
 export default function ProductTemplate({ data, cardsVariant = "default" }: ProductTemplateProps) {
   const { locale } = useLocale();
   const copy = data[locale];
+  const offersLayout = copy.offers.layout ?? "cards";
+  const isTextLayout = offersLayout === "text";
+  const plans = useMemo(() => copy.offers.plans ?? [], [copy.offers.plans]);
+  const textSections = useMemo(() => copy.offers.textSections ?? [], [copy.offers.textSections]);
   const cardsClassName = `${styles.cards} ${
     cardsVariant === "compact" ? styles.cardsCompact : ""
   }`.trim();
-  const planIds = useMemo(() => copy.offers.plans.map(plan => plan.id), [copy.offers.plans]);
+  const planIds = useMemo(() => (isTextLayout ? [] : plans.map(plan => plan.id)), [isTextLayout, plans]);
   const [activePlanId, setActivePlanId] = useState<string | null>(planIds[0] ?? null);
 
   useEffect(() => {
+    if (isTextLayout) {
+      if (activePlanId !== null) {
+        setActivePlanId(null);
+      }
+      return;
+    }
+
     if (!activePlanId || !planIds.includes(activePlanId)) {
       setActivePlanId(planIds[0] ?? null);
     }
-  }, [planIds, activePlanId]);
+  }, [isTextLayout, planIds, activePlanId]);
 
   const handleCardKeyDown = (planId: string) => (event: KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -85,61 +96,72 @@ export default function ProductTemplate({ data, cardsVariant = "default" }: Prod
             {copy.offers.description && <p className={styles.offersDescription}>{copy.offers.description}</p>}
           </header>
 
-          <div className={cardsClassName}>
-            {copy.offers.plans.map(plan => (
-              <article
-                key={plan.id}
-                className={`${styles.card} ${
-                  plan.badge ? styles.cardFeatured : ""
-                } ${plan.id === activePlanId ? styles.cardActive : ""}`.trim()}
-                onClick={() => setActivePlanId(plan.id)}
-                onKeyDown={handleCardKeyDown(plan.id)}
-                role="button"
-                tabIndex={0}
-                aria-pressed={plan.id === activePlanId}
-              >
-                <header className={styles.cardHeader}>
-                  <div className={styles.cardTitleRow}>
-                    <h3 className={styles.cardTitle}>{plan.name}</h3>
-                    {plan.badge && <span className={styles.cardBadge}>{plan.badge}</span>}
-                  </div>
-                  <div className={styles.cardPriceBlock}>
-                    {plan.priceLabel && <span className={styles.cardPriceLabel}>{plan.priceLabel}</span>}
-                    <p className={styles.cardPrice}>
-                      {plan.compareAt && <span className={styles.cardCompareAt}>{plan.compareAt}</span>}
-                      <span className={styles.cardPriceValue}>{plan.price}</span>
-                      {plan.period && <span className={styles.cardPricePeriod}>{plan.period}</span>}
-                    </p>
-                  </div>
-                </header>
+          {isTextLayout ? (
+            <div className={styles.textSections}>
+              {textSections.map(section => (
+                <article key={section.id} className={styles.textSection}>
+                  <h3 className={styles.textSectionTitle}>{section.title}</h3>
+                  <p className={styles.textSectionBody}>{section.body}</p>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className={cardsClassName}>
+              {plans.map(plan => (
+                <article
+                  key={plan.id}
+                  className={`${styles.card} ${
+                    plan.badge ? styles.cardFeatured : ""
+                  } ${plan.id === activePlanId ? styles.cardActive : ""}`.trim()}
+                  onClick={() => setActivePlanId(plan.id)}
+                  onKeyDown={handleCardKeyDown(plan.id)}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={plan.id === activePlanId}
+                >
+                  <header className={styles.cardHeader}>
+                    <div className={styles.cardTitleRow}>
+                      <h3 className={styles.cardTitle}>{plan.name}</h3>
+                      {plan.badge && <span className={styles.cardBadge}>{plan.badge}</span>}
+                    </div>
+                    <div className={styles.cardPriceBlock}>
+                      {plan.priceLabel && <span className={styles.cardPriceLabel}>{plan.priceLabel}</span>}
+                      <p className={styles.cardPrice}>
+                        {plan.compareAt && <span className={styles.cardCompareAt}>{plan.compareAt}</span>}
+                        <span className={styles.cardPriceValue}>{plan.price}</span>
+                        {plan.period && <span className={styles.cardPricePeriod}>{plan.period}</span>}
+                      </p>
+                    </div>
+                  </header>
 
-                {plan.summary && <p className={styles.cardSummary}>{plan.summary}</p>}
+                  {plan.summary && <p className={styles.cardSummary}>{plan.summary}</p>}
 
-                <ul className={styles.cardFeatures}>
-                  {plan.features.map(feature => {
-                    const included = feature.included ?? true;
-                    return (
-                      <li
-                        key={feature.label}
-                        className={`${styles.cardFeature} ${
-                          included ? styles.featureIncluded : styles.featureExcluded
-                        }`}
-                      >
-                        <span className={styles.featureIcon} aria-hidden="true">
-                          {included ? "✓" : "✕"}
-                        </span>
-                        <span>{feature.label}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
+                  <ul className={styles.cardFeatures}>
+                    {plan.features.map(feature => {
+                      const included = feature.included ?? true;
+                      return (
+                        <li
+                          key={feature.label}
+                          className={`${styles.cardFeature} ${
+                            included ? styles.featureIncluded : styles.featureExcluded
+                          }`}
+                        >
+                          <span className={styles.featureIcon} aria-hidden="true">
+                            {included ? "✓" : "✕"}
+                          </span>
+                          <span>{feature.label}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
 
-                <Link href={plan.ctaHref} className={styles.cardCta} {...getLinkProps(plan.ctaHref)}>
-                  {plan.ctaLabel}
-                </Link>
-              </article>
-            ))}
-          </div>
+                  <Link href={plan.ctaHref} className={styles.cardCta} {...getLinkProps(plan.ctaHref)}>
+                    {plan.ctaLabel}
+                  </Link>
+                </article>
+              ))}
+            </div>
+          )}
 
           {copy.offers.note && <p className={styles.offersNote}>{copy.offers.note}</p>}
         </div>

@@ -151,6 +151,36 @@
   width: 100%;
 }
 
+.textSections {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  width: min(100%, 720px);
+  text-align: left;
+}
+
+.textSection {
+  display: grid;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1.25rem;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  box-shadow: 0 20px 48px -38px rgba(15, 23, 42, 0.45);
+}
+
+.textSectionTitle {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 1.7rem);
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.textSectionBody {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #475569;
+}
+
 .cardsCompact {
   grid-template-columns: repeat(auto-fit, minmax(160px, min(60%, 312px)));
   justify-content: center;
