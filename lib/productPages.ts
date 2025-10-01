@@ -288,21 +288,39 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
     },
     offers: {
       title: "Rotating Residential",
-      description: "Выбирайте тип биллинга под задачу. Прозрачная цена и предсказуемые списания.",
-      plans: [
+      description:
+        "Раскройте всю мощь динамических IP: управляемая ротация, гибкий таргетинг и устойчивая скорость для задач любого масштаба.",
+      layout: "text",
+      textSections: [
         {
-          id: "bandwidth",
-          name: "Bandwidth Pool",
-          price: "$24.95",
-          period: "/GB",
-          summary: "Оплата за трафик с точными лимитами и выбором стран.",
-          features: [
-            { label: "API-ротация" },
-            { label: "Sticky до 30 минут" },
-            { label: "Неограниченная параллельность" },
-          ],
-          ctaLabel: "Продолжить",
-          ctaHref: "/order?service=rotating-residential&plan=bandwidth",
+          id: "coverage",
+          title: "Глобальный охват",
+          body:
+            "85+ миллионов резидентских IP в 180 странах помогают имитировать поведение реальных пользователей и обходить фильтры на любых площадках.",
+        },
+        {
+          id: "rotation",
+          title: "Гибкая ротация",
+          body:
+            "Настраивайте смену адресов по таймеру или по API-событиям, чтобы поддерживать чистые сессии и сохранять высокий процент успешных запросов.",
+        },
+        {
+          id: "targeting",
+          title: "Точный таргетинг",
+          body:
+            "Выбирайте страну и город, комбинируйте фильтры ASN и оператора для локализованных проверок, маркетинга и сбора данных.",
+        },
+        {
+          id: "performance",
+          title: "Скорость и стабильность",
+          body:
+            "Неограниченная параллельность, sticky-сессии до 30 минут и пропускная способность до 1 Гбит/с обеспечивают плавную работу даже под нагрузкой.",
+        },
+        {
+          id: "tooling",
+          title: "Инструменты и поддержка",
+          body:
+            "Панель управления, API, белые списки IP и помощь команды 24/7 помогают быстро интегрировать прокси в ваши процессы.",
         },
       ],
       note: "Персональные требования по комплаенсу и KYC доступны по запросу.",
@@ -328,21 +346,39 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
     },
     offers: {
       title: "Rotating Residential",
-      description: "Choose the traffic type that fits your workload. Transparent pricing with predictable billing.",
-      plans: [
+      description:
+        "Unlock the full power of dynamic IPs with scheduled rotation, precise targeting, and resilient throughput for any workload.",
+      layout: "text",
+      textSections: [
         {
-          id: "bandwidth",
-          name: "Bandwidth Pool",
-          price: "$24.95",
-          period: "/GB",
-          summary: "Pay per traffic with granular limits and country selection.",
-          features: [
-            { label: "API rotation" },
-            { label: "Sticky up to 30 min" },
-            { label: "Unlimited concurrency" },
-          ],
-          ctaLabel: "Continue",
-          ctaHref: "/order?service=rotating-residential&plan=bandwidth",
+          id: "coverage",
+          title: "Global coverage",
+          body:
+            "85M+ residential IPs across 180 countries help you mirror real-user behavior and bypass filters on the sites that matter.",
+        },
+        {
+          id: "rotation",
+          title: "Flexible rotation",
+          body:
+            "Trigger IP changes on a timer or via API events to maintain clean sessions and protect your success rates at scale.",
+        },
+        {
+          id: "targeting",
+          title: "Precise targeting",
+          body:
+            "Pick country and city combinations, layer ASN and carrier filters, and localize your marketing, QA, or data-collection workflows.",
+        },
+        {
+          id: "performance",
+          title: "Performance you can trust",
+          body:
+            "Unlimited concurrency, sticky sessions up to 30 minutes, and throughput up to 1 Gbps keep high-volume automation stable.",
+        },
+        {
+          id: "tooling",
+          title: "Tooling & support",
+          body:
+            "Manage access through dashboards, APIs, and IP whitelists with round-the-clock help from our support engineers.",
         },
       ],
       note: "Custom compliance or KYC requirements available upon request.",
