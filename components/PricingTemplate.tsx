@@ -82,7 +82,7 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
         <div className={styles.plansInner}>
           <div className={styles.cardsGrid}>
             {activeCategory?.tiers.map(tier => {
-              const ribbonPlacement = tier.ribbonPlacement ?? "bottom";
+              const ribbonPlacement = tier.ribbonPlacement ?? "top";
               const renderRibbon = (placement: "top" | "bottom") =>
                 tier.ribbon ? (
                   <span
