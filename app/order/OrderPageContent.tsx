@@ -34,6 +34,25 @@ function getDefaultTier(category: Nullable<OrderCategory>): Nullable<OrderTier> 
   return category?.tiers[0];
 }
 
+function getDiscountMultiplier(tier: Nullable<OrderTier>): number {
+  if (!tier?.ribbon) {
+    return 1;
+  }
+
+  const match = tier.ribbon.match(/-([0-9]+(?:\.[0-9]+)?)%/);
+  if (!match) {
+    return 1;
+  }
+
+  const percent = Number.parseFloat(match[1]);
+  if (!Number.isFinite(percent)) {
+    return 1;
+  }
+
+  const multiplier = 1 - percent / 100;
+  return multiplier > 0 ? multiplier : 0;
+}
+
 export default function OrderPageContent() {
   const { locale } = useLocale();
   const page = useMemo(() => getOrderPage(locale), [locale]);
@@ -79,7 +98,8 @@ export default function OrderPageContent() {
   const unitAmount = activeTier?.priceAmount ?? 0;
   const hasUnitPrice = unitAmount > 0;
   const totalMultiplier = activeTier?.totalMultiplier ?? 1;
-  const totalAmount = unitAmount * totalMultiplier;
+  const discountMultiplier = getDiscountMultiplier(activeTier);
+  const totalAmount = unitAmount * totalMultiplier * discountMultiplier;
   const unitPrice = hasUnitPrice
     ? formatCurrency(unitAmount, locale, currency)
     : activeTier?.price ?? "—";
