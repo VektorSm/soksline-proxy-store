@@ -223,45 +223,6 @@
   gap: 24px;
 }
 
-.detailHeader {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.detailTitle {
-  margin: 0;
-  font-size: 26px;
-}
-
-.detailSubtitle {
-  margin: 8px 0 0;
-  color: #c6d3f5;
-  max-width: 680px;
-  line-height: 1.6;
-}
-
-.viewAllLink {
-  align-self: center;
-  font-size: 14px;
-  font-weight: 600;
-  color: #9bb7ff;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.viewAllLink:hover {
-  color: #c4d5ff;
-}
-
-.detailHighlight {
-  margin: 0;
-  color: #9fb4eb;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
 .categoryTabs {
   display: flex;
   flex-wrap: wrap;
