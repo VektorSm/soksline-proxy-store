@@ -214,7 +214,8 @@
   padding: 0.85rem 1.5rem;
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 100%;
+  width: min(100%, 14rem);
+  align-self: center;
 }
 
 .planFooter {
