@@ -118,21 +118,6 @@ export default function OrderPageContent() {
             <p className={styles.heroDescription}>{page.copy.heroDescription}</p>
           </section>
 
-          <section className={styles.paymentCard}>
-            <div>
-              <h2 className={styles.paymentTitle}>{page.copy.paymentTitle}</h2>
-              <p className={styles.paymentNote}>{page.paymentNote}</p>
-            </div>
-            <div className={styles.paymentMethods}>
-              <span className={styles.paymentMethodsLabel}>{page.copy.paymentMethodsLabel}</span>
-              <ul className={styles.paymentMethodsList}>
-                {page.paymentMethods.map((method: string) => (
-                  <li key={method}>{method}</li>
-                ))}
-              </ul>
-            </div>
-          </section>
-
           <section className={styles.servicesSection}>
             <header className={styles.servicesHeader}>
               <h2 className={styles.servicesTitle}>{page.copy.servicesSectionTitle}</h2>
@@ -236,6 +221,21 @@ export default function OrderPageContent() {
               </div>
             </section>
           )}
+
+          <section className={styles.paymentCard}>
+            <div>
+              <h2 className={styles.paymentTitle}>{page.copy.paymentTitle}</h2>
+              <p className={styles.paymentNote}>{page.paymentNote}</p>
+            </div>
+            <div className={styles.paymentMethods}>
+              <span className={styles.paymentMethodsLabel}>{page.copy.paymentMethodsLabel}</span>
+              <ul className={styles.paymentMethodsList}>
+                {page.paymentMethods.map((method: string) => (
+                  <li key={method}>{method}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
 
           <section className={styles.contactCard}>
             <div>
