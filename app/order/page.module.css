@@ -436,6 +436,7 @@
   font-size: 15px;
   line-height: 1.5;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .configSelect:focus {
@@ -453,6 +454,7 @@
   font-size: 15px;
   line-height: 1.5;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .configInput:focus {
