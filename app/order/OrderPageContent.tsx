@@ -104,19 +104,6 @@ export default function OrderPageContent() {
     setTierId(getDefaultTier(activeCategory)?.id ?? "");
   }, [activeCategory]);
 
-  const currency = activeService?.currency ?? "USD";
-  const unitAmount = activeTier?.priceAmount ?? 0;
-  const hasUnitPrice = unitAmount > 0;
-  const totalMultiplier = activeTier?.totalMultiplier ?? 1;
-  const discountMultiplier = getDiscountMultiplier(activeTier);
-  const totalAmount = unitAmount * totalMultiplier * discountMultiplier;
-  const unitPrice = hasUnitPrice
-    ? formatCurrency(unitAmount, locale, currency)
-    : activeTier?.price ?? "—";
-  const totalPrice = hasUnitPrice
-    ? formatCurrency(totalAmount, locale, currency)
-    : activeTier?.price ?? "—";
-
   const isRotatingService = activeService?.id === "rotating-residential";
   const activeTiers = activeCategory?.tiers ?? [];
   const activeTierIndex = Math.max(
@@ -184,6 +171,7 @@ export default function OrderPageContent() {
         { value: "charter", label: locale === "ru" ? "Charter" : "Charter" },
       ],
       quantities: [
+        { value: "1", label: locale === "ru" ? "1 прокси" : "1 proxy" },
         { value: "10", label: locale === "ru" ? "10 прокси" : "10 proxies" },
         { value: "50", label: locale === "ru" ? "50 прокси" : "50 proxies" },
         { value: "100", label: locale === "ru" ? "100 прокси" : "100 proxies" },
@@ -221,6 +209,21 @@ export default function OrderPageContent() {
     setSelectedPeriod(getDefaultOptionValue(configurationOptions.periods, 1));
     setAutoRenew(true);
   }, [activeService, configurationOptions]);
+
+  const currency = activeService?.currency ?? "USD";
+  const unitAmount = activeTier?.priceAmount ?? 0;
+  const hasUnitPrice = unitAmount > 0;
+  const totalMultiplier = activeTier?.totalMultiplier ?? 1;
+  const discountMultiplier = getDiscountMultiplier(activeTier);
+  const parsedQuantity = Number.parseInt(selectedQuantity, 10);
+  const quantity = Number.isNaN(parsedQuantity) ? 1 : Math.max(1, parsedQuantity);
+  const totalAmount = unitAmount * totalMultiplier * discountMultiplier * quantity;
+  const unitPrice = hasUnitPrice
+    ? formatCurrency(unitAmount, locale, currency)
+    : activeTier?.price ?? "—";
+  const totalPrice = hasUnitPrice
+    ? formatCurrency(totalAmount, locale, currency)
+    : activeTier?.price ?? "—";
 
   return (
     <main className={styles.page}>
