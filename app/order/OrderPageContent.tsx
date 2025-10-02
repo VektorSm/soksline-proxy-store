@@ -214,10 +214,23 @@ export default function OrderPageContent() {
   const unitAmount = activeTier?.priceAmount ?? 0;
   const hasUnitPrice = unitAmount > 0;
   const totalMultiplier = activeTier?.totalMultiplier ?? 1;
+  const periodMultiplier = useMemo(() => {
+    switch (selectedPeriod) {
+      case "weekly":
+        return 7 / 30;
+      case "quarterly":
+        return 3;
+      case "yearly":
+        return 12;
+      default:
+        return 1;
+    }
+  }, [selectedPeriod]);
   const discountMultiplier = getDiscountMultiplier(activeTier);
   const parsedQuantity = Number.parseInt(selectedQuantity, 10);
   const quantity = Number.isNaN(parsedQuantity) ? 1 : Math.max(1, parsedQuantity);
-  const totalAmount = unitAmount * totalMultiplier * discountMultiplier * quantity;
+  const totalAmount =
+    unitAmount * totalMultiplier * periodMultiplier * discountMultiplier * quantity;
   const unitPrice = hasUnitPrice
     ? formatCurrency(unitAmount, locale, currency)
     : activeTier?.price ?? "—";
