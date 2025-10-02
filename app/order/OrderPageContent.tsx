@@ -382,17 +382,20 @@ export default function OrderPageContent() {
                         <span className={styles.configLabel}>
                           {locale === "ru" ? "Количество прокси (IP)" : "Number of proxies"}
                         </span>
-                        <select
-                          className={styles.configSelect}
+                        <input
+                          type="number"
+                          min={1}
+                          step={1}
+                          inputMode="numeric"
+                          className={styles.configInput}
                           value={selectedQuantity}
                           onChange={(event) => setSelectedQuantity(event.target.value)}
-                        >
-                          {configurationOptions.quantities.map((option) => (
-                            <option key={option.value} value={option.value}>
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
+                          placeholder={
+                            locale === "ru"
+                              ? "Введите количество"
+                              : "Enter quantity"
+                          }
+                        />
                       </label>
                       <label className={styles.configField}>
                         <span className={styles.configLabel}>
