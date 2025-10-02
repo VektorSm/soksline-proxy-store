@@ -437,6 +437,23 @@
   box-shadow: 0 0 0 3px rgba(126, 158, 255, 0.15);
 }
 
+.configInput {
+  background: rgba(6, 11, 29, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: #f4f7ff;
+  padding: 14px 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.configInput:focus {
+  outline: none;
+  border-color: rgba(126, 158, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(126, 158, 255, 0.15);
+}
+
 .configToggle {
   flex-direction: row;
   justify-content: space-between;
