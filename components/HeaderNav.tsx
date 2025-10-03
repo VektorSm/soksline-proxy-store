@@ -34,7 +34,7 @@ type NavigationCopy = {
 const NAV_CONTENT: Record<Locale, NavigationCopy> = {
   ru: {
     navLabel: "Главное меню",
-    brandTagline: "Soks5 Proxy store",
+    brandTagline: "SOCKS5 proxy store",
     loginLabel: "Войти",
     navLinks: [
       {
@@ -131,7 +131,7 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
           {
             heading: "Компания",
             items: [
-              { label: "AMP Policy", href: "https://soksline.com/aml-policy" },
+              { label: "AML Policy", href: "https://soksline.com/aml-policy" },
               { label: "Contacts", href: "https://soksline.com/contact" },
             ],
           },
@@ -239,7 +239,7 @@ const NAV_CONTENT: Record<Locale, NavigationCopy> = {
           {
             heading: "Company",
             items: [
-              { label: "AMP Policy", href: "https://soksline.com/aml-policy" },
+              { label: "AML Policy", href: "https://soksline.com/aml-policy" },
               { label: "Contacts", href: "https://soksline.com/contact" },
             ],
           },
