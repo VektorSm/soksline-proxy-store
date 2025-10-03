@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { PricingCategory, LocalizedPricingPage } from "../lib/pricing";
+import { rotatingPricing } from "../config/pricing";
+import { fmtUSD, normalizeTier } from "../lib/money";
 import { useLocale } from "./LocaleContext";
 import type { Locale } from "./LocaleContext";
 import styles from "./PricingTemplate.module.css";
@@ -40,6 +42,15 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
     () => copy.categories.find(category => category.id === activeCategoryId) ?? copy.categories[0],
     [copy.categories, activeCategoryId]
   );
+
+  const isRotatingPricingPage = copy.slug === "rotating-residential";
+  const rotatingTierMap = useMemo(() => {
+    if (!isRotatingPricingPage) {
+      return new Map<string, ReturnType<typeof normalizeTier>>();
+    }
+
+    return new Map(rotatingPricing.tiers.map(tier => [tier.id, normalizeTier(tier)]));
+  }, [isRotatingPricingPage]);
 
   const getLinkProps = (href: string) => {
     if (/^https?:\/\//i.test(href)) {
@@ -94,6 +105,10 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
                     {tier.ribbon}
                   </span>
                 ) : null;
+              const normalizedRotatingTier =
+                isRotatingPricingPage && activeCategory?.id === "bandwidth"
+                  ? rotatingTierMap.get(tier.id)
+                  : undefined;
 
               return (
                 <article key={tier.id} className={styles.planCard}>
@@ -105,8 +120,16 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
                       {tier.headline && <p className={styles.planHeadline}>{tier.headline}</p>}
                     </div>
                     <p className={styles.planPrice}>
-                      <span className={styles.planPriceValue}>{tier.price}</span>
-                      <span className={styles.planPricePeriod}>{tier.period}</span>
+                      {normalizedRotatingTier ? (
+                        <span className={styles.rotatingPriceLabel}>
+                          {normalizedRotatingTier.gb} GB — {fmtUSD(Number(normalizedRotatingTier.pricePerGbText))}/GB (Total {fmtUSD(normalizedRotatingTier.total)})
+                        </span>
+                      ) : (
+                        <>
+                          <span className={styles.planPriceValue}>{tier.price}</span>
+                          <span className={styles.planPricePeriod}>{tier.period}</span>
+                        </>
+                      )}
                     </p>
                     <ul className={styles.planFeatures}>
                       {tier.features.map(feature => (
