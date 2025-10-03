@@ -552,6 +552,14 @@
   color: #aab7dd;
 }
 
+.rotatingPriceLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f4f7ff;
+  text-align: right;
+  line-height: 1.4;
+}
+
 .rotatingSlider {
   display: flex;
   flex-direction: column;

@@ -5,6 +5,8 @@ import Link from "next/link";
 
 import { useLocale } from "../../components/LocaleContext";
 import { getOrderPage } from "../../lib/order";
+import { rotatingPricing } from "../../config/pricing";
+import { fmtUSD, normalizeTier } from "../../lib/money";
 
 import styles from "./page.module.css";
 
@@ -92,6 +94,12 @@ export default function OrderPageContent() {
     activeTiers.findIndex((tier: OrderTier) => tier.id === activeTier?.id),
   );
   const rotatingSliderMax = Math.max(0, activeTiers.length - 1);
+  const rotatingTierMap = useMemo(
+    () => new Map(rotatingPricing.tiers.map(tier => [tier.id, normalizeTier(tier)])),
+    [],
+  );
+  const activeRotatingTier =
+    isRotatingService && activeTier ? rotatingTierMap.get(activeTier.id) : undefined;
 
   const configurationOptions = useMemo(() => {
     const base = {
@@ -435,9 +443,17 @@ export default function OrderPageContent() {
                         </p>
                       </div>
                       <div className={styles.rotatingPrice}>
-                        <span>{activeTier?.price ?? "—"}</span>
-                        {activeTier?.period && (
-                          <span className={styles.rotatingPeriod}>{activeTier.period}</span>
+                        {activeRotatingTier ? (
+                          <span className={styles.rotatingPriceLabel}>
+                            {activeRotatingTier.gb} GB — {fmtUSD(Number(activeRotatingTier.pricePerGbText))}/GB (Total {fmtUSD(activeRotatingTier.total)})
+                          </span>
+                        ) : (
+                          <>
+                            <span>{activeTier?.price ?? "—"}</span>
+                            {activeTier?.period && (
+                              <span className={styles.rotatingPeriod}>{activeTier.period}</span>
+                            )}
+                          </>
                         )}
                       </div>
                     </header>
