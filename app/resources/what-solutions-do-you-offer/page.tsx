@@ -1,11 +1,10 @@
-import PageClient from "./page.client";
+import ResourceArticle from "../../../components/ResourceArticle";
 
 export const metadata = {
-  title: "Какие решения вы предлагаете? | SoksLine",
-  description:
-    "Узнайте о решениях SoksLine: статических ISP, IPv6 ISP и ротационных резидентских сетях, адаптированных под ваши рабочие процессы.",
+  title: "SoksLine proxy solutions | SoksLine",
+  description: "Get an overview of the Static ISP, Static IPv6, and Rotating Residential stacks from SoksLine.",
 };
 
 export default function Page() {
-  return <PageClient />;
+  return <ResourceArticle slug="what-solutions-do-you-offer" />;
 }

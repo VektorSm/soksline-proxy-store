@@ -1,0 +1,777 @@
+{
+  "brand": "SoksLine",
+  "header": {
+    "tagline": "SOCKS5 proxy store",
+    "navLabel": "Primary",
+    "nav": [
+      { "label": "Products", "href": "/#top-products" },
+      { "label": "Pricing", "href": "/pricing" },
+      { "label": "Resources", "href": "/resources/why-residential-proxies" },
+      { "label": "Help Center", "href": "/help-center" }
+    ],
+    "supportLink": { "label": "Contact", "href": "/contact" },
+    "login": "Log in"
+  },
+  "language": {
+    "switcherLabel": "Language",
+    "en": "English",
+    "ru": "Русский"
+  },
+  "buttons": {
+    "buy": "Buy now",
+    "contact": "Contact sales",
+    "learn": "Learn more",
+    "viewDetails": "View details"
+  },
+  "hero": {
+    "eyebrow": "Residential & ISP proxies",
+    "title": "SOCKS5 proxy store",
+    "subtitle": "Fast, clean, reliable proxies for your workflows.",
+    "badge": "{locations}+ locations • {uptime} uptime • {support} support",
+    "primaryCta": "Buy now",
+    "secondaryCta": "Contact sales",
+    "mediaAlt": "Dashboard placeholder showing the SoksLine proxy store interface"
+  },
+  "home": {
+    "intro": {
+      "headline": "Build proxy infrastructure with confidence",
+      "copy": "Pick the proxy format that matches your traffic, scale pricing per GB, and onboard teammates in minutes."
+    },
+    "features": {
+      "title": "Why teams choose {brand}",
+      "items": [
+        {
+          "title": "Clean residential supply",
+          "description": "Ethically sourced IPs with live quality monitoring keep your success rate stable across sensitive platforms."
+        },
+        {
+          "title": "Controls for operators",
+          "description": "Rotate, pin, and assign sessions via API or dashboard, with usage analytics for every pool."
+        },
+        {
+          "title": "Predictable spend",
+          "description": "Per-GB pricing with automatic top ups keeps finance teams in the loop and prevents traffic surprises."
+        }
+      ]
+    },
+    "kyc": {
+      "title": "KYC policy",
+      "description": "No KYC for basic plans. KYC upon request for custom configurations and sensitive GEOs."
+    },
+    "payments": {
+      "title": "Payment methods",
+      "description": "Instant confirmations with downloadable invoices and balance webhooks.",
+      "methods": ["BTC", "ETH", "USDT", "TRX", "LTC"]
+    }
+  },
+  "topProducts": {
+    "title": "Top products by SoksLine",
+    "description": "Three core proxy stacks for marketing, research, and automation teams.",
+    "tabs": {
+      "staticIsp": {
+        "label": "Static Residential (ISP)",
+        "tagline": "Dedicated residential IPs from ISP ranges for stable dashboards and account work.",
+        "cards": [
+          {
+            "name": "City focused",
+            "price": "from $2.80 / proxy",
+            "features": [
+              "Sticky sessions up to 24h",
+              "City & ASN level targeting",
+              "Unlimited threads",
+              "HTTP & SOCKS5",
+              "{kycPolicy}"
+            ]
+          },
+          {
+            "name": "Dedicated region",
+            "price": "from $3.20 / proxy",
+            "features": [
+              "Dedicated IPv4 pool",
+              "Swap once per month",
+              "API automation",
+              "Tier-1 uplinks",
+              "{kycPolicy}"
+            ]
+          }
+        ],
+        "note": "Best for ad platforms, marketplace management, and e-commerce QA."
+      },
+      "staticIpv6": {
+        "label": "Static Residential (ISP) IPv6",
+        "tagline": "Affordable IPv6 addresses for high-volume registrations and scraping.",
+        "cards": [
+          {
+            "name": "Global IPv6 pool",
+            "price": "from $1.00 / proxy",
+            "features": [
+              "Millions of clean IPv6",
+              "Dual-stack gateways",
+              "100+ Mbps bandwidth",
+              "Instant activation",
+              "{kycPolicy}"
+            ]
+          },
+          {
+            "name": "Geo-locked IPv6",
+            "price": "from $1.40 / proxy",
+            "features": [
+              "Country and state filters",
+              "Dedicated subnets",
+              "Usage API",
+              "Bulk provisioning",
+              "{kycPolicy}"
+            ]
+          }
+        ],
+        "note": "Check target services for IPv6 compatibility before launch."
+      },
+      "rotating": {
+        "label": "Rotating Residential",
+        "tagline": "Large residential pool with flexible rotation windows and traffic billing per GB.",
+        "cards": [
+          {
+            "name": "Standard rotation",
+            "price": "10 GB — $4.90/GB (Total $49.00)",
+            "features": [
+              "Global mix of residential IPs",
+              "Sticky up to 30 minutes",
+              "Session controller API",
+              "Shared exit nodes",
+              "{kycPolicy}"
+            ]
+          },
+          {
+            "name": "Premium rotation",
+            "price": "50 GB — $4.50/GB (Total $225.00)",
+            "features": [
+              "Low-noise ISPs",
+              "ASN and city filters",
+              "Dedicated concurrency",
+              "Priority support",
+              "{kycPolicy}"
+            ]
+          }
+        ],
+        "note": "Ideal for scraping, verification, and QA workloads that need continuous IP refresh."
+      }
+    }
+  },
+  "productPages": {
+    "isp": {
+      "hero": {
+        "title": "Static Residential (ISP) proxies",
+        "description": "Deploy genuine ISP-routed IPv4 with sticky sessions and unlimited bandwidth for account teams.",
+        "ctaLabel": "View pricing",
+        "ctaHref": "/pricing/static-residential",
+        "metrics": [
+          { "label": "Speed", "value": "Up to 1 Gbps" },
+          { "label": "Protocols", "value": "HTTP & SOCKS5" },
+          { "label": "Coverage", "value": "37+ ISP partners" }
+        ]
+      },
+      "sectionsTitle": "What you can do with Static ISP proxies",
+      "sections": [
+        {
+          "title": "Control your proxy roster",
+          "body": "Assign dedicated IPs per operator, rotate on demand, and export usage by project."
+        },
+        {
+          "title": "Geo precision",
+          "body": "Target by country, state, city, or ASN for high-match ad verifications."
+        },
+        {
+          "title": "Enterprise ready",
+          "body": "SLA-backed uptime with 24/7 support and secure dashboards for distributed teams."
+        }
+      ]
+    },
+    "staticResidential": {
+      "hero": {
+        "title": "Static Residential IPv6 pools",
+        "description": "Unlock cost-efficient IPv6 supply with native SOCKS5 support and fast provisioning.",
+        "ctaLabel": "View pricing",
+        "ctaHref": "/pricing/static-residential-ipv6",
+        "metrics": [
+          { "label": "IPs", "value": "5B+ unique IPv6" },
+          { "label": "Speed", "value": "100+ Mbps per endpoint" },
+          { "label": "Uptime", "value": "99.9%" }
+        ]
+      },
+      "sectionsTitle": "How IPv6 static pools accelerate your workflows",
+      "sections": [
+        {
+          "title": "Designed for scale",
+          "body": "Mass-provision addresses for registration and automation workloads at predictable rates."
+        },
+        {
+          "title": "Flexible auth",
+          "body": "Username/password or IP whitelisting with configurable session length."
+        },
+        {
+          "title": "Monitoring included",
+          "body": "Dashboards surface latency, success rate, and quick swaps for low-performing exits."
+        }
+      ]
+    },
+    "rotating": {
+      "hero": {
+        "title": "Rotating residential proxies",
+        "description": "Meter traffic per GB with automatic rotation windows and sticky sessions when needed.",
+        "ctaLabel": "View pricing",
+        "ctaHref": "/pricing/rotating-residential",
+        "metrics": [
+          { "label": "Pool size", "value": "6M+ residential IPs" },
+          { "label": "Rotation", "value": "5 min to 60 min" },
+          { "label": "Protocols", "value": "HTTP & SOCKS5" }
+        ]
+      },
+      "sectionsTitle": "Why rotating residential works for automation",
+      "sections": [
+        {
+          "title": "Traffic-first billing",
+          "body": "Only pay for the bandwidth you consume with alerts for 70% and 90% thresholds."
+        },
+        {
+          "title": "Automation",
+          "body": "Granular API gives you session tokens, whitelist control, and webhook events."
+        },
+        {
+          "title": "Global coverage",
+          "body": "Fine-tune rotation by continent, country, or city without juggling multiple providers."
+        }
+      ]
+    }
+  },
+  "pricingPages": {
+    "staticResidential": {
+      "title": "Static Residential pricing",
+      "subtitle": "Dedicated ISP-grade IPv4 with unlimited bandwidth and sticky sessions.",
+      "highlight": "Predictable monthly billing for long-term accounts.",
+      "categories": [
+        {
+          "id": "starter",
+          "label": "Starter",
+          "tiers": [
+            {
+              "id": "static-starter-10",
+              "name": "10 proxies",
+              "price": 1.9,
+              "period": "per proxy / month",
+              "features": [
+                "Unlimited bandwidth",
+                "HTTPS & SOCKS5",
+                "Sticky sessions",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=static-isp&plan=starter"
+            },
+            {
+              "id": "static-starter-25",
+              "name": "25 proxies",
+              "price": 1.7,
+              "period": "per proxy / month",
+              "features": [
+                "Dedicated subnets",
+                "Unlimited threads",
+                "City targeting",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=static-isp&plan=starter-25"
+            }
+          ]
+        },
+        {
+          "id": "growth",
+          "label": "Growth",
+          "tiers": [
+            {
+              "id": "static-growth-50",
+              "name": "50 proxies",
+              "price": 1.55,
+              "period": "per proxy / month",
+              "features": [
+                "Priority replacements",
+                "ASN targeting",
+                "Team access",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=static-isp&plan=growth"
+            },
+            {
+              "id": "static-growth-100",
+              "name": "100 proxies",
+              "price": 1.45,
+              "period": "per proxy / month",
+              "features": [
+                "Dedicated account manager",
+                "Private subnets",
+                "24/7 support",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=static-isp&plan=growth-100"
+            }
+          ]
+        }
+      ],
+      "paymentNote": "SSL secure payments with instant provisioning.",
+      "paymentMethods": ["BTC", "ETH", "USDT", "TRX", "LTC"]
+    },
+    "staticResidentialIpv6": {
+      "title": "Static Residential IPv6 pricing",
+      "subtitle": "Affordable IPv6 proxies with high throughput and dedicated subnets.",
+      "highlight": "Scale IPv6 without large upfront commitments.",
+      "categories": [
+        {
+          "id": "ipv6-core",
+          "label": "Core",
+          "tiers": [
+            {
+              "id": "ipv6-core-100",
+              "name": "100 proxies",
+              "price": 0.9,
+              "period": "per proxy / month",
+              "features": [
+                "Dual-stack gateways",
+                "Instant swaps",
+                "Usage analytics",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=static-residential-ipv6&plan=core"
+            },
+            {
+              "id": "ipv6-core-250",
+              "name": "250 proxies",
+              "price": 0.8,
+              "period": "per proxy / month",
+              "features": [
+                "Geo filters",
+                "Unlimited threads",
+                "Automation API",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=static-residential-ipv6&plan=core-250"
+            }
+          ]
+        },
+        {
+          "id": "ipv6-scale",
+          "label": "Scale",
+          "tiers": [
+            {
+              "id": "ipv6-scale-500",
+              "name": "500 proxies",
+              "price": 0.7,
+              "period": "per proxy / month",
+              "features": [
+                "Dedicated account manager",
+                "Reserved subnets",
+                "Custom rotation",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=static-residential-ipv6&plan=scale"
+            },
+            {
+              "id": "ipv6-scale-1000",
+              "name": "1000 proxies",
+              "price": 0.6,
+              "period": "per proxy / month",
+              "features": [
+                "Custom SLAs",
+                "Fine-grained targeting",
+                "24/7 support",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=static-residential-ipv6&plan=scale-1000"
+            }
+          ]
+        }
+      ],
+      "paymentNote": "Flexible invoicing with crypto and wire transfers.",
+      "paymentMethods": ["BTC", "ETH", "USDT", "TRX", "LTC"]
+    },
+    "rotatingResidential": {
+      "title": "Rotating Residential pricing",
+      "subtitle": "Pay per GB with configurable rotation windows and sticky session tokens.",
+      "highlight": "Scale traffic without juggling multiple providers.",
+      "categories": [
+        {
+          "id": "bandwidth",
+          "label": "Bandwidth packages",
+          "tiers": [
+            {
+              "id": "rotating-10",
+              "name": "10 GB",
+              "pricingMode": "perGb",
+              "quantity": 10,
+              "pricePerGb": 4.9,
+              "features": [
+                "Global residential pool",
+                "Sticky up to 30 min",
+                "HTTPS & SOCKS5",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=rotating-residential&plan=10"
+            },
+            {
+              "id": "rotating-50",
+              "name": "50 GB",
+              "pricingMode": "perGb",
+              "quantity": 50,
+              "pricePerGb": 4.5,
+              "features": [
+                "ASN filtering",
+                "Priority bandwidth",
+                "Usage webhooks",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=rotating-residential&plan=50"
+            },
+            {
+              "id": "rotating-100",
+              "name": "100 GB",
+              "pricingMode": "perGb",
+              "quantity": 100,
+              "pricePerGb": 4.2,
+              "features": [
+                "Dedicated account manager",
+                "Custom rotation window",
+                "Team dashboards",
+                "{kycPolicy}"
+              ],
+              "ctaHref": "/order?service=rotating-residential&plan=100"
+            }
+          ]
+        }
+      ],
+      "paymentNote": "Usage alerts at 70% and 90% of traffic consumption.",
+      "paymentMethods": ["BTC", "ETH", "USDT", "TRX", "LTC"]
+    }
+  },
+  "pricingOverview": {
+    "title": "SoksLine pricing",
+    "subtitle": "Explore per-proxy and per-GB plans for static ISP, static IPv6, and rotating residential proxies."
+  },
+  "resources": {
+    "list": [
+      {
+        "slug": "why-residential-proxies",
+        "title": "Why residential proxies matter",
+        "intro": "Residential IPs mimic real user behavior, making them essential for sensitive automation.",
+        "sections": [
+          {
+            "title": "Avoid common blocks",
+            "body": "Residential IPs come from consumer devices, so fraud systems treat them as legitimate traffic."
+          },
+          {
+            "title": "Maintain uptime",
+            "body": "Our monitoring rotates IPs automatically when destinations start failing."
+          },
+          {
+            "title": "Measure performance",
+            "body": "Dashboards surface latency, success rates, and proxy health per target project."
+          }
+        ]
+      },
+      {
+        "slug": "can-i-select-a-proxy-location",
+        "title": "Can I select a proxy location?",
+        "intro": "Yes. Pick a country, state, city, or ASN across all proxy types.",
+        "sections": [
+          {
+            "title": "City precision",
+            "body": "Choose from 180+ locations with on-demand provisioning."
+          },
+          {
+            "title": "Advanced targeting",
+            "body": "Filter by ASN or ISP to align with advertising needs."
+          },
+          {
+            "title": "Self-service controls",
+            "body": "Update targeting in the dashboard or via API without downtime."
+          }
+        ]
+      },
+      {
+        "slug": "what-are-the-targeting-options-for-our-proxies",
+        "title": "What targeting options are available?",
+        "intro": "Fine-tune targeting for every plan: geo, ISP, ASN, rotation, and more.",
+        "sections": [
+          {
+            "title": "Geo filters",
+            "body": "Country, state, city, and custom radius targeting."
+          },
+          {
+            "title": "Network attributes",
+            "body": "Filter by ASN, ISP, proxy type, or connection speed."
+          },
+          {
+            "title": "Session controls",
+            "body": "Sticky sessions, concurrent limits, and rotation timers per profile."
+          }
+        ]
+      },
+      {
+        "slug": "how-long-to-receive-my-ordered-proxies",
+        "title": "How long does provisioning take?",
+        "intro": "Provisioning is instant after payment confirmation.",
+        "sections": [
+          {
+            "title": "Automated delivery",
+            "body": "Most orders arrive within 2 minutes, with webhook confirmation."
+          },
+          {
+            "title": "Manual review",
+            "body": "Custom GEO or sensitive use cases may trigger an agent review (under 12h)."
+          },
+          {
+            "title": "Onboarding support",
+            "body": "Documentation and chat support guide integration into your stack."
+          }
+        ]
+      },
+      {
+        "slug": "what-is-a-rotating-proxy",
+        "title": "What is a rotating proxy?",
+        "intro": "Rotating proxies change IPs automatically to spread requests across a large pool.",
+        "sections": [
+          {
+            "title": "Rotation windows",
+            "body": "Choose between automatic rotation or sticky sessions up to one hour."
+          },
+          {
+            "title": "Usage-based billing",
+            "body": "Pay for the traffic you consume rather than the number of endpoints."
+          },
+          {
+            "title": "Best for data teams",
+            "body": "Scraping, verification, and QA pipelines depend on continuous fresh IPs."
+          }
+        ]
+      },
+      {
+        "slug": "what-solutions-do-you-offer",
+        "title": "What solutions does SoksLine offer?",
+        "intro": "Three core proxy stacks cover static ISP, IPv6, and rotating use cases.",
+        "sections": [
+          {
+            "title": "Static ISP",
+            "body": "Stable IPv4 endpoints for advertising and account management."
+          },
+          {
+            "title": "Static IPv6",
+            "body": "Large IPv6 pools for registrations and automation."
+          },
+          {
+            "title": "Rotating residential",
+            "body": "Per-GB billing with flexible rotation windows."
+          }
+        ]
+      }
+    ]
+  },
+  "helpCenter": {
+    "title": "Help Center",
+    "intro": "Need a hand? Our support engineers reply within minutes on priority tiers.",
+    "sections": [
+      {
+        "title": "Billing",
+        "items": [
+          "Add funds with crypto, cards, or invoices",
+          "Download statements for finance",
+          "Set automatic top ups"
+        ]
+      },
+      {
+        "title": "Integration",
+        "items": [
+          "Auth via username/password or IP",
+          "Rotate proxies with the management API",
+          "Webhook alerts for traffic"
+        ]
+      },
+      {
+        "title": "Support",
+        "items": [
+          "24/7 live chat",
+          "Dedicated manager on enterprise plans",
+          "Email updates for scheduled maintenance"
+        ]
+      }
+    ]
+  },
+  "order": {
+    "title": "Place an order",
+    "intro": "Tell us what you need and we will match the right proxy format.",
+    "steps": [
+      "Choose the proxy type and quantity",
+      "Select target GEOs and authentication",
+      "Confirm billing details and submit"
+    ],
+    "contact": "Not sure what to pick? Contact sales for a custom quote."
+  },
+  "contact": {
+    "title": "Contact sales",
+    "intro": "Leave your request and our team will reply within 12 hours.",
+    "items": [
+      "support@soksline.com",
+      "Telegram: @soksline",
+      "24/7 live chat in dashboard"
+    ]
+  },
+  "login": {
+    "title": "Log in",
+    "intro": "Access the SoksLine dashboard to manage proxies, billing, and support tickets.",
+    "note": "Need an account? Contact sales to get started."
+  },
+  "legal": {
+    "toc": "Contents",
+    "pages": {
+      "aml": {
+        "title": "AML Policy",
+        "intro": "This Anti-Money Laundering (AML) Policy outlines how SoksLine prevents illicit activity while keeping onboarding simple for legitimate users.",
+        "sections": [
+          {
+            "id": "screening",
+            "title": "Screening",
+            "body": "We screen transactions that exceed automated thresholds or involve sensitive GEOs. Accounts may be paused while we verify ownership."
+          },
+          {
+            "id": "kyc",
+            "title": "KYC on request",
+            "body": "For custom plans we may request government-issued documents and proof of business operations. Basic plans do not require KYC."
+          },
+          {
+            "id": "reporting",
+            "title": "Reporting",
+            "body": "Suspicious activity is logged and reported to relevant financial authorities when required by law."
+          }
+        ]
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "intro": "We process the minimum personal data needed to provide proxy services and billing.",
+        "sections": [
+          {
+            "id": "data",
+            "title": "Data collected",
+            "body": "Account email, billing details, and usage telemetry are stored securely and encrypted at rest."
+          },
+          {
+            "id": "usage",
+            "title": "How we use data",
+            "body": "Telemetry helps us monitor abuse, optimize routing, and notify you about outages or limits."
+          },
+          {
+            "id": "control",
+            "title": "Your control",
+            "body": "Contact privacy@soksline.com to request deletion, export, or updates to your personal data."
+          }
+        ]
+      },
+      "tos": {
+        "title": "Terms of Service",
+        "intro": "These Terms govern the use of SoksLine services.",
+        "sections": [
+          {
+            "id": "service",
+            "title": "Service scope",
+            "body": "We provide proxy infrastructure and support as described on the website."
+          },
+          {
+            "id": "accounts",
+            "title": "Accounts",
+            "body": "Keep login credentials secure. Misuse or sharing with unauthorized parties may result in suspension."
+          },
+          {
+            "id": "liability",
+            "title": "Liability",
+            "body": "SoksLine is not liable for indirect or consequential damages caused by service interruptions."
+          }
+        ]
+      },
+      "aup": {
+        "title": "Acceptable Use Policy",
+        "intro": "Respect local laws and platform rules when using SoksLine proxies.",
+        "sections": [
+          {
+            "id": "prohibited",
+            "title": "Prohibited activity",
+            "body": "No spam, fraud, credential stuffing, or content that violates intellectual property."
+          },
+          {
+            "id": "security",
+            "title": "Security",
+            "body": "Notify us immediately if you detect abuse or credential leaks involving your account."
+          },
+          {
+            "id": "enforcement",
+            "title": "Enforcement",
+            "body": "We may suspend accounts that violate these rules without refund."
+          }
+        ]
+      },
+      "refund": {
+        "title": "Refund Policy",
+        "intro": "We strive for transparency. Refunds are available when services do not match the described quality.",
+        "sections": [
+          {
+            "id": "eligibility",
+            "title": "Eligibility",
+            "body": "Refunds apply when uptime or IP quality falls below the documented SLA."
+          },
+          {
+            "id": "process",
+            "title": "Process",
+            "body": "Submit a ticket within 7 days of the issue with logs or screenshots."
+          },
+          {
+            "id": "exclusions",
+            "title": "Exclusions",
+            "body": "Usage that violates the Acceptable Use Policy or exceeds purchased bandwidth is not eligible."
+          }
+        ]
+      }
+    }
+  },
+  "footer": {
+    "tagline": "SOCKS5 proxy store by {brand}",
+    "sections": [
+      {
+        "title": "Products",
+        "links": [
+          { "label": "Static Residential (ISP)", "href": "/products/isp-proxies" },
+          { "label": "Static Residential (ISP) IPv6", "href": "/products/static-residential" },
+          { "label": "Rotating Residential", "href": "/products/rotating-residential" }
+        ]
+      },
+      {
+        "title": "Pricing",
+        "links": [
+          { "label": "Static Residential", "href": "/pricing/static-residential" },
+          { "label": "Static Residential IPv6", "href": "/pricing/static-residential-ipv6" },
+          { "label": "Rotating Residential", "href": "/pricing/rotating-residential" }
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          { "label": "Help Center", "href": "/help-center" },
+          { "label": "Contact", "href": "/contact" },
+          { "label": "Log in", "href": "/login" }
+        ]
+      },
+      {
+        "title": "Legal",
+        "links": [
+          { "label": "AML Policy", "href": "/aml" },
+          { "label": "Privacy Policy", "href": "/privacy" },
+          { "label": "Terms of Service", "href": "/tos" },
+          { "label": "Acceptable Use Policy", "href": "/aup" },
+          { "label": "Refund Policy", "href": "/refund" }
+        ]
+      }
+    ],
+    "copyright": "© {year} {brand}. All rights reserved."
+  }
+}

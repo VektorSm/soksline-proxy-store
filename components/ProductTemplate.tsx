@@ -1,171 +1,84 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
-import type { LocalizedProductPage } from "../lib/productPages";
-import { useLocale } from "./LocaleContext";
+import { KYC_POLICY } from "../config/site";
+import { useI18n } from "../lib/i18n";
 import styles from "./ProductTemplate.module.css";
 
-function getLinkProps(href: string) {
-  if (/^https?:\/\//i.test(href)) {
-    return { target: "_blank", rel: "noopener" as const };
-  }
-
-  return {};
-}
-
-type ProductTemplateProps = {
-  data: LocalizedProductPage;
-  cardsVariant?: "default" | "compact";
+type ProductMetric = {
+  label: string;
+  value: string;
 };
 
-export default function ProductTemplate({ data, cardsVariant = "default" }: ProductTemplateProps) {
-  const { locale } = useLocale();
-  const copy = data[locale];
-  const offersLayout = copy.offers.layout ?? "cards";
-  const isTextLayout = offersLayout === "text";
-  const plans = useMemo(() => copy.offers.plans ?? [], [copy.offers.plans]);
-  const textSections = useMemo(() => copy.offers.textSections ?? [], [copy.offers.textSections]);
-  const cardsClassName = `${styles.cards} ${
-    cardsVariant === "compact" ? styles.cardsCompact : ""
-  }`.trim();
-  const planIds = useMemo(() => (isTextLayout ? [] : plans.map(plan => plan.id)), [isTextLayout, plans]);
-  const [activePlanId, setActivePlanId] = useState<string | null>(planIds[0] ?? null);
+type ProductSection = {
+  title: string;
+  body: string;
+};
 
-  useEffect(() => {
-    if (isTextLayout) {
-      if (activePlanId !== null) {
-        setActivePlanId(null);
-      }
-      return;
-    }
+type ProductHero = {
+  title: string;
+  description: string;
+  ctaLabel?: string;
+  ctaHref: string;
+  metrics: ProductMetric[];
+};
 
-    if (!activePlanId || !planIds.includes(activePlanId)) {
-      setActivePlanId(planIds[0] ?? null);
-    }
-  }, [isTextLayout, planIds, activePlanId]);
+type ProductPageContent = {
+  hero: ProductHero;
+  sectionsTitle: string;
+  sections: ProductSection[];
+};
 
-  const handleCardKeyDown = (planId: string) => (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      setActivePlanId(planId);
-    }
-  };
+type ProductTemplateProps = {
+  pageKey: string;
+};
+
+export default function ProductTemplate({ pageKey }: ProductTemplateProps) {
+  const { locale, t } = useI18n();
+  const content = t<ProductPageContent>(`productPages.${pageKey}`);
+  const kycPolicy = locale === "ru" ? KYC_POLICY : t<string>("kyc.policy");
+  const ctaLabel = content.hero.ctaLabel ?? t("buttons.buy");
 
   return (
-    <main className={styles.page}>
-      <section className={styles.hero}>
+    <div className={styles.page}>
+      <section className={styles.heroSection}>
         <div className={styles.heroInner}>
-          {copy.hero.eyebrow && <p className={styles.heroEyebrow}>{copy.hero.eyebrow}</p>}
-          <h1 className={styles.heroTitle}>{copy.hero.title}</h1>
-          <p className={styles.heroDescription}>{copy.hero.description}</p>
+          <h1 className={styles.heroTitle}>{content.hero.title}</h1>
+          <p className={styles.heroDescription}>{content.hero.description}</p>
 
           <div className={styles.heroActions}>
-            <Link href={copy.hero.cta.href} className={styles.primaryCta} {...getLinkProps(copy.hero.cta.href)}>
-              {copy.hero.cta.label}
+            <Link href={content.hero.ctaHref} className={styles.primaryButton}>
+              {ctaLabel}
             </Link>
           </div>
 
-          {copy.hero.metrics.length > 0 && (
-            <dl className={styles.metrics}>
-              {copy.hero.metrics.map(metric => {
-                const values = Array.isArray(metric.value) ? metric.value : [metric.value];
-
-                return (
-                  <div key={metric.label} className={styles.metricCard}>
-                    <dt className={styles.metricLabel}>{metric.label}</dt>
-                    <dd className={styles.metricValue}>
-                      {values.map((line, index) => (
-                        <span key={`${metric.label}-${index}`} className={styles.metricValueLine}>
-                          {line}
-                        </span>
-                      ))}
-                    </dd>
-                  </div>
-                );
-              })}
-            </dl>
+          {content.hero.metrics.length > 0 && (
+            <div className={styles.metrics}>
+              {content.hero.metrics.map(metric => (
+                <div key={metric.label} className={styles.metricCard}>
+                  <p className={styles.metricLabel}>{metric.label}</p>
+                  <p className={styles.metricValue}>{metric.value}</p>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </section>
 
-      <section className={styles.offers}>
-        <div className={styles.offersInner}>
-          <header className={styles.offersHeader}>
-            <h2 className={styles.offersTitle}>{copy.offers.title}</h2>
-            {copy.offers.description && <p className={styles.offersDescription}>{copy.offers.description}</p>}
-          </header>
-
-          {isTextLayout ? (
-            <div className={styles.textSections}>
-              {textSections.map(section => (
-                <article key={section.id} className={styles.textSection}>
-                  <h3 className={styles.textSectionTitle}>{section.title}</h3>
-                  <p className={styles.textSectionBody}>{section.body}</p>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className={cardsClassName}>
-              {plans.map(plan => (
-                <article
-                  key={plan.id}
-                  className={`${styles.card} ${
-                    plan.badge ? styles.cardFeatured : ""
-                  } ${plan.id === activePlanId ? styles.cardActive : ""}`.trim()}
-                  onClick={() => setActivePlanId(plan.id)}
-                  onKeyDown={handleCardKeyDown(plan.id)}
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={plan.id === activePlanId}
-                >
-                  <header className={styles.cardHeader}>
-                    <div className={styles.cardTitleRow}>
-                      <h3 className={styles.cardTitle}>{plan.name}</h3>
-                      {plan.badge && <span className={styles.cardBadge}>{plan.badge}</span>}
-                    </div>
-                    <div className={styles.cardPriceBlock}>
-                      {plan.priceLabel && <span className={styles.cardPriceLabel}>{plan.priceLabel}</span>}
-                      <p className={styles.cardPrice}>
-                        {plan.compareAt && <span className={styles.cardCompareAt}>{plan.compareAt}</span>}
-                        <span className={styles.cardPriceValue}>{plan.price}</span>
-                        {plan.period && <span className={styles.cardPricePeriod}>{plan.period}</span>}
-                      </p>
-                    </div>
-                  </header>
-
-                  {plan.summary && <p className={styles.cardSummary}>{plan.summary}</p>}
-
-                  <ul className={styles.cardFeatures}>
-                    {plan.features.map(feature => {
-                      const included = feature.included ?? true;
-                      return (
-                        <li
-                          key={feature.label}
-                          className={`${styles.cardFeature} ${
-                            included ? styles.featureIncluded : styles.featureExcluded
-                          }`}
-                        >
-                          <span className={styles.featureIcon} aria-hidden="true">
-                            {included ? "✓" : "✕"}
-                          </span>
-                          <span>{feature.label}</span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-
-                  <Link href={plan.ctaHref} className={styles.cardCta} {...getLinkProps(plan.ctaHref)}>
-                    {plan.ctaLabel}
-                  </Link>
-                </article>
-              ))}
-            </div>
-          )}
-
-          {copy.offers.note && <p className={styles.offersNote}>{copy.offers.note}</p>}
+      <section className={styles.bodySection}>
+        <div className={styles.bodyInner}>
+          <h2 className={styles.sectionTitle}>{content.sectionsTitle}</h2>
+          <div className={styles.featureGrid}>
+            {content.sections.map(section => (
+              <article key={section.title} className={styles.featureCard}>
+                <h3 className={styles.featureTitle}>{section.title}</h3>
+                <p className={styles.featureText}>{section.body}</p>
+              </article>
+            ))}
+          </div>
+          <p className={styles.kycNote}>{kycPolicy}</p>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

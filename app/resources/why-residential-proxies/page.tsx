@@ -1,11 +1,11 @@
-import PageClient from "./page.client";
+import ResourceArticle from "../../../components/ResourceArticle";
 
 export const metadata = {
-  title: "Зачем нужны резидентские прокси? | SoksLine",
+  title: "Why residential proxies matter | SoksLine",
   description:
-    "Разберитесь, какие преимущества дают резидентские прокси: стабильность, ротацию, приватность и доступную защиту для долгосрочных проектов.",
+    "Understand the role of residential proxies in protecting automation, scraping, and marketing workflows.",
 };
 
 export default function Page() {
-  return <PageClient />;
+  return <ResourceArticle slug="why-residential-proxies" />;
 }

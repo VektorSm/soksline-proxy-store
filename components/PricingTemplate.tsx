@@ -1,145 +1,124 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import type { PricingCategory, LocalizedPricingPage } from "../lib/pricing";
-import { useLocale } from "./LocaleContext";
-import type { Locale } from "./LocaleContext";
+import { useMemo } from "react";
+import { KYC_POLICY, PRICING_MODE } from "../config/site";
+import { useI18n } from "../lib/i18n";
 import styles from "./PricingTemplate.module.css";
 
+const FEATURE_PLACEHOLDER = "{kycPolicy}";
+
+const currencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+});
+
+type PricingTier = {
+  id: string;
+  name: string;
+  price?: number;
+  period?: string;
+  pricingMode?: string;
+  quantity?: number;
+  pricePerGb?: number;
+  features: string[];
+  ctaHref: string;
+};
+
+type PricingCategory = {
+  id: string;
+  label: string;
+  tiers: PricingTier[];
+};
+
+type PricingPageContent = {
+  title: string;
+  subtitle: string;
+  highlight: string;
+  categories: PricingCategory[];
+  paymentNote: string;
+  paymentMethods: string[];
+};
+
 type PricingTemplateProps = {
-  data: LocalizedPricingPage;
+  pageKey: string;
 };
 
-const CTA_FALLBACK: Record<Locale, string> = {
-  ru: "Купить",
-  en: "Buy Now",
-};
+function getPriceLabel(tier: PricingTier) {
+  if (tier.pricingMode === PRICING_MODE && tier.quantity && tier.pricePerGb) {
+    const total = tier.quantity * tier.pricePerGb;
+    return `${tier.quantity} GB — ${currencyFormatter.format(tier.pricePerGb)}/GB (Total ${currencyFormatter.format(total)})`;
+  }
 
-const TOGGLE_ARIA_LABEL: Record<Locale, string> = {
-  ru: "Варианты тарифов",
-  en: "Pricing options",
-};
+  if (typeof tier.price === "number") {
+    const value = currencyFormatter.format(tier.price);
+    return tier.period ? `${value} ${tier.period}` : value;
+  }
 
-const PAYMENTS_ARIA_LABEL: Record<Locale, string> = {
-  ru: "Поддерживаемые способы оплаты",
-  en: "Supported payment methods",
-};
-
-function resolveInitialCategory(categories: PricingCategory[]): string {
-  return categories[0]?.id ?? "";
+  return "";
 }
 
-export default function PricingTemplate({ data }: PricingTemplateProps) {
-  const { locale } = useLocale();
-  const copy = data[locale];
-  const [activeCategoryId, setActiveCategoryId] = useState<string>(() => resolveInitialCategory(copy.categories));
+export default function PricingTemplate({ pageKey }: PricingTemplateProps) {
+  const { locale, t } = useI18n();
+  const content = t<PricingPageContent>(`pricingPages.${pageKey}`);
+  const kycPolicy = locale === "ru" ? KYC_POLICY : t<string>("kyc.policy");
+  const buyLabel = t<string>("buttons.buy");
 
-  const activeCategory = useMemo(
-    () => copy.categories.find(category => category.id === activeCategoryId) ?? copy.categories[0],
-    [copy.categories, activeCategoryId]
-  );
-
-  const getLinkProps = (href: string) => {
-    if (/^https?:\/\//i.test(href)) {
-      return { target: "_blank", rel: "noopener" as const };
-    }
-
-    return {};
-  };
+  const categories = useMemo(() => content.categories ?? [], [content.categories]);
 
   return (
-    <main className={styles.page}>
-      <section className={styles.hero}>
+    <div className={styles.page}>
+      <section className={styles.heroSection}>
         <div className={styles.heroInner}>
-          <p className={styles.heroHighlight}>{copy.highlight}</p>
-          <h1 className={styles.heroTitle}>{copy.title}</h1>
-          <p className={styles.heroSubtitle}>{copy.subtitle}</p>
-
-          {copy.categories.length > 1 && (
-            <div className={styles.toggle} role="tablist" aria-label={TOGGLE_ARIA_LABEL[locale]}>
-              {copy.categories.map(category => {
-                const isActive = category.id === activeCategory?.id;
-                return (
-                  <button
-                    key={category.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    className={`${styles.toggleButton} ${isActive ? styles.toggleButtonActive : ""}`}
-                    onClick={() => setActiveCategoryId(category.id)}
-                  >
-                    {category.label}
-                  </button>
-                );
-              })}
-            </div>
-          )}
+          <p className={styles.heroHighlight}>{content.highlight}</p>
+          <h1 className={styles.heroTitle}>{content.title}</h1>
+          <p className={styles.heroSubtitle}>{content.subtitle}</p>
         </div>
       </section>
 
-      <section className={styles.plans}>
-        <div className={styles.plansInner}>
-          <div className={styles.cardsGrid}>
-            {activeCategory?.tiers.map(tier => {
-              const ribbonPlacement = tier.ribbonPlacement ?? "top";
-              const renderRibbon = (placement: "top" | "bottom") =>
-                tier.ribbon ? (
-                  <span
-                    className={`${styles.planRibbon} ${
-                      placement === "top" ? styles.planRibbonTop : styles.planRibbonBottom
-                    }`}
-                  >
-                    {tier.ribbon}
-                  </span>
-                ) : null;
-
-              return (
-                <article key={tier.id} className={styles.planCard}>
-                  {ribbonPlacement === "top" && renderRibbon("top")}
-                  <div className={styles.planBody}>
-                    <div className={styles.planHeader}>
-                      <h2 className={styles.planName}>{tier.name}</h2>
-                      {tier.subLabel && <p className={styles.planSubLabel}>{tier.subLabel}</p>}
-                      {tier.headline && <p className={styles.planHeadline}>{tier.headline}</p>}
+      <section className={styles.bodySection}>
+        <div className={styles.bodyInner}>
+          {categories.map(category => (
+            <div key={category.id}>
+              <h2 className={styles.sectionTitle}>{category.label}</h2>
+              <div className={styles.cardGrid}>
+                {category.tiers.map(tier => (
+                  <article key={tier.id} className={styles.planCard}>
+                    <div>
+                      <h3 className={styles.planName}>{tier.name}</h3>
+                      <p className={styles.planPrice}>{getPriceLabel(tier)}</p>
                     </div>
-                    <p className={styles.planPrice}>
-                      <span className={styles.planPriceValue}>{tier.price}</span>
-                      <span className={styles.planPricePeriod}>{tier.period}</span>
-                    </p>
                     <ul className={styles.planFeatures}>
-                      {tier.features.map(feature => (
-                        <li key={feature}>{feature}</li>
-                      ))}
+                      {tier.features.map(feature => {
+                        const text = feature.includes(FEATURE_PLACEHOLDER)
+                          ? feature.replace(FEATURE_PLACEHOLDER, kycPolicy)
+                          : feature;
+                        return <li key={`${tier.id}-${feature}`}>{text}</li>;
+                      })}
                     </ul>
-                  </div>
-                  <div className={styles.planFooter}>
-                    <Link
-                      href={tier.ctaHref}
-                      className={styles.planCta}
-                      {...getLinkProps(tier.ctaHref)}
-                    >
-                      {tier.ctaLabel ?? CTA_FALLBACK[locale]}
+                    <Link href={tier.ctaHref} className={styles.planCta}>
+                      {buyLabel}
                     </Link>
-                    {ribbonPlacement === "bottom" && renderRibbon("bottom")}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
 
-          <footer className={styles.footer}>
-            <p className={styles.paymentNote}>{copy.paymentNote}</p>
-            <div className={styles.paymentMethods} aria-label={PAYMENTS_ARIA_LABEL[locale]}>
-              {copy.paymentMethods.map(method => (
+          <div className={styles.footer}>
+            <p className={styles.sectionSubtitle}>{content.paymentNote}</p>
+            <div className={styles.paymentMethods}>
+              {content.paymentMethods.map(method => (
                 <span key={method} className={styles.paymentChip}>
                   {method}
                 </span>
               ))}
             </div>
-          </footer>
+            <p className={styles.kycNote}>{kycPolicy}</p>
+          </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

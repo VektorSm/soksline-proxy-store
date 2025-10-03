@@ -1,105 +1,150 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { getCategories, type CategoryId } from "../lib/products";
-import { useLocale } from "./LocaleContext";
-import type { Locale } from "./LocaleContext";
+import { useCallback, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { KYC_POLICY } from "../config/site";
+import { useI18n } from "../lib/i18n";
 import styles from "./TopProductsTabs.module.css";
 
-const SECTION_TITLE: Record<Locale, string> = {
-  ru: "Топ продукты SoksLine",
-  en: "Top products by SoksLine",
+const TAB_KEYS = ["staticIsp", "staticIpv6", "rotating"] as const;
+type TabKey = (typeof TAB_KEYS)[number];
+
+type TabCard = {
+  name: string;
+  price: string;
+  features: string[];
 };
 
-const TABLIST_LABEL: Record<Locale, string> = {
-  ru: "Категории продуктов",
-  en: "Product categories",
-};
-
-type TabButtonProps = {
-  categoryId: CategoryId;
+type TabContent = {
   label: string;
-  isActive: boolean;
-  onSelect: (id: CategoryId) => void;
+  tagline: string;
+  cards: TabCard[];
+  note?: string;
 };
 
-function TabButton({ categoryId, label, isActive, onSelect }: TabButtonProps) {
-  return (
-    <button
-      type="button"
-      id={`${categoryId}-tab`}
-      className={`${styles.tabButton} ${isActive ? styles.tabButtonActive : ""}`}
-      role="tab"
-      aria-selected={isActive}
-      aria-controls={`${categoryId}-panel`}
-      onClick={() => onSelect(categoryId)}
-    >
-      {label}
-    </button>
-  );
-}
+type TopProductsContent = {
+  title: string;
+  description: string;
+  tabs: Record<TabKey, TabContent> & Record<string, TabContent>;
+};
+
+const FEATURE_PLACEHOLDER = "{kycPolicy}";
 
 export default function TopProductsTabs() {
-  const { locale } = useLocale();
-  const categories = useMemo(() => getCategories(locale), [locale]);
-  const [activeCategory, setActiveCategory] = useState<CategoryId>(categories[0].id);
+  const { locale, t } = useI18n();
+  const data = t<TopProductsContent>("topProducts");
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    if (!categories.some(category => category.id === activeCategory)) {
-      setActiveCategory(categories[0].id);
-    }
-  }, [categories, activeCategory]);
+  const tabs = useMemo(() => {
+    return TAB_KEYS.map(key => ({ key, content: data.tabs[key] })).filter(tab => Boolean(tab.content));
+  }, [data.tabs]);
 
-  const current = categories.find(category => category.id === activeCategory) ?? categories[0];
+  const kycPolicy = locale === "ru" ? KYC_POLICY : t<string>("kyc.policy");
+
+  const focusTab = useCallback(
+    (index: number) => {
+      const clamped = (index + tabs.length) % tabs.length;
+      setActiveIndex(clamped);
+      tabRefs.current[clamped]?.focus();
+    },
+    [tabs.length]
+  );
+
+  const handleKeyDown = useCallback(
+    (index: number) => (event: KeyboardEvent<HTMLButtonElement>) => {
+      switch (event.key) {
+        case "ArrowRight":
+        case "Right":
+          event.preventDefault();
+          focusTab(index + 1);
+          break;
+        case "ArrowLeft":
+        case "Left":
+          event.preventDefault();
+          focusTab(index - 1);
+          break;
+        case "Home":
+          event.preventDefault();
+          focusTab(0);
+          break;
+        case "End":
+          event.preventDefault();
+          focusTab(tabs.length - 1);
+          break;
+        default:
+          break;
+      }
+    },
+    [focusTab, tabs.length]
+  );
+
+  const activeTab = tabs[activeIndex] ?? tabs[0];
 
   return (
-    <section className={styles.section} id="top-products">
-      <div className={styles.sectionInner}>
-        <div className={styles.header}>
-          <h2 className={styles.title}>{SECTION_TITLE[locale]}</h2>
-          <p className={styles.subtitle}>{current.tagline}</p>
+    <section className={styles.section}>
+      <div className={styles.inner}>
+        <header className={styles.header}>
+          <h2 className={styles.title}>{data.title}</h2>
+          <p className={styles.subtitle}>{data.description}</p>
+        </header>
+
+        <div className={styles.tablist} role="tablist" aria-label={data.title}>
+          {tabs.map((tab, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <button
+                type="button"
+                key={tab.key}
+                id={`top-products-${tab.key}`}
+                className={`${styles.tabButton} ${isActive ? styles.tabButtonActive : ""}`.trim()}
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`top-products-${tab.key}-panel`}
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => setActiveIndex(index)}
+                onKeyDown={handleKeyDown(index)}
+                ref={element => {
+                  tabRefs.current[index] = element;
+                }}
+              >
+                {tab.content.label}
+              </button>
+            );
+          })}
         </div>
 
-        <div role="tablist" aria-label={TABLIST_LABEL[locale]} className={styles.tablistWrapper}>
-          {categories.map(category => (
-            <TabButton
-              key={category.id}
-              categoryId={category.id}
-              label={category.title}
-              isActive={category.id === activeCategory}
-              onSelect={setActiveCategory}
-            />
-          ))}
-        </div>
+        {activeTab && (
+          <div
+            id={`top-products-${activeTab.key}-panel`}
+            role="tabpanel"
+            aria-labelledby={`top-products-${activeTab.key}`}
+            tabIndex={0}
+            className={styles.panel}
+          >
+            <p className={styles.subtitle}>{activeTab.content.tagline}</p>
 
-        <div
-          id={`${current.id}-panel`}
-          role="tabpanel"
-          tabIndex={0}
-          aria-labelledby={`${current.id}-tab`}
-          className={styles.panel}
-        >
-          <div className={styles.cards}>
-            {current.items.map(item => (
-              <article key={item.name} className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.cardTitle}>{item.name}</h3>
-                  <p className={styles.cardPrice}>{item.price}</p>
-                </div>
-                <ul className={styles.featureList}>
-                  {item.features.map(feature => (
-                    <li key={feature} className={styles.featureItem}>
-                      <span className={styles.featureDot} aria-hidden="true" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                {item.bestFor && <p className={styles.cardMeta}>{item.bestFor}</p>}
-              </article>
-            ))}
+            <div className={styles.cards}>
+              {activeTab.content.cards.map(card => (
+                <article key={card.name} className={styles.card}>
+                  <div>
+                    <h3 className={styles.cardTitle}>{card.name}</h3>
+                    <p className={styles.cardPrice}>{card.price}</p>
+                  </div>
+                  <ul className={styles.featureList}>
+                    {card.features.map(feature => {
+                      const text = feature.includes(FEATURE_PLACEHOLDER)
+                        ? feature.replace(FEATURE_PLACEHOLDER, kycPolicy)
+                        : feature;
+                      return <li key={feature}>{text}</li>;
+                    })}
+                  </ul>
+                </article>
+              ))}
+            </div>
+
+            {activeTab.content.note && <p className={styles.note}>{activeTab.content.note}</p>}
           </div>
-          {current.note && <p className={styles.note}>{current.note}</p>}
-        </div>
+        )}
       </div>
     </section>
   );

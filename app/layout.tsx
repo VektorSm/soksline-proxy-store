@@ -1,16 +1,27 @@
+import type { Metadata } from "next";
+import { BRAND_NAME, DEFAULT_LOCALE } from "../config/site";
+import Footer from "../components/Footer";
 import HeaderNav from "../components/HeaderNav";
-import { LocaleProvider } from "../components/LocaleContext";
+import { I18nProvider } from "../lib/i18n";
+import "./globals.css";
 
-export const metadata = { title: "SoksLine", description: "Proxy store" };
+export const metadata: Metadata = {
+  title: BRAND_NAME,
+  description: "SOCKS5 proxy store",
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
-      <body style={{ fontFamily: "system-ui, sans-serif", margin: 0, backgroundColor: "#0b1220" }}>
-        <LocaleProvider>
+    <html lang={DEFAULT_LOCALE}>
+      <body>
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        <I18nProvider>
           <HeaderNav />
-          {children}
-        </LocaleProvider>
+          <main id="main-content">{children}</main>
+          <Footer />
+        </I18nProvider>
       </body>
     </html>
   );

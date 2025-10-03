@@ -1,11 +1,10 @@
-import PageClient from "./page.client";
+import ResourceArticle from "../../../components/ResourceArticle";
 
 export const metadata = {
-  title: "Что такое ротационный прокси? | SoksLine",
-  description:
-    "Узнайте, что такое ротационные резидентские прокси, как работают сессии и что ожидать от сроков действия и продлений в SoksLine.",
+  title: "What is a rotating proxy? | SoksLine",
+  description: "Understand rotating proxies, rotation windows, and usage-based billing at SoksLine.",
 };
 
 export default function Page() {
-  return <PageClient />;
+  return <ResourceArticle slug="what-is-a-rotating-proxy" />;
 }

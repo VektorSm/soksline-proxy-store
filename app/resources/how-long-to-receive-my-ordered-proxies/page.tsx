@@ -1,11 +1,10 @@
-import PageClient from "./page.client";
+import ResourceArticle from "../../../components/ResourceArticle";
 
 export const metadata = {
-  title: "Сколько времени занимает получение заказанных прокси? | SoksLine",
-  description:
-    "Узнайте, как быстро SoksLine поставляет прокси и что происходит, если для настройки нужна дополнительная информация.",
+  title: "Proxy provisioning time | SoksLine",
+  description: "See how fast SoksLine delivers proxy orders and when manual review applies.",
 };
 
 export default function Page() {
-  return <PageClient />;
+  return <ResourceArticle slug="how-long-to-receive-my-ordered-proxies" />;
 }
