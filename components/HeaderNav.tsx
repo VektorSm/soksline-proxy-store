@@ -34,7 +34,7 @@ type NavigationCopy = {
 const NAV_CONTENT: Record<Locale, NavigationCopy> = {
   ru: {
     navLabel: "Главное меню",
-    brandTagline: "Proxy Store и выделенная ротация",
+    brandTagline: "Soks5 Proxy store",
     loginLabel: "Войти",
     navLinks: [
       {
