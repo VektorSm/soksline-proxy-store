@@ -32,7 +32,7 @@ type HomeContent = {
 const HOME_CONTENT: Record<Locale, HomeContent> = {
   ru: {
     hero: {
-      eyebrow: "SoksLine Proxy Store",
+      eyebrow: "SoksLine SOCKS5 proxy store",
       title: "Чистые SOCKS-прокси. Прямая линия скорости.",
       subtitle:
         "Покупайте и продавайте прокси в пару кликов. Умные фильтры, актуальная аналитика и прозрачные тарифы помогают командам запускать инфраструктуру без задержек.",
@@ -89,7 +89,7 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
   },
   en: {
     hero: {
-      eyebrow: "SoksLine Proxy Store",
+      eyebrow: "SoksLine SOCKS5 proxy store",
       title: "Clean SOCKS proxies. Straight-line performance.",
       subtitle:
         "Buy and resell proxies in a couple of clicks. Smart filters, live analytics, and transparent pricing let your team launch infrastructure without delays.",

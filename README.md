@@ -1,4 +1,4 @@
-# SoksLine Proxy Store
+# SoksLine SOCKS5 Proxy Store
 
 Next.js (App Router) демо витрина для магазина прокси.
 
