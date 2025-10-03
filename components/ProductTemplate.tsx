@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
 import type { LocalizedProductPage } from "../lib/productPages";
 import { useLocale } from "./LocaleContext";
 import styles from "./ProductTemplate.module.css";
+import KycNotice from "./KycNotice";
 
 function getLinkProps(href: string) {
   if (/^https?:\/\//i.test(href)) {
@@ -154,6 +155,8 @@ export default function ProductTemplate({ data, cardsVariant = "default" }: Prod
                       );
                     })}
                   </ul>
+
+                  <KycNotice className={styles.cardKycNotice} inline locale={locale} />
 
                   <Link href={plan.ctaHref} className={styles.cardCta} {...getLinkProps(plan.ctaHref)}>
                     {plan.ctaLabel}

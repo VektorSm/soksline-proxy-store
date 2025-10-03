@@ -27,7 +27,7 @@ const PRODUCT_CATEGORIES: Record<Locale, Category[]> = {
         {
           name: "US / EU (shared pool)",
           price: "от $2.50 / IP",
-          features: ["Sticky до 24 ч", "HTTP / SOCKS5", "Без KYC"],
+          features: ["Sticky до 24 ч", "HTTP / SOCKS5"],
           bestFor: "Управление рекламой и аккаунтами.",
         },
         {
@@ -89,7 +89,7 @@ const PRODUCT_CATEGORIES: Record<Locale, Category[]> = {
         {
           name: "US / EU (shared pool)",
           price: "from $2.50 / IP",
-          features: ["Sticky up to 24h", "HTTP / SOCKS5", "No KYC"],
+          features: ["Sticky up to 24h", "HTTP / SOCKS5"],
           bestFor: "Ad accounts and account management.",
         },
         {

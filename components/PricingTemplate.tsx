@@ -6,6 +6,7 @@ import type { PricingCategory, LocalizedPricingPage } from "../lib/pricing";
 import { useLocale } from "./LocaleContext";
 import type { Locale } from "./LocaleContext";
 import styles from "./PricingTemplate.module.css";
+import KycNotice from "./KycNotice";
 
 type PricingTemplateProps = {
   data: LocalizedPricingPage;
@@ -112,6 +113,7 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
                         <li key={feature}>{feature}</li>
                       ))}
                     </ul>
+                    <KycNotice className={styles.planKycNotice} inline locale={locale} />
                   </div>
                   <div className={styles.planFooter}>
                     <Link
