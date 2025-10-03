@@ -295,7 +295,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
           {
             id: "ipv6-10",
             name: "Базовый",
-            price: "$0.63",
+            price: "$0.56",
             period: "за прокси / мес",
             totalMultiplier: 10,
             features: [
@@ -327,7 +327,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
           {
             id: "ipv6-100",
             name: "Премиум",
-            price: "$0.56",
+            price: "$0.63",
             period: "за прокси / мес",
             totalMultiplier: 100,
             features: [
@@ -359,7 +359,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
           {
             id: "ipv6-10",
             name: "Basic",
-            price: "$0.63",
+            price: "$0.56",
             period: "per proxy / month",
             totalMultiplier: 10,
             features: [
@@ -389,7 +389,7 @@ export const STATIC_IPV6_PRICING: LocalizedPricingPage = {
           {
             id: "ipv6-100",
             name: "Premium",
-            price: "$0.56",
+            price: "$0.63",
             period: "per proxy / month",
             totalMultiplier: 100,
             features: [
