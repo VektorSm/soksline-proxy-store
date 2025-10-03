@@ -34,25 +34,6 @@ function getDefaultTier(category: Nullable<OrderCategory>): Nullable<OrderTier> 
   return category?.tiers[0];
 }
 
-function getDiscountMultiplier(tier: Nullable<OrderTier>): number {
-  if (!tier?.ribbon) {
-    return 1;
-  }
-
-  const match = tier.ribbon.match(/-([0-9]+(?:\.[0-9]+)?)%/);
-  if (!match) {
-    return 1;
-  }
-
-  const percent = Number.parseFloat(match[1]);
-  if (!Number.isFinite(percent)) {
-    return 1;
-  }
-
-  const multiplier = 1 - percent / 100;
-  return multiplier > 0 ? multiplier : 0;
-}
-
 type Option = { value: string; label: string };
 
 function getDefaultOptionValue(options: Option[], fallbackIndex = 0): string {
@@ -213,24 +194,9 @@ export default function OrderPageContent() {
   const currency = activeService?.currency ?? "USD";
   const unitAmount = activeTier?.priceAmount ?? 0;
   const hasUnitPrice = unitAmount > 0;
-  const totalMultiplier = activeTier?.totalMultiplier ?? 1;
-  const periodMultiplier = useMemo(() => {
-    switch (selectedPeriod) {
-      case "weekly":
-        return 7 / 30;
-      case "quarterly":
-        return 3;
-      case "yearly":
-        return 12;
-      default:
-        return 1;
-    }
-  }, [selectedPeriod]);
-  const discountMultiplier = getDiscountMultiplier(activeTier);
   const parsedQuantity = Number.parseInt(selectedQuantity, 10);
   const quantity = Number.isNaN(parsedQuantity) ? 1 : Math.max(1, parsedQuantity);
-  const totalAmount =
-    unitAmount * totalMultiplier * periodMultiplier * discountMultiplier * quantity;
+  const totalAmount = unitAmount * quantity;
   const unitPrice = hasUnitPrice
     ? formatCurrency(unitAmount, locale, currency)
     : activeTier?.price ?? "—";
