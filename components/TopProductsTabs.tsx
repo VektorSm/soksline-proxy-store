@@ -5,6 +5,7 @@ import { getCategories, type CategoryId } from "../lib/products";
 import { useLocale } from "./LocaleContext";
 import type { Locale } from "./LocaleContext";
 import styles from "./TopProductsTabs.module.css";
+import KycNotice from "./KycNotice";
 
 const SECTION_TITLE: Record<Locale, string> = {
   ru: "Топ продукты SoksLine",
@@ -94,6 +95,7 @@ export default function TopProductsTabs() {
                     </li>
                   ))}
                 </ul>
+                <KycNotice className={styles.cardKycNotice} inline locale={locale} />
                 {item.bestFor && <p className={styles.cardMeta}>{item.bestFor}</p>}
               </article>
             ))}

@@ -122,6 +122,13 @@
   font-size: 0.95rem;
 }
 
+.cardKycNotice {
+  display: block;
+  margin-top: 0.6rem;
+  color: rgba(15, 23, 42, 0.7);
+  font-size: 0.85rem;
+}
+
 .featureItem {
   display: flex;
   align-items: center;

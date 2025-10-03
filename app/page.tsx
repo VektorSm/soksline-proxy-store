@@ -3,6 +3,7 @@
 import TopProductsTabs from "../components/TopProductsTabs";
 import { useLocale } from "../components/LocaleContext";
 import type { Locale } from "../components/LocaleContext";
+import KycNotice from "../components/KycNotice";
 import styles from "./page.module.css";
 
 type Advantage = { title: string; description: string };
@@ -158,6 +159,7 @@ export default function Page() {
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>{copy.hero.title}</h1>
             <p className={styles.heroSubtitle}>{copy.hero.subtitle}</p>
+            <KycNotice className={styles.heroKycNotice} locale={locale} />
           </div>
         </div>
       </section>

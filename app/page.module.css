@@ -44,6 +44,16 @@
   max-width: 52rem;
 }
 
+.heroKycNotice {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  color: rgba(226, 232, 240, 0.82);
+}
+
 .heroTitle {
   font-size: clamp(2.4rem, 6vw, 3.6rem);
   line-height: 1.1;

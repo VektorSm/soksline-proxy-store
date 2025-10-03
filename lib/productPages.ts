@@ -1,4 +1,5 @@
 import type { Locale } from "../components/LocaleContext";
+import { KYC_POLICY } from "../config/policies";
 
 export type ProductMetric = {
   label: string;
@@ -323,7 +324,7 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
             "Панель управления, API, белые списки IP и помощь команды 24/7 помогают быстро интегрировать прокси в ваши процессы.",
         },
       ],
-      note: "Персональные требования по комплаенсу и KYC доступны по запросу.",
+      note: KYC_POLICY.ru,
     },
   },
   en: {
@@ -381,7 +382,7 @@ export const ROTATING_RESIDENTIAL_PAGE: LocalizedProductPage = {
             "Manage access through dashboards, APIs, and IP whitelists with round-the-clock help from our support engineers.",
         },
       ],
-      note: "Custom compliance or KYC requirements available upon request.",
+      note: KYC_POLICY.en,
     },
   },
 };

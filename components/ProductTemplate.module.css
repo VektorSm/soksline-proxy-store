@@ -312,6 +312,13 @@
   justify-items: stretch;
 }
 
+.cardKycNotice {
+  display: block;
+  margin-top: 0.75rem;
+  color: rgba(15, 23, 42, 0.7);
+  font-size: 0.85rem;
+}
+
 .cardFeature {
   display: flex;
   align-items: center;
