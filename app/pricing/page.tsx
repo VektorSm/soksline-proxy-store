@@ -6,19 +6,13 @@ import { useMemo } from 'react';
 import { buildOrderUrl, catalog, type PlanId } from '@/config/catalog';
 import KycNotice from '@/components/KycNotice';
 import Section from '@/components/layout/Section';
-import { useI18n, type Locale } from '@/lib/i18n';
+import { useI18n } from '@/lib/i18n';
 import { getOrderPage, type OrderService } from '@/lib/order';
 
 import styles from './page.module.css';
 
-function formatUsd(value: number, locale: Locale) {
-  const formatter = new Intl.NumberFormat(locale === 'ru' ? 'ru-RU' : 'en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-  return formatter.format(value);
+function formatUsd(value: number) {
+  return `$${value.toFixed(2)}`;
 }
 
 type PlanLocaleCopy = {
@@ -66,7 +60,25 @@ export default function PricingPage() {
   );
 
   const buyNowLabel = locale === 'ru' ? 'Купить' : t('common.buyNow', 'Buy Now');
-  const ipv6PriceLabel = ipv6Service?.card.priceHint ?? t('pages.pricing.staticIpv6.from', 'from $0.55 / mo');
+  const ipv6PriceLabel = useMemo(() => {
+    const hint = ipv6Service?.card.priceHint?.trim();
+    if (hint) {
+      return hint;
+    }
+
+    const fromUsd = catalog.staticIpv6.fromUsd;
+    if (typeof fromUsd === 'number') {
+      const price = formatUsd(fromUsd);
+      const template = locale === 'ru'
+        ? t('pages.pricing.staticIpv6.from', 'от $0.55 / мес')
+        : t('pages.pricing.staticIpv6.from', 'from $0.55 / mo');
+      return template.replace('$0.55', price);
+    }
+
+    return locale === 'ru'
+      ? t('pages.pricing.staticIpv6.from', 'от $0.55 / мес')
+      : t('pages.pricing.staticIpv6.from', 'from $0.55 / mo');
+  }, [ipv6Service, locale, t]);
   const ipv6Highlights = ipv6Service?.card.highlights ?? [];
 
   return (
@@ -117,7 +129,7 @@ export default function PricingPage() {
                   {badge ? <span className={styles.planBadge}>{badge}</span> : null}
                 </div>
                 <p className={styles.planPrice}>
-                  {formatUsd(plan.priceUsd, locale)}
+                  {formatUsd(plan.priceUsd)}
                   <span className={styles.planUnit}>{unitLabel}</span>
                 </p>
                 <ul className={styles.planFeatures}>
@@ -207,7 +219,7 @@ export default function PricingPage() {
               <article key={tier.id} className={styles.rotatingCard}>
                 <div className={styles.rotatingTitle}>{`${tier.gb} GB`}</div>
                 <div className={styles.rotatingPrice}>
-                  {`${formatUsd(pricePerGb, locale)} / GB (Total ${formatUsd(totalUsd, locale)})`}
+                  {`${formatUsd(pricePerGb)} / GB (Total ${formatUsd(totalUsd)})`}
                 </div>
                 <Link
                   href={buildOrderUrl({ service: 'rotating', duration: 'monthly' })}

@@ -124,14 +124,8 @@ export function buildOrderUrl(params: {
   plan?: PlanId;
   duration?: 'monthly' | 'yearly';
 }) {
-  const serviceMap: Record<ServiceId, string> = {
-    'static-isp': 'static-isp',
-    'static-ipv6': 'static-residential-ipv6',
-    rotating: 'rotating-residential',
-  };
-
   const q = new URLSearchParams({
-    service: serviceMap[params.service],
+    service: params.service,
     ...(params.plan ? { plan: params.plan } : {}),
     ...(params.duration ? { duration: params.duration } : { duration: 'monthly' }),
   });
