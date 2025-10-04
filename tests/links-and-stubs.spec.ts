@@ -34,7 +34,10 @@ test('hero CTA keeps internal navigation safe', async ({ page }) => {
   await page.goto('/');
 
   const primaryCta = page.getByRole('link', { name: /buy now/i });
-  await expect(primaryCta).toHaveAttribute('href', '/pricing');
+  await expect(primaryCta).toHaveAttribute(
+    'href',
+    '/order?service=static-isp&plan=basic&duration=monthly',
+  );
   await expect(primaryCta).not.toHaveAttribute('target', /.+/);
   await expect(primaryCta).not.toHaveAttribute('rel', /.+/);
 });

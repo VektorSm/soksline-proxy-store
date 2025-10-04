@@ -10,6 +10,7 @@ import type { Locale } from './LocaleContext';
 import styles from './PricingTemplate.module.css';
 import KycNotice from './KycNotice';
 import Section from '@/components/layout/Section';
+import { saveOrderPrefs, type OrderPrefs } from '@/lib/orderPrefs';
 
 type PricingTemplateProps = {
   data: LocalizedPricingPage;
@@ -29,6 +30,63 @@ const PAYMENTS_ARIA_LABEL: Record<Locale, string> = {
   ru: 'Поддерживаемые способы оплаты',
   en: 'Supported payment methods',
 };
+
+type OrderPrefsPlan = NonNullable<OrderPrefs['plan']>;
+type OrderPrefsDuration = NonNullable<OrderPrefs['duration']>;
+
+function isOrderPrefsService(value: string | null): value is OrderPrefs['service'] {
+  return value === 'static-isp' || value === 'static-ipv6' || value === 'rotating';
+}
+
+function isOrderPrefsPlan(value: string | null): value is OrderPrefsPlan {
+  return value === 'basic' || value === 'dedicated' || value === 'premium';
+}
+
+function isOrderPrefsDuration(value: string | null): value is OrderPrefsDuration {
+  return value === 'monthly' || value === 'yearly';
+}
+
+function getOrderPrefsFromHref(href: string): OrderPrefs | null {
+  try {
+    const url = new URL(href, window.location.origin);
+    if (url.pathname !== '/order') {
+      return null;
+    }
+
+    const serviceParam = url.searchParams.get('service');
+    if (!isOrderPrefsService(serviceParam)) {
+      return null;
+    }
+
+    const prefs: OrderPrefs = { service: serviceParam };
+
+    const planParam = url.searchParams.get('plan');
+    if (isOrderPrefsPlan(planParam)) {
+      prefs.plan = planParam;
+    }
+
+    const durationParam = url.searchParams.get('duration');
+    if (isOrderPrefsDuration(durationParam)) {
+      prefs.duration = durationParam;
+    }
+
+    const tierParam = url.searchParams.get('tier');
+    if (tierParam) {
+      prefs.tierId = tierParam;
+    }
+
+    return prefs;
+  } catch {
+    return null;
+  }
+}
+
+function handlePlanCtaClick(href: string) {
+  const prefs = getOrderPrefsFromHref(href);
+  if (prefs) {
+    saveOrderPrefs(prefs);
+  }
+}
 
 function resolveInitialCategory(categories: PricingCategory[]): string {
   return categories[0]?.id ?? '';
@@ -147,6 +205,7 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
                     href={tier.ctaHref}
                     className={styles.planCta}
                     {...getLinkProps(tier.ctaHref)}
+                    onClick={() => handlePlanCtaClick(tier.ctaHref)}
                   >
                     {tier.ctaLabel ?? CTA_FALLBACK[locale]}
                   </Link>
