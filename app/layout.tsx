@@ -1,3 +1,4 @@
+import './globals.css';
 import React, { Suspense } from 'react';
 import HeaderNav from '@/components/HeaderNav';
 import Footer from '@/components/Footer';
