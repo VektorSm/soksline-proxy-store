@@ -321,6 +321,8 @@
     }
   },
   "topProducts": {
-    "title": "Top Products by SoksLine"
+    "title": "Top Products by SoksLine",
+    "subtitle": "Static residential proxies tailored for long-term tasks and account work.",
+    "tabsLabel": "Top products"
   }
 }
