@@ -32,7 +32,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest --run",
-    "test:e2e": "playwright test",
+    "test:e2e": "node scripts/test-e2e.mjs",
     "test:e2e:ui": "playwright test --ui",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\"",

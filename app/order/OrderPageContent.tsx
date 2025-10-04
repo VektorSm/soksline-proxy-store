@@ -2,11 +2,14 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 import { useLocale } from '../../components/LocaleContext';
 import { getOrderPage } from '../../lib/order';
 import { rotatingPricing } from '../../config/pricing';
 import { fmtUSD, normalizeTier } from '../../lib/money';
+import { loadOrderPrefs, saveOrderPrefs } from '@/lib/orderPrefs';
+import type { OrderPrefs } from '@/lib/orderPrefs';
 
 import styles from './page.module.css';
 
@@ -38,6 +41,165 @@ function getDefaultTier(category: Nullable<OrderCategory>): Nullable<OrderTier> 
 
 type Option = { value: string; label: string };
 
+type OrderSelection = {
+  serviceId: string;
+  categoryId: string;
+  tierId: string;
+  duration?: OrderPrefs['duration'];
+};
+
+type OrderPrefsService = OrderPrefs['service'];
+type OrderPrefsPlan = NonNullable<OrderPrefs['plan']>;
+type OrderPrefsDuration = NonNullable<OrderPrefs['duration']>;
+
+const PREF_SERVICE_TO_ORDER_SERVICE: Record<OrderPrefsService, string> = {
+  'static-isp': 'static-residential',
+  'static-ipv6': 'static-residential-ipv6',
+  rotating: 'rotating-residential',
+};
+
+const ORDER_SERVICE_TO_PREF_SERVICE: Partial<Record<string, OrderPrefsService>> = {
+  'static-residential': 'static-isp',
+  'static-residential-ipv6': 'static-ipv6',
+  'rotating-residential': 'rotating',
+};
+
+const PLAN_TO_TIER: Record<OrderPrefsPlan, string> = {
+  basic: 'static-basic',
+  dedicated: 'static-dedicated',
+  premium: 'static-premium',
+};
+
+const TIER_TO_PLAN: Partial<Record<string, OrderPrefsPlan>> = {
+  'static-basic': 'basic',
+  'static-dedicated': 'dedicated',
+  'static-premium': 'premium',
+};
+
+function isOrderPrefsService(value: string | null): value is OrderPrefsService {
+  return value === 'static-isp' || value === 'static-ipv6' || value === 'rotating';
+}
+
+function isOrderPrefsPlan(value: string | null): value is OrderPrefsPlan {
+  return value === 'basic' || value === 'dedicated' || value === 'premium';
+}
+
+function isOrderPrefsDuration(value: string | null): value is OrderPrefsDuration {
+  return value === 'monthly' || value === 'yearly';
+}
+
+function findTierInfo(
+  service: Nullable<OrderService>,
+  tierId: string | null | undefined,
+): { service: OrderService; category: OrderCategory; tier: OrderTier } | null {
+  if (!service || !tierId) {
+    return null;
+  }
+
+  for (const category of service.categories) {
+    const tier = category.tiers.find((item) => item.id === tierId);
+    if (tier) {
+      return { service, category, tier };
+    }
+  }
+
+  return null;
+}
+
+function resolveSelection(
+  services: OrderService[],
+  input: {
+    service?: string | null;
+    plan?: string | null;
+    tierId?: string | null;
+    duration?: string | null;
+  },
+): OrderSelection | null {
+  if (services.length === 0) {
+    return null;
+  }
+
+  let targetService: OrderService | undefined;
+
+  const serviceCandidate = input.service;
+  if (serviceCandidate) {
+    if (isOrderPrefsService(serviceCandidate)) {
+      const mappedId = PREF_SERVICE_TO_ORDER_SERVICE[serviceCandidate];
+      targetService = services.find((service) => service.id === mappedId);
+    }
+
+    if (!targetService) {
+      targetService = services.find((service) => service.id === serviceCandidate);
+    }
+  }
+
+  const requestedTierId = input.tierId ?? undefined;
+  let tierInfo: ReturnType<typeof findTierInfo> | null = null;
+
+  if (requestedTierId && targetService) {
+    tierInfo = findTierInfo(targetService, requestedTierId);
+  }
+
+  if (!tierInfo && requestedTierId) {
+    for (const service of services) {
+      tierInfo = findTierInfo(service, requestedTierId);
+      if (tierInfo) {
+        targetService = tierInfo.service;
+        break;
+      }
+    }
+  }
+
+  if (!targetService) {
+    targetService = services[0];
+  }
+
+  if (!tierInfo && input.plan) {
+    const planId = input.plan;
+    if (isOrderPrefsPlan(planId)) {
+      const mappedTierId = PLAN_TO_TIER[planId];
+      tierInfo = findTierInfo(targetService, mappedTierId);
+
+      if (!tierInfo) {
+        for (const service of services) {
+          const candidate = findTierInfo(service, mappedTierId);
+          if (candidate) {
+            tierInfo = candidate;
+            targetService = candidate.service;
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  if (!tierInfo) {
+    const category = getDefaultCategory(targetService);
+    const tier = getDefaultTier(category);
+    tierInfo = category && tier ? { service: targetService, category, tier } : null;
+  }
+
+  if (!tierInfo) {
+    return {
+      serviceId: targetService.id,
+      categoryId: getDefaultCategory(targetService)?.id ?? '',
+      tierId: getDefaultTier(getDefaultCategory(targetService))?.id ?? '',
+      duration: isOrderPrefsDuration(input.duration ?? null)
+        ? (input.duration as OrderPrefsDuration)
+        : undefined,
+    } satisfies OrderSelection;
+  }
+
+  return {
+    serviceId: tierInfo.service.id,
+    categoryId: tierInfo.category.id,
+    tierId: tierInfo.tier.id,
+    duration: isOrderPrefsDuration(input.duration ?? null)
+      ? (input.duration as OrderPrefsDuration)
+      : undefined,
+  } satisfies OrderSelection;
+}
+
 function getDefaultOptionValue(options: Option[], fallbackIndex = 0): string {
   if (options[fallbackIndex]) {
     return options[fallbackIndex].value;
@@ -49,19 +211,63 @@ function getDefaultOptionValue(options: Option[], fallbackIndex = 0): string {
 export default function OrderPageContent() {
   const { locale } = useLocale();
   const page = useMemo(() => getOrderPage(locale), [locale]);
+  const searchParams = useSearchParams();
+  const searchParamsSnapshot = useMemo(
+    () => ({
+      service: searchParams.get('service'),
+      plan: searchParams.get('plan'),
+      tierId: searchParams.get('tier'),
+      duration: searchParams.get('duration'),
+    }),
+    [searchParams],
+  );
 
-  const [serviceId, setServiceId] = useState(() => page.services[0]?.id ?? '');
+  const initialSelection = useMemo<OrderSelection>(() => {
+    const fromQuery = resolveSelection(page.services, {
+      service: searchParamsSnapshot.service,
+      plan: searchParamsSnapshot.plan,
+      tierId: searchParamsSnapshot.tierId,
+      duration: searchParamsSnapshot.duration,
+    });
+
+    if (fromQuery) {
+      return fromQuery;
+    }
+
+    const stored = loadOrderPrefs();
+    if (stored) {
+      const fromPrefs = resolveSelection(page.services, {
+        service: stored.service,
+        plan: stored.plan,
+        tierId: stored.tierId,
+        duration: stored.duration,
+      });
+
+      if (fromPrefs) {
+        return fromPrefs;
+      }
+    }
+
+    const fallbackService = page.services[0];
+    const fallbackCategory = getDefaultCategory(fallbackService);
+    const fallbackTier = getDefaultTier(fallbackCategory);
+
+    return {
+      serviceId: fallbackService?.id ?? '',
+      categoryId: fallbackCategory?.id ?? '',
+      tierId: fallbackTier?.id ?? '',
+      duration: 'monthly',
+    } satisfies OrderSelection;
+  }, [page.services, searchParamsSnapshot]);
+
+  const [serviceId, setServiceId] = useState(() => initialSelection.serviceId);
   const activeService = useMemo<Nullable<OrderService>>(
     () =>
       page.services.find((service: OrderService) => service.id === serviceId) ?? page.services[0],
     [page.services, serviceId],
   );
 
-  useEffect(() => {
-    setServiceId(page.services[0]?.id ?? '');
-  }, [page.services]);
-
-  const [categoryId, setCategoryId] = useState(() => getDefaultCategory(activeService)?.id ?? '');
+  const [categoryId, setCategoryId] = useState(() => initialSelection.categoryId);
   const activeCategory = useMemo<Nullable<OrderCategory>>(
     () =>
       activeService?.categories.find((category: OrderCategory) => category.id === categoryId) ??
@@ -69,11 +275,7 @@ export default function OrderPageContent() {
     [activeService, categoryId],
   );
 
-  useEffect(() => {
-    setCategoryId(getDefaultCategory(activeService)?.id ?? '');
-  }, [activeService]);
-
-  const [tierId, setTierId] = useState(() => getDefaultTier(activeCategory)?.id ?? '');
+  const [tierId, setTierId] = useState(() => initialSelection.tierId);
   const activeTier = useMemo<Nullable<OrderTier>>(
     () =>
       activeCategory?.tiers.find((tier: OrderTier) => tier.id === tierId) ??
@@ -82,8 +284,41 @@ export default function OrderPageContent() {
   );
 
   useEffect(() => {
-    setTierId(getDefaultTier(activeCategory)?.id ?? '');
-  }, [activeCategory]);
+    setServiceId(initialSelection.serviceId);
+    setCategoryId(initialSelection.categoryId);
+    setTierId(initialSelection.tierId);
+  }, [initialSelection.categoryId, initialSelection.serviceId, initialSelection.tierId]);
+
+  useEffect(() => {
+    if (!page.services.some((service) => service.id === serviceId)) {
+      setServiceId(initialSelection.serviceId);
+    }
+  }, [initialSelection.serviceId, page.services, serviceId]);
+
+  useEffect(() => {
+    if (!activeService) {
+      return;
+    }
+
+    const hasCategory = activeService.categories.some((category) => category.id === categoryId);
+    if (!hasCategory) {
+      const fallbackCategory = getDefaultCategory(activeService);
+      const fallbackTier = getDefaultTier(fallbackCategory);
+      setCategoryId(fallbackCategory?.id ?? '');
+      setTierId(fallbackTier?.id ?? '');
+    }
+  }, [activeService, categoryId]);
+
+  useEffect(() => {
+    if (!activeCategory) {
+      return;
+    }
+
+    const hasTier = activeCategory.tiers.some((tier) => tier.id === tierId);
+    if (!hasTier) {
+      setTierId(getDefaultTier(activeCategory)?.id ?? '');
+    }
+  }, [activeCategory, tierId]);
 
   const isRotatingService = activeService?.id === 'rotating-residential';
   const activeTiers = activeCategory?.tiers ?? [];
@@ -98,6 +333,8 @@ export default function OrderPageContent() {
   );
   const activeRotatingTier =
     isRotatingService && activeTier ? rotatingTierMap.get(activeTier.id) : undefined;
+
+  const initialDuration = initialSelection.duration;
 
   const configurationOptions = useMemo(() => {
     const base = {
@@ -187,18 +424,43 @@ export default function OrderPageContent() {
   const [selectedQuantity, setSelectedQuantity] = useState(() =>
     getDefaultOptionValue(configurationOptions.quantities),
   );
-  const [selectedPeriod, setSelectedPeriod] = useState(() =>
-    getDefaultOptionValue(configurationOptions.periods, 1),
-  );
+  const [selectedPeriod, setSelectedPeriod] = useState(() => {
+    if (
+      initialDuration &&
+      configurationOptions.periods.some((option) => option.value === initialDuration)
+    ) {
+      return initialDuration;
+    }
+
+    return getDefaultOptionValue(configurationOptions.periods, 1);
+  });
   const [autoRenew, setAutoRenew] = useState(true);
 
   useEffect(() => {
     setSelectedLocation(getDefaultOptionValue(configurationOptions.locations));
     setSelectedIsp(getDefaultOptionValue(configurationOptions.isps));
     setSelectedQuantity(getDefaultOptionValue(configurationOptions.quantities));
-    setSelectedPeriod(getDefaultOptionValue(configurationOptions.periods, 1));
+    setSelectedPeriod(() => {
+      if (
+        initialDuration &&
+        configurationOptions.periods.some((option) => option.value === initialDuration)
+      ) {
+        return initialDuration;
+      }
+
+      return getDefaultOptionValue(configurationOptions.periods, 1);
+    });
     setAutoRenew(true);
-  }, [activeService, configurationOptions]);
+  }, [activeService, configurationOptions, initialDuration]);
+
+  useEffect(() => {
+    if (
+      initialDuration &&
+      configurationOptions.periods.some((option) => option.value === initialDuration)
+    ) {
+      setSelectedPeriod(initialDuration);
+    }
+  }, [configurationOptions, initialDuration]);
 
   const currency = activeService?.currency ?? 'USD';
   const unitAmount = activeTier?.priceAmount ?? 0;
@@ -212,6 +474,32 @@ export default function OrderPageContent() {
   const totalPrice = hasUnitPrice
     ? formatCurrency(totalAmount, locale, currency)
     : (activeTier?.price ?? '—');
+
+  const activeServiceId = activeService?.id;
+  const activeTierId = activeTier?.id;
+
+  useEffect(() => {
+    if (!activeServiceId || !activeTierId) {
+      return;
+    }
+
+    const prefService = ORDER_SERVICE_TO_PREF_SERVICE[activeServiceId];
+    if (!prefService) {
+      return;
+    }
+
+    const prefs: OrderPrefs = { service: prefService, tierId: activeTierId };
+    const planId = TIER_TO_PLAN[activeTierId];
+    if (planId) {
+      prefs.plan = planId;
+    }
+
+    if (selectedPeriod === 'monthly' || selectedPeriod === 'yearly') {
+      prefs.duration = selectedPeriod;
+    }
+
+    saveOrderPrefs(prefs);
+  }, [activeServiceId, activeTierId, selectedPeriod]);
 
   return (
     <div className={styles.page}>

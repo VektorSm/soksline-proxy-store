@@ -1,10 +1,27 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useI18n } from '@/lib/i18n';
+import { buildOrderUrl } from '@/config/catalog';
+import { loadOrderPrefs } from '@/lib/orderPrefs';
 import styles from './HeaderNav.module.css';
 import NavLink from './NavLink';
+
+function getStartOrderHref() {
+  const prefs = loadOrderPrefs();
+  if (prefs?.service) {
+    return buildOrderUrl({
+      service: prefs.service,
+      plan: prefs.plan,
+      duration: prefs.duration,
+      tierId: prefs.tierId,
+    });
+  }
+
+  return buildOrderUrl({ service: 'static-isp', plan: 'basic', duration: 'monthly' });
+}
 
 type NavItem = {
   key: `nav.${string}`;
@@ -53,6 +70,13 @@ export default function HeaderNav() {
           <NavLink href="/login" className={styles.login}>
             {t('nav.login')}
           </NavLink>
+          <Link
+            href={getStartOrderHref()}
+            className={styles.startOrder}
+            data-cta="start-order"
+          >
+            {t('nav.startOrder')}
+          </Link>
         </div>
       </div>
     </div>

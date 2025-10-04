@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { buildOrderUrl } from '@/config/catalog';
 import { useI18n } from '@/lib/i18n';
 
 export default function Hero() {
@@ -25,22 +26,22 @@ export default function Hero() {
           <div className="mt-4 text-sm text-gray-600">{t('hero.badge')}</div>
 
           {/* CTAs */}
-        <div className="mt-8 flex flex-wrap items-center gap-3">
-          <Link
-            href="/pricing"
-            className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-base font-medium bg-gray-900 text-white hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
-            aria-label={t('hero.ctaPrimary')}
-          >
-            {t('hero.ctaPrimary')}
-          </Link>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link
+              href={buildOrderUrl({ service: 'static-isp', plan: 'basic', duration: 'monthly' })}
+              className="inline-flex items-center justify-center rounded-2xl bg-gray-900 px-5 py-3 text-base font-medium text-white hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
+              aria-label={t('hero.ctaPrimary')}
+            >
+              {t('hero.ctaPrimary')}
+            </Link>
 
-          <Link
-            href="/contact"
-            className="inline-flex w-full items-center justify-center rounded-2xl border border-gray-400 bg-white px-5 py-3 text-base font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-offset-2 sm:w-auto"
-            aria-label={t('hero.ctaSecondary')}
-          >
-            {t('hero.ctaSecondary')}
-          </Link>
+            <Link
+              href="/contact"
+              className="inline-flex w-full items-center justify-center rounded-2xl border border-gray-400 bg-white px-5 py-3 text-base font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-offset-2 sm:w-auto"
+              aria-label={t('hero.ctaSecondary')}
+            >
+              {t('hero.ctaSecondary')}
+            </Link>
           </div>
         </div>
 
