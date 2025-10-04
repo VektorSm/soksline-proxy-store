@@ -9,6 +9,7 @@ import { useLocale } from "./LocaleContext";
 import type { Locale } from "./LocaleContext";
 import styles from "./PricingTemplate.module.css";
 import KycNotice from "./KycNotice";
+import Section from "@/components/layout/Section";
 
 type PricingTemplateProps = {
   data: LocalizedPricingPage;
@@ -90,81 +91,79 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
         </div>
       </section>
 
-      <section className={styles.plans}>
-        <div className={styles.plansInner}>
-          <div className={styles.cardsGrid}>
-            {activeCategory?.tiers.map(tier => {
-              const ribbonPlacement = tier.ribbonPlacement ?? "top";
-              const renderRibbon = (placement: "top" | "bottom") =>
-                tier.ribbon ? (
-                  <span
-                    className={`${styles.planRibbon} ${
-                      placement === "top" ? styles.planRibbonTop : styles.planRibbonBottom
-                    }`}
-                  >
-                    {tier.ribbon}
-                  </span>
-                ) : null;
-              const normalizedRotatingTier =
-                isRotatingPricingPage && activeCategory?.id === "bandwidth"
-                  ? rotatingTierMap.get(tier.id)
-                  : undefined;
-
-              return (
-                <article key={tier.id} className={styles.planCard}>
-                  {ribbonPlacement === "top" && renderRibbon("top")}
-                  <div className={styles.planBody}>
-                    <div className={styles.planHeader}>
-                      <h2 className={styles.planName}>{tier.name}</h2>
-                      {tier.subLabel && <p className={styles.planSubLabel}>{tier.subLabel}</p>}
-                      {tier.headline && <p className={styles.planHeadline}>{tier.headline}</p>}
-                    </div>
-                    <p className={styles.planPrice}>
-                      {normalizedRotatingTier ? (
-                        <span className={styles.rotatingPriceLabel}>
-                          {normalizedRotatingTier.gb} GB — {fmtUSD(Number(normalizedRotatingTier.pricePerGbText))}/GB (Total {fmtUSD(normalizedRotatingTier.total)})
-                        </span>
-                      ) : (
-                        <>
-                          <span className={styles.planPriceValue}>{tier.price}</span>
-                          <span className={styles.planPricePeriod}>{tier.period}</span>
-                        </>
-                      )}
-                    </p>
-                    <ul className={styles.planFeatures}>
-                      {tier.features.map(feature => (
-                        <li key={feature}>{feature}</li>
-                      ))}
-                    </ul>
-                    <KycNotice className={styles.planKycNotice} inline locale={locale} />
-                  </div>
-                  <div className={styles.planFooter}>
-                    <Link
-                      href={tier.ctaHref}
-                      className={styles.planCta}
-                      {...getLinkProps(tier.ctaHref)}
-                    >
-                      {tier.ctaLabel ?? CTA_FALLBACK[locale]}
-                    </Link>
-                    {ribbonPlacement === "bottom" && renderRibbon("bottom")}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          <footer className={styles.footer}>
-            <p className={styles.paymentNote}>{copy.paymentNote}</p>
-            <div className={styles.paymentMethods} aria-label={PAYMENTS_ARIA_LABEL[locale]}>
-              {copy.paymentMethods.map(method => (
-                <span key={method} className={styles.paymentChip}>
-                  {method}
+      <Section bg="white" containerClassName={styles.plansSection}>
+        <div className={styles.cardsGrid}>
+          {activeCategory?.tiers.map(tier => {
+            const ribbonPlacement = tier.ribbonPlacement ?? "top";
+            const renderRibbon = (placement: "top" | "bottom") =>
+              tier.ribbon ? (
+                <span
+                  className={`${styles.planRibbon} ${
+                    placement === "top" ? styles.planRibbonTop : styles.planRibbonBottom
+                  }`}
+                >
+                  {tier.ribbon}
                 </span>
-              ))}
-            </div>
-          </footer>
+              ) : null;
+            const normalizedRotatingTier =
+              isRotatingPricingPage && activeCategory?.id === "bandwidth"
+                ? rotatingTierMap.get(tier.id)
+                : undefined;
+
+            return (
+              <article key={tier.id} className={styles.planCard}>
+                {ribbonPlacement === "top" && renderRibbon("top")}
+                <div className={styles.planBody}>
+                  <div className={styles.planHeader}>
+                    <h2 className={styles.planName}>{tier.name}</h2>
+                    {tier.subLabel && <p className={styles.planSubLabel}>{tier.subLabel}</p>}
+                    {tier.headline && <p className={styles.planHeadline}>{tier.headline}</p>}
+                  </div>
+                  <p className={styles.planPrice}>
+                    {normalizedRotatingTier ? (
+                      <span className={styles.rotatingPriceLabel}>
+                        {normalizedRotatingTier.gb} GB — {fmtUSD(Number(normalizedRotatingTier.pricePerGbText))}/GB (Total {fmtUSD(normalizedRotatingTier.total)})
+                      </span>
+                    ) : (
+                      <>
+                        <span className={styles.planPriceValue}>{tier.price}</span>
+                        <span className={styles.planPricePeriod}>{tier.period}</span>
+                      </>
+                    )}
+                  </p>
+                  <ul className={styles.planFeatures}>
+                    {tier.features.map(feature => (
+                      <li key={feature}>{feature}</li>
+                    ))}
+                  </ul>
+                  <KycNotice className={styles.planKycNotice} inline locale={locale} />
+                </div>
+                <div className={styles.planFooter}>
+                  <Link
+                    href={tier.ctaHref}
+                    className={styles.planCta}
+                    {...getLinkProps(tier.ctaHref)}
+                  >
+                    {tier.ctaLabel ?? CTA_FALLBACK[locale]}
+                  </Link>
+                  {ribbonPlacement === "bottom" && renderRibbon("bottom")}
+                </div>
+              </article>
+            );
+          })}
         </div>
-      </section>
+
+        <footer className={styles.footer}>
+          <p className={styles.paymentNote}>{copy.paymentNote}</p>
+          <div className={styles.paymentMethods} aria-label={PAYMENTS_ARIA_LABEL[locale]}>
+            {copy.paymentMethods.map(method => (
+              <span key={method} className={styles.paymentChip}>
+                {method}
+              </span>
+            ))}
+          </div>
+        </footer>
+      </Section>
     </main>
   );
 }

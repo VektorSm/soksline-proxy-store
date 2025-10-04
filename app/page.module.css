@@ -7,17 +7,6 @@
   scroll-padding-top: clamp(4.5rem, 8vw, 5.25rem);
 }
 
-.section {
-  padding: clamp(3rem, 6vw, 5.5rem) 0;
-}
-
-.sectionInner {
-  width: min(100%, 1120px);
-  margin: 0 auto;
-  padding: 0 clamp(1.5rem, 6vw, 5.5rem);
-  box-sizing: border-box;
-}
-
 .sectionHeader {
   display: grid;
   gap: 0.5rem;
@@ -38,21 +27,13 @@
   line-height: 1.6;
 }
 
-.advantages {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, #eff6ff 100%);
-}
-
-.advantagesInner {
+.advantagesSection {
   display: grid;
   gap: clamp(1.5rem, 3vw, 2.4rem);
   justify-items: center;
 }
 
-.showcase {
-  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 45%, #e2e8f0 100%);
-}
-
-.showcaseInner {
+.showcaseSection {
   display: grid;
   gap: clamp(1.8rem, 3vw, 2.6rem);
   justify-items: center;
@@ -146,7 +127,7 @@
   text-align: left;
 }
 
-.advantagesInner .sectionHeader {
+.advantagesSection .sectionHeader {
   text-align: center;
 }
 
@@ -163,12 +144,7 @@
   line-height: 1.5;
 }
 
-.payments {
-  background: linear-gradient(135deg, #0b1220 0%, #172036 100%);
-  color: #f8fafc;
-}
-
-.paymentsInner {
+.paymentsSection {
   display: grid;
   gap: clamp(1.6rem, 3vw, 2.4rem);
   justify-items: center;
@@ -189,7 +165,7 @@
 
 .paymentsDescription {
   margin: 0;
-  color: rgba(248, 250, 252, 0.92);
+  color: #475569;
   line-height: 1.6;
 }
 
@@ -203,11 +179,10 @@
 .paymentBadge {
   padding: 0.55rem 1.3rem;
   border-radius: 999px;
-  background: rgba(248, 250, 252, 0.08);
+  background: #0f172a;
   color: #f8fafc;
   font-weight: 600;
   letter-spacing: 0.01em;
-  backdrop-filter: blur(6px);
 }
 
 @media (max-width: 768px) {
@@ -233,12 +208,3 @@
   }
 }
 
-@media (max-width: 480px) {
-  .section {
-    padding: 2.5rem 0;
-  }
-
-  .sectionInner {
-    padding: 0 1.25rem;
-  }
-}
