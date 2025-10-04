@@ -1,9 +1,9 @@
 "use client";
 
-import TopProductsTabs from "../components/TopProductsTabs";
-import { useLocale } from "../components/LocaleContext";
-import type { Locale } from "../components/LocaleContext";
-import KycNotice from "../components/KycNotice";
+import TopProductsTabs from "@/components/TopProductsTabs";
+import KycNotice from "@/components/KycNotice";
+import { useI18n } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 import styles from "./page.module.css";
 
 type Advantage = { title: string; description: string };
@@ -147,8 +147,11 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
   },
 };
 
+const PRIMARY_CTA = process.env.NEXT_PUBLIC_BOT_URL ?? "https://t.me/your_proxy_bot";
+const SECONDARY_CTA = "https://soksline.com/contact";
+
 export default function Page() {
-  const { locale } = useLocale();
+  const { locale, t } = useI18n();
   const copy = HOME_CONTENT[locale];
 
   return (
@@ -157,9 +160,30 @@ export default function Page() {
         <div className={`${styles.sectionInner} ${styles.heroInner}`}>
           <span className={styles.heroEyebrow}>{copy.hero.eyebrow}</span>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>{copy.hero.title}</h1>
-            <p className={styles.heroSubtitle}>{copy.hero.subtitle}</p>
-            <KycNotice className={styles.heroKycNotice} locale={locale} />
+            <span className={styles.heroBadge}>{t('hero.badge', copy.showcase.metrics.join(' • '))}</span>
+            <h1 className={styles.heroTitle}>{t('hero.title', copy.hero.title)}</h1>
+            <p className={styles.heroSubtitle}>{t('hero.subtitle', copy.hero.subtitle)}</p>
+            <div className={styles.heroActions}>
+              <a
+                href={PRIMARY_CTA}
+                className={`${styles.heroButton} ${styles.heroButtonPrimary}`}
+                role="button"
+                target="_blank"
+                rel="noopener"
+              >
+                {t('hero.ctaPrimary')}
+              </a>
+              <a
+                href={SECONDARY_CTA}
+                className={`${styles.heroButton} ${styles.heroButtonSecondary}`}
+                role="button"
+                target="_blank"
+                rel="noopener"
+              >
+                {t('hero.ctaSecondary')}
+              </a>
+            </div>
+            <KycNotice className={styles.heroKycNotice} />
           </div>
         </div>
       </section>

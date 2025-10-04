@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import { getKycPolicy, Locale } from '@/config/policies';
+import { useI18n } from '@/lib/i18n';
 
 type Props = {
   locale?: Locale;         // 'en' | 'ru'; по умолчанию — 'en'
@@ -7,8 +10,9 @@ type Props = {
   inline?: boolean;        // inline-версия внутри карточек
 };
 
-export default function KycNotice({ locale = 'en', className = '', inline = false }: Props) {
-  const text = getKycPolicy(locale);
+export default function KycNotice({ locale, className = '', inline = false }: Props) {
+  const { t } = useI18n();
+  const text = locale ? getKycPolicy(locale) : t('kyc.policy');
   const Wrapper: any = inline ? 'span' : 'div';
   return (
     <Wrapper className={inline ? `text-sm opacity-80 ${className}` : `text-sm opacity-80 mt-2 ${className}`}>
