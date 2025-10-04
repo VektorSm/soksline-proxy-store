@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import { buildOrderUrl, catalog, type PlanId } from '@/config/catalog';
 import KycNotice from '@/components/KycNotice';
 import Section from '@/components/layout/Section';
+import PricingMicroNav from '@/components/pricing/PricingMicroNav';
 import { useI18n } from '@/lib/i18n';
 import { getOrderPage, type OrderService } from '@/lib/order';
 
@@ -102,9 +103,11 @@ export default function PricingPage() {
         </div>
       </header>
 
-      <Section id="static-isp" bg="white">
+      <PricingMicroNav />
+
+      <Section bg="white">
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>
+          <h2 id="static-isp" className={`${styles.sectionTitle} scroll-mt-28`}>
             {t('pages.pricing.staticIsp.title', catalog.staticIsp.name)}
           </h2>
           <p className={styles.sectionSubtitle}>
@@ -167,9 +170,9 @@ export default function PricingPage() {
         </div>
       </Section>
 
-      <Section id="static-ipv6" bg="muted">
+      <Section bg="muted">
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>
+          <h2 id="static-ipv6" className={`${styles.sectionTitle} scroll-mt-28`}>
             {t('pages.pricing.staticIpv6.title', catalog.staticIpv6.name)}
           </h2>
           <p className={styles.sectionSubtitle}>
@@ -198,9 +201,9 @@ export default function PricingPage() {
         </div>
       </Section>
 
-      <Section id="rotating" bg="white">
+      <Section bg="white">
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>
+          <h2 id="rotating" className={`${styles.sectionTitle} scroll-mt-28`}>
             {t('pages.pricing.rotating.title', catalog.rotating.name)}
           </h2>
           <p className={styles.sectionSubtitle}>
@@ -211,19 +214,28 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <div className={styles.rotatingGrid}>
+        <div
+          data-layout="rotating-grid"
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {catalog.rotating.tiers.map((tier) => {
             const pricePerGb = tier.pricePerGbUsd ?? 0;
             const totalUsd = tier.totalUsd ?? pricePerGb * tier.gb;
+
             return (
-              <article key={tier.id} className={styles.rotatingCard}>
-                <div className={styles.rotatingTitle}>{`${tier.gb} GB`}</div>
-                <div className={styles.rotatingPrice}>
-                  {`${formatUsd(pricePerGb)} / GB (Total ${formatUsd(totalUsd)})`}
+              <article
+                key={tier.id}
+                className="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+              >
+                <div>
+                  <h3 className="text-lg font-medium">{tier.gb} GB</h3>
+                  <p className="mt-1 text-gray-700">
+                    {`${formatUsd(pricePerGb)}/ GB (Total ${formatUsd(totalUsd)})`}
+                  </p>
                 </div>
                 <Link
                   href={buildOrderUrl({ service: 'rotating', duration: 'monthly' })}
-                  className={styles.rotatingCta}
+                  className="mt-6 inline-flex items-center justify-center rounded-2xl bg-gray-900 px-4 py-2 text-white hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 >
                   {buyNowLabel}
                 </Link>

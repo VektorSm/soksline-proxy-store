@@ -25,6 +25,13 @@
     "staticIpv6": "Static Residential (ISP) IPv6",
     "rotating": "Rotating Residential"
   },
+  "pricing": {
+    "nav": {
+      "staticIsp": "Статические (ISP)",
+      "staticIpv6": "Статические IPv6",
+      "rotating": "Ротационные"
+    }
+  },
   "kyc": {
     "policy": "Без KYC для базовых планов. KYC — по запросу для кастомных конфигураций и чувствительных гео."
   },

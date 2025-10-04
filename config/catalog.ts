@@ -123,10 +123,12 @@ export function buildOrderUrl(params: {
   service: ServiceId;
   plan?: PlanId;
   duration?: 'monthly' | 'yearly';
+  tierId?: string;
 }) {
   const q = new URLSearchParams({
     service: params.service,
     ...(params.plan ? { plan: params.plan } : {}),
+    ...(params.tierId ? { tier: params.tierId } : {}),
     ...(params.duration ? { duration: params.duration } : { duration: 'monthly' }),
   });
   return `/order?${q.toString()}`;
