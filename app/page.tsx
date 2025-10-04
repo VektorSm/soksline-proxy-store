@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import ExternalLink from "@/components/ExternalLink";
 import TopProductsTabs from "@/components/TopProductsTabs";
 import KycNotice from "@/components/KycNotice";
 import { useI18n } from "@/lib/i18n";
@@ -148,7 +150,7 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
 };
 
 const PRIMARY_CTA = process.env.NEXT_PUBLIC_BOT_URL ?? "https://t.me/your_proxy_bot";
-const SECONDARY_CTA = "https://soksline.com/contact";
+const SECONDARY_CTA = "/contact";
 
 export default function Page() {
   const { locale, t } = useI18n();
@@ -164,24 +166,21 @@ export default function Page() {
             <h1 className={styles.heroTitle}>{t('hero.title', copy.hero.title)}</h1>
             <p className={styles.heroSubtitle}>{t('hero.subtitle', copy.hero.subtitle)}</p>
             <div className={styles.heroActions}>
-              <a
+              <ExternalLink
                 href={PRIMARY_CTA}
                 className={`${styles.heroButton} ${styles.heroButtonPrimary}`}
+                ariaLabel={t('hero.ctaPrimary')}
                 role="button"
-                target="_blank"
-                rel="noopener"
               >
                 {t('hero.ctaPrimary')}
-              </a>
-              <a
+              </ExternalLink>
+              <Link
                 href={SECONDARY_CTA}
                 className={`${styles.heroButton} ${styles.heroButtonSecondary}`}
                 role="button"
-                target="_blank"
-                rel="noopener"
               >
                 {t('hero.ctaSecondary')}
-              </a>
+              </Link>
             </div>
             <KycNotice className={styles.heroKycNotice} />
           </div>

@@ -1,11 +1,25 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useI18n } from '@/lib/i18n';
+
+const NAV_ITEMS: { key: `nav.${string}`; href: string }[] = [
+  { key: 'nav.pricing', href: '/pricing' },
+  { key: 'nav.contact', href: '/contact' },
+  { key: 'nav.aml', href: '/aml' },
+  { key: 'nav.privacy', href: '/privacy' },
+  { key: 'nav.tos', href: '/tos' },
+  { key: 'nav.aup', href: '/aup' },
+  { key: 'nav.refund', href: '/refund' },
+  { key: 'nav.login', href: '/login' },
+];
 
 export default function Footer() {
   const { t } = useI18n();
   const year = new Date().getFullYear();
+  const pathname = usePathname();
 
   return (
     <footer
@@ -19,10 +33,10 @@ export default function Footer() {
         style={{
           width: 'min(100%, 1120px)',
           margin: '0 auto',
-          padding: '0 24px',
+          padding: '0 24px 1.5rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.5rem',
+          gap: '1rem',
           fontSize: '0.9rem',
         }}
       >
@@ -30,6 +44,39 @@ export default function Footer() {
         <span>
           © {year} {t('brand')}. {t('footer.copyright')}
         </span>
+        <nav aria-label="Footer">
+          <ul
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '0.75rem 1.5rem',
+              listStyle: 'none',
+              margin: 0,
+              padding: 0,
+            }}
+          >
+            {NAV_ITEMS.map(item => {
+              const isActive = pathname === item.href;
+
+              return (
+                <li key={item.key}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive ? 'page' : undefined}
+                    style={{
+                      color: isActive ? '#f8fafc' : 'rgba(226, 232, 240, 0.75)',
+                      textDecoration: 'none',
+                      fontWeight: isActive ? 600 : 400,
+                      transition: 'color 0.2s ease',
+                    }}
+                  >
+                    {t(item.key)}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </div>
     </footer>
   );
