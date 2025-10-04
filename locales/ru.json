@@ -1,0 +1,34 @@
+{
+  "brand": "SoksLine",
+  "nav": {
+    "pricing": "Тарифы",
+    "contact": "Контакты",
+    "login": "Войти",
+    "aml": "AML Политика",
+    "privacy": "Конфиденциальность",
+    "tos": "Условия",
+    "aup": "AUP",
+    "refund": "Возвраты"
+  },
+  "hero": {
+    "title": "Магазин прокси SOCKS5",
+    "subtitle": "Быстрые, чистые и надёжные прокси для ваших задач.",
+    "badge": "180+ локаций • 99.9% аптайм • 24/7 поддержка",
+    "ctaPrimary": "Купить",
+    "ctaSecondary": "Связаться"
+  },
+  "tabs": {
+    "staticIsp": "Static Residential (ISP)",
+    "staticIpv6": "Static Residential (ISP) IPv6",
+    "rotating": "Rotating Residential"
+  },
+  "kyc": {
+    "policy": "Без KYC для базовых планов. KYC — по запросу для кастомных конфигураций и чувствительных гео."
+  },
+  "footer": {
+    "copyright": "Все права защищены."
+  },
+  "topProducts": {
+    "title": "Топ-продукты SoksLine"
+  }
+}

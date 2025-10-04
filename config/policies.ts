@@ -1,4 +1,6 @@
-export type Locale = 'en' | 'ru';
+import type { Locale as I18nLocale } from '@/lib/i18n';
+
+export type Locale = I18nLocale;
 
 export const KYC_POLICY_EN =
   'No KYC for basic plans. KYC upon request for custom configurations and sensitive GEOs.';
