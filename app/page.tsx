@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Hero from '@/components/Hero';
 import TopProductsTabs from '@/components/TopProductsTabs';
 import Section from '@/components/layout/Section';
@@ -8,12 +9,13 @@ import type { Locale } from '@/lib/i18n';
 import styles from './page.module.css';
 
 type Advantage = { title: string; description: string };
-type ShowcaseItem = { title: string; price: string; points: string[] };
+type ShowcaseItem = { title: string; price: string; points: string[]; ctaHref: string };
 
 type HomeContent = {
   showcase: {
     title: string;
     description: string;
+    learnMoreLabel: string;
     items: ShowcaseItem[];
     metrics: string[];
   };
@@ -35,21 +37,25 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
       title: 'Выберите формат прокси',
       description:
         'ISP-статика, IPv6 и ротация — фиксируйте нужные параметры, комбинируйте пулы и управляйте подключениями через единый кабинет.',
+      learnMoreLabel: 'Узнать больше →',
       items: [
         {
           title: 'Static ISP',
           price: 'от $5.90 / месяц',
           points: ['Дедикейт IPv4-подключения для долгих сессий', 'Выбор гео по городу и ASN'],
+          ctaHref: '/pricing#static-residential',
         },
         {
           title: 'Static ISP IPv6',
           price: 'от $3.40 / месяц',
           points: ['IPv6-пулы для масштабных задач', 'Лёгкая интеграция через SOCKS5'],
+          ctaHref: '/pricing/static-residential-ipv6#static-residential-ipv6',
         },
         {
           title: 'Rotating Residential',
           price: 'от $4.80 / GB',
           points: ['Автообновление IP по расписанию', 'Лимиты и сессии через API'],
+          ctaHref: '/pricing/rotating-residential#rotating-residential',
         },
       ],
       metrics: ['180+ Proxy Locations', '99.9% Uptime'],
@@ -88,21 +94,25 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
       title: 'Choose your proxy format',
       description:
         'Lock in ISP statics, IPv6, or rotation — mix pools, tune the parameters, and manage every connection from a single dashboard.',
+      learnMoreLabel: 'Learn more →',
       items: [
         {
           title: 'Static ISP',
           price: 'from $5.90 / month',
           points: ['Dedicated IPv4 access for long sessions', 'City- and ASN-level geo targeting'],
+          ctaHref: '/pricing#static-residential',
         },
         {
           title: 'Static ISP IPv6',
           price: 'from $3.40 / month',
           points: ['IPv6 pools for large-scale tasks', 'Easy SOCKS5 integration'],
+          ctaHref: '/pricing/static-residential-ipv6#static-residential-ipv6',
         },
         {
           title: 'Rotating Residential',
           price: 'from $4.80 / GB',
           points: ['Scheduled IP refresh', 'API-controlled limits and sessions'],
+          ctaHref: '/pricing/rotating-residential#rotating-residential',
         },
       ],
       metrics: ['180+ Proxy Locations', '99.9% Uptime'],
@@ -163,6 +173,12 @@ export default function Page() {
                   <li key={point}>{point}</li>
                 ))}
               </ul>
+              <Link
+                href={item.ctaHref}
+                className="inline-flex items-center gap-1 mt-3 text-blue-600 hover:underline"
+              >
+                {copy.showcase.learnMoreLabel}
+              </Link>
             </article>
           ))}
         </div>
@@ -190,12 +206,18 @@ export default function Page() {
 
       <TopProductsTabs />
 
-      <Section id="payments" bg="muted" containerClassName={styles.paymentsSection}>
+      <Section
+        id="payments"
+        bg="muted"
+        containerClassName={`${styles.paymentsSection} pt-6`}
+      >
         <div className={styles.paymentsHeader}>
-          <h2 className={styles.paymentsTitle}>{copy.payments.title}</h2>
+          <h2 className={`${styles.paymentsTitle} text-2xl sm:text-3xl font-semibold tracking-tight`}>
+            {copy.payments.title}
+          </h2>
           <p className={styles.paymentsDescription}>{copy.payments.description}</p>
         </div>
-        <div className={styles.paymentsList}>
+        <div className={`${styles.paymentsList} mt-4`}>
           {copy.payments.methods.map((method) => (
             <span key={method} className={styles.paymentBadge}>
               {method}
