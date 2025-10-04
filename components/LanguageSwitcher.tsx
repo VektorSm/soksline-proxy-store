@@ -23,12 +23,18 @@ export default function LanguageSwitcher({ className = '' }: { className?: strin
   };
 
   return (
-    <div className={className} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }} aria-label="Language">
+    <div
+      className={className}
+      role="group"
+      aria-label="Language"
+      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+    >
       <button
         type="button"
         onClick={() => setLocale('en')}
         aria-pressed={locale === 'en'}
         style={{ ...baseStyle, ...(locale === 'en' ? activeStyle : {}) }}
+        className="focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
       >
         EN
       </button>
@@ -37,6 +43,7 @@ export default function LanguageSwitcher({ className = '' }: { className?: strin
         onClick={() => setLocale('ru')}
         aria-pressed={locale === 'ru'}
         style={{ ...baseStyle, ...(locale === 'ru' ? activeStyle : {}) }}
+        className="focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
       >
         RU
       </button>

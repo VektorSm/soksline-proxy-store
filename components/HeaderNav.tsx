@@ -1,11 +1,10 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useI18n } from '@/lib/i18n';
 import styles from './HeaderNav.module.css';
+import NavLink from './NavLink';
 
 type NavItem = {
   key: `nav.${string}`;
@@ -24,32 +23,25 @@ const NAV_ITEMS: NavItem[] = [
 
 export default function HeaderNav() {
   const { t } = useI18n();
-  const pathname = usePathname();
 
   return (
-    <header className={styles.wrapper}>
+    <div className={styles.wrapper}>
       <div className={styles.inner}>
-        <Link href="/" className={styles.brand}>
+        <NavLink href="/" className={styles.brand}>
           <span className={styles.brandMark} aria-hidden="true">
             S
           </span>
           <span>{t('brand')}</span>
-        </Link>
+        </NavLink>
 
-        <nav className={styles.nav} aria-label="Main">
+        <nav className={styles.nav} aria-label="Primary">
           <ul className={styles.navList}>
             {NAV_ITEMS.map(item => {
-              const isActive = pathname === item.href;
-
               return (
                 <li key={item.key}>
-                  <Link
-                    href={item.href}
-                    className={styles.navLink}
-                    aria-current={isActive ? 'page' : undefined}
-                  >
+                  <NavLink href={item.href} className={styles.navLink}>
                     {t(item.key)}
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}
@@ -58,15 +50,11 @@ export default function HeaderNav() {
 
         <div className={styles.actions}>
           <LanguageSwitcher />
-          <Link
-            href="/login"
-            className={styles.login}
-            aria-current={pathname === '/login' ? 'page' : undefined}
-          >
+          <NavLink href="/login" className={styles.login}>
             {t('nav.login')}
-          </Link>
+          </NavLink>
         </div>
       </div>
-    </header>
+    </div>
   );
 }

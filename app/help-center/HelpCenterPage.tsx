@@ -90,7 +90,7 @@ export default function HelpCenterPage() {
   };
 
   return (
-    <main className={styles.page}>
+    <div className={styles.page}>
       <section className={styles.panel} aria-labelledby="help-center-title">
         <header className={styles.header}>
           <h1 id="help-center-title" className={styles.title}>
@@ -149,6 +149,6 @@ export default function HelpCenterPage() {
           </button>
         </form>
       </section>
-    </main>
+    </div>
   );
 }

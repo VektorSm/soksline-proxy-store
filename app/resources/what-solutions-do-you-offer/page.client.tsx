@@ -70,7 +70,7 @@ export default function PageClient() {
   const content = CONTENT[locale];
 
   return (
-    <main className={styles.page}>
+    <div className={styles.page}>
       <article className={styles.article}>
         <header className={styles.header}>
           <span className={styles.eyebrow}>{content.eyebrow}</span>
@@ -90,6 +90,6 @@ export default function PageClient() {
           </ul>
         </section>
       </article>
-    </main>
+    </div>
   );
 }

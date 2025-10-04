@@ -55,7 +55,7 @@ export default function ProductTemplate({ data, cardsVariant = "default" }: Prod
   };
 
   return (
-    <main className={styles.page}>
+    <div className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           {copy.hero.eyebrow && <p className={styles.heroEyebrow}>{copy.hero.eyebrow}</p>}
@@ -168,6 +168,6 @@ export default function ProductTemplate({ data, cardsVariant = "default" }: Prod
 
         {copy.offers.note && <p className={styles.offersNote}>{copy.offers.note}</p>}
       </Section>
-    </main>
+    </div>
   );
 }

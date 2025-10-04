@@ -62,7 +62,7 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
   };
 
   return (
-    <main className={styles.page}>
+    <div className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <p className={styles.heroHighlight}>{copy.highlight}</p>
@@ -164,6 +164,6 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
           </div>
         </footer>
       </Section>
-    </main>
+    </div>
   );
 }

@@ -137,7 +137,7 @@ export default function Page() {
   const copy = HOME_CONTENT[locale];
 
   return (
-    <main className={styles.page}>
+    <div className={styles.page}>
       <Hero />
 
       <Section id="proxy-formats" bg="white" containerClassName={styles.showcaseSection}>
@@ -197,6 +197,6 @@ export default function Page() {
           ))}
         </div>
       </Section>
-    </main>
+    </div>
   );
 }
