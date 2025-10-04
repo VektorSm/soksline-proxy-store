@@ -5,13 +5,13 @@ test('i18n switch persists', async ({ page }) => {
 
   await expect(page.getByRole('link', { name: 'Buy now' })).toBeVisible();
 
-  await page.getByRole('banner').getByRole('button', { name: 'RU' }).click();
+  await page.getByRole('button', { name: 'RU' }).click();
   await expect(page.getByRole('link', { name: 'Купить' })).toBeVisible();
   await page.reload();
   await expect(page.getByRole('link', { name: 'Купить' })).toBeVisible();
   await expect(page).toHaveURL(/lang=ru/);
 
-  await page.getByRole('banner').getByRole('button', { name: 'EN' }).click();
+  await page.getByRole('button', { name: 'EN' }).click();
   await expect(page.getByRole('link', { name: 'Buy now' })).toBeVisible();
   await expect(page).toHaveURL(/lang=en/);
 });
