@@ -25,17 +25,18 @@ test('header links stay on the same domain', async ({ page }) => {
     await expect(link).not.toHaveAttribute('target', '_blank');
   }
 
-  const loginLink = page.getByRole('link', { name: /log in/i });
+  const loginLink = page.getByRole('banner').getByRole('link', { name: /log in/i });
   await expect(loginLink).toHaveAttribute('href', '/login');
   await expect(loginLink).not.toHaveAttribute('target', '_blank');
 });
 
-test('external links have safe attributes', async ({ page }) => {
+test('hero CTA keeps internal navigation safe', async ({ page }) => {
   await page.goto('/');
 
-  const primaryCta = page.getByRole('button', { name: 'Buy now' });
-  await expect(primaryCta).toHaveAttribute('target', '_blank');
-  await expect(primaryCta).toHaveAttribute('rel', 'noopener noreferrer');
+  const primaryCta = page.getByRole('link', { name: /buy now/i });
+  await expect(primaryCta).toHaveAttribute('href', '/pricing');
+  await expect(primaryCta).not.toHaveAttribute('target', /.+/);
+  await expect(primaryCta).not.toHaveAttribute('rel', /.+/);
 });
 
 test('legal and contact/login pages render', async ({ page }) => {
@@ -47,7 +48,7 @@ test('legal and contact/login pages render', async ({ page }) => {
 
 test('language switcher works on stubs', async ({ page }) => {
   await page.goto('/aml');
-  await page.getByRole('button', { name: 'RU' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'RU' }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'AML Политика' })).toBeVisible();
   await page.reload();
   await expect(page.getByRole('heading', { level: 1, name: 'AML Политика' })).toBeVisible();
