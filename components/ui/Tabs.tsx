@@ -68,9 +68,11 @@ export default function Tabs({
               aria-selected={isSelected}
               aria-controls={panelId}
               tabIndex={isSelected ? 0 : -1} // roving tabindex
-              className={`px-4 py-2 rounded-2xl border transition 
-                 ${isSelected ? 'bg-gray-900 text-white border-gray-900' : 'bg-white border-gray-200 text-gray-700'} 
-                 focus:outline-none focus-visible:ring focus-visible:ring-offset-2`}
+              className={`px-4 py-2 rounded-2xl border transition ${
+                isSelected
+                  ? 'bg-gray-900 text-white border-gray-900'
+                  : 'bg-white border-gray-200 text-gray-700'
+              } focus:outline-none focus-visible:ring focus-visible:ring-offset-2`}
               onClick={() => select(i, false)}
               type="button"
             >
