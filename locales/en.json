@@ -28,6 +28,54 @@
   "footer": {
     "copyright": "All rights reserved."
   },
+  "pages": {
+    "shared": {
+      "comingSoon": "Full policy text will be published soon."
+    },
+    "aml": {
+      "title": "AML Policy",
+      "intro": "This page outlines our anti-money laundering principles.",
+      "section1": {
+        "title": "Scope",
+        "text": "We apply AML controls to meet applicable regulations."
+      },
+      "section2": {
+        "title": "KYC",
+        "text": "No KYC for basic plans; KYC upon request for sensitive cases."
+      }
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "How we handle your data."
+    },
+    "tos": {
+      "title": "Terms of Service",
+      "intro": "Basic terms for using the service."
+    },
+    "aup": {
+      "title": "Acceptable Use Policy",
+      "intro": "What’s allowed and prohibited."
+    },
+    "refund": {
+      "title": "Refund Policy",
+      "intro": "When and how refunds may apply."
+    },
+    "contact": {
+      "title": "Contact us",
+      "intro": "Fill the form and we’ll get back soon.",
+      "name": "Your name",
+      "email": "Email",
+      "msg": "Message",
+      "submit": "Send"
+    },
+    "login": {
+      "title": "Log in",
+      "intro": "Access your dashboard using the placeholder form below.",
+      "email": "Email",
+      "password": "Password",
+      "signIn": "Sign in"
+    }
+  },
   "topProducts": {
     "title": "Top Products by SoksLine"
   }

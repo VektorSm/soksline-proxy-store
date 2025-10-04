@@ -57,6 +57,11 @@
   transition: color 0.2s ease;
 }
 
+.navLink[aria-current='page'] {
+  color: #ffffff;
+  font-weight: 600;
+}
+
 .navLink:hover,
 .navLink:focus-visible {
   color: #ffffff;
@@ -80,6 +85,10 @@
   font-weight: 600;
   font-size: 0.95rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login[aria-current='page'] {
+  box-shadow: 0 10px 25px -15px rgba(59, 130, 246, 0.8);
 }
 
 .login:hover,

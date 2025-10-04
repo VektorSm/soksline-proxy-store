@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useI18n } from '@/lib/i18n';
 import styles from './HeaderNav.module.css';
@@ -9,21 +10,21 @@ import styles from './HeaderNav.module.css';
 type NavItem = {
   key: `nav.${string}`;
   href: string;
-  external?: boolean;
 };
 
 const NAV_ITEMS: NavItem[] = [
   { key: 'nav.pricing', href: '/pricing' },
-  { key: 'nav.contact', href: 'https://soksline.com/contact', external: true },
-  { key: 'nav.aml', href: 'https://soksline.com/aml-policy', external: true },
-  { key: 'nav.privacy', href: 'https://soksline.com/privacy-policy', external: true },
-  { key: 'nav.tos', href: 'https://soksline.com/terms-of-service', external: true },
-  { key: 'nav.aup', href: 'https://soksline.com/acceptable-use-policy', external: true },
-  { key: 'nav.refund', href: 'https://soksline.com/refund-policy', external: true },
+  { key: 'nav.contact', href: '/contact' },
+  { key: 'nav.aml', href: '/aml' },
+  { key: 'nav.privacy', href: '/privacy' },
+  { key: 'nav.tos', href: '/tos' },
+  { key: 'nav.aup', href: '/aup' },
+  { key: 'nav.refund', href: '/refund' },
 ];
 
 export default function HeaderNav() {
   const { t } = useI18n();
+  const pathname = usePathname();
 
   return (
     <header className={styles.wrapper}>
@@ -37,28 +38,30 @@ export default function HeaderNav() {
 
         <nav className={styles.nav} aria-label="Main">
           <ul className={styles.navList}>
-            {NAV_ITEMS.map(item => (
-              <li key={item.key}>
-                <Link
-                  href={item.href}
-                  className={styles.navLink}
-                  target={item.external ? '_blank' : undefined}
-                  rel={item.external ? 'noopener' : undefined}
-                >
-                  {t(item.key)}
-                </Link>
-              </li>
-            ))}
+            {NAV_ITEMS.map(item => {
+              const isActive = pathname === item.href;
+
+              return (
+                <li key={item.key}>
+                  <Link
+                    href={item.href}
+                    className={styles.navLink}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    {t(item.key)}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
         <div className={styles.actions}>
           <LanguageSwitcher />
           <Link
-            href="https://soksline.com/login"
+            href="/login"
             className={styles.login}
-            target="_blank"
-            rel="noopener"
+            aria-current={pathname === '/login' ? 'page' : undefined}
           >
             {t('nav.login')}
           </Link>
