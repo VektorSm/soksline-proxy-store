@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import ExternalLink from "@/components/ExternalLink";
+import Hero from "@/components/Hero";
 import TopProductsTabs from "@/components/TopProductsTabs";
-import KycNotice from "@/components/KycNotice";
 import { useI18n } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import styles from "./page.module.css";
@@ -12,8 +10,6 @@ type Advantage = { title: string; description: string };
 type ShowcaseItem = { title: string; price: string; points: string[] };
 
 type HomeContent = {
-  hero: { eyebrow: string; title: string; subtitle: string };
-  mediaLabel: string;
   showcase: {
     title: string;
     description: string;
@@ -34,13 +30,6 @@ type HomeContent = {
 
 const HOME_CONTENT: Record<Locale, HomeContent> = {
   ru: {
-    hero: {
-      eyebrow: "SoksLine SOCKS5 proxy store",
-      title: "Чистые SOCKS-прокси. Прямая линия скорости.",
-      subtitle:
-        "Покупайте и продавайте прокси в пару кликов. Умные фильтры, актуальная аналитика и прозрачные тарифы помогают командам запускать инфраструктуру без задержек.",
-    },
-    mediaLabel: "[Плейсхолдер изображения / видео превью]",
     showcase: {
       title: "Выберите формат прокси",
       description:
@@ -91,13 +80,6 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
     },
   },
   en: {
-    hero: {
-      eyebrow: "SoksLine SOCKS5 proxy store",
-      title: "Clean SOCKS proxies. Straight-line performance.",
-      subtitle:
-        "Buy and resell proxies in a couple of clicks. Smart filters, live analytics, and transparent pricing let your team launch infrastructure without delays.",
-    },
-    mediaLabel: "[Image or video preview placeholder]",
     showcase: {
       title: "Choose your proxy format",
       description:
@@ -149,49 +131,13 @@ const HOME_CONTENT: Record<Locale, HomeContent> = {
   },
 };
 
-const PRIMARY_CTA = process.env.NEXT_PUBLIC_BOT_URL ?? "https://t.me/your_proxy_bot";
-const SECONDARY_CTA = "/contact";
-
 export default function Page() {
-  const { locale, t } = useI18n();
+  const { locale } = useI18n();
   const copy = HOME_CONTENT[locale];
 
   return (
     <main className={styles.page}>
-      <section className={`${styles.section} ${styles.hero}`} id="hero">
-        <div className={`${styles.sectionInner} ${styles.heroInner}`}>
-          <span className={styles.heroEyebrow}>{copy.hero.eyebrow}</span>
-          <div className={styles.heroContent}>
-            <span className={styles.heroBadge}>{t('hero.badge', copy.showcase.metrics.join(' • '))}</span>
-            <h1 className={styles.heroTitle}>{t('hero.title', copy.hero.title)}</h1>
-            <p className={styles.heroSubtitle}>{t('hero.subtitle', copy.hero.subtitle)}</p>
-            <div className={styles.heroActions}>
-              <ExternalLink
-                href={PRIMARY_CTA}
-                className={`${styles.heroButton} ${styles.heroButtonPrimary}`}
-                ariaLabel={t('hero.ctaPrimary')}
-                role="button"
-              >
-                {t('hero.ctaPrimary')}
-              </ExternalLink>
-              <Link
-                href={SECONDARY_CTA}
-                className={`${styles.heroButton} ${styles.heroButtonSecondary}`}
-                role="button"
-              >
-                {t('hero.ctaSecondary')}
-              </Link>
-            </div>
-            <KycNotice className={styles.heroKycNotice} />
-          </div>
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.media}`} aria-label={copy.mediaLabel} id="media-preview">
-        <div className={`${styles.sectionInner} ${styles.mediaInner}`}>
-          <span className={styles.mediaLabel}>{copy.mediaLabel}</span>
-        </div>
-      </section>
+      <Hero />
 
       <section className={`${styles.section} ${styles.showcase}`} id="proxy-formats">
         <div className={`${styles.sectionInner} ${styles.showcaseInner}`}>

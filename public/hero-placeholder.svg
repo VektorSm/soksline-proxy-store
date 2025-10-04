@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Stylized dashboard placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eef2ff" />
+      <stop offset="50%" stop-color="#e0f2fe" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+    <linearGradient id="card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#f1f5f9" stop-opacity="0.9" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)" rx="60" />
+  <g transform="translate(140 140)">
+    <rect width="1320" height="280" rx="36" fill="url(#card)" />
+    <rect x="72" y="64" width="520" height="48" rx="24" fill="#cbd5f5" />
+    <rect x="72" y="132" width="360" height="32" rx="16" fill="#dbeafe" />
+    <rect x="72" y="188" width="420" height="28" rx="14" fill="#e2e8f0" />
+    <rect x="1080" y="84" width="168" height="56" rx="28" fill="#1e293b" />
+  </g>
+  <g transform="translate(140 472)">
+    <rect width="620" height="388" rx="36" fill="url(#card)" />
+    <rect x="72" y="72" width="476" height="48" rx="24" fill="#bfdbfe" />
+    <rect x="72" y="148" width="476" height="32" rx="16" fill="#e0e7ff" />
+    <rect x="72" y="204" width="380" height="32" rx="16" fill="#e2e8f0" />
+    <rect x="72" y="260" width="420" height="28" rx="14" fill="#f1f5f9" />
+  </g>
+  <g transform="translate(820 472)">
+    <rect width="640" height="388" rx="36" fill="url(#card)" />
+    <rect x="72" y="72" width="220" height="220" rx="24" fill="#c7d2fe" />
+    <rect x="320" y="84" width="240" height="40" rx="20" fill="#bae6fd" />
+    <rect x="320" y="148" width="220" height="32" rx="16" fill="#cbd5f5" />
+    <rect x="320" y="204" width="260" height="32" rx="16" fill="#e0e7ff" />
+    <rect x="320" y="260" width="280" height="28" rx="14" fill="#f1f5f9" />
+  </g>
+</svg>
