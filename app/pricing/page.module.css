@@ -1,0 +1,293 @@
+.page {
+  background-color: #0b1220;
+}
+
+.hero {
+  padding: 4rem 1rem 3rem;
+  background: radial-gradient(120% 120% at 50% 0%, #1f2937 0%, #0b1220 70%);
+  color: #f9fafb;
+}
+
+.heroInner {
+  margin: 0 auto;
+  max-width: 56rem;
+  text-align: center;
+}
+
+.heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  margin-top: 1rem;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.heroSubtitle {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: rgba(249, 250, 251, 0.84);
+}
+
+.heroDescription {
+  margin-top: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(249, 250, 251, 0.7);
+}
+
+.sectionHeader {
+  margin-bottom: 2rem;
+  max-width: 40rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #0b1220;
+}
+
+.sectionSubtitle {
+  margin-top: 0.75rem;
+  font-size: 1.125rem;
+  color: rgba(11, 18, 32, 0.7);
+}
+
+.planGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+}
+
+.planCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 1.25rem;
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.planHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.planTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0b1220;
+}
+
+.planBadge {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: #0b1220;
+  color: #f9fafb;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.planPrice {
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0b1220;
+}
+
+.planUnit {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: rgba(11, 18, 32, 0.6);
+}
+
+.planFeatures {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: rgba(11, 18, 32, 0.76);
+}
+
+.planFooter {
+  margin-top: auto;
+}
+
+.planCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background: #0b1220;
+  color: #f9fafb;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.planCta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.2);
+}
+
+.ipv6Card {
+  background: #0b1220;
+  color: #f9fafb;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  display: grid;
+  gap: 1.5rem;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+}
+
+.ipv6Price {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.ipv6Features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  font-size: 1rem;
+}
+
+.ipv6Cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background: #f9fafb;
+  color: #0b1220;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ipv6Cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(249, 250, 251, 0.35);
+}
+
+.rotatingGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.rotatingCard {
+  padding: 1.75rem 2rem;
+  background: #ffffff;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rotatingTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0b1220;
+}
+
+.rotatingPrice {
+  font-size: 1.1rem;
+  color: rgba(11, 18, 32, 0.72);
+}
+
+.rotatingCta {
+  margin-top: 0.75rem;
+  align-self: flex-start;
+  display: inline-flex;
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  background: #0b1220;
+  color: #f9fafb;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rotatingCta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.2);
+}
+
+.kycWrapper {
+  margin-top: 2.5rem;
+}
+
+.paymentsCard {
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 1.25rem;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 1rem;
+}
+
+.paymentTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0b1220;
+}
+
+.paymentNote {
+  color: rgba(11, 18, 32, 0.72);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.paymentMethods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.paymentChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0b1220;
+}
+
+@media (max-width: 640px) {
+  .planCard,
+  .rotatingCard {
+    padding: 1.75rem;
+  }
+}
