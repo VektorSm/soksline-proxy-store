@@ -20,26 +20,35 @@ export default function TopProductsTabs() {
   );
 
   return (
-    <Section aria-labelledby="top-products-heading" bg="white" containerClassName="not-prose">
-      <div style={{ display: 'grid', gap: '1.5rem' }}>
-        <h2
-          id="top-products-heading"
-          className="text-3xl font-semibold tracking-tight text-slate-900"
-          style={{ margin: 0 }}
-        >
+    <Section
+      id="top-products"
+      aria-labelledby="top-products-heading"
+      bg="white"
+      className="py-16 md:py-20"
+      containerClassName="not-prose"
+    >
+      <div className="mb-6 text-left">
+        <h2 id="top-products-heading" className="text-3xl font-semibold tracking-tight">
           {t('topProducts.title', 'Top Products by SoksLine')}
         </h2>
-
-        <Tabs
-          tabs={tabs}
-          idPrefix="top-products"
-          renderPanel={(i) => {
-            if (i === 0) return <StaticIspCard />;
-            if (i === 1) return <StaticIpv6Card />;
-            return <RotatingResidentialCard />;
-          }}
-        />
+        <p className="mt-2 max-w-2xl opacity-80">
+          {t(
+            'topProducts.subtitle',
+            'Static residential proxies tailored for long-term tasks and account work.',
+          )}
+        </p>
       </div>
+
+      <Tabs
+        tabs={tabs}
+        idPrefix="top-products"
+        ariaLabel={t('topProducts.tabsLabel', 'Top products')}
+        renderPanel={(i) => {
+          if (i === 0) return <StaticIspCard />;
+          if (i === 1) return <StaticIpv6Card />;
+          return <RotatingResidentialCard />;
+        }}
+      />
     </Section>
   );
 }
