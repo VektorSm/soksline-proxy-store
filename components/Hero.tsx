@@ -10,7 +10,7 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="mx-auto max-w-6xl px-4 pt-16 pb-14 sm:pt-20 sm:pb-16"
+      className="not-prose mx-auto max-w-6xl px-4 pt-16 pb-14 sm:pt-20 sm:pb-16"
     >
       <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
         {/* Text */}
@@ -36,7 +36,7 @@ export default function Hero() {
 
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-base font-medium bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-base font-medium border border-gray-300 bg-white text-gray-900 hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
               aria-label={t('hero.ctaSecondary')}
             >
               {t('hero.ctaSecondary')}
