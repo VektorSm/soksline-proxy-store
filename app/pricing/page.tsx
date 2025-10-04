@@ -6,7 +6,6 @@ import { useMemo } from 'react';
 import { buildOrderUrl, catalog, type PlanId } from '@/config/catalog';
 import KycNotice from '@/components/KycNotice';
 import Section from '@/components/layout/Section';
-import PricingMicroNav from '@/components/pricing/PricingMicroNav';
 import { useI18n } from '@/lib/i18n';
 import { getOrderPage, type OrderService } from '@/lib/order';
 
@@ -102,8 +101,6 @@ export default function PricingPage() {
           </p>
         </div>
       </header>
-
-      <PricingMicroNav />
 
       <Section bg="white">
         <div className={styles.sectionHeader}>
