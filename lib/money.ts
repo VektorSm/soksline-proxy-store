@@ -1,5 +1,5 @@
 export const fmtUSD = (n: number) =>
-  new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n);
+  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
 
 export function roundCents(n: number): number {
   return Math.round(n * 100) / 100;
@@ -7,7 +7,7 @@ export function roundCents(n: number): number {
 
 export function normalizeTier(tier: { gb: number; pricePerGbUsd?: number; totalUsd?: number }) {
   const gb = tier.gb;
-  const pricePerGb = tier.pricePerGbUsd ?? (tier.totalUsd! / gb);
+  const pricePerGb = tier.pricePerGbUsd ?? tier.totalUsd! / gb;
   const total = tier.totalUsd ?? pricePerGb * gb;
 
   return {

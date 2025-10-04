@@ -1,2 +1,4 @@
-﻿import { expect, test } from "vitest";
-test("smoke", () => { expect(1 + 1).toBe(2); });
+﻿import { expect, test } from 'vitest';
+test('smoke', () => {
+  expect(1 + 1).toBe(2);
+});

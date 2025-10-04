@@ -1,15 +1,15 @@
-﻿# deps & builds
+# dependencies & builds
 node_modules/
 .next/
-dist/
 out/
+dist/
 coverage/
+playwright-report/
 test-results/
 tsconfig.tsbuildinfo
 
-# env
-.env
-.env.*
+# environment
+.env*
 !.env.example
 
 # misc

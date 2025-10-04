@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 
-import { useLocale } from "../../components/LocaleContext";
-import { getOrderPage } from "../../lib/order";
-import { rotatingPricing } from "../../config/pricing";
-import { fmtUSD, normalizeTier } from "../../lib/money";
+import { useLocale } from '../../components/LocaleContext';
+import { getOrderPage } from '../../lib/order';
+import { rotatingPricing } from '../../config/pricing';
+import { fmtUSD, normalizeTier } from '../../lib/money';
 
-import styles from "./page.module.css";
+import styles from './page.module.css';
 
 type Nullable<T> = T | undefined;
 
 type OrderPageData = ReturnType<typeof getOrderPage>;
-type OrderService = OrderPageData["services"][number];
-type OrderCategory = OrderService["categories"][number];
-type OrderTier = OrderCategory["tiers"][number];
+type OrderService = OrderPageData['services'][number];
+type OrderCategory = OrderService['categories'][number];
+type OrderTier = OrderCategory['tiers'][number];
 
 function formatCurrency(amount: number, locale: string, currency: string) {
-  const formatter = new Intl.NumberFormat(locale === "ru" ? "ru-RU" : "en-US", {
-    style: "currency",
+  const formatter = new Intl.NumberFormat(locale === 'ru' ? 'ru-RU' : 'en-US', {
+    style: 'currency',
     currency,
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -43,39 +43,37 @@ function getDefaultOptionValue(options: Option[], fallbackIndex = 0): string {
     return options[fallbackIndex].value;
   }
 
-  return options[0]?.value ?? "";
+  return options[0]?.value ?? '';
 }
 
 export default function OrderPageContent() {
   const { locale } = useLocale();
   const page = useMemo(() => getOrderPage(locale), [locale]);
 
-  const [serviceId, setServiceId] = useState(() => page.services[0]?.id ?? "");
+  const [serviceId, setServiceId] = useState(() => page.services[0]?.id ?? '');
   const activeService = useMemo<Nullable<OrderService>>(
     () =>
-      page.services.find((service: OrderService) => service.id === serviceId) ??
-      page.services[0],
+      page.services.find((service: OrderService) => service.id === serviceId) ?? page.services[0],
     [page.services, serviceId],
   );
 
   useEffect(() => {
-    setServiceId(page.services[0]?.id ?? "");
+    setServiceId(page.services[0]?.id ?? '');
   }, [page.services]);
 
-  const [categoryId, setCategoryId] = useState(() => getDefaultCategory(activeService)?.id ?? "");
+  const [categoryId, setCategoryId] = useState(() => getDefaultCategory(activeService)?.id ?? '');
   const activeCategory = useMemo<Nullable<OrderCategory>>(
     () =>
-      activeService?.categories.find(
-        (category: OrderCategory) => category.id === categoryId,
-      ) ?? getDefaultCategory(activeService),
+      activeService?.categories.find((category: OrderCategory) => category.id === categoryId) ??
+      getDefaultCategory(activeService),
     [activeService, categoryId],
   );
 
   useEffect(() => {
-    setCategoryId(getDefaultCategory(activeService)?.id ?? "");
+    setCategoryId(getDefaultCategory(activeService)?.id ?? '');
   }, [activeService]);
 
-  const [tierId, setTierId] = useState(() => getDefaultTier(activeCategory)?.id ?? "");
+  const [tierId, setTierId] = useState(() => getDefaultTier(activeCategory)?.id ?? '');
   const activeTier = useMemo<Nullable<OrderTier>>(
     () =>
       activeCategory?.tiers.find((tier: OrderTier) => tier.id === tierId) ??
@@ -84,10 +82,10 @@ export default function OrderPageContent() {
   );
 
   useEffect(() => {
-    setTierId(getDefaultTier(activeCategory)?.id ?? "");
+    setTierId(getDefaultTier(activeCategory)?.id ?? '');
   }, [activeCategory]);
 
-  const isRotatingService = activeService?.id === "rotating-residential";
+  const isRotatingService = activeService?.id === 'rotating-residential';
   const activeTiers = activeCategory?.tiers ?? [];
   const activeTierIndex = Math.max(
     0,
@@ -95,7 +93,7 @@ export default function OrderPageContent() {
   );
   const rotatingSliderMax = Math.max(0, activeTiers.length - 1);
   const rotatingTierMap = useMemo(
-    () => new Map(rotatingPricing.tiers.map(tier => [tier.id, normalizeTier(tier)])),
+    () => new Map(rotatingPricing.tiers.map((tier) => [tier.id, normalizeTier(tier)])),
     [],
   );
   const activeRotatingTier =
@@ -104,73 +102,76 @@ export default function OrderPageContent() {
   const configurationOptions = useMemo(() => {
     const base = {
       locations: [
-        { value: "us", label: locale === "ru" ? "США" : "United States" },
-        { value: "gb", label: locale === "ru" ? "Великобритания" : "United Kingdom" },
-        { value: "de", label: locale === "ru" ? "Германия" : "Germany" },
-        { value: "fr", label: locale === "ru" ? "Франция" : "France" },
-        { value: "nl", label: locale === "ru" ? "Нидерланды" : "Netherlands" },
-        { value: "au", label: locale === "ru" ? "Австралия" : "Australia" },
-        { value: "at", label: locale === "ru" ? "Австрия" : "Austria" },
-        { value: "bd", label: locale === "ru" ? "Бангладеш" : "Bangladesh" },
-        { value: "be", label: locale === "ru" ? "Бельгия" : "Belgium" },
-        { value: "br", label: locale === "ru" ? "Бразилия" : "Brazil" },
-        { value: "hu", label: locale === "ru" ? "Венгрия" : "Hungary" },
-        { value: "vn", label: locale === "ru" ? "Вьетнам" : "Vietnam" },
-        { value: "hn", label: locale === "ru" ? "Гондурас" : "Honduras" },
-        { value: "hk", label: locale === "ru" ? "Гонконг САР Китая" : "Hong Kong SAR China" },
-        { value: "gr", label: locale === "ru" ? "Греция" : "Greece" },
-        { value: "dk", label: locale === "ru" ? "Дания" : "Denmark" },
-        { value: "il", label: locale === "ru" ? "Израиль" : "Israel" },
-        { value: "in", label: locale === "ru" ? "Индия" : "India" },
-        { value: "id", label: locale === "ru" ? "Индонезия" : "Indonesia" },
-        { value: "es", label: locale === "ru" ? "Испания" : "Spain" },
-        { value: "it", label: locale === "ru" ? "Италия" : "Italy" },
-        { value: "ca", label: locale === "ru" ? "Канада" : "Canada" },
-        { value: "co", label: locale === "ru" ? "Колумбия" : "Colombia" },
-        { value: "lt", label: locale === "ru" ? "Литва" : "Lithuania" },
-        { value: "my", label: locale === "ru" ? "Малайзия" : "Malaysia" },
-        { value: "mx", label: locale === "ru" ? "Мексика" : "Mexico" },
-        { value: "ng", label: locale === "ru" ? "Нигерия" : "Nigeria" },
-        { value: "no", label: locale === "ru" ? "Норвегия" : "Norway" },
-        { value: "ae", label: locale === "ru" ? "Объединённые Арабские Эмираты" : "United Arab Emirates" },
-        { value: "pe", label: locale === "ru" ? "Перу" : "Peru" },
-        { value: "ph", label: locale === "ru" ? "Филиппины" : "Philippines" },
-        { value: "fi", label: locale === "ru" ? "Финляндия" : "Finland" },
-        { value: "pl", label: locale === "ru" ? "Польша" : "Poland" },
-        { value: "pt", label: locale === "ru" ? "Португалия" : "Portugal" },
-        { value: "ro", label: locale === "ru" ? "Румыния" : "Romania" },
-        { value: "ru", label: locale === "ru" ? "Россия" : "Russia" },
-        { value: "rs", label: locale === "ru" ? "Сербия" : "Serbia" },
-        { value: "sg", label: locale === "ru" ? "Сингапур" : "Singapore" },
-        { value: "sk", label: locale === "ru" ? "Словакия" : "Slovakia" },
-        { value: "kr", label: locale === "ru" ? "Республика Корея" : "South Korea" },
-        { value: "th", label: locale === "ru" ? "Таиланд" : "Thailand" },
-        { value: "tr", label: locale === "ru" ? "Турция" : "Turkey" },
-        { value: "ua", label: locale === "ru" ? "Украина" : "Ukraine" },
-        { value: "hr", label: locale === "ru" ? "Хорватия" : "Croatia" },
-        { value: "cz", label: locale === "ru" ? "Чехия" : "Czechia" },
-        { value: "cl", label: locale === "ru" ? "Чили" : "Chile" },
-        { value: "ch", label: locale === "ru" ? "Швейцария" : "Switzerland" },
-        { value: "za", label: locale === "ru" ? "ЮАР" : "South Africa" },
+        { value: 'us', label: locale === 'ru' ? 'США' : 'United States' },
+        { value: 'gb', label: locale === 'ru' ? 'Великобритания' : 'United Kingdom' },
+        { value: 'de', label: locale === 'ru' ? 'Германия' : 'Germany' },
+        { value: 'fr', label: locale === 'ru' ? 'Франция' : 'France' },
+        { value: 'nl', label: locale === 'ru' ? 'Нидерланды' : 'Netherlands' },
+        { value: 'au', label: locale === 'ru' ? 'Австралия' : 'Australia' },
+        { value: 'at', label: locale === 'ru' ? 'Австрия' : 'Austria' },
+        { value: 'bd', label: locale === 'ru' ? 'Бангладеш' : 'Bangladesh' },
+        { value: 'be', label: locale === 'ru' ? 'Бельгия' : 'Belgium' },
+        { value: 'br', label: locale === 'ru' ? 'Бразилия' : 'Brazil' },
+        { value: 'hu', label: locale === 'ru' ? 'Венгрия' : 'Hungary' },
+        { value: 'vn', label: locale === 'ru' ? 'Вьетнам' : 'Vietnam' },
+        { value: 'hn', label: locale === 'ru' ? 'Гондурас' : 'Honduras' },
+        { value: 'hk', label: locale === 'ru' ? 'Гонконг САР Китая' : 'Hong Kong SAR China' },
+        { value: 'gr', label: locale === 'ru' ? 'Греция' : 'Greece' },
+        { value: 'dk', label: locale === 'ru' ? 'Дания' : 'Denmark' },
+        { value: 'il', label: locale === 'ru' ? 'Израиль' : 'Israel' },
+        { value: 'in', label: locale === 'ru' ? 'Индия' : 'India' },
+        { value: 'id', label: locale === 'ru' ? 'Индонезия' : 'Indonesia' },
+        { value: 'es', label: locale === 'ru' ? 'Испания' : 'Spain' },
+        { value: 'it', label: locale === 'ru' ? 'Италия' : 'Italy' },
+        { value: 'ca', label: locale === 'ru' ? 'Канада' : 'Canada' },
+        { value: 'co', label: locale === 'ru' ? 'Колумбия' : 'Colombia' },
+        { value: 'lt', label: locale === 'ru' ? 'Литва' : 'Lithuania' },
+        { value: 'my', label: locale === 'ru' ? 'Малайзия' : 'Malaysia' },
+        { value: 'mx', label: locale === 'ru' ? 'Мексика' : 'Mexico' },
+        { value: 'ng', label: locale === 'ru' ? 'Нигерия' : 'Nigeria' },
+        { value: 'no', label: locale === 'ru' ? 'Норвегия' : 'Norway' },
+        {
+          value: 'ae',
+          label: locale === 'ru' ? 'Объединённые Арабские Эмираты' : 'United Arab Emirates',
+        },
+        { value: 'pe', label: locale === 'ru' ? 'Перу' : 'Peru' },
+        { value: 'ph', label: locale === 'ru' ? 'Филиппины' : 'Philippines' },
+        { value: 'fi', label: locale === 'ru' ? 'Финляндия' : 'Finland' },
+        { value: 'pl', label: locale === 'ru' ? 'Польша' : 'Poland' },
+        { value: 'pt', label: locale === 'ru' ? 'Португалия' : 'Portugal' },
+        { value: 'ro', label: locale === 'ru' ? 'Румыния' : 'Romania' },
+        { value: 'ru', label: locale === 'ru' ? 'Россия' : 'Russia' },
+        { value: 'rs', label: locale === 'ru' ? 'Сербия' : 'Serbia' },
+        { value: 'sg', label: locale === 'ru' ? 'Сингапур' : 'Singapore' },
+        { value: 'sk', label: locale === 'ru' ? 'Словакия' : 'Slovakia' },
+        { value: 'kr', label: locale === 'ru' ? 'Республика Корея' : 'South Korea' },
+        { value: 'th', label: locale === 'ru' ? 'Таиланд' : 'Thailand' },
+        { value: 'tr', label: locale === 'ru' ? 'Турция' : 'Turkey' },
+        { value: 'ua', label: locale === 'ru' ? 'Украина' : 'Ukraine' },
+        { value: 'hr', label: locale === 'ru' ? 'Хорватия' : 'Croatia' },
+        { value: 'cz', label: locale === 'ru' ? 'Чехия' : 'Czechia' },
+        { value: 'cl', label: locale === 'ru' ? 'Чили' : 'Chile' },
+        { value: 'ch', label: locale === 'ru' ? 'Швейцария' : 'Switzerland' },
+        { value: 'za', label: locale === 'ru' ? 'ЮАР' : 'South Africa' },
       ],
       isps: [
-        { value: "default", label: locale === "ru" ? "Любой" : "Any" },
-        { value: "att", label: "AT&T" },
-        { value: "verizon", label: "Verizon" },
-        { value: "charter", label: locale === "ru" ? "Charter" : "Charter" },
+        { value: 'default', label: locale === 'ru' ? 'Любой' : 'Any' },
+        { value: 'att', label: 'AT&T' },
+        { value: 'verizon', label: 'Verizon' },
+        { value: 'charter', label: locale === 'ru' ? 'Charter' : 'Charter' },
       ],
       quantities: [
-        { value: "1", label: locale === "ru" ? "1 прокси" : "1 proxy" },
-        { value: "10", label: locale === "ru" ? "10 прокси" : "10 proxies" },
-        { value: "50", label: locale === "ru" ? "50 прокси" : "50 proxies" },
-        { value: "100", label: locale === "ru" ? "100 прокси" : "100 proxies" },
-        { value: "250", label: locale === "ru" ? "250 прокси" : "250 proxies" },
+        { value: '1', label: locale === 'ru' ? '1 прокси' : '1 proxy' },
+        { value: '10', label: locale === 'ru' ? '10 прокси' : '10 proxies' },
+        { value: '50', label: locale === 'ru' ? '50 прокси' : '50 proxies' },
+        { value: '100', label: locale === 'ru' ? '100 прокси' : '100 proxies' },
+        { value: '250', label: locale === 'ru' ? '250 прокси' : '250 proxies' },
       ],
       periods: [
-        { value: "weekly", label: locale === "ru" ? "7 дней" : "7 days" },
-        { value: "monthly", label: locale === "ru" ? "1 месяц" : "1 month" },
-        { value: "quarterly", label: locale === "ru" ? "3 месяца" : "3 months" },
-        { value: "yearly", label: locale === "ru" ? "12 месяцев" : "12 months" },
+        { value: 'weekly', label: locale === 'ru' ? '7 дней' : '7 days' },
+        { value: 'monthly', label: locale === 'ru' ? '1 месяц' : '1 month' },
+        { value: 'quarterly', label: locale === 'ru' ? '3 месяца' : '3 months' },
+        { value: 'yearly', label: locale === 'ru' ? '12 месяцев' : '12 months' },
       ],
     };
 
@@ -199,7 +200,7 @@ export default function OrderPageContent() {
     setAutoRenew(true);
   }, [activeService, configurationOptions]);
 
-  const currency = activeService?.currency ?? "USD";
+  const currency = activeService?.currency ?? 'USD';
   const unitAmount = activeTier?.priceAmount ?? 0;
   const hasUnitPrice = unitAmount > 0;
   const parsedQuantity = Number.parseInt(selectedQuantity, 10);
@@ -207,10 +208,10 @@ export default function OrderPageContent() {
   const totalAmount = unitAmount * quantity;
   const unitPrice = hasUnitPrice
     ? formatCurrency(unitAmount, locale, currency)
-    : activeTier?.price ?? "—";
+    : (activeTier?.price ?? '—');
   const totalPrice = hasUnitPrice
     ? formatCurrency(totalAmount, locale, currency)
-    : activeTier?.price ?? "—";
+    : (activeTier?.price ?? '—');
 
   return (
     <div className={styles.page}>
@@ -228,18 +229,20 @@ export default function OrderPageContent() {
               <h2 className={styles.servicesTitle}>{page.copy.servicesSectionTitle}</h2>
               <p className={styles.servicesSubtitle}>{page.copy.servicesSectionSubtitle}</p>
             </header>
-              <div className={styles.serviceCards}>
-                {page.services.map((service: OrderService) => {
+            <div className={styles.serviceCards}>
+              {page.services.map((service: OrderService) => {
                 const isActive = service.id === activeService?.id;
                 return (
                   <button
                     key={service.id}
                     type="button"
-                    className={`${styles.serviceCard} ${isActive ? styles.serviceCardActive : ""}`.trim()}
+                    className={`${styles.serviceCard} ${isActive ? styles.serviceCardActive : ''}`.trim()}
                     onClick={() => setServiceId(service.id)}
                     aria-pressed={isActive}
                   >
-                    {service.card.badge && <span className={styles.serviceBadge}>{service.card.badge}</span>}
+                    {service.card.badge && (
+                      <span className={styles.serviceBadge}>{service.card.badge}</span>
+                    )}
                     <div className={styles.serviceCardHeader}>
                       <h3 className={styles.serviceName}>{service.card.title}</h3>
                       <p className={styles.serviceHeadline}>{service.card.headline}</p>
@@ -266,7 +269,7 @@ export default function OrderPageContent() {
                       <button
                         key={category.id}
                         type="button"
-                        className={`${styles.categoryTab} ${isActive ? styles.categoryTabActive : ""}`.trim()}
+                        className={`${styles.categoryTab} ${isActive ? styles.categoryTabActive : ''}`.trim()}
                         onClick={() => setCategoryId(category.id)}
                         aria-pressed={isActive}
                       >
@@ -281,13 +284,11 @@ export default function OrderPageContent() {
                 <>
                   <div className={styles.planSection}>
                     <div className={styles.planHeader}>
-                      <h3 className={styles.planTitle}>
-                        {locale === "ru" ? "План" : "Plan"}
-                      </h3>
+                      <h3 className={styles.planTitle}>{locale === 'ru' ? 'План' : 'Plan'}</h3>
                       <p className={styles.planSubtitle}>
-                        {locale === "ru"
-                          ? "Выберите подходящий тариф и настройте детали ниже."
-                          : "Pick the plan that fits and configure the details below."}
+                        {locale === 'ru'
+                          ? 'Выберите подходящий тариф и настройте детали ниже.'
+                          : 'Pick the plan that fits and configure the details below.'}
                       </p>
                     </div>
                     <div className={styles.planCards}>
@@ -297,7 +298,7 @@ export default function OrderPageContent() {
                           <button
                             key={tier.id}
                             type="button"
-                            className={`${styles.planCard} ${isActive ? styles.planCardActive : ""}`.trim()}
+                            className={`${styles.planCard} ${isActive ? styles.planCardActive : ''}`.trim()}
                             onClick={() => setTierId(tier.id)}
                             aria-pressed={isActive}
                           >
@@ -335,12 +336,12 @@ export default function OrderPageContent() {
 
                   <div className={styles.configurator}>
                     <h3 className={styles.configTitle}>
-                      {locale === "ru" ? "Настройки" : "Configuration"}
+                      {locale === 'ru' ? 'Настройки' : 'Configuration'}
                     </h3>
                     <div className={styles.configGrid}>
                       <label className={styles.configField}>
                         <span className={styles.configLabel}>
-                          {locale === "ru" ? "Местоположение прокси" : "Proxy location"}
+                          {locale === 'ru' ? 'Местоположение прокси' : 'Proxy location'}
                         </span>
                         <select
                           className={styles.configSelect}
@@ -370,7 +371,7 @@ export default function OrderPageContent() {
                       </label>
                       <label className={styles.configField}>
                         <span className={styles.configLabel}>
-                          {locale === "ru" ? "Количество прокси (IP)" : "Number of proxies"}
+                          {locale === 'ru' ? 'Количество прокси (IP)' : 'Number of proxies'}
                         </span>
                         <input
                           type="number"
@@ -380,16 +381,12 @@ export default function OrderPageContent() {
                           className={styles.configInput}
                           value={selectedQuantity}
                           onChange={(event) => setSelectedQuantity(event.target.value)}
-                          placeholder={
-                            locale === "ru"
-                              ? "Введите количество"
-                              : "Enter quantity"
-                          }
+                          placeholder={locale === 'ru' ? 'Введите количество' : 'Enter quantity'}
                         />
                       </label>
                       <label className={styles.configField}>
                         <span className={styles.configLabel}>
-                          {locale === "ru" ? "Временной период" : "Billing period"}
+                          {locale === 'ru' ? 'Временной период' : 'Billing period'}
                         </span>
                         <select
                           className={styles.configSelect}
@@ -406,17 +403,17 @@ export default function OrderPageContent() {
                       <label className={`${styles.configField} ${styles.configToggle}`}>
                         <div>
                           <span className={styles.configLabel}>
-                            {locale === "ru" ? "Автопродление" : "Auto renewal"}
+                            {locale === 'ru' ? 'Автопродление' : 'Auto renewal'}
                           </span>
                           <span className={styles.configDescription}>
-                            {locale === "ru"
-                              ? "Оплата продлевается автоматически"
-                              : "Enable automatic renewal"}
+                            {locale === 'ru'
+                              ? 'Оплата продлевается автоматически'
+                              : 'Enable automatic renewal'}
                           </span>
                         </div>
                         <button
                           type="button"
-                          className={`${styles.toggle} ${autoRenew ? styles.toggleActive : ""}`.trim()}
+                          className={`${styles.toggle} ${autoRenew ? styles.toggleActive : ''}`.trim()}
                           onClick={() => setAutoRenew((prev) => !prev)}
                           aria-pressed={autoRenew}
                         >
@@ -432,24 +429,24 @@ export default function OrderPageContent() {
                     <header className={styles.rotatingHeader}>
                       <div>
                         <h3 className={styles.rotatingTitle}>
-                          {locale === "ru"
-                            ? "Оплата за трафик"
-                            : "Pay per traffic"}
+                          {locale === 'ru' ? 'Оплата за трафик' : 'Pay per traffic'}
                         </h3>
                         <p className={styles.rotatingSubtitle}>
-                          {locale === "ru"
-                            ? "Выберите, сколько гигабайт трафика требуется в месяц."
-                            : "Choose how many gigabytes you need each month."}
+                          {locale === 'ru'
+                            ? 'Выберите, сколько гигабайт трафика требуется в месяц.'
+                            : 'Choose how many gigabytes you need each month.'}
                         </p>
                       </div>
                       <div className={styles.rotatingPrice}>
                         {activeRotatingTier ? (
                           <span className={styles.rotatingPriceLabel}>
-                            {activeRotatingTier.gb} GB — {fmtUSD(Number(activeRotatingTier.pricePerGbText))}/GB (Total {fmtUSD(activeRotatingTier.total)})
+                            {activeRotatingTier.gb} GB —{' '}
+                            {fmtUSD(Number(activeRotatingTier.pricePerGbText))}/GB (Total{' '}
+                            {fmtUSD(activeRotatingTier.total)})
                           </span>
                         ) : (
                           <>
-                            <span>{activeTier?.price ?? "—"}</span>
+                            <span>{activeTier?.price ?? '—'}</span>
                             {activeTier?.period && (
                               <span className={styles.rotatingPeriod}>{activeTier.period}</span>
                             )}
@@ -481,7 +478,7 @@ export default function OrderPageContent() {
                             <button
                               key={tier.id}
                               type="button"
-                              className={`${styles.rotatingMark} ${isActive ? styles.rotatingMarkActive : ""}`.trim()}
+                              className={`${styles.rotatingMark} ${isActive ? styles.rotatingMarkActive : ''}`.trim()}
                               onClick={() => setTierId(tier.id)}
                               aria-pressed={isActive}
                             >
@@ -534,15 +531,15 @@ export default function OrderPageContent() {
             <ul className={styles.summaryList}>
               <li>
                 <span className={styles.summaryLabel}>{page.copy.summary.serviceLabel}</span>
-                <span className={styles.summaryValue}>{activeService?.card.title ?? "—"}</span>
+                <span className={styles.summaryValue}>{activeService?.card.title ?? '—'}</span>
               </li>
               <li>
                 <span className={styles.summaryLabel}>{page.copy.summary.categoryLabel}</span>
-                <span className={styles.summaryValue}>{activeCategory?.label ?? "—"}</span>
+                <span className={styles.summaryValue}>{activeCategory?.label ?? '—'}</span>
               </li>
               <li>
                 <span className={styles.summaryLabel}>{page.copy.summary.planLabel}</span>
-                <span className={styles.summaryValue}>{activeTier?.name ?? "—"}</span>
+                <span className={styles.summaryValue}>{activeTier?.name ?? '—'}</span>
               </li>
             </ul>
 

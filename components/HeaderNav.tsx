@@ -36,7 +36,7 @@ export default function HeaderNav() {
 
         <nav className={styles.nav} aria-label="Primary">
           <ul className={styles.navList}>
-            {NAV_ITEMS.map(item => {
+            {NAV_ITEMS.map((item) => {
               return (
                 <li key={item.key}>
                   <NavLink href={item.href} className={styles.navLink}>

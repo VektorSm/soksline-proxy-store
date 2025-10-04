@@ -19,7 +19,9 @@ function isLocale(value: unknown): value is Locale {
 }
 
 function get(obj: any, path: string, fallback?: string) {
-  return path.split('.').reduce((o, k) => (o && k in o ? o[k] : undefined), obj) ?? fallback ?? path;
+  return (
+    path.split('.').reduce((o, k) => (o && k in o ? o[k] : undefined), obj) ?? fallback ?? path
+  );
 }
 
 type Ctx = {
@@ -60,25 +62,31 @@ export function I18nProvider({
 
   React.useEffect(() => {
     if (!paramLocale) return;
-    _setLocale(prev => (prev === paramLocale ? prev : paramLocale));
+    _setLocale((prev) => (prev === paramLocale ? prev : paramLocale));
   }, [paramLocale]);
 
   const setLocale = React.useCallback(
     (next: Locale, opts?: { persist?: boolean; updateUrl?: boolean }) => {
-      _setLocale(prev => (prev === next ? prev : next));
+      _setLocale((prev) => (prev === next ? prev : next));
 
       if (opts?.persist !== false && typeof window !== 'undefined') {
         window.localStorage.setItem('lang', next);
       }
 
-      if (opts?.updateUrl !== false && typeof window !== 'undefined' && router?.replace && pathname) {
+      if (opts?.updateUrl !== false && typeof window !== 'undefined') {
         const currentParams = new URLSearchParams(paramsString);
         currentParams.set('lang', next);
         const query = currentParams.toString();
-        router.replace(query ? `${pathname}?${query}` : pathname);
+        const targetPath = pathname ?? window.location.pathname;
+        const url = query ? `${targetPath}?${query}` : targetPath;
+        window.history.replaceState(null, '', url);
+
+        if (router?.replace) {
+          router.replace(url);
+        }
       }
     },
-    [paramsString, pathname, router]
+    [paramsString, pathname, router],
   );
 
   React.useEffect(() => {
@@ -102,7 +110,10 @@ export function I18nProvider({
     router.replace(query ? `${pathname}?${query}` : pathname);
   }, [locale, paramsString, pathname, router]);
 
-  const t = React.useCallback((key: string, fb?: string) => get(DICTS[locale], key, fb) as string, [locale]);
+  const t = React.useCallback(
+    (key: string, fb?: string) => get(DICTS[locale], key, fb) as string,
+    [locale],
+  );
 
   const value = React.useMemo<Ctx>(() => ({ locale, t, setLocale }), [locale, setLocale, t]);
 

@@ -42,6 +42,9 @@ importers:
       '@types/react':
         specifier: ^19.1.14
         version: 19.2.0
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.18.1
+        version: 8.45.0(@typescript-eslint/parser@8.45.0(eslint@9.36.0)(typescript@5.9.3))(eslint@9.36.0)(typescript@5.9.3)
       '@vitest/ui':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)

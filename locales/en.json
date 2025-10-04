@@ -26,7 +26,8 @@
     "policy": "No KYC for basic plans. KYC upon request for custom configurations and sensitive GEOs."
   },
   "footer": {
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved.",
+    "support": "Support"
   },
   "pages": {
     "aml": {
@@ -82,9 +83,7 @@
         {
           "id": "contact",
           "title": "Contact",
-          "paragraphs": [
-            "For AML-related questions, contact us via the form on the Contact page."
-          ]
+          "paragraphs": ["For AML-related questions, contact us via the form on the Contact page."]
         }
       ]
     },
@@ -132,9 +131,7 @@
         {
           "id": "cookies",
           "title": "Cookies",
-          "paragraphs": [
-            "We do not use cookies for tracking on this site at this time."
-          ]
+          "paragraphs": ["We do not use cookies for tracking on this site at this time."]
         },
         {
           "id": "rights",
@@ -196,9 +193,7 @@
         {
           "id": "termination",
           "title": "Termination",
-          "paragraphs": [
-            "We may suspend or terminate access for breaches of these Terms or AUP."
-          ]
+          "paragraphs": ["We may suspend or terminate access for breaches of these Terms or AUP."]
         },
         {
           "id": "law",
@@ -260,16 +255,12 @@
         {
           "id": "nonref",
           "title": "Non-refundable",
-          "paragraphs": [
-            "Consumed bandwidth and violations of AUP/ToS are not eligible."
-          ]
+          "paragraphs": ["Consumed bandwidth and violations of AUP/ToS are not eligible."]
         },
         {
           "id": "chargebacks",
           "title": "Chargebacks",
-          "paragraphs": [
-            "Unwarranted chargebacks may result in account suspension."
-          ]
+          "paragraphs": ["Unwarranted chargebacks may result in account suspension."]
         }
       ]
     },

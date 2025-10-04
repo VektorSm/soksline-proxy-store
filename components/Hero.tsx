@@ -19,14 +19,10 @@ export default function Hero() {
             {t('hero.title')}
           </h1>
 
-          <p className="mt-4 text-lg leading-7 text-gray-700">
-            {t('hero.subtitle')}
-          </p>
+          <p className="mt-4 text-lg leading-7 text-gray-700">{t('hero.subtitle')}</p>
 
           {/* Badge / trust bar */}
-          <div className="mt-4 text-sm text-gray-600">
-            {t('hero.badge')}
-          </div>
+          <div className="mt-4 text-sm text-gray-600">{t('hero.badge')}</div>
 
           {/* CTAs */}
           <div className="mt-8 flex flex-wrap items-center gap-3">

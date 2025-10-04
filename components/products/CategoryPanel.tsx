@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React, { useMemo } from "react";
-import KycNotice from "../KycNotice";
-import { useLocale } from "../LocaleContext";
-import { getCategories, type CategoryId, type Category } from "../../lib/products";
-import styles from "./CategoryPanel.module.css";
+import React, { useMemo } from 'react';
+import KycNotice from '../KycNotice';
+import { useLocale } from '../LocaleContext';
+import { getCategories, type CategoryId, type Category } from '../../lib/products';
+import styles from './CategoryPanel.module.css';
 
 type CategoryPanelProps = {
   categoryId: CategoryId;
@@ -40,11 +40,11 @@ export default function CategoryPanel({ categoryId }: CategoryPanelProps) {
                 </li>
               ))}
             </ul>
-            <KycNotice inline className={styles.kycNotice} locale={locale} />
             {item.bestFor ? <p className={styles.cardMeta}>{item.bestFor}</p> : null}
           </article>
         ))}
       </div>
+      <KycNotice inline className={styles.kycNotice} locale={locale} />
       {category.note ? <p className={styles.note}>{category.note}</p> : null}
     </div>
   );

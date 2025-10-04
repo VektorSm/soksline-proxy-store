@@ -25,7 +25,7 @@ test.describe('i18n basics', () => {
     // переключаем обратно на EN
     await page.getByRole('button', { name: 'EN' }).click();
     await expect(page.getByRole('link', { name: 'Buy now' })).toBeVisible();
-    expect(page.url()).toContain('lang=en');
+    await expect(page).toHaveURL(/lang=en/);
   });
 
   test('KYC text is localized', async ({ page }) => {

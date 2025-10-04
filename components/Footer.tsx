@@ -4,9 +4,11 @@ import React from 'react';
 import { useI18n } from '@/lib/i18n';
 import NavLink from './NavLink';
 
-const NAV_ITEMS: { key: `nav.${string}`; href: string }[] = [
+type NavItem = { key: string; href: string };
+
+const NAV_ITEMS: NavItem[] = [
   { key: 'nav.pricing', href: '/pricing' },
-  { key: 'nav.contact', href: '/contact' },
+  { key: 'footer.support', href: '/contact' },
   { key: 'nav.aml', href: '/aml' },
   { key: 'nav.privacy', href: '/privacy' },
   { key: 'nav.tos', href: '/tos' },
@@ -66,13 +68,9 @@ export default function Footer() {
               padding: 0,
             }}
           >
-            {NAV_ITEMS.map(item => (
+            {NAV_ITEMS.map((item) => (
               <li key={item.key}>
-                <NavLink
-                  href={item.href}
-                  style={linkBaseStyle}
-                  activeStyle={linkActiveStyle}
-                >
+                <NavLink href={item.href} style={linkBaseStyle} activeStyle={linkActiveStyle}>
                   {t(item.key)}
                 </NavLink>
               </li>

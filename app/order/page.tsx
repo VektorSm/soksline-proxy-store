@@ -1,11 +1,11 @@
-import { Suspense } from "react";
+import { Suspense } from 'react';
 
-import OrderPageContent from "./OrderPageContent";
+import OrderPageContent from './OrderPageContent';
 
 export const metadata = {
-  title: "SoksLine — Order residential proxies",
+  title: 'SoksLine — Order residential proxies',
   description:
-    "Compare residential proxy products and jump to checkout with data synced from the latest SoksLine pricing tiers.",
+    'Compare residential proxy products and jump to checkout with data synced from the latest SoksLine pricing tiers.',
 };
 
 export default function Page() {

@@ -28,10 +28,14 @@ export default function LegalPage({ dict }: { dict: LegalDict }) {
             <section key={s.id} id={s.id} className="scroll-mt-24">
               <h2 className="text-xl font-medium mt-8 mb-2">{s.title}</h2>
               {s.paragraphs?.map((p, i) => (
-                <p key={i} className="opacity-90">{p}</p>
+                <p key={i} className="opacity-90">
+                  {p}
+                </p>
               ))}
               <div className="mt-4">
-                <a href="#top" className="text-sm underline opacity-70">Back to top</a>
+                <a href="#top" className="text-sm underline opacity-70">
+                  Back to top
+                </a>
               </div>
             </section>
           ))}
