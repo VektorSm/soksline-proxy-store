@@ -25,6 +25,13 @@
     "staticIpv6": "Static Residential (ISP) IPv6",
     "rotating": "Rotating Residential"
   },
+  "pricing": {
+    "nav": {
+      "staticIsp": "Static Residential",
+      "staticIpv6": "Static IPv6",
+      "rotating": "Rotating Residential"
+    }
+  },
   "kyc": {
     "policy": "No KYC for basic plans. KYC upon request for custom configurations and sensitive GEOs."
   },
