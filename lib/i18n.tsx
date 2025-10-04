@@ -73,16 +73,17 @@ export function I18nProvider({
         window.localStorage.setItem('lang', next);
       }
 
-      if (
-        opts?.updateUrl !== false &&
-        typeof window !== 'undefined' &&
-        router?.replace &&
-        pathname
-      ) {
+      if (opts?.updateUrl !== false && typeof window !== 'undefined') {
         const currentParams = new URLSearchParams(paramsString);
         currentParams.set('lang', next);
         const query = currentParams.toString();
-        router.replace(query ? `${pathname}?${query}` : pathname);
+        const targetPath = pathname ?? window.location.pathname;
+        const url = query ? `${targetPath}?${query}` : targetPath;
+        window.history.replaceState(null, '', url);
+
+        if (router?.replace) {
+          router.replace(url);
+        }
       }
     },
     [paramsString, pathname, router],
