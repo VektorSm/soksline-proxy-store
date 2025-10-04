@@ -52,7 +52,9 @@ export default function Tabs({
             <button
               key={t.id}
               id={tabId}
-              ref={(el) => (tabRefs.current[i] = el)}
+              ref={(el) => {
+                tabRefs.current[i] = el;
+              }}
               role="tab"
               aria-selected={isSelected}
               aria-controls={panelId}
