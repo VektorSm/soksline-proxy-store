@@ -2,6 +2,7 @@
 
 import Hero from "@/components/Hero";
 import TopProductsTabs from "@/components/TopProductsTabs";
+import Section from "@/components/layout/Section";
 import { useI18n } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import styles from "./page.module.css";
@@ -139,69 +140,63 @@ export default function Page() {
     <main className={styles.page}>
       <Hero />
 
-      <section className={`${styles.section} ${styles.showcase}`} id="proxy-formats">
-        <div className={`${styles.sectionInner} ${styles.showcaseInner}`}>
-          <div className={`${styles.sectionHeader} ${styles.showcaseHeader}`}>
-            <h2 className={styles.sectionTitle}>{copy.showcase.title}</h2>
-            <p className={styles.sectionDescription}>{copy.showcase.description}</p>
-          </div>
-          <div className={styles.showcaseGrid}>
-            {copy.showcase.items.map(item => (
-              <article key={item.title} className={styles.showcaseCard}>
-                <div className={styles.showcaseCardHeader}>
-                  <h3 className={styles.showcaseCardTitle}>{item.title}</h3>
-                  <span className={styles.showcaseCardPrice}>{item.price}</span>
-                </div>
-                <ul className={styles.showcaseList}>
-                  {item.points.map(point => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-          <ul className={styles.showcaseFootnotes} aria-label={copy.showcase.title}>
-            {copy.showcase.metrics.map(metric => (
-              <li key={metric}>{metric}</li>
-            ))}
-          </ul>
+      <Section id="proxy-formats" bg="white" containerClassName={styles.showcaseSection}>
+        <div className={`${styles.sectionHeader} ${styles.showcaseHeader}`}>
+          <h2 className={styles.sectionTitle}>{copy.showcase.title}</h2>
+          <p className={styles.sectionDescription}>{copy.showcase.description}</p>
         </div>
-      </section>
+        <div className={styles.showcaseGrid}>
+          {copy.showcase.items.map(item => (
+            <article key={item.title} className={styles.showcaseCard}>
+              <div className={styles.showcaseCardHeader}>
+                <h3 className={styles.showcaseCardTitle}>{item.title}</h3>
+                <span className={styles.showcaseCardPrice}>{item.price}</span>
+              </div>
+              <ul className={styles.showcaseList}>
+                {item.points.map(point => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+        <ul className={styles.showcaseFootnotes} aria-label={copy.showcase.title}>
+          {copy.showcase.metrics.map(metric => (
+            <li key={metric}>{metric}</li>
+          ))}
+        </ul>
+      </Section>
 
-      <section className={`${styles.section} ${styles.advantages}`} id="advantages">
-        <div className={`${styles.sectionInner} ${styles.advantagesInner}`}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>{copy.advantages.title}</h2>
-            <p className={styles.sectionDescription}>{copy.advantages.description}</p>
-          </div>
-          <div className={styles.advantagesGrid}>
-            {copy.advantages.items.map(item => (
-              <article key={item.title} className={styles.advantageCard}>
-                <h3 className={styles.advantageTitle}>{item.title}</h3>
-                <p className={styles.advantageText}>{item.description}</p>
-              </article>
-            ))}
-          </div>
+      <Section id="advantages" bg="muted" containerClassName={styles.advantagesSection}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>{copy.advantages.title}</h2>
+          <p className={styles.sectionDescription}>{copy.advantages.description}</p>
         </div>
-      </section>
+        <div className={styles.advantagesGrid}>
+          {copy.advantages.items.map(item => (
+            <article key={item.title} className={styles.advantageCard}>
+              <h3 className={styles.advantageTitle}>{item.title}</h3>
+              <p className={styles.advantageText}>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </Section>
 
       <TopProductsTabs />
 
-      <section className={`${styles.section} ${styles.payments}`} id="payments">
-        <div className={`${styles.sectionInner} ${styles.paymentsInner}`}>
-          <div className={styles.paymentsHeader}>
-            <h2 className={styles.paymentsTitle}>{copy.payments.title}</h2>
-            <p className={styles.paymentsDescription}>{copy.payments.description}</p>
-          </div>
-          <div className={styles.paymentsList}>
-            {copy.payments.methods.map(method => (
-              <span key={method} className={styles.paymentBadge}>
-                {method}
-              </span>
-            ))}
-          </div>
+      <Section id="payments" bg="muted" containerClassName={styles.paymentsSection}>
+        <div className={styles.paymentsHeader}>
+          <h2 className={styles.paymentsTitle}>{copy.payments.title}</h2>
+          <p className={styles.paymentsDescription}>{copy.payments.description}</p>
         </div>
-      </section>
+        <div className={styles.paymentsList}>
+          {copy.payments.methods.map(method => (
+            <span key={method} className={styles.paymentBadge}>
+              {method}
+            </span>
+          ))}
+        </div>
+      </Section>
     </main>
   );
 }

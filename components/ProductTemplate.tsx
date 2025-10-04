@@ -6,6 +6,7 @@ import type { LocalizedProductPage } from "../lib/productPages";
 import { useLocale } from "./LocaleContext";
 import styles from "./ProductTemplate.module.css";
 import KycNotice from "./KycNotice";
+import Section from "@/components/layout/Section";
 
 function getLinkProps(href: string) {
   if (/^https?:\/\//i.test(href)) {
@@ -90,85 +91,83 @@ export default function ProductTemplate({ data, cardsVariant = "default" }: Prod
         </div>
       </section>
 
-      <section className={styles.offers}>
-        <div className={styles.offersInner}>
-          <header className={styles.offersHeader}>
-            <h2 className={styles.offersTitle}>{copy.offers.title}</h2>
-            {copy.offers.description && <p className={styles.offersDescription}>{copy.offers.description}</p>}
-          </header>
+      <Section bg="white" containerClassName={styles.offersSection}>
+        <header className={styles.offersHeader}>
+          <h2 className={styles.offersTitle}>{copy.offers.title}</h2>
+          {copy.offers.description && <p className={styles.offersDescription}>{copy.offers.description}</p>}
+        </header>
 
-          {isTextLayout ? (
-            <div className={styles.textSections}>
-              {textSections.map(section => (
-                <article key={section.id} className={styles.textSection}>
-                  <h3 className={styles.textSectionTitle}>{section.title}</h3>
-                  <p className={styles.textSectionBody}>{section.body}</p>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className={cardsClassName}>
-              {plans.map(plan => (
-                <article
-                  key={plan.id}
-                  className={`${styles.card} ${
-                    plan.badge ? styles.cardFeatured : ""
-                  } ${plan.id === activePlanId ? styles.cardActive : ""}`.trim()}
-                  onClick={() => setActivePlanId(plan.id)}
-                  onKeyDown={handleCardKeyDown(plan.id)}
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={plan.id === activePlanId}
-                >
-                  <header className={styles.cardHeader}>
-                    <div className={styles.cardTitleRow}>
-                      <h3 className={styles.cardTitle}>{plan.name}</h3>
-                      {plan.badge && <span className={styles.cardBadge}>{plan.badge}</span>}
-                    </div>
-                    <div className={styles.cardPriceBlock}>
-                      {plan.priceLabel && <span className={styles.cardPriceLabel}>{plan.priceLabel}</span>}
-                      <p className={styles.cardPrice}>
-                        {plan.compareAt && <span className={styles.cardCompareAt}>{plan.compareAt}</span>}
-                        <span className={styles.cardPriceValue}>{plan.price}</span>
-                        {plan.period && <span className={styles.cardPricePeriod}>{plan.period}</span>}
-                      </p>
-                    </div>
-                  </header>
+        {isTextLayout ? (
+          <div className={styles.textSections}>
+            {textSections.map(section => (
+              <article key={section.id} className={styles.textSection}>
+                <h3 className={styles.textSectionTitle}>{section.title}</h3>
+                <p className={styles.textSectionBody}>{section.body}</p>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className={cardsClassName}>
+            {plans.map(plan => (
+              <article
+                key={plan.id}
+                className={`${styles.card} ${
+                  plan.badge ? styles.cardFeatured : ""
+                } ${plan.id === activePlanId ? styles.cardActive : ""}`.trim()}
+                onClick={() => setActivePlanId(plan.id)}
+                onKeyDown={handleCardKeyDown(plan.id)}
+                role="button"
+                tabIndex={0}
+                aria-pressed={plan.id === activePlanId}
+              >
+                <header className={styles.cardHeader}>
+                  <div className={styles.cardTitleRow}>
+                    <h3 className={styles.cardTitle}>{plan.name}</h3>
+                    {plan.badge && <span className={styles.cardBadge}>{plan.badge}</span>}
+                  </div>
+                  <div className={styles.cardPriceBlock}>
+                    {plan.priceLabel && <span className={styles.cardPriceLabel}>{plan.priceLabel}</span>}
+                    <p className={styles.cardPrice}>
+                      {plan.compareAt && <span className={styles.cardCompareAt}>{plan.compareAt}</span>}
+                      <span className={styles.cardPriceValue}>{plan.price}</span>
+                      {plan.period && <span className={styles.cardPricePeriod}>{plan.period}</span>}
+                    </p>
+                  </div>
+                </header>
 
-                  {plan.summary && <p className={styles.cardSummary}>{plan.summary}</p>}
+                {plan.summary && <p className={styles.cardSummary}>{plan.summary}</p>}
 
-                  <ul className={styles.cardFeatures}>
-                    {plan.features.map(feature => {
-                      const included = feature.included ?? true;
-                      return (
-                        <li
-                          key={feature.label}
-                          className={`${styles.cardFeature} ${
-                            included ? styles.featureIncluded : styles.featureExcluded
-                          }`}
-                        >
-                          <span className={styles.featureIcon} aria-hidden="true">
-                            {included ? "✓" : "✕"}
-                          </span>
-                          <span>{feature.label}</span>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                <ul className={styles.cardFeatures}>
+                  {plan.features.map(feature => {
+                    const included = feature.included ?? true;
+                    return (
+                      <li
+                        key={feature.label}
+                        className={`${styles.cardFeature} ${
+                          included ? styles.featureIncluded : styles.featureExcluded
+                        }`}
+                      >
+                        <span className={styles.featureIcon} aria-hidden="true">
+                          {included ? "✓" : "✕"}
+                        </span>
+                        <span>{feature.label}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
 
-                  <KycNotice className={styles.cardKycNotice} inline locale={locale} />
+                <KycNotice className={styles.cardKycNotice} inline locale={locale} />
 
-                  <Link href={plan.ctaHref} className={styles.cardCta} {...getLinkProps(plan.ctaHref)}>
-                    {plan.ctaLabel}
-                  </Link>
-                </article>
-              ))}
-            </div>
-          )}
+                <Link href={plan.ctaHref} className={styles.cardCta} {...getLinkProps(plan.ctaHref)}>
+                  {plan.ctaLabel}
+                </Link>
+              </article>
+            ))}
+          </div>
+        )}
 
-          {copy.offers.note && <p className={styles.offersNote}>{copy.offers.note}</p>}
-        </div>
-      </section>
+        {copy.offers.note && <p className={styles.offersNote}>{copy.offers.note}</p>}
+      </Section>
     </main>
   );
 }
