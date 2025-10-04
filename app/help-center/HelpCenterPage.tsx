@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent, useMemo, useState } from 'react';
 
-import { useLocale } from "../../components/LocaleContext";
-import type { Locale } from "../../components/LocaleContext";
+import { useLocale } from '../../components/LocaleContext';
+import type { Locale } from '../../components/LocaleContext';
 
-import styles from "./page.module.css";
+import styles from './page.module.css';
 
 type HelpCenterCopy = {
   title: string;
@@ -28,42 +28,41 @@ type HelpCenterCopy = {
 
 const HELP_CENTER_COPY: Record<Locale, HelpCenterCopy> = {
   en: {
-    title: "Contact Us",
+    title: 'Contact Us',
     description:
-      "Let us know how we can help. A member of our support staff will respond as soon as possible.",
-    requiredNote: "Fields marked with an asterisk (*) are required.",
+      'Let us know how we can help. A member of our support staff will respond as soon as possible.',
+    requiredNote: 'Fields marked with an asterisk (*) are required.',
     email: {
-      label: "Your email address*",
-      placeholder: "name@example.com",
+      label: 'Your email address*',
+      placeholder: 'name@example.com',
     },
     descriptionField: {
-      label: "Description*",
-      placeholder: "Please enter the details of your request.",
+      label: 'Description*',
+      placeholder: 'Please enter the details of your request.',
     },
     attachments: {
-      label: "Attachments",
-      helper: "Choose a file or drag and drop here",
+      label: 'Attachments',
+      helper: 'Choose a file or drag and drop here',
     },
-    submitLabel: "Submit",
+    submitLabel: 'Submit',
   },
   ru: {
-    title: "Свяжитесь с нами",
-    description:
-      "Опишите, с чем нужна помощь. Команда поддержки ответит вам как можно быстрее.",
-    requiredNote: "Поля, отмеченные звёздочкой (*), обязательны для заполнения.",
+    title: 'Свяжитесь с нами',
+    description: 'Опишите, с чем нужна помощь. Команда поддержки ответит вам как можно быстрее.',
+    requiredNote: 'Поля, отмеченные звёздочкой (*), обязательны для заполнения.',
     email: {
-      label: "Ваш e-mail*",
-      placeholder: "name@example.com",
+      label: 'Ваш e-mail*',
+      placeholder: 'name@example.com',
     },
     descriptionField: {
-      label: "Описание*",
-      placeholder: "Опишите детали запроса",
+      label: 'Описание*',
+      placeholder: 'Опишите детали запроса',
     },
     attachments: {
-      label: "Вложения",
-      helper: "Выберите файл или перетащите его сюда",
+      label: 'Вложения',
+      helper: 'Выберите файл или перетащите его сюда',
     },
-    submitLabel: "Отправить",
+    submitLabel: 'Отправить',
   },
 };
 
@@ -72,7 +71,10 @@ export default function HelpCenterPage() {
   const copy = HELP_CENTER_COPY[locale];
   const [fileLabel, setFileLabel] = useState<string | null>(null);
 
-  const attachmentText = useMemo(() => fileLabel ?? copy.attachments.helper, [copy.attachments.helper, fileLabel]);
+  const attachmentText = useMemo(
+    () => fileLabel ?? copy.attachments.helper,
+    [copy.attachments.helper, fileLabel],
+  );
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -82,10 +84,11 @@ export default function HelpCenterPage() {
     }
 
     const names = Array.from(files)
-      .map(file => file.name)
+      .map((file) => file.name)
       .slice(0, 3);
 
-    const formatted = files.length > 3 ? `${names.join(", ")} +${files.length - 3}` : names.join(", ");
+    const formatted =
+      files.length > 3 ? `${names.join(', ')} +${files.length - 3}` : names.join(', ');
     setFileLabel(formatted);
   };
 

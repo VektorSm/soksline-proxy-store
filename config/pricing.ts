@@ -1,4 +1,4 @@
-export type PricingMode = "perGb" | "perPackage";
+export type PricingMode = 'perGb' | 'perPackage';
 
 export type RotatingTier = {
   id: string;
@@ -14,20 +14,20 @@ export type RotatingPricing = {
 };
 
 export const rotatingPricing: RotatingPricing = {
-  mode: "perGb",
+  mode: 'perGb',
   tiers: [
     {
-      id: "rotating-3",
+      id: 'rotating-3',
       gb: 3,
       totalUsd: 14.99,
     },
     {
-      id: "rotating-10",
+      id: 'rotating-10',
       gb: 10,
       totalUsd: 49.99,
     },
     {
-      id: "rotating-50",
+      id: 'rotating-50',
       gb: 50,
       totalUsd: 199.99,
     },

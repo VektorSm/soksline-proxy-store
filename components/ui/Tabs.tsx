@@ -3,11 +3,11 @@ import * as React from 'react';
 type Tab = { id: string; label: string };
 type TabsProps = {
   tabs: Tab[];
-  defaultIndex?: number;           // по умолчанию 0
+  defaultIndex?: number; // по умолчанию 0
   onChange?: (index: number) => void;
   className?: string;
   renderPanel: (index: number) => React.ReactNode; // ленивый рендер по индексу
-  idPrefix?: string;               // для связки id/aria-controls
+  idPrefix?: string; // для связки id/aria-controls
 };
 
 export default function Tabs({
@@ -16,7 +16,7 @@ export default function Tabs({
   onChange,
   className = '',
   renderPanel,
-  idPrefix = 'tabs'
+  idPrefix = 'tabs',
 }: TabsProps) {
   const [index, setIndex] = React.useState(defaultIndex);
   const tabRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
@@ -30,10 +30,19 @@ export default function Tabs({
   };
 
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); select((index + 1) % count); }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); select((index - 1 + count) % count); }
-    else if (e.key === 'Home') { e.preventDefault(); select(0); }
-    else if (e.key === 'End') { e.preventDefault(); select(count - 1); }
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      select((index + 1) % count);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      select((index - 1 + count) % count);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      select(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      select(count - 1);
+    }
   };
 
   return (
@@ -59,11 +68,9 @@ export default function Tabs({
               aria-selected={isSelected}
               aria-controls={panelId}
               tabIndex={isSelected ? 0 : -1} // roving tabindex
-              className={
-                `px-4 py-2 rounded-2xl border transition 
+              className={`px-4 py-2 rounded-2xl border transition 
                  ${isSelected ? 'bg-gray-900 text-white border-gray-900' : 'bg-white border-gray-200 text-gray-700'} 
-                 focus:outline-none focus-visible:ring focus-visible:ring-offset-2`
-              }
+                 focus:outline-none focus-visible:ring focus-visible:ring-offset-2`}
               onClick={() => select(i, false)}
               type="button"
             >

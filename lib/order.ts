@@ -1,4 +1,4 @@
-import type { Locale } from "../components/LocaleContext";
+import type { Locale } from '../components/LocaleContext';
 import {
   ROTATING_RESIDENTIAL_PRICING,
   STATIC_IPV6_PRICING,
@@ -7,14 +7,14 @@ import {
   type PricingCategory,
   type PricingPageData,
   type PricingTier,
-} from "./pricing";
+} from './pricing';
 
 export type OrderTier = PricingTier & {
   priceAmount: number;
   totalMultiplier: number;
 };
 
-export type OrderCategory = Omit<PricingCategory, "tiers"> & {
+export type OrderCategory = Omit<PricingCategory, 'tiers'> & {
   tiers: OrderTier[];
 };
 
@@ -84,82 +84,74 @@ type ServiceDefinition = {
 
 const SERVICE_DEFINITIONS: ServiceDefinition[] = [
   {
-    id: "static-residential",
+    id: 'static-residential',
     pricing: STATIC_RESIDENTIAL_PRICING,
-    currency: "USD",
+    currency: 'USD',
     cardCopy: {
       ru: {
-        title: "Static Residential Proxy",
-        headline: "Скорость до 1 Гбит/с",
-        priceHint: "от $1.27 / мес",
-        highlights: [
-          "Надёжные IPv4",
-          "Sticky-сессии до 60 мин",
-          "Таргетинг по странам и ISP",
-        ],
+        title: 'Static Residential Proxy',
+        headline: 'Скорость до 1 Гбит/с',
+        priceHint: 'от $1.27 / мес',
+        highlights: ['Надёжные IPv4', 'Sticky-сессии до 60 мин', 'Таргетинг по странам и ISP'],
       },
       en: {
-        title: "Static Residential Proxy",
-        headline: "Speeds up to 1 Gbps",
-        priceHint: "from $1.27 / mo",
-        highlights: [
-          "Clean IPv4 pools",
-          "Sticky sessions up to 60 min",
-          "Country & ISP targeting",
-        ],
+        title: 'Static Residential Proxy',
+        headline: 'Speeds up to 1 Gbps',
+        priceHint: 'from $1.27 / mo',
+        highlights: ['Clean IPv4 pools', 'Sticky sessions up to 60 min', 'Country & ISP targeting'],
       },
     },
     orderCategories: {
       ru: [
         {
-          id: "core-plans",
-          label: "Планы",
+          id: 'core-plans',
+          label: 'Планы',
           tiers: [
             {
-              id: "static-basic",
-              name: "Базовый",
-              price: "$1.95",
-              period: "за прокси / мес",
-              description: "Базовый набор для команды.",
+              id: 'static-basic',
+              name: 'Базовый',
+              price: '$1.95',
+              period: 'за прокси / мес',
+              description: 'Базовый набор для команды.',
               features: [
-                "До 3 пользователей",
-                "1 ГБ трафика",
-                "Без апгрейда скорости",
-                "Без доп. параллельности",
+                'До 3 пользователей',
+                '1 ГБ трафика',
+                'Без апгрейда скорости',
+                'Без доп. параллельности',
               ],
-              ctaHref: "/order",
+              ctaHref: '/order',
               priceAmount: 1.95,
               totalMultiplier: 1,
             },
             {
-              id: "static-dedicated",
-              name: "Выделенный",
-              price: "$3.95",
-              period: "за прокси / мес",
-              description: "Выделенные ресурсы для стабильной работы.",
+              id: 'static-dedicated',
+              name: 'Выделенный',
+              price: '$3.95',
+              period: 'за прокси / мес',
+              description: 'Выделенные ресурсы для стабильной работы.',
               features: [
-                "Выделенный IP на пользователя",
-                "Безлимитный трафик",
-                "Включены апгрейды скорости",
-                "Включена доп. параллельность",
+                'Выделенный IP на пользователя',
+                'Безлимитный трафик',
+                'Включены апгрейды скорости',
+                'Включена доп. параллельность',
               ],
-              ctaHref: "/order",
+              ctaHref: '/order',
               priceAmount: 3.95,
               totalMultiplier: 1,
             },
             {
-              id: "static-premium",
-              name: "Премиум",
-              price: "$5.47",
-              period: "за прокси / мес",
-              description: "Чистые IP и максимум возможностей.",
+              id: 'static-premium',
+              name: 'Премиум',
+              price: '$5.47',
+              period: 'за прокси / мес',
+              description: 'Чистые IP и максимум возможностей.',
               features: [
-                "Новые IP",
-                "Безлимитный трафик",
-                "Макс. апгрейд скорости",
-                "Макс. параллельность",
+                'Новые IP',
+                'Безлимитный трафик',
+                'Макс. апгрейд скорости',
+                'Макс. параллельность',
               ],
-              ctaHref: "/order",
+              ctaHref: '/order',
               priceAmount: 5.47,
               totalMultiplier: 1,
             },
@@ -168,54 +160,54 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
       ],
       en: [
         {
-          id: "core-plans",
-          label: "Plans",
+          id: 'core-plans',
+          label: 'Plans',
           tiers: [
             {
-              id: "static-basic",
-              name: "Basic",
-              price: "$1.95",
-              period: "per proxy / mo",
-              description: "Starter pack for small teams.",
+              id: 'static-basic',
+              name: 'Basic',
+              price: '$1.95',
+              period: 'per proxy / mo',
+              description: 'Starter pack for small teams.',
               features: [
-                "Up to 3 users",
-                "1 GB bandwidth",
-                "No speed upgrades",
-                "No parallelism boost",
+                'Up to 3 users',
+                '1 GB bandwidth',
+                'No speed upgrades',
+                'No parallelism boost',
               ],
-              ctaHref: "/order",
+              ctaHref: '/order',
               priceAmount: 1.95,
               totalMultiplier: 1,
             },
             {
-              id: "static-dedicated",
-              name: "Dedicated",
-              price: "$3.95",
-              period: "per proxy / mo",
-              description: "Dedicated resources for steady work.",
+              id: 'static-dedicated',
+              name: 'Dedicated',
+              price: '$3.95',
+              period: 'per proxy / mo',
+              description: 'Dedicated resources for steady work.',
               features: [
-                "Dedicated IP for one user",
-                "Unlimited bandwidth",
-                "Speed upgrades included",
-                "Parallelism upgrades included",
+                'Dedicated IP for one user',
+                'Unlimited bandwidth',
+                'Speed upgrades included',
+                'Parallelism upgrades included',
               ],
-              ctaHref: "/order",
+              ctaHref: '/order',
               priceAmount: 3.95,
               totalMultiplier: 1,
             },
             {
-              id: "static-premium",
-              name: "Premium",
-              price: "$5.47",
-              period: "per proxy / mo",
-              description: "Fresh IPs and full power.",
+              id: 'static-premium',
+              name: 'Premium',
+              price: '$5.47',
+              period: 'per proxy / mo',
+              description: 'Fresh IPs and full power.',
               features: [
-                "Fresh IPs",
-                "Unlimited bandwidth",
-                "Max speed upgrades",
-                "Max parallelism",
+                'Fresh IPs',
+                'Unlimited bandwidth',
+                'Max speed upgrades',
+                'Max parallelism',
               ],
-              ctaHref: "/order",
+              ctaHref: '/order',
               priceAmount: 5.47,
               totalMultiplier: 1,
             },
@@ -225,56 +217,40 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
     },
   },
   {
-    id: "static-residential-ipv6",
+    id: 'static-residential-ipv6',
     pricing: STATIC_IPV6_PRICING,
-    currency: "USD",
+    currency: 'USD',
     cardCopy: {
       ru: {
-        title: "Static Residential IPv6",
-        headline: "Гибкая стоимость для скейлинга",
-        priceHint: "от $0.55 / мес",
-        highlights: [
-          "SOCKS5 и HTTP/S",
-          "Sticky-сессии",
-          "Ротация подсетей",
-        ],
+        title: 'Static Residential IPv6',
+        headline: 'Гибкая стоимость для скейлинга',
+        priceHint: 'от $0.55 / мес',
+        highlights: ['SOCKS5 и HTTP/S', 'Sticky-сессии', 'Ротация подсетей'],
       },
       en: {
-        title: "Static Residential IPv6",
-        headline: "Flexible pricing for scale",
-        priceHint: "from $0.55 / mo",
-        highlights: [
-          "SOCKS5 & HTTP/S",
-          "Sticky sessions",
-          "Subnet rotation",
-        ],
+        title: 'Static Residential IPv6',
+        headline: 'Flexible pricing for scale',
+        priceHint: 'from $0.55 / mo',
+        highlights: ['SOCKS5 & HTTP/S', 'Sticky sessions', 'Subnet rotation'],
       },
     },
   },
   {
-    id: "rotating-residential",
+    id: 'rotating-residential',
     pricing: ROTATING_RESIDENTIAL_PRICING,
-    currency: "USD",
+    currency: 'USD',
     cardCopy: {
       ru: {
-        title: "Rotating Residential Proxy",
-        headline: "Трафик или выделенные порты",
-        priceHint: "от $14.99",
-        highlights: [
-          "85M+ IP",
-          "Ротация по API",
-          "Страны и города",
-        ],
+        title: 'Rotating Residential Proxy',
+        headline: 'Трафик или выделенные порты',
+        priceHint: 'от $14.99',
+        highlights: ['85M+ IP', 'Ротация по API', 'Страны и города'],
       },
       en: {
-        title: "Rotating Residential Proxy",
-        headline: "Pay per GB or dedicated ports",
-        priceHint: "from $14.99",
-        highlights: [
-          "85M+ IPs",
-          "API rotation",
-          "Country & city targeting",
-        ],
+        title: 'Rotating Residential Proxy',
+        headline: 'Pay per GB or dedicated ports',
+        priceHint: 'from $14.99',
+        highlights: ['85M+ IPs', 'API rotation', 'Country & city targeting'],
       },
     },
   },
@@ -282,60 +258,61 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
 
 const ORDER_COPY: Record<Locale, OrderPageCopy> = {
   ru: {
-    heroEyebrow: "Конструктор тарифов",
-    heroTitle: "Соберите заказ за пару шагов",
-    heroSubtitle: "Сравните ключевые residential-продукты SoksLine на одной странице.",
+    heroEyebrow: 'Конструктор тарифов',
+    heroTitle: 'Соберите заказ за пару шагов',
+    heroSubtitle: 'Сравните ключевые residential-продукты SoksLine на одной странице.',
     heroDescription:
-      "Выберите подходящий тип прокси, изучите тарифы и переходите к оформлению. Все данные синхронизированы с разделом \"Цены\" и обновляются автоматически.",
-    paymentTitle: "Оплата и безопасность",
-    paymentNoteFallback: "SSL Secure Payment. Ваши данные защищены 256-битным шифрованием.",
-    paymentMethodsLabel: "Поддерживаемые методы",
-    servicesSectionTitle: "Выберите продукт",
-    servicesSectionSubtitle: "Сравните основные residential-направления SoksLine.",
+      'Выберите подходящий тип прокси, изучите тарифы и переходите к оформлению. Все данные синхронизированы с разделом "Цены" и обновляются автоматически.',
+    paymentTitle: 'Оплата и безопасность',
+    paymentNoteFallback: 'SSL Secure Payment. Ваши данные защищены 256-битным шифрованием.',
+    paymentMethodsLabel: 'Поддерживаемые методы',
+    servicesSectionTitle: 'Выберите продукт',
+    servicesSectionSubtitle: 'Сравните основные residential-направления SoksLine.',
     summary: {
-      title: "Сводка заказа",
-      serviceLabel: "Услуга",
-      categoryLabel: "Категория",
-      planLabel: "Тариф",
-      unitLabel: "Стоимость",
-      totalLabel: "Итого",
-      featuresLabel: "Что входит",
-      ctaLabel: "Далее",
-      disclaimer: "SSL безопасная оплата. 256-битное шифрование защищает ваши данные.",
+      title: 'Сводка заказа',
+      serviceLabel: 'Услуга',
+      categoryLabel: 'Категория',
+      planLabel: 'Тариф',
+      unitLabel: 'Стоимость',
+      totalLabel: 'Итого',
+      featuresLabel: 'Что входит',
+      ctaLabel: 'Далее',
+      disclaimer: 'SSL безопасная оплата. 256-битное шифрование защищает ваши данные.',
     },
-    moreInfoLabel: "Посмотреть все тарифы",
-    contactTitle: "Нужна индивидуальная конфигурация?",
-    contactSubtitle: "Опишите проект — подберём пул, тариф и географию под вашу нагрузку.",
-    contactCtaLabel: "Связаться с менеджером",
-    contactHref: "/help-center",
+    moreInfoLabel: 'Посмотреть все тарифы',
+    contactTitle: 'Нужна индивидуальная конфигурация?',
+    contactSubtitle: 'Опишите проект — подберём пул, тариф и географию под вашу нагрузку.',
+    contactCtaLabel: 'Связаться с менеджером',
+    contactHref: '/help-center',
   },
   en: {
-    heroEyebrow: "Order workspace",
-    heroTitle: "Build your order in a few clicks",
-    heroSubtitle: "Compare the key SoksLine residential products side by side.",
+    heroEyebrow: 'Order workspace',
+    heroTitle: 'Build your order in a few clicks',
+    heroSubtitle: 'Compare the key SoksLine residential products side by side.',
     heroDescription:
-      "Pick the proxy type you need, review the pricing tiers and proceed to checkout. Everything stays in sync with the Pricing pages and updates automatically.",
-    paymentTitle: "Payments & security",
-    paymentNoteFallback: "SSL Secure Payment. Your information is protected by 256-bit SSL.",
-    paymentMethodsLabel: "Supported methods",
-    servicesSectionTitle: "Choose a product",
-    servicesSectionSubtitle: "Compare the flagship SoksLine residential offerings.",
+      'Pick the proxy type you need, review the pricing tiers and proceed to checkout. Everything stays in sync with the Pricing pages and updates automatically.',
+    paymentTitle: 'Payments & security',
+    paymentNoteFallback: 'SSL Secure Payment. Your information is protected by 256-bit SSL.',
+    paymentMethodsLabel: 'Supported methods',
+    servicesSectionTitle: 'Choose a product',
+    servicesSectionSubtitle: 'Compare the flagship SoksLine residential offerings.',
     summary: {
-      title: "Order summary",
-      serviceLabel: "Service",
-      categoryLabel: "Category",
-      planLabel: "Plan",
-      unitLabel: "Unit price",
-      totalLabel: "Total",
-      featuresLabel: "Includes",
-      ctaLabel: "Continue",
-      disclaimer: "SSL secure checkout. 256-bit encryption keeps your data safe.",
+      title: 'Order summary',
+      serviceLabel: 'Service',
+      categoryLabel: 'Category',
+      planLabel: 'Plan',
+      unitLabel: 'Unit price',
+      totalLabel: 'Total',
+      featuresLabel: 'Includes',
+      ctaLabel: 'Continue',
+      disclaimer: 'SSL secure checkout. 256-bit encryption keeps your data safe.',
     },
-    moreInfoLabel: "View detailed pricing",
-    contactTitle: "Need a custom configuration?",
-    contactSubtitle: "Tell us about your project — we'll tailor the pool, pricing and geo coverage for your load.",
-    contactCtaLabel: "Contact sales",
-    contactHref: "/help-center",
+    moreInfoLabel: 'View detailed pricing',
+    contactTitle: 'Need a custom configuration?',
+    contactSubtitle:
+      "Tell us about your project — we'll tailor the pool, pricing and geo coverage for your load.",
+    contactCtaLabel: 'Contact sales',
+    contactHref: '/help-center',
   },
 };
 
@@ -345,15 +322,15 @@ function parsePriceAmount(price: string): number {
     return 0;
   }
 
-  const normalized = match[0].replace(/,/g, "");
+  const normalized = match[0].replace(/,/g, '');
   const amount = Number.parseFloat(normalized);
   return Number.isFinite(amount) ? amount : 0;
 }
 
 function buildCategories(data: PricingPageData): OrderCategory[] {
-  return data.categories.map(category => ({
+  return data.categories.map((category) => ({
     ...category,
-    tiers: category.tiers.map(tier => ({
+    tiers: category.tiers.map((tier) => ({
       ...tier,
       priceAmount: parsePriceAmount(tier.price),
       totalMultiplier: tier.totalMultiplier ?? 1,
@@ -380,15 +357,15 @@ function buildService(locale: Locale, definition: ServiceDefinition): OrderServi
 
 export function getOrderPage(locale: Locale): OrderPage {
   const copy = ORDER_COPY[locale];
-  const services = SERVICE_DEFINITIONS.map(definition => buildService(locale, definition));
+  const services = SERVICE_DEFINITIONS.map((definition) => buildService(locale, definition));
 
   const paymentNote =
-    SERVICE_DEFINITIONS.map(definition => definition.pricing[locale].paymentNote).find(Boolean) ??
+    SERVICE_DEFINITIONS.map((definition) => definition.pricing[locale].paymentNote).find(Boolean) ??
     copy.paymentNoteFallback;
 
   const paymentMethods = Array.from(
     new Set(
-      SERVICE_DEFINITIONS.flatMap(definition => definition.pricing[locale].paymentMethods ?? []),
+      SERVICE_DEFINITIONS.flatMap((definition) => definition.pricing[locale].paymentMethods ?? []),
     ),
   );
 

@@ -10,8 +10,9 @@ const maybeRoutes = [
 
 for (const r of maybeRoutes) {
   test(`KYC notice appears on ${r}`, async ({ page }) => {
-    await page.goto(r);
+    const url = r.includes('?') ? `${r}&lang=en` : `${r}?lang=en`;
+    await page.goto(url);
     // ищем ключевую фразу (локализация по умолчанию EN)
-    await expect(page.getByText('No KYC for basic plans', { exact: false })).toBeVisible();
+    await expect(page.getByText('No KYC for basic plans', { exact: false }).first()).toBeVisible();
   });
 }
