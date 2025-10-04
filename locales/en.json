@@ -17,6 +17,9 @@
     "ctaPrimary": "Buy now",
     "ctaSecondary": "Contact sales"
   },
+  "common": {
+    "buyNow": "Buy Now"
+  },
   "tabs": {
     "staticIsp": "Static Residential (ISP)",
     "staticIpv6": "Static Residential (ISP) IPv6",
@@ -30,6 +33,27 @@
     "support": "Support"
   },
   "pages": {
+    "pricing": {
+      "hero": {
+        "eyebrow": "Pricing",
+        "title": "Residential proxy pricing synced with checkout",
+        "subtitle": "Browse the same products and plans available on the order page.",
+        "description": "Pick a static or rotating pool and deep-link straight to checkout with pricing that stays in sync."
+      },
+      "staticIsp": {
+        "title": "Static Residential Proxy",
+        "subtitle": "Dedicated IPv4 pools with sticky sessions and ISP-level targeting."
+      },
+      "staticIpv6": {
+        "title": "Static Residential IPv6",
+        "subtitle": "Scale automation with flexible IPv6 addresses and granular controls.",
+        "from": "from $0.55 / mo"
+      },
+      "rotating": {
+        "title": "Rotating Residential Proxy",
+        "subtitle": "Transparent bandwidth tiers with pay-as-you-go pricing."
+      }
+    },
     "aml": {
       "title": "AML Policy",
       "disclaimer": "Template content for product staging. This is not legal advice.",

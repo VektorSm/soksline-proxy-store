@@ -17,6 +17,9 @@
     "ctaPrimary": "Купить",
     "ctaSecondary": "Связаться"
   },
+  "common": {
+    "buyNow": "Купить"
+  },
   "tabs": {
     "staticIsp": "Static Residential (ISP)",
     "staticIpv6": "Static Residential (ISP) IPv6",
@@ -30,6 +33,27 @@
     "support": "Поддержка"
   },
   "pages": {
+    "pricing": {
+      "hero": {
+        "eyebrow": "Тарифы",
+        "title": "Цены на прокси синхронизированы с оформлением",
+        "subtitle": "Те же продукты и планы, что и на странице заказа.",
+        "description": "Выберите статический или ротационный пул и переходите к оформлению с актуальными ценами."
+      },
+      "staticIsp": {
+        "title": "Static Residential Proxy",
+        "subtitle": "Чистые IPv4 с sticky-сессиями и таргетингом по ISP."
+      },
+      "staticIpv6": {
+        "title": "Static Residential IPv6",
+        "subtitle": "Масштабируйте автоматизацию с гибкими IPv6 и управлением гео.",
+        "from": "от $0.55 / мес"
+      },
+      "rotating": {
+        "title": "Rotating Residential Proxy",
+        "subtitle": "Прозрачные тарифы по трафику и оплате за ГБ."
+      }
+    },
     "aml": {
       "title": "AML Политика",
       "disclaimer": "Шаблон для продукта (стейджинг). Не является юридической консультацией.",
