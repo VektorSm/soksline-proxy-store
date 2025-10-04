@@ -1,15 +1,16 @@
 {
   "brand": "SoksLine",
   "nav": {
-    "pricing": "Тарифы",
+    "pricing": "Цены",
     "contact": "Контакты",
-    "login": "Войти",
-    "startOrder": "Оформить заказ",
-    "aml": "AML Политика",
-    "privacy": "Конфиденциальность",
-    "tos": "Условия",
+    "docs": "Документы",
+    "aml": "AML",
+    "privacy": "Приватность",
+    "terms": "Условия",
     "aup": "AUP",
-    "refund": "Возвраты"
+    "refunds": "Возвраты",
+    "login": "Войти",
+    "startOrder": "Заказ"
   },
   "hero": {
     "title": "Магазин прокси SOCKS5",

@@ -11,9 +11,9 @@ const NAV_ITEMS: NavItem[] = [
   { key: 'footer.support', href: '/contact' },
   { key: 'nav.aml', href: '/aml' },
   { key: 'nav.privacy', href: '/privacy' },
-  { key: 'nav.tos', href: '/tos' },
+  { key: 'nav.terms', href: '/tos' },
   { key: 'nav.aup', href: '/aup' },
-  { key: 'nav.refund', href: '/refund' },
+  { key: 'nav.refunds', href: '/refund' },
   { key: 'nav.login', href: '/login' },
 ];
 
