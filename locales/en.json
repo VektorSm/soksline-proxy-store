@@ -18,7 +18,8 @@
     "ctaSecondary": "Contact sales"
   },
   "common": {
-    "buyNow": "Buy Now"
+    "buyNow": "Buy Now",
+    "privacyPolicy": "Privacy Policy"
   },
   "tabs": {
     "staticIsp": "Static Residential (ISP)",
@@ -301,7 +302,14 @@
       "name": "Your name",
       "email": "Email",
       "msg": "Message",
-      "submit": "Send"
+      "submit": "Send",
+      "sending": "Sending…",
+      "sent": "Form status",
+      "success": "Thanks! We’ll reply to your email soon.",
+      "errName": "Please enter your name.",
+      "errEmail": "Enter a valid email address.",
+      "errMsg": "Message must be at least 10 characters.",
+      "privacyNote": "By submitting this form you agree to our"
     },
     "login": {
       "title": "Log in",
