@@ -21,13 +21,12 @@ export default function KycNotice({ locale, className = '', inline = false }: Pr
       }
     >
       {/* Без сторонних иконок — минималистично */}
-      <span aria-hidden="true" className="inline-block align-[-2px]">
+      <span aria-hidden="true" className="inline-block align-[-2px] opacity-60">
         <svg
           width="14"
           height="14"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="opacity-70"
         >
           <circle cx="12" cy="12" r="10" />
           <rect x="11" y="10" width="2" height="7" fill="white" />

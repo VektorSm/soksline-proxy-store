@@ -65,7 +65,7 @@ export default function PricingTemplate({ data }: PricingTemplateProps) {
   };
 
   return (
-    <div className={styles.page}>
+    <div id={copy.slug} className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <p className={styles.heroHighlight}>{copy.highlight}</p>

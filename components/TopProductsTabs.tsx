@@ -22,7 +22,11 @@ export default function TopProductsTabs() {
   return (
     <Section aria-labelledby="top-products-heading" bg="white" containerClassName="not-prose">
       <div style={{ display: 'grid', gap: '1.5rem' }}>
-        <h2 id="top-products-heading" style={{ fontSize: '2rem', fontWeight: 600, margin: 0 }}>
+        <h2
+          id="top-products-heading"
+          className="text-3xl font-semibold tracking-tight text-slate-900"
+          style={{ margin: 0 }}
+        >
           {t('topProducts.title', 'Top Products by SoksLine')}
         </h2>
 
