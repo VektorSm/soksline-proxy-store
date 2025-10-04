@@ -4,9 +4,9 @@ test('pricing shows Static ISP plans Basic/Dedicated/Premium with correct prices
   await page.goto('/pricing');
   const section = page.locator('#static-isp').first();
 
-  await expect(section.getByText('Basic')).toBeVisible();
-  await expect(section.getByText('Dedicated')).toBeVisible();
-  await expect(section.getByText('Premium')).toBeVisible();
+  await expect(section.getByRole('heading', { name: 'Basic' })).toBeVisible();
+  await expect(section.getByRole('heading', { name: 'Dedicated' })).toBeVisible();
+  await expect(section.getByRole('heading', { name: 'Premium' })).toBeVisible();
 
   await expect(section.getByText('$1.95', { exact: false })).toBeVisible();
   await expect(section.getByText('$3.95', { exact: false })).toBeVisible();
@@ -26,5 +26,5 @@ test('ipv6 block shows "from $0.55 / mo" and links to order', async ({ page }) =
 
 test('rotating tiers render with $/GB + Total', async ({ page }) => {
   await page.goto('/pricing#rotating');
-  await expect(page.getByText('/ GB (Total $', { exact: false })).toBeVisible();
+  await expect(page.getByText('/ GB (Total $', { exact: false }).first()).toBeVisible();
 });
