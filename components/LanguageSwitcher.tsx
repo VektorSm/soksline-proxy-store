@@ -9,17 +9,19 @@ export default function LanguageSwitcher({ className = '' }: { className?: strin
   const baseStyle: React.CSSProperties = {
     padding: '4px 10px',
     borderRadius: '9999px',
-    border: '1px solid transparent',
+    border: '1px solid rgba(148, 163, 184, 0.35)',
     fontSize: '0.8rem',
     fontWeight: 600,
-    backgroundColor: 'rgba(15, 23, 42, 0.08)',
-    color: '#0f172a',
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    color: '#e2e8f0',
     cursor: 'pointer',
+    transition: 'background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease',
   };
 
   const activeStyle: React.CSSProperties = {
-    backgroundColor: '#0f172a',
-    color: '#ffffff',
+    backgroundColor: '#ffffff',
+    color: '#0f172a',
+    borderColor: 'transparent',
   };
 
   return (
