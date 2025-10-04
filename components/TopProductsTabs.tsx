@@ -1,107 +1,38 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { getCategories, type CategoryId } from "../lib/products";
-import { useLocale } from "./LocaleContext";
-import type { Locale } from "./LocaleContext";
-import styles from "./TopProductsTabs.module.css";
-import KycNotice from "./KycNotice";
+import React from "react";
+import Tabs from "@/components/ui/Tabs";
+import StaticIspCard from "@/components/products/StaticIspCard";
+import StaticIpv6Card from "@/components/products/StaticIpv6Card";
+import RotatingResidentialCard from "@/components/products/RotatingResidentialCard";
 
-const SECTION_TITLE: Record<Locale, string> = {
-  ru: "Топ продукты SoksLine",
-  en: "Top products by SoksLine",
-};
-
-const TABLIST_LABEL: Record<Locale, string> = {
-  ru: "Категории продуктов",
-  en: "Product categories",
-};
-
-type TabButtonProps = {
-  categoryId: CategoryId;
-  label: string;
-  isActive: boolean;
-  onSelect: (id: CategoryId) => void;
-};
-
-function TabButton({ categoryId, label, isActive, onSelect }: TabButtonProps) {
-  return (
-    <button
-      type="button"
-      id={`${categoryId}-tab`}
-      className={`${styles.tabButton} ${isActive ? styles.tabButtonActive : ""}`}
-      role="tab"
-      aria-selected={isActive}
-      aria-controls={`${categoryId}-panel`}
-      onClick={() => onSelect(categoryId)}
-    >
-      {label}
-    </button>
-  );
-}
+const TABS = [
+  { id: "static-isp", label: "Static Residential (ISP)" },
+  { id: "static-ipv6", label: "Static Residential (ISP) IPv6" },
+  { id: "rotating", label: "Rotating Residential" },
+];
 
 export default function TopProductsTabs() {
-  const { locale } = useLocale();
-  const categories = useMemo(() => getCategories(locale), [locale]);
-  const [activeCategory, setActiveCategory] = useState<CategoryId>(categories[0].id);
-
-  useEffect(() => {
-    if (!categories.some(category => category.id === activeCategory)) {
-      setActiveCategory(categories[0].id);
-    }
-  }, [categories, activeCategory]);
-
-  const current = categories.find(category => category.id === activeCategory) ?? categories[0];
-
   return (
-    <section className={styles.section} id="top-products">
-      <div className={styles.sectionInner}>
-        <div className={styles.header}>
-          <h2 className={styles.title}>{SECTION_TITLE[locale]}</h2>
-          <p className={styles.subtitle}>{current.tagline}</p>
-        </div>
+    <section
+      aria-labelledby="top-products-heading"
+      className="py-12"
+      style={{ backgroundColor: "#ffffff" }}
+    >
+      <div style={{ maxWidth: "1120px", margin: "0 auto", padding: "0 24px" }}>
+        <h2 id="top-products-heading" style={{ fontSize: "2rem", fontWeight: 600, margin: "0 0 1rem" }}>
+          Top Products by SoksLine
+        </h2>
 
-        <div role="tablist" aria-label={TABLIST_LABEL[locale]} className={styles.tablistWrapper}>
-          {categories.map(category => (
-            <TabButton
-              key={category.id}
-              categoryId={category.id}
-              label={category.title}
-              isActive={category.id === activeCategory}
-              onSelect={setActiveCategory}
-            />
-          ))}
-        </div>
-
-        <div
-          id={`${current.id}-panel`}
-          role="tabpanel"
-          tabIndex={0}
-          aria-labelledby={`${current.id}-tab`}
-          className={styles.panel}
-        >
-          <div className={styles.cards}>
-            {current.items.map(item => (
-              <article key={item.name} className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.cardTitle}>{item.name}</h3>
-                  <p className={styles.cardPrice}>{item.price}</p>
-                </div>
-                <ul className={styles.featureList}>
-                  {item.features.map(feature => (
-                    <li key={feature} className={styles.featureItem}>
-                      <span className={styles.featureDot} aria-hidden="true" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <KycNotice className={styles.cardKycNotice} inline locale={locale} />
-                {item.bestFor && <p className={styles.cardMeta}>{item.bestFor}</p>}
-              </article>
-            ))}
-          </div>
-          {current.note && <p className={styles.note}>{current.note}</p>}
-        </div>
+        <Tabs
+          tabs={TABS}
+          idPrefix="top-products"
+          renderPanel={(i) => {
+            if (i === 0) return <StaticIspCard />;
+            if (i === 1) return <StaticIpv6Card />;
+            return <RotatingResidentialCard />;
+          }}
+        />
       </div>
     </section>
   );
