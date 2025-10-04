@@ -213,7 +213,7 @@ export default function OrderPageContent() {
     : activeTier?.price ?? "—";
 
   return (
-    <main className={styles.page}>
+    <div className={styles.page}>
       <div className={styles.layout}>
         <div className={styles.contentColumn}>
           <section className={styles.hero}>
@@ -577,6 +577,6 @@ export default function OrderPageContent() {
           </div>
         </aside>
       </div>
-    </main>
+    </div>
   );
 }

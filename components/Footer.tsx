@@ -1,9 +1,8 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useI18n } from '@/lib/i18n';
+import NavLink from './NavLink';
 
 const NAV_ITEMS: { key: `nav.${string}`; href: string }[] = [
   { key: 'nav.pricing', href: '/pricing' },
@@ -19,10 +18,22 @@ const NAV_ITEMS: { key: `nav.${string}`; href: string }[] = [
 export default function Footer() {
   const { t } = useI18n();
   const year = new Date().getFullYear();
-  const pathname = usePathname();
+
+  const linkBaseStyle: React.CSSProperties = {
+    color: 'rgba(226, 232, 240, 0.75)',
+    textDecoration: 'none',
+    fontWeight: 400,
+    transition: 'color 0.2s ease',
+  };
+
+  const linkActiveStyle: React.CSSProperties = {
+    color: '#f8fafc',
+    fontWeight: 600,
+  };
 
   return (
     <footer
+      role="contentinfo"
       style={{
         backgroundColor: '#0b1220',
         color: 'rgba(226, 232, 240, 0.7)',
@@ -55,26 +66,17 @@ export default function Footer() {
               padding: 0,
             }}
           >
-            {NAV_ITEMS.map(item => {
-              const isActive = pathname === item.href;
-
-              return (
-                <li key={item.key}>
-                  <Link
-                    href={item.href}
-                    aria-current={isActive ? 'page' : undefined}
-                    style={{
-                      color: isActive ? '#f8fafc' : 'rgba(226, 232, 240, 0.75)',
-                      textDecoration: 'none',
-                      fontWeight: isActive ? 600 : 400,
-                      transition: 'color 0.2s ease',
-                    }}
-                  >
-                    {t(item.key)}
-                  </Link>
-                </li>
-              );
-            })}
+            {NAV_ITEMS.map(item => (
+              <li key={item.key}>
+                <NavLink
+                  href={item.href}
+                  style={linkBaseStyle}
+                  activeStyle={linkActiveStyle}
+                >
+                  {t(item.key)}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

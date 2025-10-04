@@ -23,7 +23,7 @@ export default function ExternalLink({
       className={`inline-flex items-center gap-1 ${className}`}
     >
       {children}
-      <span aria-hidden>↗</span>
+      <span aria-hidden="true">↗</span>
     </Link>
   );
 }
