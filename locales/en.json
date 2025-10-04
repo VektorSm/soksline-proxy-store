@@ -29,36 +29,249 @@
     "copyright": "All rights reserved."
   },
   "pages": {
-    "shared": {
-      "comingSoon": "Full policy text will be published soon."
-    },
     "aml": {
       "title": "AML Policy",
-      "intro": "This page outlines our anti-money laundering principles.",
-      "section1": {
-        "title": "Scope",
-        "text": "We apply AML controls to meet applicable regulations."
-      },
-      "section2": {
-        "title": "KYC",
-        "text": "No KYC for basic plans; KYC upon request for sensitive cases."
-      }
+      "disclaimer": "Template content for product staging. This is not legal advice.",
+      "intro": "This AML Policy outlines our general approach to anti-money laundering and counter-terrorist financing controls.",
+      "sections": [
+        {
+          "id": "scope",
+          "title": "Scope",
+          "paragraphs": [
+            "We apply AML controls appropriate to our business model and applicable regulations.",
+            "Controls include risk assessment, onboarding checks where required, and ongoing monitoring."
+          ]
+        },
+        {
+          "id": "risk",
+          "title": "Risk-based approach",
+          "paragraphs": [
+            "We classify risks by customer profile, use case, jurisdiction, payment method, and transaction pattern.",
+            "Enhanced due diligence may be triggered for higher-risk scenarios."
+          ]
+        },
+        {
+          "id": "kyc",
+          "title": "KYC",
+          "paragraphs": [
+            "No KYC for basic plans. KYC upon request for custom configurations and sensitive GEOs."
+          ]
+        },
+        {
+          "id": "monitoring",
+          "title": "Monitoring & reporting",
+          "paragraphs": [
+            "We review suspicious activity and may file internal reports for escalation.",
+            "Where required by law, we may submit Suspicious Activity/Transaction Reports (SAR/STR) to competent authorities."
+          ]
+        },
+        {
+          "id": "records",
+          "title": "Record-keeping",
+          "paragraphs": [
+            "We retain relevant records for a reasonable period consistent with applicable laws."
+          ]
+        },
+        {
+          "id": "sanctions",
+          "title": "Sanctions & prohibited use",
+          "paragraphs": [
+            "Services must not be used in violation of sanctions or for prohibited activities (see AUP)."
+          ]
+        },
+        {
+          "id": "contact",
+          "title": "Contact",
+          "paragraphs": [
+            "For AML-related questions, contact us via the form on the Contact page."
+          ]
+        }
+      ]
     },
     "privacy": {
       "title": "Privacy Policy",
-      "intro": "How we handle your data."
+      "disclaimer": "Template content for product staging. This is not legal advice.",
+      "intro": "This Privacy Policy explains what data we process and why.",
+      "sections": [
+        {
+          "id": "data",
+          "title": "Data we may process",
+          "paragraphs": [
+            "Account details (email), billing records, support messages, basic usage logs.",
+            "We do not intentionally collect sensitive categories of data."
+          ]
+        },
+        {
+          "id": "purpose",
+          "title": "Purposes",
+          "paragraphs": [
+            "Service delivery, billing, customer support, security and fraud prevention, legal compliance."
+          ]
+        },
+        {
+          "id": "legal-basis",
+          "title": "Legal bases",
+          "paragraphs": [
+            "Performance of a contract, legitimate interests, legal obligations, and consent where applicable."
+          ]
+        },
+        {
+          "id": "retention",
+          "title": "Retention",
+          "paragraphs": [
+            "We keep data only as long as needed for the above purposes or as required by law."
+          ]
+        },
+        {
+          "id": "sharing",
+          "title": "Sharing",
+          "paragraphs": [
+            "We may share limited data with processors (e.g., payment/infrastructure providers) under appropriate safeguards."
+          ]
+        },
+        {
+          "id": "cookies",
+          "title": "Cookies",
+          "paragraphs": [
+            "We do not use cookies for tracking on this site at this time."
+          ]
+        },
+        {
+          "id": "rights",
+          "title": "Your rights",
+          "paragraphs": [
+            "You may contact us to access, correct, or request deletion of your personal data where applicable."
+          ]
+        }
+      ]
     },
     "tos": {
       "title": "Terms of Service",
-      "intro": "Basic terms for using the service."
+      "disclaimer": "Template content for product staging. This is not legal advice.",
+      "intro": "Basic terms governing access to and use of the service.",
+      "sections": [
+        {
+          "id": "scope",
+          "title": "Scope & eligibility",
+          "paragraphs": [
+            "These Terms apply to your use of our proxy services.",
+            "By using the service you confirm that you are legally competent to contract."
+          ]
+        },
+        {
+          "id": "accounts",
+          "title": "Accounts & security",
+          "paragraphs": [
+            "Keep your credentials confidential and notify us of any suspected compromise."
+          ]
+        },
+        {
+          "id": "billing",
+          "title": "Billing & taxes",
+          "paragraphs": [
+            "Fees are due per the pricing page or your order. You are responsible for applicable taxes."
+          ]
+        },
+        {
+          "id": "acceptable-use",
+          "title": "Acceptable use",
+          "paragraphs": [
+            "You must comply with our Acceptable Use Policy (AUP). Violations may result in suspension or termination."
+          ]
+        },
+        {
+          "id": "disclaimer",
+          "title": "Disclaimer",
+          "paragraphs": [
+            "Service is provided “as is” without warranties to the extent permitted by law."
+          ]
+        },
+        {
+          "id": "liability",
+          "title": "Limitation of liability",
+          "paragraphs": [
+            "Our liability is limited to the maximum extent permitted by law and in no case exceeds amounts paid in the last 3 months."
+          ]
+        },
+        {
+          "id": "termination",
+          "title": "Termination",
+          "paragraphs": [
+            "We may suspend or terminate access for breaches of these Terms or AUP."
+          ]
+        },
+        {
+          "id": "law",
+          "title": "Governing law",
+          "paragraphs": [
+            "Governing law and venue will be specified in your order or the applicable jurisdictional addendum."
+          ]
+        }
+      ]
     },
     "aup": {
-      "title": "Acceptable Use Policy",
-      "intro": "What’s allowed and prohibited."
+      "title": "Acceptable Use Policy (AUP)",
+      "disclaimer": "Template content for product staging. This is not legal advice.",
+      "intro": "Rules for acceptable and prohibited activities.",
+      "sections": [
+        {
+          "id": "allowed",
+          "title": "Allowed",
+          "paragraphs": [
+            "Legitimate testing, scraping where permitted by target terms, ad verification, price comparison, SEO research."
+          ]
+        },
+        {
+          "id": "prohibited",
+          "title": "Prohibited",
+          "paragraphs": [
+            "Spam, fraud, malware, phishing, credential stuffing, violation of privacy, harassment, IP infringement.",
+            "Use conflicting with sanctions or illegal in your jurisdiction."
+          ]
+        },
+        {
+          "id": "security",
+          "title": "Security & abuse",
+          "paragraphs": [
+            "We may rate-limit, block, or suspend traffic that threatens network integrity."
+          ]
+        }
+      ]
     },
     "refund": {
       "title": "Refund Policy",
-      "intro": "When and how refunds may apply."
+      "disclaimer": "Template content for product staging. This is not legal advice.",
+      "intro": "Basic rules for refunds.",
+      "sections": [
+        {
+          "id": "eligibility",
+          "title": "Eligibility",
+          "paragraphs": [
+            "Refunds may be considered for unused bandwidth or objective service faults, at our discretion."
+          ]
+        },
+        {
+          "id": "process",
+          "title": "Process",
+          "paragraphs": [
+            "Contact support with your order ID and evidence. We aim to respond within a reasonable time."
+          ]
+        },
+        {
+          "id": "nonref",
+          "title": "Non-refundable",
+          "paragraphs": [
+            "Consumed bandwidth and violations of AUP/ToS are not eligible."
+          ]
+        },
+        {
+          "id": "chargebacks",
+          "title": "Chargebacks",
+          "paragraphs": [
+            "Unwarranted chargebacks may result in account suspension."
+          ]
+        }
+      ]
     },
     "contact": {
       "title": "Contact us",
