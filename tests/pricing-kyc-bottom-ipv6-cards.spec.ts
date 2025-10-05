@@ -14,9 +14,25 @@ test('IPv6 section renders 3 plan cards and deep-links to order', async ({ page 
 
 test('KYC & Payments appear once at the bottom, not under ISP', async ({ page }) => {
   await page.goto('/pricing');
-  const ispSection = page.locator('#static-isp');
-  await expect(ispSection.getByTestId('pricing-kyc-notice')).toHaveCount(0);
-  await page.locator('footer').scrollIntoViewIfNeeded({ timeout: 5_000 }).catch(() => undefined);
+  const rotatingSection = page.locator('#rotating');
+  const footerNotice = page.getByTestId('pricing-kyc-notice').first();
+  const payments = page.getByTestId('payments-security').first();
+
   await expect(page.getByTestId('pricing-kyc-notice')).toHaveCount(1);
-  await expect(page.getByTestId('payments-security')).toBeVisible();
+  await expect(page.getByTestId('payments-security')).toHaveCount(1);
+
+  const [rotatingBox, noticeBox, paymentsBox] = await Promise.all([
+    rotatingSection.boundingBox(),
+    footerNotice.boundingBox(),
+    payments.boundingBox(),
+  ]);
+
+  expect(rotatingBox).toBeTruthy();
+  expect(noticeBox).toBeTruthy();
+  expect(paymentsBox).toBeTruthy();
+
+  if (!rotatingBox || !noticeBox || !paymentsBox) return;
+
+  expect(noticeBox.y).toBeGreaterThan(rotatingBox.y);
+  expect(paymentsBox.y).toBeGreaterThan(rotatingBox.y);
 });
