@@ -33,3 +33,17 @@
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@supports not (text-wrap: balance) {
+  .text-balance {
+    overflow-wrap: anywhere;
+  }
+}
+
+.text-muted-foreground {
+  color: #475467;
+}

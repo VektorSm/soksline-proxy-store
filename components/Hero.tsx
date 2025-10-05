@@ -11,22 +11,25 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="not-prose mx-auto max-w-6xl px-4 pt-16 pb-14 sm:pt-20 sm:pb-16"
+      className="mx-auto max-w-7xl px-6"
     >
-      <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+      <div className="grid min-h-[560px] grid-cols-1 items-center gap-12 py-16 md:min-h-[600px] lg:min-h-[640px] lg:grid-cols-12 lg:py-24">
         {/* Text */}
-        <div>
-          <h1 id="hero-heading" className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+        <div className="max-w-[660px] lg:col-span-6">
+          <h1
+            id="hero-heading"
+            className="text-balance text-5xl font-extrabold leading-[1.05] tracking-tight lg:text-6xl"
+          >
             {t('hero.title')}
           </h1>
 
-          <p className="mt-4 text-lg leading-7 text-gray-700">{t('hero.subtitle')}</p>
+          <p className="mt-4 max-w-[600px] text-lg text-muted-foreground">{t('hero.subtitle')}</p>
 
           {/* Badge / trust bar */}
           <div className="mt-4 text-sm text-gray-600">{t('hero.badge')}</div>
 
           {/* CTAs */}
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href={buildOrderUrl({ service: 'static-isp', plan: 'basic', duration: 'monthly' })}
               className="inline-flex items-center justify-center rounded-2xl bg-gray-900 px-5 py-3 text-base font-medium text-white hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
@@ -46,14 +49,16 @@ export default function Hero() {
         </div>
 
         {/* Media placeholder (image only) */}
-        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
-          <Image
-            src="/hero-placeholder.svg"
-            alt="Dashboard preview of SoksLine proxy store"
-            fill
-            className="object-cover"
-            priority
-          />
+        <div className="w-full max-w-[560px] lg:col-span-6 lg:justify-self-end">
+          <div className="relative aspect-[16/11] w-full overflow-hidden rounded-2xl bg-gray-50 shadow-lg">
+            <Image
+              src="/hero-placeholder.svg"
+              alt="Dashboard preview of SoksLine proxy store"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
       </div>
     </section>
