@@ -10,8 +10,10 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <Suspense fallback={null}>
-      <OrderPageContent />
-    </Suspense>
+    <main className="bg-[var(--bg)] text-[var(--text)]">
+      <Suspense fallback={null}>
+        <OrderPageContent />
+      </Suspense>
+    </main>
   );
 }
