@@ -1,37 +1,27 @@
 'use client';
 
-import { useEffect, useMemo, useState, type SVGProps } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
+import ProgressStepper from '@/components/order/ProgressStepper';
+import SummaryBarMobile from '@/components/order/SummaryBarMobile';
+import StepperInput from '@/components/ui/StepperInput';
 import { useLocale } from '../../components/LocaleContext';
 import { getOrderPage } from '../../lib/order';
 import { rotatingPricing } from '../../config/pricing';
-import { normalizeTier } from '../../lib/money';
+import { fmtUsdByLocale, normalizeTier } from '../../lib/money';
 import { loadOrderPrefs, saveOrderPrefs } from '@/lib/orderPrefs';
+import { Check } from '@/components/icons/Check';
 import type { OrderPrefs } from '@/lib/orderPrefs';
 
-const panelClass = 'rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow)]';
-const chipClass = 'inline-flex items-center rounded-full bg-[var(--chip)] px-2.5 py-1 text-sm font-medium text-slate-800';
-const eyebrowClass = 'text-sm uppercase tracking-wider text-[var(--text-dim)]';
-const dimmedTextClass = 'text-[var(--text-dim)]';
-
-function CheckIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      aria-hidden="true"
-      className={clsx('h-4 w-4 text-emerald-500', className)}
-      {...props}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 10.5 8 14l8-8" />
-    </svg>
-  );
-}
+const panelClass =
+  'rounded-2xl border border-gray-200 bg-white shadow-[0_8px_24px_rgba(2,6,23,.06)]';
+const chipClass =
+  'inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900';
+const eyebrowClass = 'text-sm font-semibold uppercase tracking-wide text-gray-500';
+const dimmedTextClass = 'text-gray-600';
 
 function FeatureList({ items, className }: { items: string[]; className?: string }) {
   if (items.length === 0) {
@@ -39,11 +29,11 @@ function FeatureList({ items, className }: { items: string[]; className?: string
   }
 
   return (
-    <ul className={clsx('space-y-2 text-sm text-[var(--text)]', className)}>
+    <ul className={clsx('space-y-2 text-sm text-gray-600', className)}>
       {items.map((feature) => (
         <li key={feature} className="flex items-start gap-2">
-          <CheckIcon className="mt-1" />
-          <span className={dimmedTextClass}>{feature}</span>
+          <Check className="mt-1 h-4 w-4 text-green-600" />
+          <span>{feature}</span>
         </li>
       ))}
     </ul>
@@ -58,14 +48,14 @@ function Switch({ checked, onChange }: { checked: boolean; onChange: (value: boo
       aria-checked={checked}
       onClick={() => onChange(!checked)}
       className={clsx(
-        'relative inline-flex h-8 w-14 items-center rounded-full border border-[var(--border)] bg-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2',
-        checked ? 'bg-gray-900' : 'bg-white',
+        'relative inline-flex h-8 w-14 items-center rounded-full border border-gray-300 bg-white transition focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
+        checked ? 'bg-gray-900 text-white' : 'bg-white text-gray-500',
       )}
     >
       <span
         className={clsx(
           'inline-block h-6 w-6 transform rounded-full bg-white shadow-sm transition',
-          checked ? 'translate-x-7' : 'translate-x-1 bg-[var(--muted)]',
+          checked ? 'translate-x-7' : 'translate-x-1 bg-gray-200',
         )}
       />
     </button>
@@ -468,9 +458,14 @@ export default function OrderPageContent() {
   const [selectedIsp, setSelectedIsp] = useState(() =>
     getDefaultOptionValue(configurationOptions.isps),
   );
-  const [selectedQuantity, setSelectedQuantity] = useState(() =>
-    getDefaultOptionValue(configurationOptions.quantities),
-  );
+  const defaultQuantityValue = useMemo(() => {
+    const parsed = Number.parseInt(
+      getDefaultOptionValue(configurationOptions.quantities),
+      10,
+    );
+    return Number.isNaN(parsed) ? 1 : Math.max(1, parsed);
+  }, [configurationOptions]);
+  const [quantity, setQuantity] = useState(defaultQuantityValue);
   const [selectedPeriod, setSelectedPeriod] = useState(() => {
     if (
       initialDuration &&
@@ -482,11 +477,12 @@ export default function OrderPageContent() {
     return getDefaultOptionValue(configurationOptions.periods, 1);
   });
   const [autoRenew, setAutoRenew] = useState(true);
+  const [activeProgressStep, setActiveProgressStep] = useState<1 | 2 | 3 | 4>(2);
 
   useEffect(() => {
     setSelectedLocation(getDefaultOptionValue(configurationOptions.locations));
     setSelectedIsp(getDefaultOptionValue(configurationOptions.isps));
-    setSelectedQuantity(getDefaultOptionValue(configurationOptions.quantities));
+    setQuantity(defaultQuantityValue);
     setSelectedPeriod(() => {
       if (
         initialDuration &&
@@ -498,7 +494,7 @@ export default function OrderPageContent() {
       return getDefaultOptionValue(configurationOptions.periods, 1);
     });
     setAutoRenew(true);
-  }, [activeService, configurationOptions, initialDuration]);
+  }, [activeService, configurationOptions, defaultQuantityValue, initialDuration]);
 
   useEffect(() => {
     if (
@@ -509,22 +505,58 @@ export default function OrderPageContent() {
     }
   }, [configurationOptions, initialDuration]);
 
-  const fmtUsd = useMemo(
-    () => new Intl.NumberFormat(locale === 'ru' ? 'ru-RU' : 'en-US', { style: 'currency', currency: 'USD' }),
-    [locale],
-  );
-
   const unitAmount = activeTier?.priceAmount ?? 0;
   const hasUnitPrice = unitAmount > 0;
-  const parsedQuantity = Number.parseInt(selectedQuantity, 10);
-  const quantity = Number.isNaN(parsedQuantity) ? 1 : Math.max(1, parsedQuantity);
-  const totalAmount = unitAmount * quantity;
+  const safeQuantity = Math.max(1, quantity);
+  const totalAmount = unitAmount * safeQuantity;
   const unitPrice = hasUnitPrice
-    ? fmtUsd.format(unitAmount)
-    : (activeTier?.price ?? '—');
+    ? fmtUsdByLocale(locale, unitAmount)
+    : activeTier?.price ?? '—';
   const totalPrice = hasUnitPrice
-    ? fmtUsd.format(totalAmount)
-    : (activeTier?.price ?? '—');
+    ? fmtUsdByLocale(locale, totalAmount)
+    : activeTier?.price ?? '—';
+  const periodLabel = useMemo(
+    () =>
+      configurationOptions.periods.find((option) => option.value === selectedPeriod)?.label ?? '—',
+    [configurationOptions, selectedPeriod],
+  );
+  const quantityLabel = useMemo(() => {
+    if (locale === 'ru') {
+      return `${safeQuantity} IP`;
+    }
+    return `${safeQuantity} ${safeQuantity === 1 ? 'IP' : 'IPs'}`;
+  }, [locale, safeQuantity]);
+  const miniSummary = `${quantityLabel} • ${periodLabel}`;
+
+  const handleSelectService = useCallback((id: string) => {
+    setServiceId(id);
+    setActiveProgressStep(1);
+  }, []);
+
+  const handleSelectCategory = useCallback((id: string) => {
+    setCategoryId(id);
+    setActiveProgressStep(2);
+  }, []);
+
+  const handleSelectTier = useCallback((id: string) => {
+    setTierId(id);
+    setActiveProgressStep(2);
+  }, []);
+
+  const markSettingsStep = useCallback(() => {
+    setActiveProgressStep(3);
+  }, []);
+
+  const handleNext = useCallback(() => {
+    setActiveProgressStep(4);
+  }, []);
+
+  const scrollToSection = useCallback((sectionId: string) => {
+    const node = document.getElementById(sectionId);
+    if (node) {
+      node.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
 
   const activeServiceId = activeService?.id;
   const activeTierId = activeTier?.id;
@@ -554,53 +586,62 @@ export default function OrderPageContent() {
 
   return (
     <div className="min-h-screen">
-      <div className="mx-auto max-w-6xl px-4 pb-24 pt-24 sm:px-6 lg:px-8 lg:pt-32">
+      <div className="mx-auto max-w-6xl px-4 pb-32 pt-24 sm:px-6 lg:px-8 lg:pt-32">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] xl:gap-10">
           <div className="flex flex-col gap-6 lg:gap-8">
-            <section className={clsx(panelClass, 'p-6 sm:p-8 lg:p-10 space-y-6')}>
-              <span className={eyebrowClass}>{page.copy.heroEyebrow}</span>
+            <section className={clsx(panelClass, 'space-y-6 p-6 sm:p-8 lg:p-10')}>
+              <div>
+                <span className={eyebrowClass}>{page.copy.heroEyebrow}</span>
+                <ProgressStepper step={activeProgressStep} />
+              </div>
               <div className="space-y-4">
-                <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
+                <h1 className="text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
                   {page.copy.heroTitle}
                 </h1>
-                <p className="text-lg text-[var(--text-dim)]">{page.copy.heroSubtitle}</p>
-                <p className="text-base text-[var(--text-dim)]">{page.copy.heroDescription}</p>
+                <p className="text-lg text-gray-600">{page.copy.heroSubtitle}</p>
+                <p className="text-base text-gray-600">{page.copy.heroDescription}</p>
               </div>
             </section>
 
-            <section className={clsx(panelClass, 'p-6 sm:p-8 lg:p-10 space-y-6')}>
+            <section
+              id="product"
+              className={clsx(panelClass, 'space-y-6 p-6 sm:p-8 lg:p-10')}
+            >
               <header className="space-y-2">
-                <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
+                <h2 className="text-2xl font-semibold tracking-tight text-gray-900 md:text-3xl">
                   {page.copy.servicesSectionTitle}
                 </h2>
                 <p className={dimmedTextClass}>{page.copy.servicesSectionSubtitle}</p>
               </header>
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid items-stretch gap-6 sm:grid-cols-2 xl:grid-cols-3">
                 {page.services.map((service: OrderService) => {
                   const isActive = service.id === activeService?.id;
                   return (
                     <button
                       key={service.id}
                       type="button"
+                      role="button"
                       className={clsx(
-                        'flex h-full flex-col gap-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 text-left transition hover:bg-[var(--muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900',
-                        isActive && 'ring-2 ring-gray-900',
+                        'flex h-full cursor-pointer flex-col justify-between gap-4 rounded-2xl border border-gray-200 bg-white p-5 text-left shadow-[0_8px_24px_rgba(2,6,23,.06)] transition focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
+                        isActive ? 'bg-gray-50 ring-2 ring-gray-900' : 'hover:bg-gray-50',
                       )}
-                      onClick={() => setServiceId(service.id)}
+                      onClick={() => handleSelectService(service.id)}
                       aria-pressed={isActive}
                     >
                       <div className="space-y-2">
                         <div className="flex flex-wrap items-center gap-3">
-                          <h3 className="text-xl font-semibold tracking-tight text-[var(--text)]">
+                          <h3 className="text-xl font-semibold tracking-tight text-gray-900">
                             {service.card.title}
                           </h3>
                           {service.card.badge && <span className={chipClass}>{service.card.badge}</span>}
                         </div>
-                        <p className="text-base font-medium text-[var(--text-dim)]">
+                        <p className="text-base font-medium text-gray-600">
                           {service.card.headline}
                         </p>
                       </div>
-                      <p className="text-sm font-semibold text-[var(--text)]">{service.card.priceHint}</p>
+                      <p className="text-sm font-semibold text-gray-900 [font-variant-numeric:tabular-nums]">
+                        {service.card.priceHint}
+                      </p>
                       <FeatureList items={service.card.highlights} />
                     </button>
                   );
@@ -608,10 +649,11 @@ export default function OrderPageContent() {
               </div>
             </section>
 
+
             {activeService && (
-              <section className={clsx(panelClass, 'p-6 sm:p-8 lg:p-10 space-y-8')}>
+              <section className={clsx(panelClass, 'space-y-8 p-6 sm:p-8 lg:p-10')}>
                 <div className="space-y-3">
-                  <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                  <h2 className="text-2xl font-semibold tracking-tight text-gray-900 md:text-3xl">
                     {activeService.detailTitle}
                   </h2>
                   <p className={dimmedTextClass}>{activeService.detailSubtitle}</p>
@@ -628,11 +670,12 @@ export default function OrderPageContent() {
                         <button
                           key={category.id}
                           type="button"
+                          role="button"
                           className={clsx(
-                            'rounded-full border border-[var(--border)] bg-white px-4 py-2 text-sm font-medium text-[var(--text)] transition hover:bg-[var(--muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900',
-                            isActive && 'ring-2 ring-gray-900',
+                            'rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
+                            isActive ? 'bg-gray-900 text-white hover:bg-gray-900' : 'hover:bg-gray-50',
                           )}
-                          onClick={() => setCategoryId(category.id)}
+                          onClick={() => handleSelectCategory(category.id)}
                           aria-pressed={isActive}
                         >
                           {category.label}
@@ -644,9 +687,9 @@ export default function OrderPageContent() {
 
                 {!isRotatingService ? (
                   <>
-                    <div className="space-y-6">
+                    <div className="space-y-6" id="plan">
                       <div className="space-y-2">
-                        <h3 className="text-xl font-semibold tracking-tight">
+                        <h3 className="text-xl font-semibold tracking-tight text-gray-900">
                           {locale === 'ru' ? 'План' : 'Plan'}
                         </h3>
                         <p className={dimmedTextClass}>
@@ -655,49 +698,51 @@ export default function OrderPageContent() {
                             : 'Pick the plan that fits and configure the details below.'}
                         </p>
                       </div>
-                      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                      <div className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
                         {(activeCategory?.tiers ?? []).map((tier: OrderTier) => {
                           const isActive = tier.id === activeTier?.id;
+                          const tierPrice = tier.priceAmount
+                            ? fmtUsdByLocale(locale, tier.priceAmount)
+                            : tier.price;
                           return (
                             <button
                               key={tier.id}
                               type="button"
+                              role="button"
                               className={clsx(
-                                'flex h-full flex-col gap-4 rounded-2xl border border-[var(--border)] bg-white p-5 text-left transition hover:bg-[var(--muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900',
-                                isActive && 'ring-2 ring-gray-900 bg-white',
+                                'flex h-full cursor-pointer flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-5 text-left shadow-[0_8px_24px_rgba(2,6,23,.06)] transition focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
+                                isActive ? 'bg-gray-50 ring-2 ring-gray-900' : 'hover:bg-gray-50',
                               )}
-                              onClick={() => setTierId(tier.id)}
+                              onClick={() => handleSelectTier(tier.id)}
                               aria-pressed={isActive}
                             >
                               <header className="flex items-start justify-between gap-4">
                                 <div className="space-y-2">
-                                  <h4 className="text-lg font-semibold tracking-tight text-[var(--text)]">
+                                  <h4 className="text-lg font-semibold tracking-tight text-gray-900">
                                     {tier.name}
                                   </h4>
                                   {tier.subLabel && (
-                                    <span className="text-sm font-semibold uppercase tracking-wide text-[var(--text-dim)]">
+                                    <span className="text-sm font-medium uppercase tracking-wide text-gray-500">
                                       {tier.subLabel}
                                     </span>
                                   )}
-                                  {tier.headline && (
-                                    <span className={chipClass}>{tier.headline}</span>
-                                  )}
+                                  {tier.headline && <span className={chipClass}>{tier.headline}</span>}
                                 </div>
                                 <div className="text-right">
-                                  <span className="block text-lg font-semibold text-[var(--text)]">
-                                    {tier.price}
+                                  <span className="block text-lg font-semibold text-gray-900 [font-variant-numeric:tabular-nums]">
+                                    {tierPrice}
                                   </span>
                                   {tier.period && (
-                                    <span className="text-sm text-[var(--text-dim)]">{tier.period}</span>
+                                    <span className="text-sm text-gray-500">{tier.period}</span>
                                   )}
                                 </div>
                               </header>
                               {tier.description && (
-                                <p className={clsx('text-sm', dimmedTextClass)}>{tier.description}</p>
+                                <p className="text-sm text-gray-600">{tier.description}</p>
                               )}
-                              <FeatureList items={tier.features} />
+                              <FeatureList items={tier.features} className="mt-auto" />
                               {tier.ribbon ? (
-                                <span className="inline-flex items-center rounded-full bg-black/5 px-2 py-0.5 text-xs font-semibold text-gray-900">
+                                <span className="inline-flex w-fit items-center rounded-full bg-gray-900/5 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-900">
                                   {tier.ribbon}
                                 </span>
                               ) : null}
@@ -707,19 +752,22 @@ export default function OrderPageContent() {
                       </div>
                     </div>
 
-                    <div className="space-y-6">
-                      <h3 className="text-xl font-semibold tracking-tight">
+                    <div className="space-y-6" id="settings">
+                      <h3 className="text-xl font-semibold tracking-tight text-gray-900">
                         {locale === 'ru' ? 'Настройки' : 'Configuration'}
                       </h3>
                       <div className="grid gap-4 md:grid-cols-2">
                         <label className="space-y-2">
-                          <span className="text-sm font-medium text-[var(--text)]">
+                          <span className="text-sm font-medium text-gray-700">
                             {locale === 'ru' ? 'Местоположение прокси' : 'Proxy location'}
                           </span>
                           <select
-                            className="w-full rounded-xl border border-[var(--border)] bg-white px-3 py-3 text-[var(--text)] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
+                            className="block w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
                             value={selectedLocation}
-                            onChange={(event) => setSelectedLocation(event.target.value)}
+                            onChange={(event) => {
+                              setSelectedLocation(event.target.value);
+                              markSettingsStep();
+                            }}
                           >
                             {configurationOptions.locations.map((option) => (
                               <option key={option.value} value={option.value}>
@@ -729,11 +777,14 @@ export default function OrderPageContent() {
                           </select>
                         </label>
                         <label className="space-y-2">
-                          <span className="text-sm font-medium text-[var(--text)]">ISP</span>
+                          <span className="text-sm font-medium text-gray-700">ISP</span>
                           <select
-                            className="w-full rounded-xl border border-[var(--border)] bg-white px-3 py-3 text-[var(--text)] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
+                            className="block w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
                             value={selectedIsp}
-                            onChange={(event) => setSelectedIsp(event.target.value)}
+                            onChange={(event) => {
+                              setSelectedIsp(event.target.value);
+                              markSettingsStep();
+                            }}
                           >
                             {configurationOptions.isps.map((option) => (
                               <option key={option.value} value={option.value}>
@@ -742,29 +793,27 @@ export default function OrderPageContent() {
                             ))}
                           </select>
                         </label>
+                        <StepperInput
+                          className="space-y-2"
+                          label={locale === 'ru' ? 'Количество прокси (IP)' : 'Number of proxies'}
+                          value={safeQuantity}
+                          min={1}
+                          onChange={(value) => {
+                            setQuantity(value);
+                            markSettingsStep();
+                          }}
+                        />
                         <label className="space-y-2">
-                          <span className="text-sm font-medium text-[var(--text)]">
-                            {locale === 'ru' ? 'Количество прокси (IP)' : 'Number of proxies'}
-                          </span>
-                          <input
-                            type="number"
-                            min={1}
-                            step={1}
-                            inputMode="numeric"
-                            className="w-full rounded-xl border border-[var(--border)] bg-white px-3 py-3 text-[var(--text)] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
-                            value={selectedQuantity}
-                            onChange={(event) => setSelectedQuantity(event.target.value)}
-                            placeholder={locale === 'ru' ? 'Введите количество' : 'Enter quantity'}
-                          />
-                        </label>
-                        <label className="space-y-2">
-                          <span className="text-sm font-medium text-[var(--text)]">
+                          <span className="text-sm font-medium text-gray-700">
                             {locale === 'ru' ? 'Временной период' : 'Billing period'}
                           </span>
                           <select
-                            className="w-full rounded-xl border border-[var(--border)] bg-white px-3 py-3 text-[var(--text)] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
+                            className="block w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
                             value={selectedPeriod}
-                            onChange={(event) => setSelectedPeriod(event.target.value)}
+                            onChange={(event) => {
+                              setSelectedPeriod(event.target.value);
+                              markSettingsStep();
+                            }}
                           >
                             {configurationOptions.periods.map((option) => (
                               <option key={option.value} value={option.value}>
@@ -775,12 +824,18 @@ export default function OrderPageContent() {
                         </label>
                       </div>
                       <div className="space-y-2">
-                        <span className="text-sm font-medium text-[var(--text)]">
+                        <span className="text-sm font-medium text-gray-700">
                           {locale === 'ru' ? 'Автопродление' : 'Auto renewal'}
                         </span>
                         <label className="flex items-center gap-3">
-                          <Switch checked={autoRenew} onChange={setAutoRenew} />
-                          <span className={dimmedTextClass}>
+                          <Switch
+                            checked={autoRenew}
+                            onChange={(value) => {
+                              setAutoRenew(value);
+                              markSettingsStep();
+                            }}
+                          />
+                          <span className="text-sm text-gray-600">
                             {locale === 'ru'
                               ? 'Оплата продлевается автоматически'
                               : 'Billing renews automatically'}
@@ -793,7 +848,7 @@ export default function OrderPageContent() {
                   <div className="space-y-6">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                       <div className="space-y-2">
-                        <h3 className="text-xl font-semibold tracking-tight">
+                        <h3 className="text-xl font-semibold tracking-tight text-gray-900">
                           {locale === 'ru' ? 'Оплата за трафик' : 'Pay per traffic'}
                         </h3>
                         <p className={dimmedTextClass}>
@@ -802,11 +857,11 @@ export default function OrderPageContent() {
                             : 'Choose how many gigabytes you need each month.'}
                         </p>
                       </div>
-                      <div className="text-sm font-medium text-[var(--text)]">
+                      <div className="text-sm font-medium text-gray-900 [font-variant-numeric:tabular-nums]">
                         {activeRotatingTier ? (
                           <span>
-                            {activeRotatingTier.gb} GB — {fmtUsd.format(activeRotatingTier.pricePerGb)} / GB ({' '}
-                            {locale === 'ru' ? 'Всего' : 'Total'} {fmtUsd.format(activeRotatingTier.total)})
+                            {activeRotatingTier.gb} GB — {fmtUsdByLocale(locale, activeRotatingTier.pricePerGb)} / GB ({' '}
+                            {locale === 'ru' ? 'Всего' : 'Total'} {fmtUsdByLocale(locale, activeRotatingTier.total)})
                           </span>
                         ) : (
                           <span>{activeTier?.price ?? '—'}</span>
@@ -824,7 +879,7 @@ export default function OrderPageContent() {
                           const index = Number.parseInt(event.target.value, 10);
                           const nextTier = activeTiers[index];
                           if (nextTier) {
-                            setTierId(nextTier.id);
+                            handleSelectTier(nextTier.id);
                           }
                         }}
                         aria-valuemin={0}
@@ -838,11 +893,12 @@ export default function OrderPageContent() {
                             <button
                               key={tier.id}
                               type="button"
+                              role="button"
                               className={clsx(
-                                'rounded-xl border border-[var(--border)] bg-white px-4 py-2 text-sm font-medium text-[var(--text)] transition hover:bg-[var(--muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900',
-                                isActive && 'ring-2 ring-gray-900',
+                                'rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
+                                isActive ? 'bg-gray-900 text-white hover:bg-gray-900' : 'hover:bg-gray-50',
                               )}
-                              onClick={() => setTierId(tier.id)}
+                              onClick={() => handleSelectTier(tier.id)}
                               aria-pressed={isActive}
                             >
                               {tier.name}
@@ -856,17 +912,16 @@ export default function OrderPageContent() {
                 )}
               </section>
             )}
-
-            <section className={clsx(panelClass, 'p-6 sm:p-8 lg:p-10 space-y-6')}>
+            <section className={clsx(panelClass, 'space-y-6 p-6 sm:p-8 lg:p-10')}>
               <div className="space-y-3">
-                <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                <h2 className="text-2xl font-semibold tracking-tight text-gray-900 md:text-3xl">
                   {page.copy.paymentTitle}
                 </h2>
                 <p className={dimmedTextClass}>{page.paymentNote}</p>
               </div>
               <div className="space-y-3">
                 <span className={eyebrowClass}>{page.copy.paymentMethodsLabel}</span>
-                <ul className="flex flex-wrap gap-3 text-sm font-medium text-[var(--text)]">
+                <ul className="flex flex-wrap gap-3 text-sm font-medium text-gray-900">
                   {page.paymentMethods.map((method: string) => (
                     <li key={method} className={chipClass}>
                       {method}
@@ -876,87 +931,117 @@ export default function OrderPageContent() {
               </div>
             </section>
 
-            <section className={clsx(panelClass, 'p-6 sm:p-8 lg:p-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between')}>
+            <section className={clsx(panelClass, 'flex flex-col gap-6 p-6 sm:p-8 lg:p-10 sm:flex-row sm:items-center sm:justify-between')}>
               <div className="space-y-2">
-                <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                <h2 className="text-2xl font-semibold tracking-tight text-gray-900 md:text-3xl">
                   {page.copy.contactTitle}
                 </h2>
                 <p className={dimmedTextClass}>{page.copy.contactSubtitle}</p>
               </div>
               <Link
                 href={page.copy.contactHref}
-                className="inline-flex items-center justify-center rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
               >
                 {page.copy.contactCtaLabel}
               </Link>
             </section>
           </div>
 
-          <aside className="sticky top-6 self-start">
-            <div className="rounded-2xl bg-white border border-[var(--border)] shadow-[var(--shadow)] p-6 sm:p-8">
-              <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+          <aside className="sticky top-6 hidden self-start md:block">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-[0_8px_24px_rgba(2,6,23,.06)] sm:p-8">
+              <h2 className="text-2xl font-semibold tracking-tight text-gray-900 md:text-3xl">
                 {page.copy.summary.title}
               </h2>
               <ul className="mt-6 space-y-4">
-                <li className="flex flex-col gap-1">
-                  <span className={eyebrowClass}>{page.copy.summary.serviceLabel}</span>
-                  <span className="text-base font-medium text-[var(--text)]">
-                    {activeService?.card.title ?? '—'}
-                  </span>
+                <li className="flex items-start justify-between gap-3">
+                  <div>
+                    <span className={eyebrowClass}>{page.copy.summary.serviceLabel}</span>
+                    <span className="text-base font-medium text-gray-900">
+                      {activeService?.card.title ?? '—'}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection('product')}
+                    className="text-sm text-gray-600 underline decoration-dotted transition hover:text-gray-900 focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                  >
+                    {locale === 'ru' ? 'Изменить' : 'Edit'}
+                  </button>
                 </li>
-                <li className="flex flex-col gap-1">
-                  <span className={eyebrowClass}>{page.copy.summary.categoryLabel}</span>
-                  <span className="text-base font-medium text-[var(--text)]">
-                    {activeCategory?.label ?? '—'}
-                  </span>
+                <li className="flex items-start justify-between gap-3">
+                  <div>
+                    <span className={eyebrowClass}>{page.copy.summary.categoryLabel}</span>
+                    <span className="text-base font-medium text-gray-900">
+                      {activeCategory?.label ?? '—'}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection('plan')}
+                    className="text-sm text-gray-600 underline decoration-dotted transition hover:text-gray-900 focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                  >
+                    {locale === 'ru' ? 'Изменить' : 'Edit'}
+                  </button>
                 </li>
-                <li className="flex flex-col gap-1">
-                  <span className={eyebrowClass}>{page.copy.summary.planLabel}</span>
-                  <span className="text-base font-medium text-[var(--text)]">
-                    {activeTier?.name ?? '—'}
-                  </span>
+                <li className="flex items-start justify-between gap-3">
+                  <div>
+                    <span className={eyebrowClass}>{page.copy.summary.planLabel}</span>
+                    <span className="text-base font-medium text-gray-900">
+                      {activeTier?.name ?? '—'}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection('plan')}
+                    className="text-sm text-gray-600 underline decoration-dotted transition hover:text-gray-900 focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                  >
+                    {locale === 'ru' ? 'Изменить' : 'Edit'}
+                  </button>
                 </li>
               </ul>
 
               <div className="mt-6 space-y-2">
                 <span className={eyebrowClass}>{page.copy.summary.unitLabel}</span>
                 <div>
-                  <p className="text-base font-medium text-[var(--text)]">{unitPrice}</p>
+                  <p className="text-base font-medium text-gray-900 [font-variant-numeric:tabular-nums]">{unitPrice}</p>
                   {activeTier?.period && (
-                    <p className="text-sm text-[var(--text-dim)]">{activeTier.period}</p>
+                    <p className="text-sm text-gray-500">{activeTier.period}</p>
                   )}
                 </div>
               </div>
 
-              <div className="mt-6 flex items-center justify-between rounded-2xl bg-[var(--muted)] px-4 py-5">
-                <span className={eyebrowClass}>{page.copy.summary.totalLabel}</span>
-                <span className="text-3xl font-semibold text-[var(--text)] [font-variant-numeric:tabular-nums]">
-                  {totalPrice}
-                </span>
+              <div className="mt-6 rounded-2xl bg-gray-100 px-4 py-3">
+                <div className="text-sm text-gray-600">{page.copy.summary.totalLabel}</div>
+                <div className="text-3xl font-semibold text-gray-900 [font-variant-numeric:tabular-nums]">{totalPrice}</div>
+                <div className="mt-1 text-sm text-gray-500">{miniSummary}</div>
               </div>
 
-              <div className="mt-6 space-y-3">
-                {activeTier && activeTier.features.length > 0 && (
-                  <>
-                    <p className="text-sm font-semibold text-[var(--text)]">
-                      {page.copy.summary.featuresLabel}
-                    </p>
-                    <FeatureList items={activeTier.features} />
-                  </>
-                )}
-              </div>
+              {activeTier && activeTier.features.length > 0 && (
+                <div className="mt-6 space-y-3">
+                  <p className="text-sm font-semibold text-gray-900">{page.copy.summary.featuresLabel}</p>
+                  <FeatureList items={activeTier.features} />
+                </div>
+              )}
 
               <button
                 type="button"
-                className="mt-8 w-full rounded-2xl bg-gray-900 px-5 py-3 text-base font-semibold text-white transition hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
+                onClick={handleNext}
+                className="mt-8 w-full rounded-2xl bg-gray-900 px-5 py-3 text-base font-semibold text-white transition hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
               >
                 {page.copy.summary.ctaLabel}
               </button>
-              <p className="mt-4 text-sm text-[var(--text-dim)]">{page.copy.summary.disclaimer}</p>
+              <p className="mt-4 text-sm text-gray-500">{page.copy.summary.disclaimer}</p>
             </div>
           </aside>
         </div>
       </div>
+      <SummaryBarMobile
+        total={totalPrice}
+        totalLabel={page.copy.summary.totalLabel}
+        summary={miniSummary}
+        ctaLabel={page.copy.summary.ctaLabel}
+        onNext={handleNext}
+      />
     </div>
   );
 }

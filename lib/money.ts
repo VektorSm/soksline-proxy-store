@@ -1,6 +1,16 @@
 export const fmtUSD = (n: number) =>
   new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
 
+export function fmtUsdByLocale(locale: string, value: number) {
+  const nf = new Intl.NumberFormat(locale === 'ru' ? 'ru-RU' : 'en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  });
+  return nf.format(value);
+}
+
 export function roundCents(n: number): number {
   return Math.round(n * 100) / 100;
 }

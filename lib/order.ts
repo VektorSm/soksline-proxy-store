@@ -91,13 +91,13 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
       ru: {
         title: 'Static Residential Proxy',
         headline: 'Скорость до 1 Гбит/с',
-        priceHint: 'от $1.27 / мес',
+        priceHint: 'от $1.27 /\u00a0мес',
         highlights: ['Надёжные IPv4', 'Sticky-сессии до 60 мин', 'Таргетинг по странам и ISP'],
       },
       en: {
         title: 'Static Residential Proxy',
         headline: 'Speeds up to 1 Gbps',
-        priceHint: 'from $1.27 / mo',
+        priceHint: 'from $1.27 /\u00a0mo',
         highlights: ['Clean IPv4 pools', 'Sticky sessions up to 60 min', 'Country & ISP targeting'],
       },
     },
@@ -111,7 +111,7 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
               id: 'static-basic',
               name: 'Базовый',
               price: '$1.95',
-              period: 'за прокси / мес',
+              period: 'за\u00a0прокси /\u00a0мес',
               description: 'Базовый набор для команды.',
               features: [
                 'До 3 пользователей',
@@ -126,8 +126,9 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
             {
               id: 'static-dedicated',
               name: 'Выделенный',
+              headline: 'Популярный',
               price: '$3.95',
-              period: 'за прокси / мес',
+              period: 'за\u00a0прокси /\u00a0мес',
               description: 'Выделенные ресурсы для стабильной работы.',
               features: [
                 'Выделенный IP на пользователя',
@@ -143,7 +144,7 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
               id: 'static-premium',
               name: 'Премиум',
               price: '$5.47',
-              period: 'за прокси / мес',
+              period: 'за\u00a0прокси /\u00a0мес',
               description: 'Чистые IP и максимум возможностей.',
               features: [
                 'Новые IP',
@@ -167,7 +168,7 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
               id: 'static-basic',
               name: 'Basic',
               price: '$1.95',
-              period: 'per proxy / mo',
+              period: 'per\u00a0proxy /\u00a0mo',
               description: 'Starter pack for small teams.',
               features: [
                 'Up to 3 users',
@@ -182,8 +183,9 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
             {
               id: 'static-dedicated',
               name: 'Dedicated',
+              headline: 'Popular',
               price: '$3.95',
-              period: 'per proxy / mo',
+              period: 'per\u00a0proxy /\u00a0mo',
               description: 'Dedicated resources for steady work.',
               features: [
                 'Dedicated IP for one user',
@@ -199,7 +201,7 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
               id: 'static-premium',
               name: 'Premium',
               price: '$5.47',
-              period: 'per proxy / mo',
+              period: 'per\u00a0proxy /\u00a0mo',
               description: 'Fresh IPs and full power.',
               features: [
                 'Fresh IPs',
@@ -224,13 +226,13 @@ const SERVICE_DEFINITIONS: ServiceDefinition[] = [
       ru: {
         title: 'Static Residential IPv6',
         headline: 'Гибкая стоимость для скейлинга',
-        priceHint: 'от $0.55 / мес',
+        priceHint: 'от $0.55 /\u00a0мес',
         highlights: ['SOCKS5 и HTTP/S', 'Sticky-сессии', 'Ротация подсетей'],
       },
       en: {
         title: 'Static Residential IPv6',
         headline: 'Flexible pricing for scale',
-        priceHint: 'from $0.55 / mo',
+        priceHint: 'from $0.55 /\u00a0mo',
         highlights: ['SOCKS5 & HTTP/S', 'Sticky sessions', 'Subnet rotation'],
       },
     },
