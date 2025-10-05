@@ -46,21 +46,21 @@
     "pricing": {
       "hero": {
         "eyebrow": "Pricing",
-        "title": "Residential proxy pricing synced with checkout",
-        "subtitle": "Browse the same products and plans available on the order page.",
+        "title": "Proxy pricing",
+        "subtitle": "Pay per IP per month (IPv4/IPv6) or per GB for rotation. Transparent, no hidden fees.",
         "description": "Pick a static or rotating pool and deep-link straight to checkout with pricing that stays in sync."
       },
       "staticIsp": {
-        "title": "Static Residential Proxy",
+        "title": "Static Residential (IPv4)",
         "subtitle": "Dedicated IPv4 pools with sticky sessions and ISP-level targeting."
       },
       "staticIpv6": {
-        "title": "Static Residential IPv6",
+        "title": "Static Residential (IPv6)",
         "subtitle": "Scale automation with flexible IPv6 addresses and granular controls.",
         "from": "from $0.55 / mo"
       },
       "rotating": {
-        "title": "Rotating Residential Proxy",
+        "title": "Rotating Residential",
         "subtitle": "Transparent bandwidth tiers with pay-as-you-go pricing."
       }
     },
