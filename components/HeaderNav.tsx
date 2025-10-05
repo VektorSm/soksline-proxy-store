@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { useI18n } from '@/lib/i18n';
 import { buildOrderUrl } from '@/config/catalog';
@@ -128,9 +129,42 @@ function LangSwitchCompact() {
 
 export default function HeaderNav() {
   const { t } = useI18n();
+  const pathname = usePathname();
+  const hasHero = pathname === '/';
+  const [scrolled, setScrolled] = useState(() => !hasHero);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    let frame: number | null = null;
+
+    const updateScrolled = () => {
+      frame = null;
+      const shouldBeScrolled = !hasHero || window.scrollY > 32;
+      setScrolled((prev) => (prev === shouldBeScrolled ? prev : shouldBeScrolled));
+    };
+
+    const onScroll = () => {
+      if (frame === null) {
+        frame = window.requestAnimationFrame(updateScrolled);
+      }
+    };
+
+    updateScrolled();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      if (frame !== null) {
+        window.cancelAnimationFrame(frame);
+      }
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [hasHero]);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0b1320] text-white">
+    <header
+      className={clsx('header sticky top-0 z-50 text-white', scrolled && 'header--scrolled')}
+    >
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4">
         <Link href="/" className="mr-2 flex shrink-0 items-center gap-2">
           <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 font-semibold">
@@ -166,7 +200,10 @@ export default function HeaderNav() {
           </NavLink>
           <Link
             href={getStartOrderHref()}
-            className="inline-flex items-center rounded-2xl bg-white/10 px-3 py-1.5 text-sm font-semibold transition hover:bg-white/15 focus:outline-none focus-visible:ring focus-visible:ring-white/40"
+            className={clsx(
+              'btn btn-order',
+              scrolled ? 'btn-primary' : 'btn-outline',
+            )}
             data-cta="start-order"
           >
             <span className="md:hidden lg:inline">{t('nav.startOrder')}</span>

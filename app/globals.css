@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .header {
+    @apply bg-[#0b1320] transition-colors duration-200 ease-in-out;
+  }
+
+  .header--scrolled {
+    @apply bg-[#0b1320]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0b1320]/80;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-2xl px-3 py-1.5 text-sm font-semibold transition-colors focus:outline-none;
+  }
+
+  .btn-primary {
+    @apply bg-blue-700 text-white hover:bg-blue-800;
+  }
+
+  .btn-outline {
+    @apply border border-white/30 bg-transparent text-white hover:border-white/60 hover:bg-white/10;
+  }
+
+  .btn-order {
+    @apply shadow-none;
+  }
+}
+
+.btn-primary:focus-visible,
+.btn-outline:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
