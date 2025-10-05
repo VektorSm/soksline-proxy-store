@@ -232,7 +232,7 @@ export default function PricingPage() {
       </Section>
 
       <Section bg="white" className="pt-10">
-        <KycNotice className="text-left mb-6" />
+        <KycNotice dataTestId="pricing-kyc-notice" className="text-left mb-6" />
         <PaymentsSecurity
           title={orderPage.copy.paymentTitle}
           note={orderPage.paymentNote}
