@@ -14,8 +14,10 @@ export default function KycNotice({ locale, className = '', inline = false }: Pr
   const { t } = useI18n();
   const text = locale ? getKycPolicy(locale) : t('kyc.policy');
   const Wrapper: any = inline ? 'span' : 'div';
+  const dataTestId = inline ? undefined : 'kyc-notice';
   return (
     <Wrapper
+      data-testid={dataTestId}
       className={
         inline ? `text-sm opacity-80 ${className}` : `text-sm opacity-80 mt-2 ${className}`
       }

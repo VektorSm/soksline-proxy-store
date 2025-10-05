@@ -17,6 +17,7 @@ export default function PaymentsSecurity({
 }: PaymentsSecurityProps) {
   return (
     <div
+      data-testid="payments-security"
       className={clsx(
         'w-full rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm sm:px-8',
         className,
