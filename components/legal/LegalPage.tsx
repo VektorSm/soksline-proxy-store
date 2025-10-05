@@ -34,13 +34,16 @@ export default function LegalPage({ dict }: { dict: LegalDict }) {
                     {p}
                   </p>
                 ))}
-                <div className="mt-4">
-                  <a href="#top" className="text-sm underline opacity-70">
-                    Back to top
-                  </a>
-                </div>
               </section>
             ))}
+
+            {sections.length > 0 && (
+              <div className="mt-8">
+                <a href="#top" className="text-sm underline opacity-70">
+                  Back to top
+                </a>
+              </div>
+            )}
           </article>
 
           <aside className="md:col-span-1 md:sticky md:top-20 md:self-start" id="top">
