@@ -194,9 +194,14 @@ export default function Page() {
           <h2 className={styles.sectionTitle}>{copy.advantages.title}</h2>
           <p className={styles.sectionDescription}>{copy.advantages.description}</p>
         </div>
-        <div className={styles.advantagesGrid}>
+        <div
+          className={`${styles.advantagesGrid} grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3`}
+        >
           {copy.advantages.items.map((item) => (
-            <article key={item.title} className={styles.advantageCard}>
+            <article
+              key={item.title}
+              className={`${styles.advantageCard} min-h-[140px] flex flex-col gap-3`}
+            >
               <h3 className={styles.advantageTitle}>{item.title}</h3>
               <p className={styles.advantageText}>{item.description}</p>
             </article>
