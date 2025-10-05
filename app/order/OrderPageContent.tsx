@@ -1,12 +1,14 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import type { KeyboardEvent } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 import ProgressStepper from '@/components/order/ProgressStepper';
 import SummaryBarMobile from '@/components/order/SummaryBarMobile';
+import PriceLabel from '@/components/ui/PriceLabel';
 import StepperInput from '@/components/ui/StepperInput';
 import { useLocale } from '../../components/LocaleContext';
 import { getOrderPage } from '../../lib/order';
@@ -14,6 +16,7 @@ import { rotatingPricing } from '../../config/pricing';
 import { fmtUsdByLocale, normalizeTier } from '../../lib/money';
 import { loadOrderPrefs, saveOrderPrefs } from '@/lib/orderPrefs';
 import { Check } from '@/components/icons/Check';
+import Switch from '@/components/ui/Switch';
 import type { OrderPrefs } from '@/lib/orderPrefs';
 
 const panelClass =
@@ -37,28 +40,6 @@ function FeatureList({ items, className }: { items: string[]; className?: string
         </li>
       ))}
     </ul>
-  );
-}
-
-function Switch({ checked, onChange }: { checked: boolean; onChange: (value: boolean) => void }) {
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      onClick={() => onChange(!checked)}
-      className={clsx(
-        'relative inline-flex h-8 w-14 items-center rounded-full border border-gray-300 bg-white transition focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
-        checked ? 'bg-gray-900 text-white' : 'bg-white text-gray-500',
-      )}
-    >
-      <span
-        className={clsx(
-          'inline-block h-6 w-6 transform rounded-full bg-white shadow-sm transition',
-          checked ? 'translate-x-7' : 'translate-x-1 bg-gray-200',
-        )}
-      />
-    </button>
   );
 }
 
@@ -526,7 +507,13 @@ export default function OrderPageContent() {
     }
     return `${safeQuantity} ${safeQuantity === 1 ? 'IP' : 'IPs'}`;
   }, [locale, safeQuantity]);
-  const miniSummary = `${quantityLabel} • ${periodLabel}`;
+  const autoRenewSummary = useMemo(() => {
+    if (locale === 'ru') {
+      return autoRenew ? 'Автопродление включено' : 'Без автопродления';
+    }
+    return autoRenew ? 'Auto renewal on' : 'Auto renewal off';
+  }, [autoRenew, locale]);
+  const miniSummary = `${quantityLabel} • ${periodLabel} • ${autoRenewSummary}`;
 
   const handleSelectService = useCallback((id: string) => {
     setServiceId(id);
@@ -616,16 +603,25 @@ export default function OrderPageContent() {
               <div className="grid items-stretch gap-6 sm:grid-cols-2 xl:grid-cols-3">
                 {page.services.map((service: OrderService) => {
                   const isActive = service.id === activeService?.id;
+                  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      handleSelectService(service.id);
+                    }
+                  };
                   return (
-                    <button
+                    <article
                       key={service.id}
-                      type="button"
                       role="button"
+                      tabIndex={0}
                       className={clsx(
                         'flex h-full cursor-pointer flex-col justify-between gap-4 rounded-2xl border border-gray-200 bg-white p-5 text-left shadow-[0_8px_24px_rgba(2,6,23,.06)] transition focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
-                        isActive ? 'bg-gray-50 ring-2 ring-gray-900' : 'hover:bg-gray-50',
+                        isActive
+                          ? 'bg-gray-50 ring-2 ring-gray-900'
+                          : 'hover:bg-gray-50',
                       )}
                       onClick={() => handleSelectService(service.id)}
+                      onKeyDown={handleKeyDown}
                       aria-pressed={isActive}
                     >
                       <div className="space-y-2">
@@ -643,7 +639,7 @@ export default function OrderPageContent() {
                         {service.card.priceHint}
                       </p>
                       <FeatureList items={service.card.highlights} />
-                    </button>
+                    </article>
                   );
                 })}
               </div>
@@ -701,42 +697,56 @@ export default function OrderPageContent() {
                       <div className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
                         {(activeCategory?.tiers ?? []).map((tier: OrderTier) => {
                           const isActive = tier.id === activeTier?.id;
-                          const tierPrice = tier.priceAmount
-                            ? fmtUsdByLocale(locale, tier.priceAmount)
-                            : tier.price;
+                          const handleTierKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                              event.preventDefault();
+                              handleSelectTier(tier.id);
+                            }
+                          };
+                          const unitLabel = (tier.period ?? (locale === 'ru' ? 'за прокси / мес' : 'per proxy / mo')).replace(
+                            /\u00A0/g,
+                            ' ',
+                          );
+                          const amount = tier.priceAmount ?? (() => {
+                            const numeric = tier.price?.replace(/[^0-9.,]/g, '');
+                            if (!numeric) {
+                              return 0;
+                            }
+                            const normalized = numeric.replace(/,/g, '');
+                            const parsed = Number.parseFloat(normalized);
+                            return Number.isFinite(parsed) ? parsed : 0;
+                          })();
                           return (
-                            <button
+                            <article
                               key={tier.id}
-                              type="button"
                               role="button"
+                              data-test="plan-card"
+                              tabIndex={0}
                               className={clsx(
                                 'flex h-full cursor-pointer flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-5 text-left shadow-[0_8px_24px_rgba(2,6,23,.06)] transition focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
-                                isActive ? 'bg-gray-50 ring-2 ring-gray-900' : 'hover:bg-gray-50',
+                                isActive
+                                  ? 'bg-gray-50 ring-2 ring-gray-900'
+                                  : 'hover:bg-gray-50',
                               )}
                               onClick={() => handleSelectTier(tier.id)}
+                              onKeyDown={handleTierKeyDown}
                               aria-pressed={isActive}
                             >
-                              <header className="flex items-start justify-between gap-4">
-                                <div className="space-y-2">
-                                  <h4 className="text-lg font-semibold tracking-tight text-gray-900">
-                                    {tier.name}
-                                  </h4>
-                                  {tier.subLabel && (
-                                    <span className="text-sm font-medium uppercase tracking-wide text-gray-500">
-                                      {tier.subLabel}
-                                    </span>
-                                  )}
-                                  {tier.headline && <span className={chipClass}>{tier.headline}</span>}
-                                </div>
-                                <div className="text-right">
-                                  <span className="block text-lg font-semibold text-gray-900 [font-variant-numeric:tabular-nums]">
-                                    {tierPrice}
+                              <div className="min-h-[92px] space-y-2">
+                                <h3 className="text-lg font-medium leading-tight text-gray-900">{tier.name}</h3>
+                                {tier.subLabel && (
+                                  <span className="text-sm font-medium uppercase tracking-wide text-gray-500">
+                                    {tier.subLabel}
                                   </span>
-                                  {tier.period && (
-                                    <span className="text-sm text-gray-500">{tier.period}</span>
-                                  )}
-                                </div>
-                              </header>
+                                )}
+                                {tier.headline && <span className={chipClass}>{tier.headline}</span>}
+                                <PriceLabel
+                                  locale={locale}
+                                  amount={amount}
+                                  unit={unitLabel}
+                                  className="mt-2"
+                                />
+                              </div>
                               {tier.description && (
                                 <p className="text-sm text-gray-600">{tier.description}</p>
                               )}
@@ -746,7 +756,7 @@ export default function OrderPageContent() {
                                   {tier.ribbon}
                                 </span>
                               ) : null}
-                            </button>
+                            </article>
                           );
                         })}
                       </div>
@@ -827,8 +837,10 @@ export default function OrderPageContent() {
                         <span className="text-sm font-medium text-gray-700">
                           {locale === 'ru' ? 'Автопродление' : 'Auto renewal'}
                         </span>
-                        <label className="flex items-center gap-3">
+                        <label htmlFor="autoRenew" className="flex items-center gap-3">
                           <Switch
+                            id="autoRenew"
+                            label={locale === 'ru' ? 'Автопродление' : 'Auto renewal'}
                             checked={autoRenew}
                             onChange={(value) => {
                               setAutoRenew(value);

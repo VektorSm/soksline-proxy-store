@@ -7,6 +7,7 @@ import { buildOrderUrl, catalog, type PlanId } from '@/config/catalog';
 import KycNotice from '@/components/KycNotice';
 import PaymentsSecurity from '@/components/PaymentsSecurity';
 import Section from '@/components/layout/Section';
+import PriceLabel from '@/components/ui/PriceLabel';
 import { useI18n } from '@/lib/i18n';
 import type { Locale } from '@/lib/i18n';
 import { getOrderPage, type OrderService } from '@/lib/order';
@@ -153,7 +154,7 @@ export default function PricingPage() {
             const normalizedUnitLabel = locale === 'ru'
               ? unitLabelSource
               : unitLabelSource.replace('month', 'mo');
-            const unitLabel = localizeUnitLabel(normalizedUnitLabel, locale);
+            const unitLabel = localizeUnitLabel(normalizedUnitLabel, locale).replace(/\u00a0/g, ' ');
             const features = (localized?.features ?? plan.features).map((feature) =>
               localizeFeatureCopy(feature, locale),
             );
@@ -162,14 +163,18 @@ export default function PricingPage() {
 
             return (
               <article key={plan.id} className={styles.planCard}>
-                <div className={styles.planHeader}>
-                  <h3 className={styles.planTitle}>{plan.title}</h3>
-                  {badge ? <span className={styles.planBadge}>{badge}</span> : null}
+                <div className={styles.planIntro}>
+                  <div className={styles.planHeader}>
+                    <h3 className={styles.planTitle}>{plan.title}</h3>
+                    {badge ? <span className={styles.planBadge}>{badge}</span> : null}
+                  </div>
+                  <PriceLabel
+                    locale={locale}
+                    amount={priceValue}
+                    unit={unitLabel}
+                    className={styles.planPrice}
+                  />
                 </div>
-                <p className={styles.planPrice}>
-                  {formatUsd(priceValue)}
-                  <span className={styles.planUnit}>{unitLabel}</span>
-                </p>
                 <ul className={styles.planFeatures}>
                   {features.map((feature) => (
                     <li key={feature}>{feature}</li>
@@ -209,27 +214,28 @@ export default function PricingPage() {
 
         <div className={styles.planGrid}>
           {catalog.staticIpv6.plans.map((plan) => {
-            const hasPrice = typeof plan.priceUsd === 'number';
-            const priceLabel = hasPrice
-              ? formatUsd(plan.priceUsd ?? 0)
-              : `from ${formatUsd(ipv6FallbackFromUsd)}`;
             const unitLabelSource = plan.unit ?? 'per proxy / mo';
             const normalizedUnitLabel = locale === 'ru'
               ? unitLabelSource
               : unitLabelSource.replace('month', 'mo');
-            const unitLabel = localizeUnitLabel(normalizedUnitLabel, locale);
+            const unitLabel = localizeUnitLabel(normalizedUnitLabel, locale).replace(/\u00a0/g, ' ');
             const features = plan.features.map((feature) => localizeFeatureCopy(feature, locale));
+            const amount = plan.priceUsd ?? ipv6FallbackFromUsd;
 
             return (
               <article key={plan.id} className={styles.planCard}>
-                <div className={styles.planHeader}>
-                  <h3 className={styles.planTitle}>{plan.title}</h3>
-                  {plan.badge ? <span className={styles.planBadge}>{plan.badge}</span> : null}
+                <div className={styles.planIntro}>
+                  <div className={styles.planHeader}>
+                    <h3 className={styles.planTitle}>{plan.title}</h3>
+                    {plan.badge ? <span className={styles.planBadge}>{plan.badge}</span> : null}
+                  </div>
+                  <PriceLabel
+                    locale={locale}
+                    amount={amount}
+                    unit={unitLabel}
+                    className={styles.planPrice}
+                  />
                 </div>
-                <p className={styles.planPrice}>
-                  {priceLabel}
-                  <span className={styles.planUnit}>{unitLabel}</span>
-                </p>
                 <ul className={styles.planFeatures}>
                   {features.map((feature) => (
                     <li key={feature}>{feature}</li>
