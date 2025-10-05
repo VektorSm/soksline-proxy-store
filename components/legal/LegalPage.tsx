@@ -4,13 +4,20 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 import Toc from './Toc';
 
 type Section = { id: string; title: string; paragraphs: string[] };
-type LegalDict = { title: string; disclaimer?: string; intro?: string; sections: Section[] };
+type LegalDict = {
+  title: string;
+  disclaimer?: string;
+  intro?: string;
+  sections: Section[];
+  backToTopLabel?: string;
+};
 
 export default function LegalPage({ dict }: { dict: LegalDict }) {
   const sections = dict.sections ?? [];
+  const backToTopLabel = dict.backToTopLabel ?? 'Back to top';
   return (
     <Section bg="white" containerClassName="not-prose">
-      <div className="mx-auto flex max-w-5xl flex-col gap-6">
+      <div className="mx-auto flex max-w-5xl flex-col gap-6" id="top">
         <div className="flex items-center justify-between gap-4">
           <h1 className="text-3xl font-semibold">{dict.title}</h1>
           <LanguageSwitcher />
@@ -40,13 +47,13 @@ export default function LegalPage({ dict }: { dict: LegalDict }) {
             {sections.length > 0 && (
               <div className="mt-8">
                 <a href="#top" className="text-sm underline opacity-70">
-                  Back to top
+                  {backToTopLabel}
                 </a>
               </div>
             )}
           </article>
 
-          <aside className="md:col-span-1 md:sticky md:top-20 md:self-start" id="top">
+          <aside className="md:col-span-1 md:sticky md:top-20 md:self-start">
             <Toc items={sections.map(({ id, title }) => ({ id, title }))} />
           </aside>
         </div>
