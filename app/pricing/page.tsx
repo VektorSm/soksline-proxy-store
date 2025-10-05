@@ -99,6 +99,11 @@ export default function PricingPage() {
 
   const buyNowLabel = locale === 'ru' ? 'Купить' : t('common.buyNow', 'Buy Now');
   const ipv6FallbackFromUsd = catalog.staticIpv6.fromUsd ?? 0.55;
+  const heroDescription = t(
+    'pages.pricing.hero.description',
+    'Compare static and rotating residential proxy products with synced pricing and CTAs.',
+  );
+  const showHeroDescription = heroDescription.trim().length > 0;
 
   return (
     <div className={styles.page}>
@@ -119,12 +124,9 @@ export default function PricingPage() {
                 : 'Pay per IP per month (IPv4/IPv6) or per GB for rotation. Transparent, no hidden fees.',
             )}
           </p>
-          <p className={styles.heroDescription}>
-            {t(
-              'pages.pricing.hero.description',
-              'Compare static and rotating residential proxy products with synced pricing and CTAs.',
-            )}
-          </p>
+          {showHeroDescription ? (
+            <p className={styles.heroDescription}>{heroDescription}</p>
+          ) : null}
         </div>
       </header>
 
