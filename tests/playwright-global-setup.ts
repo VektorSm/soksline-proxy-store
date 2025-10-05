@@ -49,22 +49,39 @@ export default async function globalSetup(): Promise<void> {
   }
 
   const cacheDir = getBrowsersBasePath();
-  const sentinel = path.join(cacheDir, '.browsers-installed-v1');
+  const sentinel = path.join(cacheDir, '.browsers-installed-v2');
 
   if (existsSync(sentinel) && (await hasRequiredBrowsers(cacheDir))) {
     return;
   }
 
-  if (await hasRequiredBrowsers(cacheDir)) {
-    await mkdir(path.dirname(sentinel), { recursive: true });
-    await writeFile(sentinel, new Date().toISOString());
-    return;
+  const npxExecutable = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+  const args = ['--yes', 'playwright', 'install'];
+  const env = { ...process.env };
+  if (process.platform === 'linux' && !env.DEBIAN_FRONTEND) {
+    env.DEBIAN_FRONTEND = 'noninteractive';
   }
 
-  const npxExecutable = process.platform === 'win32' ? 'npx.cmd' : 'npx';
-  const result = spawnSync(npxExecutable, ['--yes', 'playwright', 'install'], {
+  if (process.platform === 'linux') {
+    const depsResult = spawnSync(npxExecutable, ['--yes', 'playwright', 'install-deps'], {
+      stdio: 'inherit',
+      shell: false,
+      env,
+    });
+
+    if (depsResult.error) {
+      throw depsResult.error;
+    }
+
+    if (depsResult.status !== 0) {
+      throw new Error(`playwright install-deps exited with status ${depsResult.status}`);
+    }
+  }
+
+  const result = spawnSync(npxExecutable, args, {
     stdio: 'inherit',
     shell: false,
+    env,
   });
 
   if (result.error) {
