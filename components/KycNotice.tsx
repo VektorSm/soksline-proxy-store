@@ -8,14 +8,22 @@ type Props = {
   locale?: Locale; // 'en' | 'ru'; по умолчанию — 'en'
   className?: string; // для отступов/типографики
   inline?: boolean; // inline-версия внутри карточек
+  dataTestId?: string; // кастомный data-testid для e2e-тестов
 };
 
-export default function KycNotice({ locale, className = '', inline = false }: Props) {
+export default function KycNotice({
+  locale,
+  className = '',
+  inline = false,
+  dataTestId,
+}: Props) {
   const { t } = useI18n();
   const text = locale ? getKycPolicy(locale) : t('kyc.policy');
   const Wrapper: any = inline ? 'span' : 'div';
+  const resolvedTestId = inline ? undefined : dataTestId;
   return (
     <Wrapper
+      data-testid={resolvedTestId}
       className={
         inline ? `text-sm opacity-80 ${className}` : `text-sm opacity-80 mt-2 ${className}`
       }

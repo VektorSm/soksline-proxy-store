@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 
 import { buildOrderUrl, catalog, type PlanId } from '@/config/catalog';
 import KycNotice from '@/components/KycNotice';
+import PaymentsSecurity from '@/components/PaymentsSecurity';
 import Section from '@/components/layout/Section';
 import { useI18n } from '@/lib/i18n';
 import { getOrderPage, type OrderService } from '@/lib/order';
@@ -12,7 +13,7 @@ import { getOrderPage, type OrderService } from '@/lib/order';
 import styles from './page.module.css';
 
 function formatUsd(value: number) {
-  return `$${value.toFixed(2)}`;
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
 }
 
 type PlanLocaleCopy = {
@@ -60,26 +61,7 @@ export default function PricingPage() {
   );
 
   const buyNowLabel = locale === 'ru' ? 'Купить' : t('common.buyNow', 'Buy Now');
-  const ipv6PriceLabel = useMemo(() => {
-    const hint = ipv6Service?.card.priceHint?.trim();
-    if (hint) {
-      return hint;
-    }
-
-    const fromUsd = catalog.staticIpv6.fromUsd;
-    if (typeof fromUsd === 'number') {
-      const price = formatUsd(fromUsd);
-      const template = locale === 'ru'
-        ? t('pages.pricing.staticIpv6.from', 'от $0.55 / мес')
-        : t('pages.pricing.staticIpv6.from', 'from $0.55 / mo');
-      return template.replace('$0.55', price);
-    }
-
-    return locale === 'ru'
-      ? t('pages.pricing.staticIpv6.from', 'от $0.55 / мес')
-      : t('pages.pricing.staticIpv6.from', 'from $0.55 / mo');
-  }, [ipv6Service, locale, t]);
-  const ipv6Highlights = ipv6Service?.card.highlights ?? [];
+  const ipv6FallbackFromUsd = catalog.staticIpv6.fromUsd ?? 0.55;
 
   return (
     <div className={styles.page}>
@@ -102,9 +84,9 @@ export default function PricingPage() {
         </div>
       </header>
 
-      <Section bg="white">
+      <Section id="static-isp" bg="white" className="scroll-mt-28">
         <div className={styles.sectionHeader}>
-          <h2 id="static-isp" className={`${styles.sectionTitle} scroll-mt-28`}>
+          <h2 className={styles.sectionTitle}>
             {t('pages.pricing.staticIsp.title', catalog.staticIsp.name)}
           </h2>
           <p className={styles.sectionSubtitle}>
@@ -118,9 +100,11 @@ export default function PricingPage() {
         <div className={styles.planGrid}>
           {catalog.staticIsp.plans.map((plan) => {
             const localized = staticPlanCopy.get(plan.id);
-            const unitLabel = localized?.period ?? plan.unit;
+            const unitLabelSource = localized?.period ?? plan.unit ?? 'per proxy / mo';
+            const unitLabel = unitLabelSource.replace('month', 'mo');
             const features = localized?.features ?? plan.features;
             const badge = localized?.badge ?? plan.badge;
+            const priceValue = plan.priceUsd ?? catalog.staticIsp.fromUsd ?? 0;
 
             return (
               <article key={plan.id} className={styles.planCard}>
@@ -129,7 +113,7 @@ export default function PricingPage() {
                   {badge ? <span className={styles.planBadge}>{badge}</span> : null}
                 </div>
                 <p className={styles.planPrice}>
-                  {formatUsd(plan.priceUsd)}
+                  {formatUsd(priceValue)}
                   <span className={styles.planUnit}>{unitLabel}</span>
                 </p>
                 <ul className={styles.planFeatures}>
@@ -150,26 +134,11 @@ export default function PricingPage() {
           })}
         </div>
 
-        <div className={styles.kycWrapper}>
-          <KycNotice />
-        </div>
-
-        <div className={styles.paymentsCard}>
-          <h3 className={styles.paymentTitle}>{orderPage.copy.paymentTitle}</h3>
-          <p className={styles.paymentNote}>{orderPage.paymentNote}</p>
-          <div className={styles.paymentMethods} aria-label={orderPage.copy.paymentMethodsLabel}>
-            {orderPage.paymentMethods.map((method) => (
-              <span key={method} className={styles.paymentChip}>
-                {method}
-              </span>
-            ))}
-          </div>
-        </div>
       </Section>
 
-      <Section bg="muted">
+      <Section id="static-ipv6" bg="muted" className="scroll-mt-28">
         <div className={styles.sectionHeader}>
-          <h2 id="static-ipv6" className={`${styles.sectionTitle} scroll-mt-28`}>
+          <h2 className={styles.sectionTitle}>
             {t('pages.pricing.staticIpv6.title', catalog.staticIpv6.name)}
           </h2>
           <p className={styles.sectionSubtitle}>
@@ -180,27 +149,47 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <div className={styles.ipv6Card}>
-          <div>
-            <div className={styles.ipv6Price}>{ipv6PriceLabel}</div>
-            <ul className={styles.ipv6Features}>
-              {ipv6Highlights.map((feature) => (
-                <li key={feature}>{feature}</li>
-              ))}
-            </ul>
-          </div>
-          <Link
-            href={buildOrderUrl({ service: 'static-ipv6', duration: 'monthly' })}
-            className={styles.ipv6Cta}
-          >
-            {buyNowLabel}
-          </Link>
+        <div className={styles.planGrid}>
+          {catalog.staticIpv6.plans.map((plan) => {
+            const hasPrice = typeof plan.priceUsd === 'number';
+            const priceLabel = hasPrice
+              ? formatUsd(plan.priceUsd ?? 0)
+              : `from ${formatUsd(ipv6FallbackFromUsd)}`;
+            const unitLabelSource = plan.unit ?? 'per proxy / mo';
+            const unitLabel = unitLabelSource.replace('month', 'mo');
+
+            return (
+              <article key={plan.id} className={styles.planCard}>
+                <div className={styles.planHeader}>
+                  <h3 className={styles.planTitle}>{plan.title}</h3>
+                  {plan.badge ? <span className={styles.planBadge}>{plan.badge}</span> : null}
+                </div>
+                <p className={styles.planPrice}>
+                  {priceLabel}
+                  <span className={styles.planUnit}>{unitLabel}</span>
+                </p>
+                <ul className={styles.planFeatures}>
+                  {plan.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <div className={styles.planFooter}>
+                  <Link
+                    href={buildOrderUrl({ service: 'static-ipv6', plan: plan.id, duration: 'monthly' })}
+                    className={styles.planCta}
+                  >
+                    {buyNowLabel}
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </Section>
 
-      <Section bg="white">
+      <Section id="rotating" bg="white" className="scroll-mt-28">
         <div className={styles.sectionHeader}>
-          <h2 id="rotating" className={`${styles.sectionTitle} scroll-mt-28`}>
+          <h2 className={styles.sectionTitle}>
             {t('pages.pricing.rotating.title', catalog.rotating.name)}
           </h2>
           <p className={styles.sectionSubtitle}>
@@ -240,6 +229,16 @@ export default function PricingPage() {
             );
           })}
         </div>
+      </Section>
+
+      <Section bg="white" className="pt-10">
+        <KycNotice dataTestId="pricing-kyc-notice" className="text-left mb-6" />
+        <PaymentsSecurity
+          title={orderPage.copy.paymentTitle}
+          note={orderPage.paymentNote}
+          methods={orderPage.paymentMethods}
+          methodsAriaLabel={orderPage.copy.paymentMethodsLabel}
+        />
       </Section>
     </div>
   );

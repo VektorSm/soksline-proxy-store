@@ -7,8 +7,8 @@ export type PlanId = 'basic' | 'dedicated' | 'premium';
 export type Plan = {
   id: PlanId;
   title: string;
-  priceUsd: number;
-  unit: 'per proxy / mo';
+  priceUsd?: number;
+  unit?: string;
   features: string[];
   badge?: string;
 };
@@ -73,16 +73,54 @@ const staticPlans: Plan[] = Object.entries(ORDER_STATIC_PLAN_IDS)
       id: planId as PlanId,
       title: tier.name,
       priceUsd: tier.priceAmount,
-      unit: 'per proxy / mo',
+      unit: tier.period ?? 'per proxy / mo',
       features: tier.features,
       badge: tier.headline,
     } satisfies Plan;
   })
   .filter(Boolean) as Plan[];
 
+const IPV6_PLAN_METADATA: Record<PlanId, { title: string; unit: string; features: string[] }> = {
+  basic: {
+    title: 'Basic',
+    unit: 'per proxy / mo',
+    features: ['SOCKS5 & HTTP/S', 'Sticky sessions', 'Subnet rotation'],
+  },
+  dedicated: {
+    title: 'Dedicated',
+    unit: 'per proxy / mo',
+    features: ['Dedicated subnet', 'Unlimited bandwidth', 'API ready'],
+  },
+  premium: {
+    title: 'Premium',
+    unit: 'per proxy / mo',
+    features: ['Fresh ranges', 'Max speed upgrades', 'Priority support'],
+  },
+};
+
 const ipv6Service = orderPage.services.find(
   (service) => service.id === 'static-residential-ipv6',
 );
+
+const ipv6Tiers = new Map(
+  (ipv6Service?.categories ?? [])
+    .flatMap((category) => category.tiers)
+    .map((tier) => [tier.name, tier]),
+);
+
+const ipv6Plans: Plan[] = (Object.entries(IPV6_PLAN_METADATA)
+  .map(([planId, metadata]) => {
+    const tier = ipv6Tiers.get(metadata.title);
+    return {
+      id: planId as PlanId,
+      title: tier?.name ?? metadata.title,
+      priceUsd: tier?.priceAmount,
+      unit: tier?.period ?? metadata.unit,
+      features: tier?.features ?? metadata.features,
+      badge: tier?.headline,
+    } satisfies Plan;
+  })
+  .filter(Boolean)) as Plan[];
 
 const rotatingService = orderPage.services.find((service) => service.id === 'rotating-residential');
 
@@ -109,7 +147,7 @@ export const catalog: Catalog = {
     id: 'static-ipv6',
     name: ipv6Service?.card.title ?? 'Static Residential IPv6',
     summary: ipv6Service?.card.headline,
-    plans: [],
+    plans: ipv6Plans,
     fromUsd: parseUsdFromText(ipv6Service?.card.priceHint),
   },
   rotating: {
