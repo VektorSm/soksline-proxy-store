@@ -1,6 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-const navRoutes = ['/pricing', '/contact', '/aml', '/privacy', '/tos', '/aup', '/refund'];
+const primaryNavRoutes = ['/pricing', '/contact'];
+const docsMenu: Array<{ href: string; label: string }> = [
+  { href: '/aml', label: 'AML Policy' },
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/tos', label: 'Terms' },
+  { href: '/aup', label: 'AUP' },
+  { href: '/refund', label: 'Refunds' },
+];
 const stubHeadings: Record<string, string> = {
   '/aml': 'AML Policy',
   '/privacy': 'Privacy Policy',
@@ -16,16 +23,27 @@ const routes = Object.keys(stubHeadings);
 test('header links stay on the same domain', async ({ page }) => {
   await page.goto('/');
 
-  const navLinks = page.locator('header nav a');
-  await expect(navLinks).toHaveCount(navRoutes.length);
+  const header = page.getByRole('banner');
+  const primaryNavLinks = header.getByRole('navigation', { name: 'Primary' }).locator('a');
+  await expect(primaryNavLinks).toHaveCount(primaryNavRoutes.length);
 
-  for (let i = 0; i < navRoutes.length; i += 1) {
-    const link = navLinks.nth(i);
-    await expect(link).toHaveAttribute('href', navRoutes[i]);
+  for (let i = 0; i < primaryNavRoutes.length; i += 1) {
+    const link = primaryNavLinks.nth(i);
+    await expect(link).toHaveAttribute('href', primaryNavRoutes[i]);
     await expect(link).not.toHaveAttribute('target', '_blank');
   }
 
-  const loginLink = page.getByRole('banner').getByRole('link', { name: /log in/i });
+  const docsButton = header.getByRole('button', { name: /docs/i });
+  await expect(docsButton).toBeVisible();
+  await docsButton.click();
+
+  for (const { href, label } of docsMenu) {
+    const item = header.getByRole('menuitem', { name: label });
+    await expect(item).toHaveAttribute('href', href);
+    await expect(item).not.toHaveAttribute('target', '_blank');
+  }
+
+  const loginLink = header.getByRole('link', { name: /log in/i });
   await expect(loginLink).toHaveAttribute('href', '/login');
   await expect(loginLink).not.toHaveAttribute('target', '_blank');
 });

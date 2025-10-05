@@ -3,13 +3,14 @@
   "nav": {
     "pricing": "Pricing",
     "contact": "Contact",
+    "docs": "Docs",
     "login": "Log in",
     "startOrder": "Start order",
     "aml": "AML Policy",
     "privacy": "Privacy",
-    "tos": "Terms",
+    "terms": "Terms",
     "aup": "AUP",
-    "refund": "Refunds"
+    "refunds": "Refunds"
   },
   "hero": {
     "title": "SOCKS5 proxy store",
