@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --muted: #f7f8fb;
+  --border: #e6e8ef;
+  --text: #0f172a;
+  --text-dim: #475569;
+  --chip: #f1f5f9;
+  --shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
+}
+
 @layer components {
   .header {
     @apply bg-[#0b1320] transition-colors duration-200 ease-in-out;
