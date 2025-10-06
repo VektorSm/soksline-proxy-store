@@ -301,6 +301,20 @@ export default function OrderPageContent() {
     [activeCategory, tierId],
   );
 
+  const rotatingTiers = useMemo(
+    () =>
+      rotatingPricing.tiers.map((tier) => ({
+        id: tier.id,
+        ...normalizeTier(tier),
+      })),
+    [],
+  );
+
+  const [rotatingTierIdx, setRotatingTierIdx] = useState(() => {
+    const initialIndex = rotatingTiers.findIndex((tier) => tier.id === initialSelection.tierId);
+    return initialIndex >= 0 ? initialIndex : 0;
+  });
+
   useEffect(() => {
     setServiceId(initialSelection.serviceId);
     setCategoryId(initialSelection.categoryId);
@@ -339,18 +353,25 @@ export default function OrderPageContent() {
   }, [activeCategory, tierId]);
 
   const isRotatingService = activeService?.id === 'rotating-residential';
-  const activeTiers = activeCategory?.tiers ?? [];
-  const activeTierIndex = Math.max(
-    0,
-    activeTiers.findIndex((tier: OrderTier) => tier.id === activeTier?.id),
-  );
-  const rotatingSliderMax = Math.max(0, activeTiers.length - 1);
-  const rotatingTierMap = useMemo(
-    () => new Map(rotatingPricing.tiers.map((tier) => [tier.id, normalizeTier(tier)])),
-    [],
-  );
-  const activeRotatingTier =
-    isRotatingService && activeTier ? rotatingTierMap.get(activeTier.id) : undefined;
+  const selectedRotatingTier =
+    isRotatingService && rotatingTiers.length > 0
+      ? rotatingTiers[Math.min(rotatingTierIdx, rotatingTiers.length - 1)]
+      : undefined;
+
+  useEffect(() => {
+    if (!isRotatingService) {
+      return;
+    }
+
+    const nextIndex = activeTier?.id
+      ? rotatingTiers.findIndex((tier) => tier.id === activeTier.id)
+      : 0;
+    const safeIndex = nextIndex >= 0 ? nextIndex : 0;
+
+    if (safeIndex !== rotatingTierIdx) {
+      setRotatingTierIdx(safeIndex);
+    }
+  }, [activeTier?.id, isRotatingService, rotatingTierIdx, rotatingTiers]);
 
   const initialDuration = initialSelection.duration;
 
@@ -529,6 +550,23 @@ export default function OrderPageContent() {
     setTierId(id);
     setActiveProgressStep(2);
   }, []);
+
+  const handleRotatingTierChange = useCallback(
+    (index: number) => {
+      if (!Number.isFinite(index)) {
+        return;
+      }
+
+      const safeIndex = Math.min(Math.max(index, 0), Math.max(0, rotatingTiers.length - 1));
+      setRotatingTierIdx(safeIndex);
+
+      const tier = rotatingTiers[safeIndex];
+      if (tier) {
+        handleSelectTier(tier.id);
+      }
+    },
+    [handleSelectTier, rotatingTiers],
+  );
 
   const markSettingsStep = useCallback(() => {
     setActiveProgressStep(3);
@@ -869,14 +907,19 @@ export default function OrderPageContent() {
                             : 'Choose how many gigabytes you need each month.'}
                         </p>
                       </div>
-                      <div className="text-sm font-medium text-gray-900 [font-variant-numeric:tabular-nums]">
-                        {activeRotatingTier ? (
-                          <span>
-                            {activeRotatingTier.gb} GB — {fmtUsdByLocale(locale, activeRotatingTier.pricePerGb)} / GB ({' '}
-                            {locale === 'ru' ? 'Всего' : 'Total'} {fmtUsdByLocale(locale, activeRotatingTier.total)})
+                      <div className="text-right text-sm">
+                        {selectedRotatingTier ? (
+                          <span className="[font-variant-numeric:tabular-nums]">
+                            <span className="font-medium">{selectedRotatingTier.gb} GB</span>
+                            {' — '}
+                            {fmtUsdByLocale(locale, selectedRotatingTier.pricePerGb)} / GB{' '}
+                            <span className="text-gray-500">
+                              ({locale === 'ru' ? 'Всего' : 'Total'}{' '}
+                              {fmtUsdByLocale(locale, selectedRotatingTier.total)})
+                            </span>
                           </span>
                         ) : (
-                          <span>{activeTier?.price ?? '—'}</span>
+                          <span className="text-gray-500">—</span>
                         )}
                       </div>
                     </div>
@@ -884,36 +927,36 @@ export default function OrderPageContent() {
                       <input
                         type="range"
                         min={0}
-                        max={rotatingSliderMax}
+                        max={Math.max(0, rotatingTiers.length - 1)}
                         step={1}
-                        value={activeTierIndex}
+                        value={rotatingTierIdx}
                         onChange={(event) => {
                           const index = Number.parseInt(event.target.value, 10);
-                          const nextTier = activeTiers[index];
-                          if (nextTier) {
-                            handleSelectTier(nextTier.id);
+                          if (!Number.isNaN(index)) {
+                            handleRotatingTierChange(index);
                           }
                         }}
                         aria-valuemin={0}
-                        aria-valuemax={rotatingSliderMax}
+                        aria-valuemax={Math.max(0, rotatingTiers.length - 1)}
                         className="w-full accent-gray-900"
                       />
-                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                        {activeTiers.map((tier: OrderTier) => {
-                          const isActive = tier.id === activeTier?.id;
+                      <div className="mt-4 grid grid-cols-3 gap-4">
+                        {rotatingTiers.map((tier, index) => {
+                          const active = index === rotatingTierIdx;
                           return (
                             <button
                               key={tier.id}
                               type="button"
-                              role="button"
+                              aria-pressed={active}
+                              onClick={() => handleRotatingTierChange(index)}
                               className={clsx(
-                                'rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
-                                isActive ? 'bg-gray-900 text-white hover:bg-gray-900' : 'hover:bg-gray-50',
+                                'h-12 rounded-2xl border px-4 text-sm transition flex items-center justify-center',
+                                active
+                                  ? 'bg-gray-900 text-white border-gray-900'
+                                  : 'bg-white text-gray-900 border-gray-200 hover:bg-gray-50 focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2',
                               )}
-                              onClick={() => handleSelectTier(tier.id)}
-                              aria-pressed={isActive}
                             >
-                              {tier.name}
+                              {tier.gb} GB
                             </button>
                           );
                         })}
@@ -952,7 +995,7 @@ export default function OrderPageContent() {
               </div>
               <Link
                 href={page.copy.contactHref}
-                className="inline-flex items-center justify-center rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                className="flex min-h-[48px] items-center justify-center rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold leading-tight text-white transition text-center hover:bg-black focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
               >
                 {page.copy.contactCtaLabel}
               </Link>
