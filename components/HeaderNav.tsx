@@ -94,35 +94,29 @@ function DocsDropdown() {
 
 function LangSwitchCompact() {
   const { locale, setLocale } = useI18n();
+  const items: Array<'en' | 'ru'> = ['en', 'ru'];
 
   return (
-    <div className="hidden items-center gap-1 md:flex">
-      <button
-        type="button"
-        onClick={() => setLocale('en')}
-        aria-pressed={locale === 'en'}
-        className={clsx(
-          'rounded-full px-2.5 py-1 text-sm transition focus:outline-none focus-visible:ring focus-visible:ring-white/40',
-          locale === 'en'
-            ? 'bg-gray-800 text-white'
-            : 'bg-white/10 text-white/80 hover:bg-white/15'
-        )}
-      >
-        EN
-      </button>
-      <button
-        type="button"
-        onClick={() => setLocale('ru')}
-        aria-pressed={locale === 'ru'}
-        className={clsx(
-          'rounded-full px-2.5 py-1 text-sm transition focus:outline-none focus-visible:ring focus-visible:ring-white/40',
-          locale === 'ru'
-            ? 'bg-white text-gray-900'
-            : 'bg-white/10 text-white/80 hover:bg-white/15'
-        )}
-      >
-        RU
-      </button>
+    <div className="hidden items-center gap-2 md:flex">
+      {items.map((item) => {
+        const isActive = item === locale;
+        return (
+          <button
+            key={item}
+            type="button"
+            onClick={() => setLocale(item)}
+            aria-pressed={isActive}
+            className={clsx(
+              'inline-flex h-8 min-w-[40px] items-center justify-center rounded-full px-3 text-sm transition focus:outline-none focus-visible:ring focus-visible:ring-white/40',
+              isActive
+                ? 'bg-white text-slate-900 shadow-sm'
+                : 'bg-white/10 text-white/80 hover:bg-white/20'
+            )}
+          >
+            {item.toUpperCase()}
+          </button>
+        );
+      })}
     </div>
   );
 }

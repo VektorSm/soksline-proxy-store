@@ -1010,27 +1010,15 @@ export default function OrderPageContent() {
               <h2 className="text-2xl font-semibold tracking-tight text-gray-900 md:text-3xl">
                 {page.copy.summary.title}
               </h2>
-              <dl className="mt-6 grid grid-cols-[auto_1fr_auto] gap-x-2 gap-y-2">
-                <dt className="text-sm text-gray-500">{page.copy.summary.serviceLabel}</dt>
+              <dl className="mt-6 grid gap-y-2 sm:grid-cols-[140px_1fr] sm:gap-x-3">
+                <dt className="text-sm text-gray-500 sm:text-right">{page.copy.summary.serviceLabel}</dt>
                 <dd className="text-sm text-gray-900">{activeService?.card.title ?? '—'}</dd>
-                <dd />
 
-                <dt className="text-sm text-gray-500">{page.copy.summary.categoryLabel}</dt>
+                <dt className="text-sm text-gray-500 sm:text-right">{page.copy.summary.categoryLabel}</dt>
                 <dd className="text-sm text-gray-900">{activeCategory?.label ?? '—'}</dd>
-                <dd />
 
-                <dt className="text-sm text-gray-500">{page.copy.summary.planLabel}</dt>
+                <dt className="text-sm text-gray-500 sm:text-right">{page.copy.summary.planLabel}</dt>
                 <dd className="text-sm font-medium text-gray-900">{activeTier?.name ?? '—'}</dd>
-                <dd className="justify-self-end">
-                  <button
-                    type="button"
-                    onClick={() => scrollToSection('plan')}
-                    className="text-xs text-gray-500 underline decoration-dotted transition hover:text-gray-900 focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
-                    aria-label={locale === 'ru' ? 'Изменить тариф' : 'Edit plan'}
-                  >
-                    {locale === 'ru' ? 'Изменить' : 'Edit'}
-                  </button>
-                </dd>
               </dl>
 
               <div className="mt-6 space-y-2">
