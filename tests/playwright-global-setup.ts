@@ -43,6 +43,18 @@ function shouldSkipInstall(): boolean {
   return value === '1' || value === 'true';
 }
 
+function shouldInstallDeps(): boolean {
+  const value = String(process.env.PLAYWRIGHT_INSTALL_DEPS ?? '').toLowerCase();
+  if (value === '1' || value === 'true') {
+    return true;
+  }
+  if (value === '0' || value === 'false') {
+    return false;
+  }
+
+  return Boolean(process.env.CI);
+}
+
 export default async function globalSetup(): Promise<void> {
   if (shouldSkipInstall()) {
     return;
@@ -62,7 +74,11 @@ export default async function globalSetup(): Promise<void> {
     env.DEBIAN_FRONTEND = 'noninteractive';
   }
 
-  if (process.platform === 'linux') {
+  if (process.platform === 'linux' && !shouldInstallDeps() && !env.PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS) {
+    env.PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = '1';
+  }
+
+  if (process.platform === 'linux' && shouldInstallDeps()) {
     const depsResult = spawnSync(npxExecutable, ['--yes', 'playwright', 'install-deps'], {
       stdio: 'inherit',
       shell: false,
@@ -70,12 +86,12 @@ export default async function globalSetup(): Promise<void> {
     });
 
     if (depsResult.error) {
-      throw depsResult.error;
+      console.warn('Failed to run "playwright install-deps"; continuing without installing OS packages.', depsResult.error);
+    } else if (depsResult.status !== 0) {
+      console.warn(`"playwright install-deps" exited with status ${depsResult.status}; continuing without installing OS packages.`);
     }
-
-    if (depsResult.status !== 0) {
-      throw new Error(`playwright install-deps exited with status ${depsResult.status}`);
-    }
+  } else if (process.platform === 'linux') {
+    console.info('Skipping "playwright install-deps" (set PLAYWRIGHT_INSTALL_DEPS=1 to enable).');
   }
 
   const result = spawnSync(npxExecutable, args, {

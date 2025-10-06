@@ -82,6 +82,13 @@
   border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
+.planIntro {
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 .planHeader {
   display: flex;
   flex-direction: column;
@@ -108,17 +115,7 @@
 }
 
 .planPrice {
-  margin-top: 1.5rem;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0b1220;
-}
-
-.planUnit {
-  display: block;
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-  color: rgba(11, 18, 32, 0.6);
+  margin-top: 0.25rem;
 }
 
 .planFeatures {
