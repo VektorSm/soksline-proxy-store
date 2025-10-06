@@ -773,9 +773,13 @@ export default function OrderPageContent() {
                             >
                               <div className="grid min-h-[116px] grid-rows-[auto_1fr] gap-3">
                                 <div className="space-y-2">
-                                  <div className="flex items-center gap-2">
+                                  <div className="flex flex-wrap items-center gap-2">
                                     <h3 className="text-lg font-medium leading-tight text-gray-900">{tier.name}</h3>
-                                    {tier.headline && <span className={chipClass}>{tier.headline}</span>}
+                                    {tier.headline && (
+                                      <span className="inline-flex items-center rounded-full bg-gray-900/5 px-2 py-0.5 text-xs leading-none text-gray-900">
+                                        {tier.headline}
+                                      </span>
+                                    )}
                                   </div>
                                   {tier.subLabel && (
                                     <span className="text-sm font-medium uppercase tracking-wide text-gray-500">
@@ -1006,53 +1010,28 @@ export default function OrderPageContent() {
               <h2 className="text-2xl font-semibold tracking-tight text-gray-900 md:text-3xl">
                 {page.copy.summary.title}
               </h2>
-              <ul className="mt-6 space-y-4">
-                <li className="flex items-start justify-between gap-3">
-                  <div>
-                    <span className={eyebrowClass}>{page.copy.summary.serviceLabel}</span>
-                    <span className="text-base font-medium text-gray-900">
-                      {activeService?.card.title ?? '—'}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => scrollToSection('product')}
-                    className="text-sm text-gray-600 underline decoration-dotted transition hover:text-gray-900 focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
-                  >
-                    {locale === 'ru' ? 'Изменить' : 'Edit'}
-                  </button>
-                </li>
-                <li className="flex items-start justify-between gap-3">
-                  <div>
-                    <span className={eyebrowClass}>{page.copy.summary.categoryLabel}</span>
-                    <span className="text-base font-medium text-gray-900">
-                      {activeCategory?.label ?? '—'}
-                    </span>
-                  </div>
+              <dl className="mt-6 grid grid-cols-[auto_1fr_auto] gap-x-2 gap-y-2">
+                <dt className="text-sm text-gray-500">{page.copy.summary.serviceLabel}</dt>
+                <dd className="text-sm text-gray-900">{activeService?.card.title ?? '—'}</dd>
+                <dd />
+
+                <dt className="text-sm text-gray-500">{page.copy.summary.categoryLabel}</dt>
+                <dd className="text-sm text-gray-900">{activeCategory?.label ?? '—'}</dd>
+                <dd />
+
+                <dt className="text-sm text-gray-500">{page.copy.summary.planLabel}</dt>
+                <dd className="text-sm font-medium text-gray-900">{activeTier?.name ?? '—'}</dd>
+                <dd className="justify-self-end">
                   <button
                     type="button"
                     onClick={() => scrollToSection('plan')}
-                    className="text-sm text-gray-600 underline decoration-dotted transition hover:text-gray-900 focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                    className="text-xs text-gray-500 underline decoration-dotted transition hover:text-gray-900 focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
+                    aria-label={locale === 'ru' ? 'Изменить тариф' : 'Edit plan'}
                   >
                     {locale === 'ru' ? 'Изменить' : 'Edit'}
                   </button>
-                </li>
-                <li className="flex items-start justify-between gap-3">
-                  <div>
-                    <span className={eyebrowClass}>{page.copy.summary.planLabel}</span>
-                    <span className="text-base font-medium text-gray-900">
-                      {activeTier?.name ?? '—'}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => scrollToSection('plan')}
-                    className="text-sm text-gray-600 underline decoration-dotted transition hover:text-gray-900 focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
-                  >
-                    {locale === 'ru' ? 'Изменить' : 'Edit'}
-                  </button>
-                </li>
-              </ul>
+                </dd>
+              </dl>
 
               <div className="mt-6 space-y-2">
                 <span className={eyebrowClass}>{page.copy.summary.unitLabel}</span>
