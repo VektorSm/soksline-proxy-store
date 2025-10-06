@@ -19,6 +19,8 @@ import { loadOrderPrefs, saveOrderPrefs } from '@/lib/orderPrefs';
 import { Check } from '@/components/icons/Check';
 import Switch from '@/components/ui/Switch';
 import type { OrderPrefs } from '@/lib/orderPrefs';
+import { calcTotalUSD, pluralMonthsRu } from '@/lib/order/calcTotal';
+import type { BillingScheme } from '@/lib/order/calcTotal';
 
 const panelClass =
   'rounded-2xl border border-gray-200 bg-white shadow-[0_8px_24px_rgba(2,6,23,.06)]';
@@ -52,6 +54,7 @@ type OrderCategory = OrderService['categories'][number];
 type OrderTier = OrderCategory['tiers'][number];
 
 type Option = { value: string; label: string };
+type NumberOption = { value: number; label: string };
 
 type OrderSelection = {
   serviceId: string;
@@ -445,11 +448,11 @@ export default function OrderPageContent() {
         { value: '250', label: locale === 'ru' ? '250 прокси' : '250 proxies' },
       ],
       periods: [
-        { value: 'weekly', label: locale === 'ru' ? '7 дней' : '7 days' },
-        { value: 'monthly', label: locale === 'ru' ? '1 месяц' : '1 month' },
-        { value: 'quarterly', label: locale === 'ru' ? '3 месяца' : '3 months' },
-        { value: 'yearly', label: locale === 'ru' ? '12 месяцев' : '12 months' },
-      ],
+        { value: 1, label: locale === 'ru' ? '1 месяц' : '1 month' },
+        { value: 3, label: locale === 'ru' ? '3 месяца' : '3 months' },
+        { value: 6, label: locale === 'ru' ? '6 месяцев' : '6 months' },
+        { value: 12, label: locale === 'ru' ? '12 месяцев' : '12 months' },
+      ] satisfies NumberOption[],
     };
 
     return base;
@@ -469,15 +472,20 @@ export default function OrderPageContent() {
     return Number.isNaN(parsed) ? 1 : Math.max(1, parsed);
   }, [configurationOptions]);
   const [quantity, setQuantity] = useState(defaultQuantityValue);
-  const [selectedPeriod, setSelectedPeriod] = useState(() => {
-    if (
-      initialDuration &&
-      configurationOptions.periods.some((option) => option.value === initialDuration)
-    ) {
-      return initialDuration;
+  const defaultMonthsValue = useMemo(
+    () => configurationOptions.periods[0]?.value ?? 1,
+    [configurationOptions.periods],
+  );
+  const [months, setMonths] = useState(() => {
+    if (initialDuration === 'yearly') {
+      return 12;
     }
 
-    return getDefaultOptionValue(configurationOptions.periods, 1);
+    if (initialDuration === 'monthly') {
+      return defaultMonthsValue;
+    }
+
+    return defaultMonthsValue;
   });
   const [autoRenew, setAutoRenew] = useState(true);
   const [activeProgressStep, setActiveProgressStep] = useState<1 | 2 | 3 | 4>(2);
@@ -486,56 +494,76 @@ export default function OrderPageContent() {
     setSelectedLocation(getDefaultOptionValue(configurationOptions.locations));
     setSelectedIsp(getDefaultOptionValue(configurationOptions.isps));
     setQuantity(defaultQuantityValue);
-    setSelectedPeriod(() => {
-      if (
-        initialDuration &&
-        configurationOptions.periods.some((option) => option.value === initialDuration)
-      ) {
-        return initialDuration;
+    setMonths(() => {
+      if (initialDuration === 'yearly') {
+        return 12;
       }
 
-      return getDefaultOptionValue(configurationOptions.periods, 1);
+      if (initialDuration === 'monthly') {
+        return defaultMonthsValue;
+      }
+
+      return defaultMonthsValue;
     });
     setAutoRenew(true);
-  }, [activeService, configurationOptions, defaultQuantityValue, initialDuration]);
+  }, [
+    activeService,
+    configurationOptions,
+    defaultMonthsValue,
+    defaultQuantityValue,
+    initialDuration,
+  ]);
 
   useEffect(() => {
-    if (
-      initialDuration &&
-      configurationOptions.periods.some((option) => option.value === initialDuration)
-    ) {
-      setSelectedPeriod(initialDuration);
+    if (initialDuration === 'yearly') {
+      setMonths(12);
+      return;
     }
-  }, [configurationOptions, initialDuration]);
+
+    if (initialDuration === 'monthly') {
+      setMonths(defaultMonthsValue);
+    }
+  }, [configurationOptions, defaultMonthsValue, initialDuration]);
 
   const unitAmount = activeTier?.priceAmount ?? 0;
   const hasUnitPrice = unitAmount > 0;
   const safeQuantity = Math.max(1, quantity);
-  const totalAmount = unitAmount * safeQuantity;
+  const scheme: BillingScheme = isRotatingService
+    ? 'traffic_tier_per_month'
+    : 'per_proxy_per_month';
+  const totalUsd = calcTotalUSD({
+    scheme,
+    unitPriceUsd: unitAmount,
+    proxies: safeQuantity,
+    tierTotalUsd: selectedRotatingTier?.total,
+    months,
+  });
   const unitPrice = hasUnitPrice
     ? fmtUsdByLocale(locale, unitAmount)
     : activeTier?.price ?? '—';
   const totalPrice = hasUnitPrice
-    ? fmtUsdByLocale(locale, totalAmount)
+    ? fmtUsdByLocale(locale, totalUsd)
     : activeTier?.price ?? '—';
-  const periodLabel = useMemo(
-    () =>
-      configurationOptions.periods.find((option) => option.value === selectedPeriod)?.label ?? '—',
-    [configurationOptions, selectedPeriod],
-  );
   const quantityLabel = useMemo(() => {
     if (locale === 'ru') {
       return `${safeQuantity} IP`;
     }
     return `${safeQuantity} ${safeQuantity === 1 ? 'IP' : 'IPs'}`;
   }, [locale, safeQuantity]);
+  const monthsLabel = useMemo(() => {
+    if (locale === 'ru') {
+      return pluralMonthsRu(months);
+    }
+
+    return `${months} ${months === 1 ? 'month' : 'months'}`;
+  }, [locale, months]);
   const autoRenewSummary = useMemo(() => {
     if (locale === 'ru') {
-      return autoRenew ? 'Автопродление включено' : 'Без автопродления';
+      return `Автопродление ${autoRenew ? 'включено' : 'выключено'}`;
     }
-    return autoRenew ? 'Auto renewal on' : 'Auto renewal off';
+    return `Auto renewal ${autoRenew ? 'on' : 'off'}`;
   }, [autoRenew, locale]);
-  const miniSummary = `${quantityLabel} • ${periodLabel} • ${autoRenewSummary}`;
+  const miniSummary = `${quantityLabel} • ${monthsLabel} • ${autoRenewSummary}`;
 
   const handleSelectService = useCallback((id: string) => {
     setServiceId(id);
@@ -596,12 +624,14 @@ export default function OrderPageContent() {
       prefs.plan = planId;
     }
 
-    if (selectedPeriod === 'monthly' || selectedPeriod === 'yearly') {
-      prefs.duration = selectedPeriod;
+    if (months === 1) {
+      prefs.duration = 'monthly';
+    } else if (months === 12) {
+      prefs.duration = 'yearly';
     }
 
     saveOrderPrefs(prefs);
-  }, [activeServiceId, activeTierId, selectedPeriod]);
+  }, [activeServiceId, activeTierId, months]);
 
   return (
     <div className="min-h-screen">
@@ -853,9 +883,10 @@ export default function OrderPageContent() {
                             {locale === 'ru' ? 'Временной период' : 'Billing period'}
                           </span>
                           <Select
-                            value={selectedPeriod}
+                            value={String(months)}
                             onChange={(event) => {
-                              setSelectedPeriod(event.target.value);
+                              const parsed = Number.parseInt(event.target.value, 10);
+                              setMonths(Number.isNaN(parsed) ? defaultMonthsValue : Math.max(1, parsed));
                               markSettingsStep();
                             }}
                           >
