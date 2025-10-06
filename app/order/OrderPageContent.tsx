@@ -10,6 +10,7 @@ import ProgressStepper from '@/components/order/ProgressStepper';
 import SummaryBarMobile from '@/components/order/SummaryBarMobile';
 import PriceLabel from '@/components/ui/PriceLabel';
 import StepperInput from '@/components/ui/StepperInput';
+import Select from '@/components/ui/Select';
 import { useLocale } from '../../components/LocaleContext';
 import { getOrderPage } from '../../lib/order';
 import { rotatingPricing } from '../../config/pricing';
@@ -770,20 +771,21 @@ export default function OrderPageContent() {
                               onKeyDown={handleTierKeyDown}
                               aria-pressed={isActive}
                             >
-                              <div className="min-h-[92px] space-y-2">
-                                <h3 className="text-lg font-medium leading-tight text-gray-900">{tier.name}</h3>
-                                {tier.subLabel && (
-                                  <span className="text-sm font-medium uppercase tracking-wide text-gray-500">
-                                    {tier.subLabel}
-                                  </span>
-                                )}
-                                {tier.headline && <span className={chipClass}>{tier.headline}</span>}
-                                <PriceLabel
-                                  locale={locale}
-                                  amount={amount}
-                                  unit={unitLabel}
-                                  className="mt-2"
-                                />
+                              <div className="grid min-h-[116px] grid-rows-[auto_1fr] gap-3">
+                                <div className="space-y-2">
+                                  <div className="flex items-center gap-2">
+                                    <h3 className="text-lg font-medium leading-tight text-gray-900">{tier.name}</h3>
+                                    {tier.headline && <span className={chipClass}>{tier.headline}</span>}
+                                  </div>
+                                  {tier.subLabel && (
+                                    <span className="text-sm font-medium uppercase tracking-wide text-gray-500">
+                                      {tier.subLabel}
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="self-end">
+                                  <PriceLabel locale={locale} amount={amount} unit={unitLabel} />
+                                </div>
                               </div>
                               {tier.description && (
                                 <p className="text-sm text-gray-600">{tier.description}</p>
@@ -809,8 +811,7 @@ export default function OrderPageContent() {
                           <span className="text-sm font-medium text-gray-700">
                             {locale === 'ru' ? 'Местоположение прокси' : 'Proxy location'}
                           </span>
-                          <select
-                            className="block w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                          <Select
                             value={selectedLocation}
                             onChange={(event) => {
                               setSelectedLocation(event.target.value);
@@ -822,12 +823,11 @@ export default function OrderPageContent() {
                                 {option.label}
                               </option>
                             ))}
-                          </select>
+                          </Select>
                         </label>
                         <label className="space-y-2">
                           <span className="text-sm font-medium text-gray-700">ISP</span>
-                          <select
-                            className="block w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                          <Select
                             value={selectedIsp}
                             onChange={(event) => {
                               setSelectedIsp(event.target.value);
@@ -839,7 +839,7 @@ export default function OrderPageContent() {
                                 {option.label}
                               </option>
                             ))}
-                          </select>
+                          </Select>
                         </label>
                         <StepperInput
                           className="space-y-2"
@@ -855,8 +855,7 @@ export default function OrderPageContent() {
                           <span className="text-sm font-medium text-gray-700">
                             {locale === 'ru' ? 'Временной период' : 'Billing period'}
                           </span>
-                          <select
-                            className="block w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus-visible:ring focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                          <Select
                             value={selectedPeriod}
                             onChange={(event) => {
                               setSelectedPeriod(event.target.value);
@@ -868,7 +867,7 @@ export default function OrderPageContent() {
                                 {option.label}
                               </option>
                             ))}
-                          </select>
+                          </Select>
                         </label>
                       </div>
                       <div className="space-y-2">
