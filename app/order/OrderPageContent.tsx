@@ -577,13 +577,6 @@ export default function OrderPageContent() {
     setActiveProgressStep(4);
   }, []);
 
-  const scrollToSection = useCallback((sectionId: string) => {
-    const node = document.getElementById(sectionId);
-    if (node) {
-      node.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, []);
-
   const activeServiceId = activeService?.id;
   const activeTierId = activeTier?.id;
 
