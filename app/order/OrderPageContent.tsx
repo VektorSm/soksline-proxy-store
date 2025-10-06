@@ -1003,15 +1003,15 @@ export default function OrderPageContent() {
               <h2 className="text-2xl font-semibold tracking-tight text-gray-900 md:text-3xl">
                 {page.copy.summary.title}
               </h2>
-              <dl className="mt-6 grid gap-y-2 sm:grid-cols-[140px_1fr] sm:gap-x-3">
-                <dt className="text-sm text-gray-500 sm:text-right">{page.copy.summary.serviceLabel}</dt>
-                <dd className="text-sm text-gray-900">{activeService?.card.title ?? '—'}</dd>
+              <dl className="mt-6 grid grid-cols-2 gap-x-3 gap-y-2">
+                <dt className="text-sm text-left text-gray-500">{page.copy.summary.serviceLabel}</dt>
+                <dd className="truncate text-right text-sm text-gray-900">{activeService?.card.title ?? '—'}</dd>
 
-                <dt className="text-sm text-gray-500 sm:text-right">{page.copy.summary.categoryLabel}</dt>
-                <dd className="text-sm text-gray-900">{activeCategory?.label ?? '—'}</dd>
+                <dt className="text-sm text-left text-gray-500">{page.copy.summary.categoryLabel}</dt>
+                <dd className="truncate text-right text-sm text-gray-900">{activeCategory?.label ?? '—'}</dd>
 
-                <dt className="text-sm text-gray-500 sm:text-right">{page.copy.summary.planLabel}</dt>
-                <dd className="text-sm font-medium text-gray-900">{activeTier?.name ?? '—'}</dd>
+                <dt className="text-sm text-left text-gray-500">{page.copy.summary.planLabel}</dt>
+                <dd className="truncate text-right text-sm font-medium text-gray-900">{activeTier?.name ?? '—'}</dd>
               </dl>
 
               <div className="mt-6 space-y-2">
