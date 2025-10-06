@@ -69,8 +69,11 @@ test('legal and contact/login pages render', async ({ page }) => {
 
 test('language switcher works on stubs', async ({ page }) => {
   await page.goto('/aml');
-  await page.getByRole('main').getByRole('button', { name: 'RU' }).click();
+  const header = page.getByRole('banner');
+
+  await header.getByRole('button', { name: 'RU' }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'AML Политика' })).toBeVisible();
+
   await page.reload();
   await expect(page.getByRole('heading', { level: 1, name: 'AML Политика' })).toBeVisible();
 });
