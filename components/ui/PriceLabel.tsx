@@ -21,11 +21,22 @@ export default function PriceLabel({
     return formattedParts(nf, locale);
   }, [amount, locale]);
 
+  const currencyFirst = locale !== 'ru';
+
   return (
     <div className={className}>
       <div className="flex items-baseline gap-1 text-gray-900 [font-variant-numeric:tabular-nums]">
-        <span className="text-2xl font-semibold leading-none">{formatted.value}</span>
-        <span className="text-base font-medium leading-none">{formatted.currency}</span>
+        {currencyFirst ? (
+          <>
+            <span className="text-base font-medium leading-none">{formatted.currency}</span>
+            <span className="text-2xl font-semibold leading-none">{formatted.value}</span>
+          </>
+        ) : (
+          <>
+            <span className="text-2xl font-semibold leading-none">{formatted.value}</span>
+            <span className="text-base font-medium leading-none">{formatted.currency}</span>
+          </>
+        )}
       </div>
       <div className="mt-1 text-sm text-gray-500 whitespace-nowrap">{unit}</div>
     </div>
