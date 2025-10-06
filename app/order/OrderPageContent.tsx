@@ -487,7 +487,7 @@ export default function OrderPageContent() {
 
     return defaultMonthsValue;
   });
-  const [autoRenew, setAutoRenew] = useState(true);
+  const [autoRenew, setAutoRenew] = useState(false);
   const [activeProgressStep, setActiveProgressStep] = useState<1 | 2 | 3 | 4>(2);
 
   useEffect(() => {
@@ -505,7 +505,7 @@ export default function OrderPageContent() {
 
       return defaultMonthsValue;
     });
-    setAutoRenew(true);
+    setAutoRenew(false);
   }, [
     activeService,
     configurationOptions,
