@@ -1,14 +1,12 @@
 import { test, expect } from '@playwright/test';
 
-const routes = ['/aml', '/privacy', '/tos', '/aup', '/refund'];
+const legacyRoutes = ['/privacy', '/tos', '/aup', '/refund'];
 
-test('legal pages render EN by default with ToC items linking to anchors', async ({ page }) => {
-  for (const r of routes) {
+test('legacy legal pages render EN by default with ToC items linking to anchors', async ({ page }) => {
+  for (const r of legacyRoutes) {
     await page.goto(r);
-    // h1 present
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
-    // ToC exists and first link scrolls to a section
     const toc = page.getByRole('navigation', { name: /Contents/i });
     await expect(toc).toBeVisible();
     const firstLink = toc.locator('a').first();
@@ -19,7 +17,16 @@ test('legal pages render EN by default with ToC items linking to anchors', async
   }
 });
 
-test('RU locale shows RU titles', async ({ page }) => {
-  await page.goto('/aml?lang=ru');
-  await expect(page.getByRole('heading', { level: 1, name: 'AML Политика' })).toBeVisible();
+test('AML policy page exposes metadata, version badge, and print action', async ({ page }) => {
+  await page.goto('/aml');
+
+  const heading = page.getByRole('heading', {
+    level: 1,
+    name: 'AML / ПОД–ФТ Политика — v1.2 (MAIN)',
+  });
+  await expect(heading).toBeVisible();
+
+  await expect(page.getByText('Последнее обновление:', { exact: false })).toBeVisible();
+  await expect(page.getByText('v1.2 (MAIN)', { exact: false })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Print this page' })).toBeVisible();
 });

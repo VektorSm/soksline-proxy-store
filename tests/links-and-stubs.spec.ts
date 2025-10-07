@@ -9,7 +9,7 @@ const docsMenu: Array<{ href: string; label: string }> = [
   { href: '/refund', label: 'Refunds' },
 ];
 const stubHeadings: Record<string, string> = {
-  '/aml': 'AML Policy',
+  '/aml': 'AML / ПОД–ФТ Политика — v1.2 (MAIN)',
   '/privacy': 'Privacy Policy',
   '/tos': 'Terms of Service',
   '/aup': 'Acceptable Use Policy',
@@ -72,8 +72,18 @@ test('language switcher works on stubs', async ({ page }) => {
   const header = page.getByRole('banner');
 
   await header.getByRole('button', { name: 'RU' }).click();
-  await expect(page.getByRole('heading', { level: 1, name: 'AML Политика' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', {
+      level: 1,
+      name: 'AML / ПОД–ФТ Политика — v1.2 (MAIN)',
+    }),
+  ).toBeVisible();
 
   await page.reload();
-  await expect(page.getByRole('heading', { level: 1, name: 'AML Политика' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', {
+      level: 1,
+      name: 'AML / ПОД–ФТ Политика — v1.2 (MAIN)',
+    }),
+  ).toBeVisible();
 });
