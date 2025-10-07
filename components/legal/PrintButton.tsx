@@ -20,7 +20,7 @@ export default function PrintButton({ className }: PrintButtonProps) {
       className={className}
       aria-label="Print this page"
     >
-      Print
+      Print this page
     </button>
   );
 }
