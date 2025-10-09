@@ -74,8 +74,16 @@
           "id": "details",
           "title": "Company and accountability",
           "paragraphs": [
-            "Company / Brand: CODE DESIGN LTD / SoksLine. Incorporation jurisdiction: United Kingdom (England & Wales). Company number: 16676185. Registered office: 61 Bridge Street, Kington, Herefordshire, HR5 3DJ, United Kingdom.",
-            "Responsible person (MLRO/Compliance Officer): Nicolae Buiuc (Director) — soksline@soksline.store."
+            {
+              "type": "list",
+              "items": [
+                "**Company / Brand:** CODE DESIGN LTD / SoksLine.",
+                "**Jurisdiction:** United Kingdom (England & Wales).",
+                "**Company number:** 16676185.",
+                "**Registered office:** 61 Bridge Street, Kington, Herefordshire, HR5 3DJ, United Kingdom.",
+                "**Responsible person (MLRO/Compliance Officer):** Nicolae Buiuc (Director) — soksline@soksline.store."
+              ]
+            }
           ]
         },
         {
@@ -97,50 +105,80 @@
           "id": "basis",
           "title": "2) Legal basis (UK, plain language)",
           "paragraphs": [
-            "We rely on the Money Laundering Regulations 2017 (as amended), Proceeds of Crime Act 2002 (POCA), Terrorism Act 2000, and the Sanctions and Anti-Money Laundering Act 2018.",
-            "For sanctions we follow OFSI listings (HMT Consolidated List)."
+            {
+              "type": "list",
+              "items": [
+                "**Statutes:** Money Laundering Regulations 2017 (as amended), Proceeds of Crime Act 2002 (POCA), Terrorism Act 2000, Sanctions and Anti-Money Laundering Act 2018.",
+                "**Sanctions:** we follow OFSI listings (HMT Consolidated List)."
+              ]
+            }
           ]
         },
         {
           "id": "roles",
           "title": "3) Roles and contacts",
           "paragraphs": [
-            "MLRO: implements processes, trains the team, responds to provider/regulator requests, files SARs with the NCA (UKFIU). Contact: Nicolae Buiuc — soksline@soksline.store.",
-            "Operations and support: follow checklists and escalate cases to the MLRO."
+            {
+              "type": "list",
+              "items": [
+                "**MLRO:** implements processes, trains the team, answers provider/regulator requests, files SARs with the NCA (UKFIU). Contact: Nicolae Buiuc — soksline@soksline.store.",
+                "**Operations & support:** follow checklists and escalate cases to the MLRO."
+              ]
+            }
           ]
         },
         {
           "id": "onboarding",
           "title": "4) Onboarding and KYC — three levels",
           "paragraphs": [
-            "L0 (basic, no ID, crypto-allowed): limits up to £250 per 30 days and no more than 3 transactions per day. Payment: crypto-only via NOWPayments. KYT: mandatory pre-activation based on txid/address (AMLBot or equivalent). Default coins/networks: BTC and USDT-TRC20 (no privacy coins). Refund: strict refund-to-origin via the provider or back to the originating address/wallet. Geo/sanctions: blocklists based on OFSI and high-risk countries.",
-            "L1 (standard, CDD): limits up to £5,000 per month. Requirements: full name, date of birth, country; identity document (photo/scan) plus simple liveness/face match via a KYC provider. Payments: crypto via NOWPayments (Travel Rule handled by the provider).",
-            "L2 (enhanced, EDD): for larger volumes or higher risks. Additional checks: proof of address and/or source of funds/wealth, video verification if needed. Individual limits are set by the MLRO."
+            {
+              "type": "list",
+              "items": [
+                "**L0 (basic, no ID, crypto-allowed):** limits up to £250 per 30 days and ≤ 3 transactions per day. Payment: crypto-only via NOWPayments. KYT: mandatory pre-activation based on txid/address (AMLBot or equivalent). Default coins/networks: BTC and USDT-TRC20 (no privacy coins). Refund: strict refund-to-origin via the provider or back to the originating address/wallet. Geo/sanctions: blocklists aligned with OFSI and high-risk countries.",
+                "**L1 (standard, CDD):** limits up to £5,000 per month. Requirements: full name, date of birth, country; identity document (photo/scan) plus simple liveness/face match via a KYC provider. Payments: crypto via NOWPayments (Travel Rule handled by the provider).",
+                "**L2 (enhanced, EDD):** for larger volumes or higher risks. Additional checks: proof of address and/or source of funds/wealth, video verification if needed. Individual limits are set by the MLRO."
+              ]
+            }
           ]
         },
         {
           "id": "payments",
           "title": "5) Payments and security",
           "paragraphs": [
-            "Mode: crypto-only via NOWPayments with no fiat settlement.",
-            "IPN/webhook: verify the HMAC-SHA512 signature, extract status and txid, trigger KYT, take a decision (auto / hold / refund) per SOP.",
-            "We do not accept direct on-chain payments to our wallets."
+            {
+              "type": "list",
+              "items": [
+                "**Mode:** crypto-only via NOWPayments with no fiat settlement.",
+                "**IPN/webhook:** verify the HMAC-SHA512 signature, extract status and txid, trigger KYT, take a decision (auto / hold / refund) per SOP.",
+                "**Direct on-chain payments** to our wallets are not accepted."
+              ]
+            }
           ]
         },
         {
           "id": "monitoring",
           "title": "6) Monitoring and red flags",
           "paragraphs": [
-            "We watch for serial refunds, mass logins via anonymizers tied to prohibited use, sudden surges in IP volumes, and attempts to bypass sanctions or geoblocks.",
-            "If triggered: pause the case, request brief explanations or documents, escalate to the MLRO."
+            {
+              "type": "list",
+              "items": [
+                "**What we monitor:** serial refunds, mass logins via anonymizers linked to prohibited use, sudden spikes in IP volumes, attempts to bypass sanctions or geoblocks.",
+                "**Response:** pause, request short explanations or documents, escalate to the MLRO."
+              ]
+            }
           ]
         },
         {
           "id": "sar",
           "title": "7) SAR/STR",
           "paragraphs": [
-            "Where we have reasonable suspicion, the MLRO files a SAR with the NCA (UKFIU) and requests a DAML if required.",
-            "We comply with tipping-off restrictions."
+            {
+              "type": "list",
+              "items": [
+                "**SAR:** where we have reasonable suspicion, the MLRO files a SAR with the NCA (UKFIU) and requests a DAML if needed.",
+                "**Tipping-off:** we comply with the prohibition on alerting customers."
+              ]
+            }
           ]
         },
         {
@@ -161,31 +199,47 @@
           "id": "updates",
           "title": "10) Policy updates",
           "paragraphs": [
-            "We review the policy annually or when products, geographies, or providers change.",
-            "Version: v1.2 (MAIN) — updated 9 May 2024."
+            {
+              "type": "list",
+              "items": [
+                "**When we update:** annually or when products, geographies, or providers change.",
+                "**Version:** v1.2 (MAIN) — updated 9 May 2024."
+              ]
+            }
           ]
         },
         {
           "id": "checklists",
           "title": "Quick checklists",
           "paragraphs": [
-            "When L0 (no ID) is acceptable: amount ≤ £250 per 30 days, ≤ 3 transactions per day, coin = BTC or USDT-TRC20, KYT score ≤ 50, no risk tags (sanctions/mixer/darknet), no privacy coins, geography not on the blocklist. Action: activate after at least 1 network confirmation and a valid IPN.",
-            "When L1 is required: amount > £250 per 30 days, or more than 3 transactions per day, or KYT = 51–74, or no txid/address for KYT, or atypical behaviour. Action: place on HOLD and run the short KYC (L1).",
-            "When to decline/refund: KYT score ≥ 75 or sanctions/mixer/darknet tags, privacy coins, attempts to bypass sanctions or geoblocks. Action: decline/refund-to-origin plus logging and escalation to the MLRO.",
-            "Escalation path: MLRO — Nicolae Buiuc (Director), e-mail: soksline@soksline.store."
+            {
+              "type": "list",
+              "items": [
+                "**When L0 (no ID) is acceptable:** amount ≤ £250 per 30 days, ≤ 3 transactions per day, coin = BTC or USDT-TRC20, KYT score ≤ 50, no risk tags (sanctions/mixer/darknet), no privacy coins, geography not on the blocklist. **Action:** activate after at least 1 network confirmation and a valid IPN.",
+                "**When L1 is required:** amount > £250 per 30 days, more than 3 transactions per day, KYT = 51–74, missing txid/address for KYT, or atypical behaviour. **Action:** place on HOLD and run the short KYC (L1).",
+                "**When to decline/refund:** KYT score ≥ 75 or sanctions/mixer/darknet tags, privacy coins, attempts to bypass sanctions or geoblocks. **Action:** decline/refund-to-origin plus logging and MLRO escalation."
+              ]
+            },
+            "**Escalation path:** MLRO — Nicolae Buiuc (Director), e-mail: soksline@soksline.store."
           ]
         },
         {
           "id": "appendix-f",
           "title": "Appendix F — Crypto-only via NOWPayments (SOP summary)",
           "paragraphs": [
-            "F1. Configuration: enable IPN, set ipn_callback_url (prod/stage), generate API_KEY and IPN_SECRET (stored in .env). Enable BTC and USDT-TRC20; the MLRO may extend the list.",
-            "F2. Flow: invoice → payment → IPN (waiting/confirming/finished/failed/expired) → webhook: verify HMAC, extract txid, run KYT, decide.",
-            "F3. KYT thresholds (default): ≤ 50 — auto activation; 51–74 — HOLD; ≥ 75 — decline.",
-            "F4. Refund: refund-to-origin only (via the provider or back to the inbound address/wallet).",
-            "F5. Logs: store order_id, payment_id, network/coin, amounts, statuses, txid/addresses, KYT result, decision, timestamps (retention up to 5 years).",
-            "F6. Communication: auto templates for expired/underpaid; HOLD triggers a short review notice.",
-            "F7. L0 hard rules: £250 per 30 days, ≤ 3 transactions per day, BTC/USDT-TRC20 only, no privacy coins, mandatory KYT ≤ 50."
+            {
+              "type": "list",
+              "items": [
+                "**F1. Configuration:** enable IPN, set ipn_callback_url (prod/stage), generate API_KEY and IPN_SECRET (stored in .env). Enable BTC and USDT-TRC20; the MLRO may extend the list.",
+                "**F2. Flow:** invoice → payment → IPN (waiting/confirming/finished/failed/expired) → webhook: verify HMAC, extract txid, run KYT, decide.",
+                "**F3. KYT thresholds (default):** ≤ 50 — auto activation; 51–74 — HOLD; ≥ 75 — decline.",
+                "**F4. Refund:** refund-to-origin only (via the provider or back to the inbound address/wallet).",
+                "**F5. Logs:** store order_id, payment_id, network/coin, amounts, statuses, txid/addresses, KYT result, decision, timestamps (retention up to 5 years).",
+                "**F6. Communication:** auto templates for expired/underpaid; HOLD triggers a short review notice.",
+                "**F7. L0 hard rules:** £250 per 30 days, ≤ 3 transactions per day, BTC/USDT-TRC20 only, no privacy coins, mandatory KYT ≤ 50."
+              ]
+            },
+            "**Escalation path:** MLRO — Nicolae Buiuc (Director), e-mail: soksline@soksline.store."
           ]
         }
       ]

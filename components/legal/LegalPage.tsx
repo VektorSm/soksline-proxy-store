@@ -1,8 +1,19 @@
 'use client';
+import { Fragment } from 'react';
 import Section from '@/components/layout/Section';
 import Toc from './Toc';
 
-type Section = { id: string; title: string; paragraphs: string[] };
+type ListItem = string | { text: string; subItems?: string[] };
+
+type Paragraph =
+  | string
+  | {
+      type: 'list';
+      ordered?: boolean;
+      items: ListItem[];
+    };
+
+type Section = { id: string; title: string; paragraphs: Paragraph[] };
 type LegalDict = {
   title: string;
   disclaimer?: string;
@@ -10,6 +21,65 @@ type LegalDict = {
   sections: Section[];
   backToTopLabel?: string;
 };
+
+function renderRichText(text: string) {
+  const boldPattern = /\*\*([^*]+)\*\*/g;
+
+  return text.split('\n').map((line, lineIndex) => (
+    <Fragment key={`line-${lineIndex}`}>
+      {lineIndex > 0 && <br />}
+      {line.split(boldPattern).map((part, index) => {
+        if (index % 2 === 1) {
+          return (
+            <strong key={`bold-${lineIndex}-${index}`} className="font-semibold">
+              {part}
+            </strong>
+          );
+        }
+        return <Fragment key={`text-${lineIndex}-${index}`}>{part}</Fragment>;
+      })}
+    </Fragment>
+  ));
+}
+
+function renderListItem(item: ListItem, index: number) {
+  if (typeof item === 'string') {
+    return <li key={index}>{renderRichText(item)}</li>;
+  }
+
+  return (
+    <li key={index}>
+      {renderRichText(item.text)}
+      {item.subItems?.length ? (
+        <ul className="mt-2 ml-5 list-disc space-y-1">
+          {item.subItems.map((subItem, subIndex) => (
+            <li key={subIndex}>{renderRichText(subItem)}</li>
+          ))}
+        </ul>
+      ) : null}
+    </li>
+  );
+}
+
+function renderParagraph(paragraph: Paragraph, index: number) {
+  if (typeof paragraph === 'string') {
+    return (
+      <p key={index} className="opacity-90">
+        {renderRichText(paragraph)}
+      </p>
+    );
+  }
+
+  const ListTag = (paragraph.ordered ? 'ol' : 'ul') as 'ol' | 'ul';
+  const listClass = paragraph.ordered ? 'list-decimal' : 'list-disc';
+  const listClasses = `${listClass} ml-5 space-y-2`;
+
+  return (
+    <ListTag key={index} className={listClasses}>
+      {paragraph.items.map((item, itemIndex) => renderListItem(item, itemIndex))}
+    </ListTag>
+  );
+}
 
 export default function LegalPage({ dict }: { dict: LegalDict }) {
   const sections = dict.sections ?? [];
@@ -33,11 +103,9 @@ export default function LegalPage({ dict }: { dict: LegalDict }) {
             {sections.map((s) => (
               <section key={s.id} id={s.id} className="scroll-mt-24">
                 <h2 className="mt-8 mb-2 text-xl font-medium">{s.title}</h2>
-                {s.paragraphs?.map((p, i) => (
-                  <p key={i} className="opacity-90">
-                    {p}
-                  </p>
-                ))}
+                <div className="space-y-3">
+                  {s.paragraphs?.map((paragraph, index) => renderParagraph(paragraph, index))}
+                </div>
               </section>
             ))}
 
