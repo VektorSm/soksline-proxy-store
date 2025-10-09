@@ -1,5 +1,5 @@
 'use client';
-import { Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 import Section from '@/components/layout/Section';
 import Toc from './Toc';
 
@@ -22,22 +22,75 @@ type LegalDict = {
   backToTopLabel?: string;
 };
 
-function renderRichText(text: string) {
+function renderBoldSegments(text: string, keyPrefix: string) {
   const boldPattern = /\*\*([^*]+)\*\*/g;
+  const elements: ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let segmentIndex = 0;
 
+  while ((match = boldPattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      elements.push(
+        <Fragment key={`${keyPrefix}-text-${segmentIndex++}`}>
+          {text.slice(lastIndex, match.index)}
+        </Fragment>,
+      );
+    }
+    elements.push(
+      <strong key={`${keyPrefix}-bold-${segmentIndex++}`} className="font-semibold">
+        {match[1]}
+      </strong>,
+    );
+    lastIndex = boldPattern.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    elements.push(
+      <Fragment key={`${keyPrefix}-text-${segmentIndex++}`}>{text.slice(lastIndex)}</Fragment>,
+    );
+  }
+
+  return elements;
+}
+
+function renderLineSegments(line: string, keyPrefix: string) {
+  const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const elements: ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let segmentIndex = 0;
+
+  while ((match = linkPattern.exec(line)) !== null) {
+    if (match.index > lastIndex) {
+      const prefix = `${keyPrefix}-text-${segmentIndex++}`;
+      elements.push(...renderBoldSegments(line.slice(lastIndex, match.index), prefix));
+    }
+
+    const linkKey = `${keyPrefix}-link-${segmentIndex++}`;
+    const linkChildren = renderBoldSegments(match[1], `${linkKey}-content`);
+    elements.push(
+      <a key={linkKey} href={match[2]} className="text-blue-600 underline">
+        {linkChildren}
+      </a>,
+    );
+
+    lastIndex = linkPattern.lastIndex;
+  }
+
+  if (lastIndex < line.length) {
+    const prefix = `${keyPrefix}-text-${segmentIndex++}`;
+    elements.push(...renderBoldSegments(line.slice(lastIndex), prefix));
+  }
+
+  return elements;
+}
+
+function renderRichText(text: string) {
   return text.split('\n').map((line, lineIndex) => (
     <Fragment key={`line-${lineIndex}`}>
       {lineIndex > 0 && <br />}
-      {line.split(boldPattern).map((part, index) => {
-        if (index % 2 === 1) {
-          return (
-            <strong key={`bold-${lineIndex}-${index}`} className="font-semibold">
-              {part}
-            </strong>
-          );
-        }
-        return <Fragment key={`text-${lineIndex}-${index}`}>{part}</Fragment>;
-      })}
+      {renderLineSegments(line, `line-${lineIndex}`)}
     </Fragment>
   ));
 }

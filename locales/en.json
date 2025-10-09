@@ -226,58 +226,146 @@
     },
     "privacy": {
       "title": "Privacy Policy",
-      "disclaimer": "Template content for product staging. This is not legal advice.",
-      "intro": "This Privacy Policy explains what data we process and why.",
+      "intro": "**Last updated:** 09 October 2025",
       "backToTopLabel": "Back to top",
       "sections": [
         {
-          "id": "data",
-          "title": "Data we may process",
+          "id": "who-we-are",
+          "title": "Who we are",
           "paragraphs": [
-            "Account details (email), billing records, support messages, basic usage logs.",
-            "We do not intentionally collect sensitive categories of data."
+            "SoksLine (“we”, “us”, “our”) provides SOCKS/ISP proxy services."
           ]
         },
         {
-          "id": "purpose",
-          "title": "Purposes",
+          "id": "data-controller",
+          "title": "Data Controller",
           "paragraphs": [
-            "Service delivery, billing, customer support, security and fraud prevention, legal compliance."
+            "[CONTROLLER_LEGAL_NAME], [Registration/Company No. if applicable]\n[Registered Address]\n(trading as “SoksLine”)\n**Privacy contact:** support@soksline.store / soksline@soksline.store"
           ]
         },
         {
-          "id": "legal-basis",
-          "title": "Legal bases",
+          "id": "what-data-we-collect",
+          "title": "What data we collect",
           "paragraphs": [
-            "Performance of a contract, legitimate interests, legal obligations, and consent where applicable."
+            {
+              "type": "list",
+              "items": [
+                "**Account & Contact:** email, name (optional), country (if provided), support messages.",
+                "**Orders & Billing:** chosen plan, duration, invoices, payment status, crypto transaction details (e.g., transaction hash, paid amount/asset) as received from our payment processor.",
+                "**Network Service Data:** whitelist IPs, assigned endpoints, authentication attempts (success/failure), timestamps, usage totals/counters. We **do not** inspect or store your traffic content; we process only connection metadata required to run the service and prevent abuse.",
+                "**Anti-fraud & AML:** wallet-risk signals and screening results where required to accept payments and comply with law.",
+                "**Technical logs:** device/browser info, diagnostics, and error logs."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sources",
+          "title": "Where we get data from",
+          "paragraphs": [
+            "From you (account/order/support), from our payment processor (NOWPayments) and AML screening where applicable, and from our infrastructure (security/connection logs)."
+          ]
+        },
+        {
+          "id": "legal-bases",
+          "title": "Why we process data (legal bases)",
+          "paragraphs": [
+            {
+              "type": "list",
+              "items": [
+                "**Contract** — to register your account, deliver the proxy service, provide support, and issue invoices.",
+                "**Legal obligation** — to meet accounting, tax and AML requirements.",
+                "**Legitimate interests** — to secure our systems, combat fraud/abuse, and improve reliability (balanced against your rights).",
+                "**Consent** — only for optional communications not strictly necessary for the service (you can withdraw at any time)."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cookies-tracking",
+          "title": "Cookies & tracking",
+          "paragraphs": [
+            "We use only **strictly necessary** cookies/local storage for session, checkout/cart and language preferences. We do **not** use analytics or advertising trackers by default. If this changes, we will request consent and update this Policy."
           ]
         },
         {
           "id": "retention",
           "title": "Retention",
           "paragraphs": [
-            "We keep data only as long as needed for the above purposes or as required by law."
+            {
+              "type": "list",
+              "items": [
+                "Account & billing records: up to **6 years** (accounting/legal).",
+                "Connection/authentication metadata: up to **30 days** (security/abuse handling), unless we must preserve evidence longer.",
+                "AML/payment screening records: up to **5 years** or as required by applicable law.",
+                "We may keep minimal records where necessary to establish, exercise, or defend legal claims."
+              ]
+            }
           ]
         },
         {
-          "id": "sharing",
-          "title": "Sharing",
+          "id": "sharing-processors",
+          "title": "Sharing & processors",
           "paragraphs": [
-            "We may share limited data with processors (e.g., payment/infrastructure providers) under appropriate safeguards."
+            "We share data with trusted providers acting under written agreements:",
+            {
+              "type": "list",
+              "items": [
+                "**Crypto payments:** NOWPayments — processes payment and AML/KYC data pursuant to its own policies.",
+                "**Billing/Client portal:** WHMCS — provides client area/checkout and GDPR-aligned data export/erasure workflows.",
+                "**Upstream proxy supplier:** [UPSTREAM_PROVIDER_NAME] (if used) — service enablement and abuse prevention tooling."
+              ]
+            },
+            "We may disclose information if required by law or competent authority."
           ]
         },
         {
-          "id": "cookies",
-          "title": "Cookies",
+          "id": "international-transfers",
+          "title": "International transfers",
           "paragraphs": [
-            "We do not use cookies for tracking on this site at this time."
+            "Some providers may be located outside the EEA/UK. For such transfers we rely on appropriate safeguards (e.g., EU **SCCs** and/or UK **IDTA**) and additional measures as needed."
           ]
         },
         {
-          "id": "rights",
+          "id": "your-rights",
           "title": "Your rights",
           "paragraphs": [
-            "You may contact us to access, correct, or request deletion of your personal data where applicable."
+            "You can request **access, rectification, erasure, restriction, portability**, and **object** to certain processing; you can withdraw consent at any time (for consent-based uses). To exercise any rights, contact us at support@soksline.store. You can also complain to your local data protection authority."
+          ]
+        },
+        {
+          "id": "security",
+          "title": "Security",
+          "paragraphs": [
+            "We use technical and organisational measures (encryption in transit, access controls, least-privilege, logging/monitoring). No method is 100% secure, but we continuously improve safeguards."
+          ]
+        },
+        {
+          "id": "children",
+          "title": "Children",
+          "paragraphs": [
+            "Our services are for users **18+** only."
+          ]
+        },
+        {
+          "id": "automated-decision-making",
+          "title": "Automated decision-making",
+          "paragraphs": [
+            "We do not make decisions producing legal or similarly significant effects solely by automated means."
+          ]
+        },
+        {
+          "id": "aml-compliance",
+          "title": "AML compliance",
+          "paragraphs": [
+            "For details on AML screening and wallet-risk checks in the payment flow, see our [**/aml**](/aml) page."
+          ]
+        },
+        {
+          "id": "changes",
+          "title": "Changes",
+          "paragraphs": [
+            "We’ll post updates on this page and revise the “Last updated” date. Material changes will be reasonably highlighted in advance."
           ]
         }
       ]
