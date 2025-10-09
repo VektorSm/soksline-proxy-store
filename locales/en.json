@@ -536,30 +536,132 @@
     },
     "aup": {
       "title": "Acceptable Use Policy (AUP)",
-      "disclaimer": "Template content for product staging. This is not legal advice.",
-      "intro": "Rules for acceptable and prohibited activities.",
       "backToTopLabel": "Back to top",
       "sections": [
         {
-          "id": "allowed",
-          "title": "Allowed",
+          "id": "overview",
+          "title": "Overview",
           "paragraphs": [
-            "Legitimate testing, scraping where permitted by target terms, ad verification, price comparison, SEO research."
+            "Last updated: 09 October 2025",
+            "This Acceptable Use Policy (\"Policy\") governs how you may access and use the SoksLine residential proxy services operated by [CONTROLLER_LEGAL_NAME] (\"SoksLine\", \"we\", \"us\"). It applies to every account, end user, and integration that connects to the service.",
+            "This Policy forms part of and must be read together with our [Terms of Service](/tos), [Privacy Notice](/privacy), and [AML & KYC Policy](/aml). If you disagree with any requirement you must not use the services.",
+            "We rely on network capacity supplied by [UPSTREAM_PROVIDER_NAME]. You are responsible for ensuring that your use of those upstream resources complies with both this Policy and any additional requirements the upstream provider may publish."
+          ]
+        },
+        {
+          "id": "scope",
+          "title": "Who must comply",
+          "paragraphs": [
+            "This Policy binds:",
+            {
+              "type": "list",
+              "items": [
+                "Primary customers purchasing or testing SoksLine services.",
+                "Authorized users acting on behalf of a customer, including employees, contractors, and service providers.",
+                "Any downstream client or integration that routes traffic through a customer's SoksLine resources."
+              ]
+            },
+            "You must ensure that every person who gains access through your account is aware of and complies with this Policy."
+          ]
+        },
+        {
+          "id": "permitted",
+          "title": "Permitted activities",
+          "paragraphs": [
+            "SoksLine is designed for legitimate business use cases that respect applicable law, target terms, and data subject rights. Examples of acceptable purposes include:",
+            {
+              "type": "list",
+              "items": [
+                "Brand protection, digital due diligence, and fraud-prevention investigations carried out with appropriate authorization.",
+                "Price comparison, availability monitoring, advertising verification, and SEO research in compliance with target site rules.",
+                "Quality assurance, performance testing, and cybersecurity research that does not exploit or degrade third-party systems.",
+                "Other research or analytics projects that do not interfere with, harm, or deceive individuals, infrastructure, or platforms."
+              ]
+            }
           ]
         },
         {
           "id": "prohibited",
-          "title": "Prohibited",
+          "title": "Prohibited conduct",
           "paragraphs": [
-            "Spam, fraud, malware, phishing, credential stuffing, violation of privacy, harassment, IP infringement.",
-            "Use conflicting with sanctions or illegal in your jurisdiction."
+            "The following uses are strictly prohibited and may result in immediate suspension or termination:",
+            {
+              "type": "list",
+              "items": [
+                {
+                  "text": "**Illegal or harmful activity**: Engaging in or facilitating unlawful, fraudulent, or deceptive practices, including sanctions violations, money laundering, human trafficking, child sexual abuse material, or the distribution of controlled substances."
+                },
+                {
+                  "text": "**Security abuse**: Launching or enabling denial-of-service attacks, botnets, credential stuffing, brute-force attempts, port scanning without consent, or distributing malware, spyware, or ransomware."
+                },
+                {
+                  "text": "**Privacy violations**: Collecting, processing, or sharing personal data without a lawful basis; scraping or profiling sensitive categories of personal data; bypassing consent tools; or attempting to deanonymize individuals."
+                },
+                {
+                  "text": "**Impersonation and deception**: Masquerading as another person or organization, generating misleading traffic, creating fake accounts, or using the services to spam, phish, or harvest credentials."
+                },
+                {
+                  "text": "**Intellectual property infringement**: Circumventing technical protection measures, copying proprietary content at scale, or otherwise violating third-party intellectual property rights."
+                },
+                {
+                  "text": "**Interference with platforms**: Degrading, disrupting, or exploiting target websites, applications, APIs, or networks; violating published rate limits or robots.txt directives; or reverse engineering systems without permission."
+                },
+                {
+                  "text": "**High-risk or regulated uses**: Activities related to gambling, adult entertainment, weapons, or other regulated industries without appropriate licensing and written approval from SoksLine."
+                },
+                {
+                  "text": "**Subverting compliance**: Attempting to conceal the origin of traffic to bypass anti-abuse controls, sanctions screening, know-your-customer obligations, or law-enforcement requirements."
+                }
+              ]
+            }
           ]
         },
         {
-          "id": "security",
-          "title": "Security & abuse",
+          "id": "obligations",
+          "title": "Customer responsibilities",
           "paragraphs": [
-            "We may rate-limit, block, or suspend traffic that threatens network integrity."
+            "You must maintain accurate account and contact information, implement appropriate security for any credentials we provide, and promptly update us if your ownership or control changes.",
+            "Upon request you must provide documentation demonstrating compliance with this Policy, including the nature of your use case, relevant client contracts, and any required regulatory approvals or consents.",
+            "If you become aware of a violation or suspected violation, you must immediately stop the offending activity, notify SoksLine, and cooperate with any investigation."
+          ]
+        },
+        {
+          "id": "network-integrity",
+          "title": "Network integrity and monitoring",
+          "paragraphs": [
+            "We may monitor traffic patterns, metadata, and abuse indicators to protect our infrastructure, [UPSTREAM_PROVIDER_NAME]'s resources, and affected third parties. Monitoring is limited to what is necessary to maintain service integrity and comply with law.",
+            "SoksLine may rate-limit, filter, or block traffic that threatens the stability of our network or upstream providers. We may also require you to implement technical controls, such as traffic throttling, IP whitelisting, or rotating identifiers."
+          ]
+        },
+        {
+          "id": "legal",
+          "title": "Compliance with law and third-party terms",
+          "paragraphs": [
+            "You are solely responsible for ensuring that your use of the services complies with all applicable laws, regulations, court orders, and third-party contractual obligations in every relevant jurisdiction.",
+            "If a platform, website, or data source informs you that your activity is unauthorized or must stop, you must immediately cease the activity and notify SoksLine."
+          ]
+        },
+        {
+          "id": "enforcement",
+          "title": "Enforcement and remedies",
+          "paragraphs": [
+            "We may suspend or terminate access, remove configurations, or refuse future service if you breach this Policy or create an undue risk to SoksLine, [UPSTREAM_PROVIDER_NAME], or others.",
+            "We may share relevant information with upstream providers, affected platforms, regulators, or law enforcement where legally required or where necessary to prevent harm.",
+            "You are liable for any losses, claims, penalties, or reasonable costs (including legal fees) arising from your or your end users' violation of this Policy."
+          ]
+        },
+        {
+          "id": "changes",
+          "title": "Changes to this Policy",
+          "paragraphs": [
+            "We may update this Policy from time to time. Material changes will be posted at /aup with a revised \"Last updated\" date. Your continued use of the services after a change becomes effective constitutes acceptance of the updated Policy."
+          ]
+        },
+        {
+          "id": "contact",
+          "title": "Contact",
+          "paragraphs": [
+            "For questions about this Policy or to report misuse, contact us at **support@soksline.store** or via your account manager."
           ]
         }
       ]
