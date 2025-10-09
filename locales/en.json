@@ -371,66 +371,165 @@
       ]
     },
     "tos": {
-      "title": "Terms of Service",
-      "disclaimer": "Template content for product staging. This is not legal advice.",
-      "intro": "Basic terms governing access to and use of the service.",
+      "title": "Terms of Service — SoksLine",
+      "intro": "**Last updated:** 09 October 2025",
       "backToTopLabel": "Back to top",
       "sections": [
         {
-          "id": "scope",
-          "title": "Scope & eligibility",
+          "id": "agreement",
+          "title": "1) Agreement",
           "paragraphs": [
-            "These Terms apply to your use of our proxy services.",
-            "By using the service you confirm that you are legally competent to contract."
+            "These Terms of Service (“Terms”) are a binding agreement between **[CONTROLLER_LEGAL_NAME]** (trading as “SoksLine”, “we”, “us”) and you (“Customer”, “you”). By creating an account, purchasing a plan, or using our services, you agree to these Terms, our **[Privacy Policy](/privacy)**, and our **[AML Policy](/aml)**."
           ]
         },
         {
-          "id": "accounts",
-          "title": "Accounts & security",
+          "id": "services",
+          "title": "2) Services",
           "paragraphs": [
-            "Keep your credentials confidential and notify us of any suspected compromise."
+            "We provide access to SOCKS/ISP proxy services and related features (the “Services”). Plan features (e.g., endpoints, rotation, bandwidth, whitelists) are described on product pages or in the client area. We may update features to improve reliability or security."
+          ]
+        },
+        {
+          "id": "eligibility",
+          "title": "3) Eligibility",
+          "paragraphs": [
+            "You must be **18+** and legally capable of entering into contracts. You may not use the Services if prohibited by applicable law or sanctions."
+          ]
+        },
+        {
+          "id": "account",
+          "title": "4) Account, Onboarding & AML/KYC",
+          "paragraphs": [
+            "You are responsible for your account security and all activity under it. We may conduct AML/KYC checks per our **/aml** (including tiered onboarding such as L0–L2) and may refuse, suspend, or limit service where risk is identified or information is incomplete/incorrect."
+          ]
+        },
+        {
+          "id": "orders",
+          "title": "5) Orders, Activation & Delivery",
+          "paragraphs": [
+            "Orders are provisioned after we confirm payment. For crypto payments (via NOWPayments), activation may occur after sufficient on-chain confirmations. Delivery is digital; no shipping of physical goods."
           ]
         },
         {
           "id": "billing",
-          "title": "Billing & taxes",
+          "title": "6) Billing, Prices & Taxes",
           "paragraphs": [
-            "Fees are due per the pricing page or your order. You are responsible for applicable taxes."
+            "Prices are shown before purchase. Unless stated otherwise, all fees are **prepaid** and **non-refundable** except as provided in Section 8. You are responsible for applicable taxes. We may change prices/product tiers prospectively; existing active terms remain until the end of the current paid period.",
+            "**Billing/Client portal:** WHMCS provides ordering, invoices, and self-service options.",
+            "**Payments:** crypto-only via NOWPayments. We do **not** store card details."
           ]
         },
         {
-          "id": "acceptable-use",
-          "title": "Acceptable use",
+          "id": "term",
+          "title": "7) Term, Renewal & Cancellation",
           "paragraphs": [
-            "You must comply with our Acceptable Use Policy (AUP). Violations may result in suspension or termination."
+            "Plans run for the selected term (e.g., monthly). **Auto-renew is OFF by default.** You can renew manually in the client area. If you enable auto-renew (where available), you authorize recurring charges; you can disable it any time before renewal. You may cancel at any time in the client area; cancellation takes effect at the end of the current paid term."
           ]
         },
         {
-          "id": "disclaimer",
-          "title": "Disclaimer",
+          "id": "refunds",
+          "title": "8) Refunds & Chargebacks",
           "paragraphs": [
-            "Service is provided “as is” without warranties to the extent permitted by law."
+            "Because the Services are digital and abuse-sensitive, **refunds are generally not provided**. We may consider a refund or service credit **only if** (a) the ordered plan was not delivered (no endpoints/credentials issued) within a reasonable time after payment confirmation, or (b) extended platform-level unavailability is verified under Section 12 (SLA/Credits). Crypto transactions are irreversible; where a refund is granted, it is typically via **service credit** at our discretion. Any chargeback is a material breach and may result in suspension and fees."
+          ]
+        },
+        {
+          "id": "aup",
+          "title": "9) Acceptable Use Policy (AUP)",
+          "paragraphs": [
+            "Prohibited uses include (non-exhaustive): spam/open-relay; DDoS/DoS, scanning, intrusion, brute force, credential stuffing; botnets/malware/exploit kits/ransomware/phishing; carding, payment fraud, money laundering, marketplace/ticketing fraud, identity theft; unauthorized access to third-party services/data or unlawful circumvention of technical restrictions; illegal content (incl. CSAM, extremist); IP infringement. You must have a **lawful basis and permission** to access target systems/data (incl. scraping). We may throttle/filter/suspend traffic reasonably believed to violate this AUP."
+          ]
+        },
+        {
+          "id": "ip",
+          "title": "10) IP Addresses & Network Behavior",
+          "paragraphs": [
+            "Allocated IPs/endpoints are **leased** and may be reassigned. Geolocation/ASN is approximate. Target-site blocks, CAPTCHAs, or reputation issues can occur and are **your responsibility** unless caused by a verified platform-level incident. Configure authentication securely and rotate endpoints only as permitted by your plan."
+          ]
+        },
+        {
+          "id": "fair-use",
+          "title": "11) Fair Use, Limits & Abuse Handling",
+          "paragraphs": [
+            "We may enforce fair-use (concurrency, rate, bandwidth) to protect platform stability; see product pages or client area for current limits. We may temporarily block or rate-limit abusive patterns and will notify you where feasible."
+          ]
+        },
+        {
+          "id": "availability",
+          "title": "12) Availability, Maintenance & Credits (SLA)",
+          "paragraphs": [
+            "We aim for high availability of core services, excluding scheduled maintenance and events outside our reasonable control (incl. upstream/provider faults, target-site countermeasures, force majeure). If monthly platform-level availability materially drops below our targets (if published), your sole remedy is a **service credit** proportionate to the impact, requested within 30 days. Credits don’t apply to target bans, per-IP reputation, or your misuse."
+          ]
+        },
+        {
+          "id": "suspension",
+          "title": "13) Suspension & Termination",
+          "paragraphs": [
+            "We may suspend/terminate immediately for AUP/law violations, non-payment, risk/harm, or authority requests. On termination for your breach, fees are not refunded. We may retain records as required by law and our **/privacy**/**/aml**."
+          ]
+        },
+        {
+          "id": "third-parties",
+          "title": "14) Third-Party Services",
+          "paragraphs": [
+            "The Services rely on third parties (e.g., payment processor, upstream proxy provider). We are not responsible for third-party terms or changes outside our control.",
+            "**Upstream provider:** [UPSTREAM_PROVIDER_NAME, if used]."
+          ]
+        },
+        {
+          "id": "warranties",
+          "title": "15) Warranties & Disclaimers",
+          "paragraphs": [
+            "THE SERVICES ARE PROVIDED **“AS IS”** AND **“AS AVAILABLE.”** WE DISCLAIM ALL WARRANTIES TO THE MAXIMUM EXTENT PERMITTED BY LAW."
           ]
         },
         {
           "id": "liability",
-          "title": "Limitation of liability",
+          "title": "16) Limitation of Liability",
           "paragraphs": [
-            "Our liability is limited to the maximum extent permitted by law and in no case exceeds amounts paid in the last 3 months."
+            "TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE ARE NOT LIABLE FOR INDIRECT/INCIDENTAL/SPECIAL/CONSEQUENTIAL/PUNITIVE DAMAGES OR LOST PROFITS/REVENUE/GOODWILL. OUR TOTAL AGGREGATE LIABILITY WILL NOT EXCEED **THE FEES YOU PAID FOR THE SERVICES IN THE THREE (3) MONTHS** PRECEDING THE EVENT."
           ]
         },
         {
-          "id": "termination",
-          "title": "Termination",
+          "id": "indemnification",
+          "title": "17) Indemnification",
           "paragraphs": [
-            "We may suspend or terminate access for breaches of these Terms or AUP."
+            "You will defend, indemnify, and hold us (and affiliates/staff/providers) harmless from claims arising out of your use, your content, or your breach of these Terms or law."
+          ]
+        },
+        {
+          "id": "privacy",
+          "title": "18) Privacy & Data Protection",
+          "paragraphs": [
+            "Processing of personal data is described in our **[Privacy Policy](/privacy)**. We process network metadata for security, billing, and anti-abuse. We do not inspect your proxied content."
+          ]
+        },
+        {
+          "id": "changes",
+          "title": "19) Changes to Services or Terms",
+          "paragraphs": [
+            "We may modify the Services or these Terms. Material changes will be posted (and notified where appropriate). Continued use means acceptance."
           ]
         },
         {
           "id": "law",
-          "title": "Governing law",
+          "title": "20) Governing Law & Dispute Resolution",
           "paragraphs": [
-            "Governing law and venue will be specified in your order or the applicable jurisdictional addendum."
+            "These Terms are governed by **[GOVERNING_LAW]**. Courts of **[VENUE]** have exclusive jurisdiction, except where mandatory consumer laws provide otherwise."
+          ]
+        },
+        {
+          "id": "misc",
+          "title": "21) Miscellaneous",
+          "paragraphs": [
+            "Severability; No waiver; Assignment (you need our consent; we may assign to an affiliate or in connection with a reorg/sale); Entire agreement."
+          ]
+        },
+        {
+          "id": "contact",
+          "title": "22) Contact",
+          "paragraphs": [
+            "Legal/support: **support@soksline.store** / **soksline@soksline.store**."
           ]
         }
       ]
