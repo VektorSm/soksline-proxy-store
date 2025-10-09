@@ -58,3 +58,8 @@
 .text-muted-foreground {
   color: #475467;
 }
+
+.prose p,
+.prose li {
+  white-space: pre-wrap;
+}

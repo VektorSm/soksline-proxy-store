@@ -66,8 +66,8 @@
     },
     "aml": {
       "title": "AML Policy",
-      "disclaimer": "Template content for product staging. This is not legal advice.",
-      "intro": "AML/CFT Policy — short form (v1.2 MAIN). Updated 9 May 2024.",
+      "disclaimer": "This is not legal advice.",
+      "intro": "AML/CFT Policy — public version. Updated 9 October 2025.",
       "backToTopLabel": "Back to top",
       "sections": [
         {
@@ -88,9 +88,9 @@
         },
         {
           "id": "update",
-          "title": "Update v1.2 (MAIN)",
+          "title": "Policy refresh",
           "paragraphs": [
-            "Crypto payments are permitted at L0 for low-risk profiles with compensating measures: KYT before activation, limits, ban on privacy coins, refund-to-origin only."
+            "This edition sets out the public-facing AML/CFT approach we apply, including oversight of crypto payments."
           ]
         },
         {
@@ -134,9 +134,9 @@
             {
               "type": "list",
               "items": [
-                "**L0 (basic, no ID, crypto-allowed):** limits up to £250 per 30 days and ≤ 3 transactions per day. Payment: crypto-only via NOWPayments. KYT: mandatory pre-activation based on txid/address (AMLBot or equivalent). Default coins/networks: BTC and USDT-TRC20 (no privacy coins). Refund: strict refund-to-origin via the provider or back to the originating address/wallet. Geo/sanctions: blocklists aligned with OFSI and high-risk countries.",
-                "**L1 (standard, CDD):** limits up to £5,000 per month. Requirements: full name, date of birth, country; identity document (photo/scan) plus simple liveness/face match via a KYC provider. Payments: crypto via NOWPayments (Travel Rule handled by the provider).",
-                "**L2 (enhanced, EDD):** for larger volumes or higher risks. Additional checks: proof of address and/or source of funds/wealth, video verification if needed. Individual limits are set by the MLRO."
+                "**L0 (baseline, no ID, low risk):**\n- Small amounts and typical scenarios.\n- Payments handled via a trusted crypto provider.\n- On-chain risk assessment is completed before activating the service.\n- Privacy coins are not allowed; we comply with sanctions controls.",
+                "**L1 (standard due diligence, CDD):**\n- For higher limits or additional risk factors.\n- Short identification (core details + document) with liveness/face match if needed.",
+                "**L2 (enhanced due diligence, EDD):**\n- For larger amounts or elevated risk.\n- We may request proof of address and/or source of funds; decisions are agreed with the MLRO."
               ]
             }
           ]
@@ -148,9 +148,9 @@
             {
               "type": "list",
               "items": [
-                "**Mode:** crypto-only via NOWPayments with no fiat settlement.",
-                "**IPN/webhook:** verify the HMAC-SHA512 signature, extract status and txid, trigger KYT, take a decision (auto / hold / refund) per SOP.",
-                "**Direct on-chain payments** to our wallets are not accepted."
+                "**Mode:** we accept crypto payments through a trusted provider and do not process direct on-chain transfers without prior agreement.",
+                "**Process:** we review provider notifications, reconcile transactions, and complete on-chain risk assessments before activating services.",
+                "**Security:** we use secure communication channels and log key events."
               ]
             }
           ]
@@ -202,44 +202,24 @@
             {
               "type": "list",
               "items": [
-                "**When we update:** annually or when products, geographies, or providers change.",
-                "**Version:** v1.2 (MAIN) — updated 9 May 2024."
+                "**When we update:** annually or when requirements, products, or geographies change.",
+                "**Effective date:** 9 October 2025."
               ]
             }
           ]
         },
         {
-          "id": "checklists",
-          "title": "Quick checklists",
+          "id": "measures",
+          "title": "How we apply measures",
           "paragraphs": [
-            {
-              "type": "list",
-              "items": [
-                "**When L0 (no ID) is acceptable:** amount ≤ £250 per 30 days, ≤ 3 transactions per day, coin = BTC or USDT-TRC20, KYT score ≤ 50, no risk tags (sanctions/mixer/darknet), no privacy coins, geography not on the blocklist. **Action:** activate after at least 1 network confirmation and a valid IPN.",
-                "**When L1 is required:** amount > £250 per 30 days, more than 3 transactions per day, KYT = 51–74, missing txid/address for KYT, or atypical behaviour. **Action:** place on HOLD and run the short KYC (L1).",
-                "**When to decline/refund:** KYT score ≥ 75 or sanctions/mixer/darknet tags, privacy coins, attempts to bypass sanctions or geoblocks. **Action:** decline/refund-to-origin plus logging and MLRO escalation."
-              ]
-            },
-            "**Escalation path:** MLRO — Nicolae Buiuc (Director), e-mail: soksline@soksline.store."
+            "We follow a risk-based approach. Low amounts and low-risk profiles qualify for simplified measures; higher-risk cases require additional information. For crypto payments we rely on a trusted provider and perform on-chain risk assessments before activation."
           ]
         },
         {
-          "id": "appendix-f",
-          "title": "Appendix F — Crypto-only via NOWPayments (SOP summary)",
+          "id": "disclaimer",
+          "title": "Disclaimer",
           "paragraphs": [
-            {
-              "type": "list",
-              "items": [
-                "**F1. Configuration:** enable IPN, set ipn_callback_url (prod/stage), generate API_KEY and IPN_SECRET (stored in .env). Enable BTC and USDT-TRC20; the MLRO may extend the list.",
-                "**F2. Flow:** invoice → payment → IPN (waiting/confirming/finished/failed/expired) → webhook: verify HMAC, extract txid, run KYT, decide.",
-                "**F3. KYT thresholds (default):** ≤ 50 — auto activation; 51–74 — HOLD; ≥ 75 — decline.",
-                "**F4. Refund:** refund-to-origin only (via the provider or back to the inbound address/wallet).",
-                "**F5. Logs:** store order_id, payment_id, network/coin, amounts, statuses, txid/addresses, KYT result, decision, timestamps (retention up to 5 years).",
-                "**F6. Communication:** auto templates for expired/underpaid; HOLD triggers a short review notice.",
-                "**F7. L0 hard rules:** £250 per 30 days, ≤ 3 transactions per day, BTC/USDT-TRC20 only, no privacy coins, mandatory KYT ≤ 50."
-              ]
-            },
-            "**Escalation path:** MLRO — Nicolae Buiuc (Director), e-mail: soksline@soksline.store."
+            "This document is for information only and does not constitute legal advice. The company may adjust its AML/CFT measures based on legal requirements and risk assessments."
           ]
         }
       ]
