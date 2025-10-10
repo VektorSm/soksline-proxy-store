@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useI18n } from '@/lib/i18n';
+import { COMPANY } from '@/lib/company';
 import NavLink from './NavLink';
 
 type NavItem = { key: string; href: string };
@@ -17,9 +18,18 @@ const NAV_ITEMS: NavItem[] = [
   { key: 'nav.login', href: '/login' },
 ];
 
+function formatSiren(value: string) {
+  return value.replace(/(\d{3})(\d{3})(\d{3})/, '$1\u00A0$2\u00A0$3');
+}
+
 export default function Footer() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const year = new Date().getFullYear();
+  const formattedSiren = formatSiren(COMPANY.siren);
+
+  const ruCopy = `© ${year} ${COMPANY.legal_name}. Все права защищены. Зарегистрирована во Франции (SIREN ${formattedSiren}). Адрес: ${COMPANY.registered_office}. Торговое наименование: ${COMPANY.brand}. Контакт: ${COMPANY.contact_email}`;
+  const enCopy = `© ${year} ${COMPANY.legal_name}. All rights reserved. Registered in France (SIREN ${formattedSiren}). Registered office: ${COMPANY.registered_office}. Trading name: ${COMPANY.brand}. Contact: ${COMPANY.contact_email}`;
+  const legalCopy = locale === 'ru' ? ruCopy : enCopy;
 
   const linkBaseStyle: React.CSSProperties = {
     color: 'rgba(226, 232, 240, 0.75)',
@@ -53,10 +63,8 @@ export default function Footer() {
           fontSize: '0.9rem',
         }}
       >
-        <strong style={{ color: '#f8fafc', fontSize: '1rem' }}>{t('brand')}</strong>
-        <span>
-          © {year} {t('brand')}. {t('footer.copyright')}
-        </span>
+        <strong style={{ color: '#f8fafc', fontSize: '1rem' }}>{COMPANY.brand}</strong>
+        <span>{legalCopy}</span>
         <nav aria-label="Footer">
           <ul
             style={{
