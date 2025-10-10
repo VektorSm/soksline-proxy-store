@@ -30,10 +30,10 @@ export default function Footer() {
             <span className="mx-2">•</span>
             Контакт:{" "}
             <a
-              href="mailto:support@soksline.store"
+              href="mailto:soksline@soksline.store"
               className="underline underline-offset-2"
             >
-              support@soksline.store
+              soksline@soksline.store
             </a>
           </>
         ),
@@ -59,10 +59,10 @@ export default function Footer() {
             <span className="mx-2">•</span>
             Contact:{" "}
             <a
-              href="mailto:support@soksline.store"
+              href="mailto:soksline@soksline.store"
               className="underline underline-offset-2"
             >
-              support@soksline.store
+              soksline@soksline.store
             </a>
           </>
         ),
