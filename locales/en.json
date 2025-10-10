@@ -77,10 +77,10 @@
             {
               "type": "list",
               "items": [
-                "**Company / Brand:** CODE DESIGN LTD / SoksLine.",
-                "**Jurisdiction:** United Kingdom (England & Wales).",
-                "**Company number:** 16676185.",
-                "**Registered office:** 61 Bridge Street, Kington, Herefordshire, HR5 3DJ, United Kingdom.",
+                "**Company / Brand:** VERIDAN (EURL) / SoksLine.",
+                "**Jurisdiction:** France.",
+                "**Company number:** SIREN 980\u00a0990\u00a0451.",
+                "**Registered office:** 61 Rue de Lyon, 75012 Paris, France.",
                 "**Responsible person (MLRO/Compliance Officer):** Nicolae Buiuc (Director) — soksline@soksline.store."
               ]
             }
@@ -103,13 +103,15 @@
         },
         {
           "id": "basis",
-          "title": "2) Legal basis (UK, plain language)",
+          "title": "2) Normative base (France)",
           "paragraphs": [
             {
               "type": "list",
               "items": [
-                "**Statutes:** Money Laundering Regulations 2017 (as amended), Proceeds of Crime Act 2002 (POCA), Terrorism Act 2000, Sanctions and Anti-Money Laundering Act 2018.",
-                "**Sanctions:** we follow OFSI listings (HMT Consolidated List)."
+                "**Code monétaire et financier:** Livre V, articles L.561-1 et suivants.",
+                "**TRACFIN:** obligations de déclaration de soupçon.",
+                "**Règlement (UE) 2023/1113:** Travel Rule pour les transferts de crypto-actifs.",
+                "**Sanctions & gel des avoirs:** listes UE/ONU appliquées en France."
               ]
             }
           ]
@@ -121,7 +123,7 @@
             {
               "type": "list",
               "items": [
-                "**MLRO:** implements processes, trains the team, answers provider/regulator requests, files SARs with the NCA (UKFIU). Contact: Nicolae Buiuc — soksline@soksline.store.",
+                "**MLRO:** implements processes, trains the team, answers provider/regulator requests, files suspicious transaction reports (déclarations de soupçon) with TRACFIN. Contact: Nicolae Buiuc — soksline@soksline.store.",
                 "**Operations & support:** follow checklists and escalate cases to the MLRO."
               ]
             }
@@ -175,7 +177,7 @@
             {
               "type": "list",
               "items": [
-                "**SAR:** where we have reasonable suspicion, the MLRO files a SAR with the NCA (UKFIU) and requests a DAML if needed.",
+                "**STR:** where we have reasonable suspicion, the MLRO files a déclaration de soupçon with TRACFIN and applies asset-freeze obligations where applicable.",
                 "**Tipping-off:** we comply with the prohibition on alerting customers."
               ]
             }
@@ -224,6 +226,44 @@
         }
       ]
     },
+    "legal": {
+      "title": "Mentions légales (France)",
+      "backToTopLabel": "Back to top",
+      "sections": [
+        {
+          "id": "entity",
+          "title": "Legal entity",
+          "paragraphs": [
+            {
+              "type": "list",
+              "items": [
+                "**Legal entity:** VERIDAN (EURL).",
+                "**Legal form:** EURL (SARL unipersonnelle).",
+                "**SIREN / SIRET:** 980\u00a0990\u00a0451 • 980\u00a0990\u00a0451\u00a000018.",
+                "**APE/NAF & capital:** 4791B • Capital 1\u00a0000\u00a0EUR.",
+                "**Registered office:** 61 Rue de Lyon, 75012 Paris, France.",
+                "**Director (Gérant):** Andris Sapuls.",
+                "**Trading name:** SoksLine.",
+                "**Domiciliation:** Les Tricolores (SIREN 849\u00a0409\u00a0313)."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "contacts",
+          "title": "Contacts",
+          "paragraphs": [
+            {
+              "type": "list",
+              "items": [
+                "**Support:** support@soksline.store.",
+                "**General inquiries:** soksline@soksline.store."
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "privacy": {
       "title": "Privacy Policy",
       "intro": "**Last updated:** 09 October 2025",
@@ -240,7 +280,7 @@
           "id": "data-controller",
           "title": "Data Controller",
           "paragraphs": [
-            "[CONTROLLER_LEGAL_NAME], [Registration/Company No. if applicable]\n[Registered Address]\n(trading as “SoksLine”)\n**Privacy contact:** support@soksline.store / soksline@soksline.store"
+            "VERIDAN (EURL), SIREN 980\u00a0990\u00a0451\n61 Rue de Lyon, 75012 Paris, France\n(trading as “SoksLine”)\n**Privacy contact:** support@soksline.store / soksline@soksline.store\n**Supervisory authority:** CNIL (France)."
           ]
         },
         {
@@ -323,7 +363,7 @@
           "id": "international-transfers",
           "title": "International transfers",
           "paragraphs": [
-            "Some providers may be located outside the EEA/UK. For such transfers we rely on appropriate safeguards (e.g., EU **SCCs** and/or UK **IDTA**) and additional measures as needed."
+            "Some providers may be located outside the EU/EEA. For such transfers we rely on appropriate safeguards (e.g., EU **SCCs**) and additional measures as needed."
           ]
         },
         {
@@ -379,7 +419,7 @@
           "id": "agreement",
           "title": "1) Agreement",
           "paragraphs": [
-            "These Terms of Service (“Terms”) are a binding agreement between **[CONTROLLER_LEGAL_NAME]** (trading as “SoksLine”, “we”, “us”) and you (“Customer”, “you”). By creating an account, purchasing a plan, or using our services, you agree to these Terms, our **[Privacy Policy](/privacy)**, and our **[AML Policy](/aml)**."
+            "These Terms of Service (“Terms”) are a binding agreement between **VERIDAN (EURL)** (trading as “SoksLine”, “we”, “us”) and you (“Customer”, “you”). By creating an account, purchasing a plan, or using our services, you agree to these Terms, our **[Privacy Policy](/privacy)**, and our **[AML Policy](/aml)**."
           ]
         },
         {
@@ -515,7 +555,7 @@
           "id": "law",
           "title": "20) Governing Law & Dispute Resolution",
           "paragraphs": [
-            "These Terms are governed by **[GOVERNING_LAW]**. Courts of **[VENUE]** have exclusive jurisdiction, except where mandatory consumer laws provide otherwise."
+            "Applicable law and competent courts will be specified in the relevant order form or agreement. Mandatory consumer protections remain unaffected."
           ]
         },
         {
@@ -543,7 +583,7 @@
           "title": "Overview",
           "paragraphs": [
             "Last updated: 09 October 2025",
-            "This Acceptable Use Policy (\"Policy\") governs how you may access and use the SoksLine residential proxy services operated by [CONTROLLER_LEGAL_NAME] (\"SoksLine\", \"we\", \"us\"). It applies to every account, end user, and integration that connects to the service.",
+            "This Acceptable Use Policy (\"Policy\") governs how you may access and use the SoksLine residential proxy services operated by VERIDAN (EURL) (\"SoksLine\", \"we\", \"us\"). It applies to every account, end user, and integration that connects to the service.",
             "This Policy forms part of and must be read together with our [Terms of Service](/tos), [Privacy Notice](/privacy), and [AML & KYC Policy](/aml). If you disagree with any requirement you must not use the services.",
             "We rely on network capacity supplied by [UPSTREAM_PROVIDER_NAME]. You are responsible for ensuring that your use of those upstream resources complies with both this Policy and any additional requirements the upstream provider may publish."
           ]
@@ -668,14 +708,14 @@
     },
     "refund": {
       "title": "Refund & Cancellation Policy",
-      "intro": "Last updated: 09 October 2025\nThis Refund & Cancellation Policy (\"Policy\") explains how [CONTROLLER_LEGAL_NAME] manages refunds, cancellations, and service credits for SoksLine services. It forms part of our [Terms of Service](/tos) and should be read together with our [Privacy Notice](/privacy) and [AML & Compliance Policy](/aml).",
+      "intro": "Last updated: 09 October 2025\nThis Refund & Cancellation Policy (\"Policy\") explains how VERIDAN (EURL) manages refunds, cancellations, and service credits for SoksLine services. It forms part of our [Terms of Service](/tos) and should be read together with our [Privacy Notice](/privacy) and [AML & Compliance Policy](/aml).",
       "backToTopLabel": "Back to top",
       "sections": [
         {
           "id": "scope",
           "title": "Scope",
           "paragraphs": [
-            "This Policy applies to all subscriptions, top-ups, and add-ons purchased through the SoksLine website or WHMCS client area operated by [CONTROLLER_LEGAL_NAME].",
+            "This Policy applies to all subscriptions, top-ups, and add-ons purchased through the SoksLine website or WHMCS client area operated by VERIDAN (EURL).",
             "Capitalized terms not defined in this Policy have the meaning given in the [Terms of Service](/tos)."
           ]
         },
@@ -779,7 +819,7 @@
           "id": "compliance",
           "title": "Compliance review",
           "paragraphs": [
-            "To comply with our [AML & Compliance Policy](/aml) and applicable law, [CONTROLLER_LEGAL_NAME] may request additional identity or business information before approving a refund or credit.",
+            "To comply with our [AML & Compliance Policy](/aml) and applicable law, VERIDAN (EURL) may request additional identity or business information before approving a refund or credit.",
             "All personal data collected during the review is handled in line with our [Privacy Notice](/privacy). Failure to cooperate with compliance checks may delay or prevent a refund."
           ]
         },
