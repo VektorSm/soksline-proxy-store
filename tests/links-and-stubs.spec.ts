@@ -13,7 +13,7 @@ const stubHeadings: Record<string, string> = {
   '/privacy': 'Privacy Policy',
   '/tos': 'Terms of Service',
   '/aup': 'Acceptable Use Policy',
-  '/refund': 'Refund Policy',
+  '/refund': 'Refund & Cancellation Policy',
   '/contact': 'Contact us',
   '/login': 'Log in',
 };

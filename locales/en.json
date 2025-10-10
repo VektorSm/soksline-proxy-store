@@ -667,37 +667,127 @@
       ]
     },
     "refund": {
-      "title": "Refund Policy",
-      "disclaimer": "Template content for product staging. This is not legal advice.",
-      "intro": "Basic rules for refunds.",
+      "title": "Refund & Cancellation Policy",
+      "intro": "Last updated: 09 October 2025\nThis Refund & Cancellation Policy (\"Policy\") explains how [CONTROLLER_LEGAL_NAME] manages refunds, cancellations, and service credits for SoksLine services. It forms part of our [Terms of Service](/tos) and should be read together with our [Privacy Notice](/privacy) and [AML & Compliance Policy](/aml).",
       "backToTopLabel": "Back to top",
       "sections": [
         {
-          "id": "eligibility",
-          "title": "Eligibility",
+          "id": "scope",
+          "title": "Scope",
           "paragraphs": [
-            "Refunds may be considered for unused bandwidth or objective service faults, at our discretion."
+            "This Policy applies to all subscriptions, top-ups, and add-ons purchased through the SoksLine website or WHMCS client area operated by [CONTROLLER_LEGAL_NAME].",
+            "Capitalized terms not defined in this Policy have the meaning given in the [Terms of Service](/tos)."
+          ]
+        },
+        {
+          "id": "payment-methods",
+          "title": "Payment methods and billing setup",
+          "paragraphs": [
+            "Payments for SoksLine services are collected exclusively in supported cryptocurrencies via NOWPayments. Card, bank transfer, and cash options are not available.",
+            {
+              "type": "list",
+              "items": [
+                "**Invoice delivery**: Invoices are issued in the WHMCS client area. Amounts may be shown in fiat currency for reference but are settled in the cryptocurrency you select at checkout.",
+                "**Conversion rates**: The crypto amount due is calculated using the NOWPayments exchange quote at the time you confirm payment. Additional blockchain fees are your responsibility.",
+                "**Payment confirmation**: Orders are provisioned after the transaction receives the required network confirmations reported by NOWPayments. Keep the transaction hash for support review."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "eligibility",
+          "title": "Refund eligibility",
+          "paragraphs": [
+            "Because crypto transactions are irreversible, refunds are exceptional and evaluated case by case. We may offer a refund or service credit when all of the following apply: the request is submitted within 14 calendar days of payment, the account has no open compliance issues, and the circumstances fall into one of the categories below.",
+            {
+              "type": "list",
+              "items": [
+                "**Non-delivery of service**: Payment was confirmed but we did not provision the ordered proxy endpoints or credentials within the standard provisioning window shown in the WHMCS client area.",
+                "**Documented SLA outage**: A sustained platform-level incident is verified under our SLA, resulting in the inability to use previously delivered resources for more than the credited threshold.",
+                "**Duplicate payment**: The same order was paid twice due to a NOWPayments processing error and no additional resources were consumed."
+              ]
+            },
+            "Even where eligibility is met, we may first apply a service credit to your account instead of a cash-equivalent refund."
+          ]
+        },
+        {
+          "id": "non-refundable",
+          "title": "Non-refundable items",
+          "paragraphs": [
+            "The following situations are not eligible for refunds or credits:",
+            {
+              "type": "list",
+              "items": [
+                "Usage of delivered proxy traffic, bandwidth, or time-based allocations, including partial-term consumption.",
+                "Account suspensions or terminations arising from breaches of the [Terms of Service](/tos), Acceptable Use Policy, or legal obligations.",
+                "Manual cancellations after resources are provisioned, including cases where auto-renew remains disabled by default.",
+                "Transactions older than 30 days or lacking sufficient payment evidence (such as the blockchain transaction hash)."
+              ]
+            },
+            "Initiating a chargeback or crypto reversal attempt is a material breach of the [Terms of Service](/tos) and may lead to immediate suspension, collection of chargeback fees, and refusal of future service."
+          ]
+        },
+        {
+          "id": "cancellation",
+          "title": "Cancellations and renewals",
+          "paragraphs": [
+            "Plans auto-renew as \"off\" by default. You are responsible for renewing services manually within the WHMCS client area before the current term expires if continued access is required.",
+            {
+              "type": "list",
+              "items": [
+                "Log in to the WHMCS client area and open the relevant service.",
+                "Confirm that auto-renew remains disabled unless you expressly opt in during checkout.",
+                "Use the cancellation request tool or submit a ticket before the next billing date if you do not wish to renew."
+              ]
+            },
+            "Cancellation stops future billing but does not grant a refund for time already delivered. Access to resources ends at the close of the paid term unless otherwise agreed in writing."
           ]
         },
         {
           "id": "process",
-          "title": "Process",
+          "title": "How to request a refund or credit",
           "paragraphs": [
-            "Contact support with your order ID and evidence. We aim to respond within a reasonable time."
+            "If you believe you qualify for a refund or SLA credit, please follow the steps below:",
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                "Gather supporting documentation, including your WHMCS order or invoice number, payment transaction hash, affected proxy endpoints, and timestamps.",
+                "Open a ticket in the WHMCS client area or email support@soksline.store within 14 calendar days of the event.",
+                "Allow our team up to 7 business days to investigate. We may request additional technical logs or compliance confirmations before making a determination."
+              ]
+            },
+            "Approved refunds are typically issued as account balance credits (\"SLA credits\") that can be applied to future purchases. Direct crypto reimbursement may be offered only when service credits are not practical."
           ]
         },
         {
-          "id": "nonref",
-          "title": "Non-refundable",
+          "id": "sla-credits",
+          "title": "SLA credits",
           "paragraphs": [
-            "Consumed bandwidth and violations of AUP/ToS are not eligible."
+            "Service availability is measured in accordance with our SLA. When uptime falls below the committed threshold and the issue is attributable to SoksLine infrastructure, we will apply SLA credits to the affected account.",
+            {
+              "type": "list",
+              "items": [
+                "Credits are calculated as a percentage of the monthly fee for the impacted service tier, based on downtime minutes verified by our monitoring and logs.",
+                "Credits are added to your WHMCS account balance and may only be used toward future SoksLine invoices. They have no cash value and are non-transferable.",
+                "Unused credits expire 12 months after issuance. We may adjust the credit amount if misuse or external factors contributed to the outage."
+              ]
+            }
           ]
         },
         {
-          "id": "chargebacks",
-          "title": "Chargebacks",
+          "id": "compliance",
+          "title": "Compliance review",
           "paragraphs": [
-            "Unwarranted chargebacks may result in account suspension."
+            "To comply with our [AML & Compliance Policy](/aml) and applicable law, [CONTROLLER_LEGAL_NAME] may request additional identity or business information before approving a refund or credit.",
+            "All personal data collected during the review is handled in line with our [Privacy Notice](/privacy). Failure to cooperate with compliance checks may delay or prevent a refund."
+          ]
+        },
+        {
+          "id": "contact",
+          "title": "Contact",
+          "paragraphs": [
+            "For questions about this Policy or to escalate a pending refund, please contact support@soksline.store or your assigned account manager."
           ]
         }
       ]
