@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { buildOrderUrl } from '@/config/catalog';
 import { useI18n } from '@/lib/i18n';
@@ -48,15 +47,16 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Media placeholder (image only) */}
+        {/* Media embed */}
         <div className="w-full max-w-[560px] lg:col-span-6 lg:justify-self-end">
-          <div className="relative aspect-[16/11] w-full overflow-hidden rounded-2xl bg-gray-50 shadow-lg">
-            <Image
-              src="/hero-placeholder.svg"
-              alt="Dashboard preview of SoksLine proxy store"
-              fill
-              className="object-cover"
-              priority
+          <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-lg">
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src="https://www.youtube.com/embed/-HIKc--jBXM"
+              title="SoksLine proxy store overview"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
             />
           </div>
         </div>
