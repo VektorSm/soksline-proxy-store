@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import './globals.css';
 import React, { Suspense } from 'react';
 import HeaderNav from '@/components/HeaderNav';
@@ -5,7 +6,13 @@ import Footer from '@/components/Footer';
 import SkipLink from '@/components/a11y/SkipLink';
 import { I18nProvider } from '@/lib/i18n';
 
-export const metadata = { title: 'SoksLine', description: 'Proxy store' };
+export const metadata: Metadata = {
+  title: 'SoksLine',
+  description: 'Proxy store',
+  icons: {
+    icon: '/icon.png',
+  },
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
