@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import ProgressStepper from '@/components/order/ProgressStepper';
 import SummaryBarMobile from '@/components/order/SummaryBarMobile';
@@ -235,6 +235,7 @@ export default function OrderPageContent() {
   const { locale } = useLocale();
   const page = useMemo(() => getOrderPage(locale), [locale]);
   const searchParams = useSearchParams();
+  const router = useRouter();
   const searchParamsSnapshot = useMemo(
     () => ({
       service: searchParams.get('service'),
@@ -544,6 +545,10 @@ export default function OrderPageContent() {
   const totalPrice = hasUnitPrice
     ? fmtUsdByLocale(locale, totalUsd)
     : activeTier?.price ?? '—';
+  const serviceTitle = activeService?.card.title ?? 'Static Residential Proxy';
+  const categoryLabel = activeCategory?.label ?? 'Plans';
+  const planLabel = activeTier?.name ?? 'Базовый';
+  const pricePerUnit = unitAmount > 0 ? unitAmount : selectedRotatingTier?.pricePerGb ?? 0;
   const quantityLabel = useMemo(() => {
     if (locale === 'ru') {
       return `${safeQuantity} IP`;
@@ -603,7 +608,28 @@ export default function OrderPageContent() {
 
   const handleNext = useCallback(() => {
     setActiveProgressStep(4);
-  }, []);
+
+    const params = new URLSearchParams({
+      service: serviceTitle,
+      category: categoryLabel,
+      plan: planLabel,
+      price: String(pricePerUnit),
+      ips: String(safeQuantity),
+      months: String(months),
+      autoRenew: String(Boolean(autoRenew)),
+    });
+
+    router.push(`/checkout/payment?${params.toString()}`);
+  }, [
+    autoRenew,
+    categoryLabel,
+    months,
+    planLabel,
+    pricePerUnit,
+    router,
+    safeQuantity,
+    serviceTitle,
+  ]);
 
   const activeServiceId = activeService?.id;
   const activeTierId = activeTier?.id;
