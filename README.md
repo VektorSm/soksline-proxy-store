@@ -1,6 +1,6 @@
 # SoksLine proxy store — MVP
 
-Демо-магазин прокси на Next.js (App Router).
+Магазин прокси на Next.js (App Router).
 
 ## Стек
 
