@@ -17,14 +17,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ fontFamily: 'system-ui, sans-serif', margin: 0, backgroundColor: '#0b1220' }}>
+      <body
+        className="min-h-screen flex flex-col bg-white text-zinc-900"
+        style={{ fontFamily: 'system-ui, sans-serif', margin: 0 }}
+      >
         <Suspense fallback={null}>
           <I18nProvider>
             <SkipLink />
             <header role="banner">
               <HeaderNav />
             </header>
-            <main id="main-content" tabIndex={-1}>
+            <main id="main-content" tabIndex={-1} className="flex-1">
               {children}
             </main>
             <Footer />
