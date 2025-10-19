@@ -3,7 +3,7 @@
   flex-direction: column;
   background: #ffffff;
   min-height: 100vh;
-  padding-top: var(--header-offset);
+  padding-top: 0;
   scroll-padding-top: var(--header-offset);
 }
 
