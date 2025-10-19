@@ -17,7 +17,7 @@ export default function Hero() {
         <div className="max-w-[660px] lg:col-span-6">
           <h1
             id="hero-heading"
-            className="text-balance text-5xl font-extrabold leading-[1.05] tracking-tight lg:text-6xl"
+            className="mt-0 text-balance text-5xl font-extrabold leading-[1.05] tracking-tight lg:text-6xl"
           >
             {t('hero.title')}
           </h1>
