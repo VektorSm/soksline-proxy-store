@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useLocale } from "@/components/LocaleContext";
 
 function num(q: string | null, fallback = 0) {
   const n = q ? Number(q) : NaN;
@@ -51,10 +52,89 @@ function PaymentMethodCard({
 export default function PaymentPage() {
   const search = useSearchParams();
   const router = useRouter();
+  const { locale } = useLocale();
+
+  const copy = useMemo(() => {
+    if (locale === "ru") {
+      return {
+        pageTitle: "Оплата",
+        paymentMethods: {
+          crypto: {
+            title: "Криптовалюта",
+            subtitle: "Оплата через NOWPayments (инвойс в новой вкладке)",
+            feeNote: "На стороне провайдера может взиматься небольшая комиссия сети.",
+          },
+          card: { title: "Банковская карта", subtitle: "Скоро" },
+          paypal: { title: "PayPal", subtitle: "Скоро" },
+        },
+        loadingLabel: "Создаём счёт…",
+        payLabel: (amount: number) => `Оплатить $${amount}`,
+        backButton: "Вернуться к настройке заказа",
+        summary: {
+          title: "Сводка заказа",
+          serviceLabel: "Услуга",
+          categoryLabel: "Категория",
+          planLabel: "Тариф",
+          priceSectionLabel: "СТОИМОСТЬ",
+          priceUnitSuffix: "за прокси / мес",
+          totalLabel: "Итого",
+          totalDetails: (ips: number, months: number, autoRenew: boolean) =>
+            `${ips} IP • ${months} мес • Автопродление ${autoRenew ? "включено" : "выключено"}`,
+        },
+        whatsIncludedTitle: "Что входит",
+        whatsIncludedItems: [
+          "До 3 пользователей",
+          "1 ГБ трафика",
+          "Без апгрейда скорости",
+          "Без доп. параллельности",
+        ],
+        sslNote: "SSL безопасная оплата. 256-битное шифрование защищает ваши данные.",
+        defaultPlan: "Базовый",
+        errorFallback: "Ошибка оплаты",
+      } as const;
+    }
+
+    return {
+      pageTitle: "Payment",
+      paymentMethods: {
+        crypto: {
+          title: "Cryptocurrency",
+          subtitle: "Pay via NOWPayments (invoice opens in a new tab)",
+          feeNote: "The provider may charge a small network fee.",
+        },
+        card: { title: "Bank card", subtitle: "Coming soon" },
+        paypal: { title: "PayPal", subtitle: "Coming soon" },
+      },
+      loadingLabel: "Creating invoice…",
+      payLabel: (amount: number) => `Pay $${amount}`,
+      backButton: "Back to order setup",
+      summary: {
+        title: "Order summary",
+        serviceLabel: "Service",
+        categoryLabel: "Category",
+        planLabel: "Plan",
+        priceSectionLabel: "PRICE",
+        priceUnitSuffix: "per proxy / mo",
+        totalLabel: "Total",
+        totalDetails: (ips: number, months: number, autoRenew: boolean) =>
+          `${ips} IP • ${months} mo • Auto-renew ${autoRenew ? "on" : "off"}`,
+      },
+      whatsIncludedTitle: "What's included",
+      whatsIncludedItems: [
+        "Up to 3 users",
+        "1 GB of traffic",
+        "No speed upgrade",
+        "No extra concurrency",
+      ],
+      sslNote: "SSL secure payment. 256-bit encryption protects your data.",
+      defaultPlan: "Basic",
+      errorFallback: "Payment error",
+    } as const;
+  }, [locale]);
 
   const service = search.get("service") ?? "Static Residential Proxy";
   const category = search.get("category") ?? "Plans";
-  const plan = search.get("plan") ?? "Базовый";
+  const plan = search.get("plan") ?? copy.defaultPlan;
   const pricePerIp = num(search.get("price"), 0);
   const ips = num(search.get("ips"), 1);
   const months = num(search.get("months"), 1);
@@ -90,7 +170,7 @@ export default function PaymentPage() {
       window.open(data.invoiceUrl, "_blank", "noopener,noreferrer");
       router.push(`/checkout/success?amount=${total}`);
     } catch (e: any) {
-      setError(e?.message || "Payment error");
+      setError(e?.message || copy.errorFallback);
     } finally {
       setLoading(false);
     }
@@ -101,18 +181,30 @@ export default function PaymentPage() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-4">
-            <h1 className="text-2xl font-bold">Оплата</h1>
+            <h1 className="text-2xl font-bold">{copy.pageTitle}</h1>
 
             <PaymentMethodCard
-              title="Криптовалюта"
-              subtitle="Оплата через NOWPayments (инвойс в новой вкладке)"
-              feeNote="На стороне провайдера может взиматься небольшая комиссия сети."
+              title={copy.paymentMethods.crypto.title}
+              subtitle={copy.paymentMethods.crypto.subtitle}
+              feeNote={copy.paymentMethods.crypto.feeNote}
               selected={selectedMethod === "crypto"}
               onPay={() => setSelectedMethod("crypto")}
             />
 
-            <PaymentMethodCard title="Банковская карта" subtitle="Скоро" disabled selected={selectedMethod === "card"} onPay={() => setSelectedMethod("card")} />
-            <PaymentMethodCard title="PayPal" subtitle="Скоро" disabled selected={selectedMethod === "paypal"} onPay={() => setSelectedMethod("paypal")} />
+            <PaymentMethodCard
+              title={copy.paymentMethods.card.title}
+              subtitle={copy.paymentMethods.card.subtitle}
+              disabled
+              selected={selectedMethod === "card"}
+              onPay={() => setSelectedMethod("card")}
+            />
+            <PaymentMethodCard
+              title={copy.paymentMethods.paypal.title}
+              subtitle={copy.paymentMethods.paypal.subtitle}
+              disabled
+              selected={selectedMethod === "paypal"}
+              onPay={() => setSelectedMethod("paypal")}
+            />
 
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
@@ -120,13 +212,13 @@ export default function PaymentPage() {
                 disabled={loading || selectedMethod !== "crypto"}
                 onClick={payWithCrypto}
               >
-                {loading ? "Создаём счёт…" : `Оплатить $${total}`}
+                {loading ? copy.loadingLabel : copy.payLabel(total)}
               </button>
               <button
                 className="text-sm text-zinc-600 underline underline-offset-2 hover:text-zinc-800"
                 onClick={() => router.push("/checkout")}
               >
-                Вернуться к настройке заказа
+                {copy.backButton}
               </button>
             </div>
 
@@ -135,38 +227,37 @@ export default function PaymentPage() {
 
           <aside className="lg:col-span-1">
             <div className="sticky top-24 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-              <div className="text-2xl font-bold">Сводка заказа</div>
+              <div className="text-2xl font-bold">{copy.summary.title}</div>
               <dl className="mt-4 space-y-2 text-sm">
-                <div className="flex justify-between"><dt className="text-zinc-500">Услуга</dt><dd className="font-medium text-right max-w-[55%]">{service}</dd></div>
-                <div className="flex justify-between"><dt className="text-zinc-500">Категория</dt><dd className="font-medium text-right max-w-[55%]">{category}</dd></div>
-                <div className="flex justify-between"><dt className="text-zinc-500">Тариф</dt><dd className="font-medium text-right max-w-[55%]">{plan}</dd></div>
+                <div className="flex justify-between"><dt className="text-zinc-500">{copy.summary.serviceLabel}</dt><dd className="font-medium text-right max-w-[55%]">{service}</dd></div>
+                <div className="flex justify-between"><dt className="text-zinc-500">{copy.summary.categoryLabel}</dt><dd className="font-medium text-right max-w-[55%]">{category}</dd></div>
+                <div className="flex justify-between"><dt className="text-zinc-500">{copy.summary.planLabel}</dt><dd className="font-medium text-right max-w-[55%]">{plan}</dd></div>
               </dl>
 
-              <div className="mt-5 text-xs text-zinc-500">СТОИМОСТЬ</div>
-              <div className="mt-1 text-sm">${pricePerIp.toFixed(2)} <span className="text-zinc-500">за прокси / мес</span></div>
+              <div className="mt-5 text-xs text-zinc-500">{copy.summary.priceSectionLabel}</div>
+              <div className="mt-1 text-sm">${pricePerIp.toFixed(2)} <span className="text-zinc-500">{copy.summary.priceUnitSuffix}</span></div>
 
               <div className="mt-4 rounded-xl bg-zinc-50 p-4">
-                <div className="text-zinc-500 text-xs">Итого</div>
+                <div className="text-zinc-500 text-xs">{copy.summary.totalLabel}</div>
                 <div className="text-2xl font-bold">${total.toFixed(2)}</div>
-                <div className="text-xs text-zinc-500 mt-1">{ips} IP • {months} мес • Автопродление {autoRenew ? "включено" : "выключено"}</div>
+                <div className="text-xs text-zinc-500 mt-1">{copy.summary.totalDetails(ips, months, autoRenew)}</div>
               </div>
 
               <div className="mt-6">
-                <div className="text-sm font-semibold mb-2">Что входит</div>
+                <div className="text-sm font-semibold mb-2">{copy.whatsIncludedTitle}</div>
                 <ul className="space-y-1 text-sm">
-                  <li className="flex gap-2"><span>✓</span> До 3 пользователей</li>
-                  <li className="flex gap-2"><span>✓</span> 1 ГБ трафика</li>
-                  <li className="flex gap-2"><span>✓</span> Без апгрейда скорости</li>
-                  <li className="flex gap-2"><span>✓</span> Без доп. параллельности</li>
+                  {copy.whatsIncludedItems.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span>✓</span> {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
           </aside>
         </div>
 
-        <div className="mt-6 text-xs text-zinc-500">
-          SSL безопасная оплата. 256-битное шифрование защищает ваши данные.
-        </div>
+        <div className="mt-6 text-xs text-zinc-500">{copy.sslNote}</div>
       </div>
     </div>
   );
