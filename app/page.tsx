@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Hero from '@/components/Hero';
+import BackgroundHex from '@/components/BackgroundHex';
 import TopProductsTabs from '@/components/TopProductsTabs';
 import Section from '@/components/layout/Section';
 import { useI18n } from '@/lib/i18n';
@@ -154,7 +155,11 @@ export default function Page() {
 
   return (
     <div className={styles.page}>
-      <Hero />
+      <section className="relative isolate overflow-hidden">
+        <BackgroundHex />
+
+        <Hero />
+      </section>
 
       <Section id="proxy-formats" bg="white" containerClassName={styles.showcaseSection}>
         <div className={`${styles.sectionHeader} ${styles.showcaseHeader}`}>
