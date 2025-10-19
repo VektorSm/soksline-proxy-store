@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo, type JSX } from "react";
 
 type Props = {
   /** "hero" — ярче; "section" — тише */
