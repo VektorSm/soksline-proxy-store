@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Hero from '@/components/Hero';
-import BackgroundHex from '@/components/BackgroundHex';
+import BackgroundHexSVG from '@/components/BackgroundHexSVG';
 import TopProductsTabs from '@/components/TopProductsTabs';
 import Section from '@/components/layout/Section';
 import { useI18n } from '@/lib/i18n';
@@ -155,8 +155,8 @@ export default function Page() {
 
   return (
     <div className={styles.page}>
-      <section className="relative isolate overflow-hidden bg-transparent">
-        <BackgroundHex />
+      <section className="relative isolate overflow-hidden">
+        <BackgroundHexSVG variant="hero" />
 
         <div className="relative z-10">
           <Hero />
@@ -196,25 +196,35 @@ export default function Page() {
         </ul>
       </Section>
 
-      <Section id="advantages" bg="muted" containerClassName={styles.advantagesSection}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>{copy.advantages.title}</h2>
-          <p className={styles.sectionDescription}>{copy.advantages.description}</p>
-        </div>
-        <div
-          className={`${styles.advantagesGrid} grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3`}
-        >
-          {copy.advantages.items.map((item) => (
-            <article
-              key={item.title}
-              className={`${styles.advantageCard} min-h-[140px] flex flex-col gap-3`}
+      <section
+        id="advantages"
+        data-variant="muted"
+        className="relative isolate overflow-hidden bg-gray-50 py-12 sm:py-16"
+      >
+        <BackgroundHexSVG variant="section" hexR={16} className="opacity-100" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
+          <div className={styles.advantagesSection}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>{copy.advantages.title}</h2>
+              <p className={styles.sectionDescription}>{copy.advantages.description}</p>
+            </div>
+            <div
+              className={`${styles.advantagesGrid} grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3`}
             >
-              <h3 className={styles.advantageTitle}>{item.title}</h3>
-              <p className={styles.advantageText}>{item.description}</p>
-            </article>
-          ))}
+              {copy.advantages.items.map((item) => (
+                <article
+                  key={item.title}
+                  className={`${styles.advantageCard} min-h-[140px] flex flex-col gap-3`}
+                >
+                  <h3 className={styles.advantageTitle}>{item.title}</h3>
+                  <p className={styles.advantageText}>{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
-      </Section>
+      </section>
 
       <TopProductsTabs />
 
