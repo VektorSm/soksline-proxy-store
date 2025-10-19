@@ -3,8 +3,8 @@
   flex-direction: column;
   background: #ffffff;
   min-height: 100vh;
-  padding-top: clamp(4.5rem, 8vw, 5.25rem);
-  scroll-padding-top: clamp(4.5rem, 8vw, 5.25rem);
+  padding-top: var(--header-offset);
+  scroll-padding-top: var(--header-offset);
 }
 
 .sectionHeader {

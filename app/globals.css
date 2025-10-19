@@ -11,6 +11,13 @@
   --text-dim: #475569;
   --chip: #f1f5f9;
   --shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
+  --header-offset: 56px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-offset: 64px;
+  }
 }
 
 @layer components {

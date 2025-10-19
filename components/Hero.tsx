@@ -12,7 +12,7 @@ export default function Hero() {
       aria-labelledby="hero-heading"
       className="mx-auto max-w-7xl px-6"
     >
-      <div className="grid min-h-[560px] grid-cols-1 items-center gap-12 py-16 md:min-h-[600px] lg:min-h-[640px] lg:grid-cols-12 lg:py-24">
+      <div className="grid min-h-[560px] grid-cols-1 items-center gap-12 pt-8 md:pt-10 pb-16 md:min-h-[600px] lg:min-h-[640px] lg:grid-cols-12 lg:pb-24">
         {/* Text */}
         <div className="max-w-[660px] lg:col-span-6">
           <h1
