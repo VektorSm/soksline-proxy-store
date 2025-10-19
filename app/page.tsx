@@ -155,10 +155,12 @@ export default function Page() {
 
   return (
     <div className={styles.page}>
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate overflow-hidden bg-transparent">
         <BackgroundHex />
 
-        <Hero />
+        <div className="relative z-10">
+          <Hero />
+        </div>
       </section>
 
       <Section id="proxy-formats" bg="white" containerClassName={styles.showcaseSection}>
