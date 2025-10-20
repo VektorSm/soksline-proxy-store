@@ -10,6 +10,10 @@ type Props = {
   className?: string;
   /** высота виртуального полотна (viewBox). Ширина фиксирована 1920, чтобы было cover-скалирование */
   vbHeight?: number;
+  /** тон фона, чтобы подобрать цвет линий */
+  tone?: "light" | "dark";
+  /** переопределить stroke напрямую */
+  strokeOverride?: string;
 };
 
 export default function BackgroundHexSVG({
@@ -17,10 +21,20 @@ export default function BackgroundHexSVG({
   hexR = variant === "hero" ? 22 : 18,
   vbHeight = variant === "hero" ? 600 : 520,
   className = "",
+  tone = "light",
+  strokeOverride,
 }: Props) {
   // Цвет/прозрачность линии и маска в зависимости от варианта
-  const stroke = variant === "hero" ? "rgba(28,144,255,0.12)" : "rgba(28,144,255,0.06)";
+  const stroke = strokeOverride
+    ?? (tone === "dark"
+      ? variant === "hero"
+        ? "rgba(255,255,255,0.06)"
+        : "rgba(255,255,255,0.05)"
+      : variant === "hero"
+        ? "rgba(28,144,255,0.12)"
+        : "rgba(28,144,255,0.06)");
   const maskTopStop = variant === "hero" ? "70%" : "80%";
+  const showHeroBaseGradient = variant === "hero" && tone === "light";
 
   // геометрия гекса (pointy-top)
   const W = 1920;
@@ -78,7 +92,7 @@ export default function BackgroundHexSVG({
       }}
     >
       {/* лёгкий фон-градиент под сеткой, чтобы убрать любые «белые прослойки» */}
-      {variant === "hero" && (
+      {showHeroBaseGradient && (
         <div
           className="absolute inset-0"
           style={{

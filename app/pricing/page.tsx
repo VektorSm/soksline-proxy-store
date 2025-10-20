@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
 
+import BackgroundHexSVG from '@/components/BackgroundHexSVG';
 import { buildOrderUrl, catalog, type PlanId } from '@/config/catalog';
 import KycNotice from '@/components/KycNotice';
 import PaymentsSecurity from '@/components/PaymentsSecurity';
@@ -93,43 +94,46 @@ export default function PricingPage() {
     () => orderPage.services.find((service) => service.id === 'static-residential-ipv6'),
     [orderPage],
   );
-  const rotatingService = useMemo(
-    () => orderPage.services.find((service) => service.id === 'rotating-residential'),
-    [orderPage],
-  );
-
   const buyNowLabel = locale === 'ru' ? 'Купить' : t('common.buyNow', 'Buy Now');
   const ipv6FallbackFromUsd = catalog.staticIpv6.fromUsd ?? 0.55;
-  const heroDescription = t(
-    'pages.pricing.hero.description',
-    'Compare static and rotating residential proxy products with synced pricing and CTAs.',
-  );
-  const showHeroDescription = heroDescription.trim().length > 0;
-
   return (
     <div className={styles.page}>
-      <header className={styles.hero}>
-        <div className={styles.heroInner}>
-          <span className={styles.heroEyebrow}>{t('pages.pricing.hero.eyebrow', 'Pricing')}</span>
-          <h1 className={styles.heroTitle}>
-            {t(
-              'pages.pricing.hero.title',
-              locale === 'ru' ? 'Тарифы на прокси' : 'Proxy pricing',
-            )}
+      <section className="relative isolate overflow-hidden bg-[#0B1220] text-white py-16 md:py-18">
+        {/* мягкий вертикальный градиент */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 28%, rgba(0,0,0,0) 64%)',
+          }}
+        />
+        {/* тонкая гекса-сетка поверх градиента */}
+        <BackgroundHexSVG
+          variant="hero"
+          tone="dark"
+          hexR={26}
+          vbHeight={520}
+          strokeOverride="rgba(255,255,255,0.06)"
+          className="opacity-100"
+        />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
+          <div className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-medium tracking-wide">
+            PRICING
+          </div>
+
+          <h1 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">
+            Transparent proxy pricing
           </h1>
-          <p className={styles.heroSubtitle}>
-            {t(
-              'pages.pricing.hero.subtitle',
-              locale === 'ru'
-                ? 'Оплата за 1 IP в месяц (IPv4/IPv6) или за ГБ для ротации. Прозрачно и без скрытых условий.'
-                : 'Pay per IP per month (IPv4/IPv6) or per GB for rotation. Transparent, no hidden fees.',
-            )}
+          <p className="mt-3 max-w-3xl text-white/80">
+            Pay per IP (IPv4/IPv6) or per GB for rotation. Same plans as checkout. No hidden fees.
           </p>
-          {showHeroDescription ? (
-            <p className={styles.heroDescription}>{heroDescription}</p>
-          ) : null}
+          <div className="mt-4 text-sm text-white/60">
+            180+ locations • 99.9% uptime • 24/7 support
+          </div>
         </div>
-      </header>
+      </section>
 
       <Section id="static-isp" bg="white" className="scroll-mt-28">
         <div className={styles.sectionHeader}>
@@ -256,23 +260,24 @@ export default function PricingPage() {
         </div>
       </Section>
 
-      <Section id="rotating" bg="white" className="scroll-mt-28">
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>
-            {t(
-              'pages.pricing.rotating.title',
-              locale === 'ru' ? 'Ротационные резидентские' : 'Rotating Residential',
-            )}
-          </h2>
-          <p className={styles.sectionSubtitle}>
-            {t(
-              'pages.pricing.rotating.subtitle',
-              rotatingService?.card.headline ?? '',
-            )}
-          </p>
+      <Section
+        id="rotating"
+        bg="white"
+        className="scroll-mt-28 !py-0"
+        containerClassName="max-w-7xl px-6 py-10"
+      >
+        <div className="flex flex-wrap items-center gap-3">
+          <h2 className="m-0 text-3xl font-extrabold tracking-tight">Rotating Residential</h2>
+          <span
+            aria-label="Price per GB"
+            className="inline-flex items-center rounded-full bg-[#0B1220] px-2.5 py-1 text-xs font-medium text-white"
+          >
+            $5 / GB
+          </span>
         </div>
+        <p className="mt-2 text-gray-600">Transparent bandwidth tiers with pay-as-you-go pricing.</p>
 
-        <div data-layout="rotating-grid" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div data-layout="rotating-grid" className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {catalog.rotating.tiers.map((tier) => {
             const pricePerGb = tier.pricePerGbUsd ?? 0;
             const totalUsd = tier.totalUsd ?? pricePerGb * tier.gb;
