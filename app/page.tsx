@@ -228,25 +228,31 @@ export default function Page() {
 
       <TopProductsTabs />
 
-      <Section
+      <section
         id="payments"
-        bg="muted"
-        containerClassName={`${styles.paymentsSection} pt-6`}
+        data-variant="muted"
+        className="relative isolate overflow-hidden bg-gray-50 py-12 sm:py-16"
       >
-        <div className={styles.paymentsHeader}>
-          <h2 className={`${styles.paymentsTitle} text-2xl sm:text-3xl font-semibold tracking-tight`}>
-            {copy.payments.title}
-          </h2>
-          <p className={styles.paymentsDescription}>{copy.payments.description}</p>
+        <BackgroundHexSVG variant="section" hexR={20} className="opacity-100" />
+
+        <div
+          className={`relative z-10 mx-auto max-w-6xl px-4 ${styles.paymentsSection} pt-6`}
+        >
+          <div className={styles.paymentsHeader}>
+            <h2 className={`${styles.paymentsTitle} text-2xl sm:text-3xl font-semibold tracking-tight`}>
+              {copy.payments.title}
+            </h2>
+            <p className={styles.paymentsDescription}>{copy.payments.description}</p>
+          </div>
+          <div className={`${styles.paymentsList} mt-4`}>
+            {copy.payments.methods.map((method) => (
+              <span key={method} className={styles.paymentBadge}>
+                {method}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className={`${styles.paymentsList} mt-4`}>
-          {copy.payments.methods.map((method) => (
-            <span key={method} className={styles.paymentBadge}>
-              {method}
-            </span>
-          ))}
-        </div>
-      </Section>
+      </section>
     </div>
   );
 }
