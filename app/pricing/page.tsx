@@ -98,7 +98,7 @@ export default function PricingPage() {
   const ipv6FallbackFromUsd = catalog.staticIpv6.fromUsd ?? 0.55;
   return (
     <div className={styles.page}>
-      <section className="relative isolate overflow-hidden bg-[#0B1220] text-white py-16 md:py-18">
+      <section className="relative isolate overflow-hidden bg-[#0B1220] text-white">
         {/* мягкий вертикальный градиент */}
         <div
           aria-hidden
@@ -108,7 +108,7 @@ export default function PricingPage() {
               'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 28%, rgba(0,0,0,0) 64%)',
           }}
         />
-        {/* тонкая гекса-сетка поверх градиента */}
+        {/* тонкая гекса-сетка */}
         <BackgroundHexSVG
           variant="hero"
           tone="dark"
@@ -118,15 +118,12 @@ export default function PricingPage() {
           className="opacity-100"
         />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6">
-          <div className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-medium tracking-wide">
-            PRICING
-          </div>
-
-          <h1 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">
+        {/* Центрированный контейнер */}
+        <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-20 text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
             Transparent proxy pricing
           </h1>
-          <p className="mt-3 max-w-3xl text-white/80">
+          <p className="mt-3 text-white/80">
             Pay per IP (IPv4/IPv6) or per GB for rotation. Same plans as checkout. No hidden fees.
           </p>
           <div className="mt-4 text-sm text-white/60">
