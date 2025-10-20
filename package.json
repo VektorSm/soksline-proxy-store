@@ -38,5 +38,13 @@
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "scan:links": "node scripts/scan-links.mjs",
     "scan:public": "node scripts/scan-unused-public.mjs"
+  },
+  "pnpm": {
+    "overrides": {
+      "@csstools/css-color-parser": "3.0.9"
+    }
+  },
+  "overrides": {
+    "@csstools/css-color-parser": "3.0.9"
   }
 }
