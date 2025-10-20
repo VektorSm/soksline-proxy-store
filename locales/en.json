@@ -66,7 +66,6 @@
     },
     "aml": {
       "title": "AML Policy",
-      "disclaimer": "This is not legal advice.",
       "intro": "AML/CFT Policy — public version. Updated 9 October 2025.",
       "backToTopLabel": "Back to top",
       "sections": [
@@ -266,7 +265,10 @@
     },
     "privacy": {
       "title": "Privacy Policy",
-      "intro": "**Last updated:** 09 October 2025",
+      "lastUpdated": {
+        "iso": "2025-10-09",
+        "text": "09 October 2025"
+      },
       "backToTopLabel": "Back to top",
       "sections": [
         {
@@ -412,7 +414,10 @@
     },
     "tos": {
       "title": "Terms of Service — SoksLine",
-      "intro": "**Last updated:** 09 October 2025",
+      "lastUpdated": {
+        "iso": "2025-10-09",
+        "text": "09 October 2025"
+      },
       "backToTopLabel": "Back to top",
       "sections": [
         {
