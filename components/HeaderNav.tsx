@@ -156,55 +156,54 @@ export default function HeaderNav() {
   }, [hasHero]);
 
   return (
-    <header
-      className={clsx('header sticky top-0 z-50 text-white', scrolled && 'header--scrolled')}
+    <div
+      className="mx-auto flex max-w-6xl items-center gap-3 px-4"
+      style={{ height: 'var(--header-offset)' }}
     >
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4">
-        <Link href="/" className="mr-2 flex shrink-0 items-center gap-2">
-          <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 font-semibold">
-            S
-          </span>
-          <span className="text-sm font-semibold sm:text-base">SoksLine</span>
-        </Link>
+      <Link href="/" className="mr-2 flex shrink-0 items-center gap-2">
+        <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 font-semibold">
+          S
+        </span>
+        <span className="text-sm font-semibold sm:text-base">SoksLine</span>
+      </Link>
 
-        <nav className="hidden min-w-0 items-center gap-4 sm:flex" aria-label="Primary">
-          {MAIN_NAV.map((item) => (
-            <NavLink
-              key={item.key}
-              href={item.href}
-              className="truncate rounded-lg px-2 py-1 text-[15px] transition focus:outline-none focus-visible:ring focus-visible:ring-white/40 sm:text-sm"
-              activeClassName="text-white"
-              inactiveClassName="text-white/80 hover:text-white"
-            >
-              {t(item.key)}
-            </NavLink>
-          ))}
-          <DocsDropdown />
-        </nav>
-
-        <div className="ml-auto flex items-center gap-2">
-          <LangSwitchCompact />
+      <nav className="hidden min-w-0 items-center gap-4 sm:flex" aria-label="Primary">
+        {MAIN_NAV.map((item) => (
           <NavLink
-            href="/login"
-            className="hidden items-center rounded-2xl bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 transition hover:shadow-sm focus:outline-none focus-visible:ring focus-visible:ring-white/40 sm:inline-flex"
-            activeClassName="shadow-sm"
-            inactiveClassName=""
+            key={item.key}
+            href={item.href}
+            className="truncate rounded-lg px-2 py-1 text-[15px] transition focus:outline-none focus-visible:ring focus-visible:ring-white/40 sm:text-sm"
+            activeClassName="text-white"
+            inactiveClassName="text-white/80 hover:text-white"
           >
-            {t('nav.login')}
+            {t(item.key)}
           </NavLink>
-          <Link
-            href={getStartOrderHref()}
-            className={clsx(
-              'btn btn-order',
-              scrolled ? 'btn-primary' : 'btn-outline',
-            )}
-            data-cta="start-order"
-          >
-            <span className="md:hidden lg:inline">{t('nav.startOrder')}</span>
-            <span className="hidden md:inline lg:hidden">{t('nav.startOrder')}</span>
-          </Link>
-        </div>
+        ))}
+        <DocsDropdown />
+      </nav>
+
+      <div className="ml-auto flex items-center gap-2">
+        <LangSwitchCompact />
+        <NavLink
+          href="/login"
+          className="hidden items-center rounded-2xl bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 transition hover:shadow-sm focus:outline-none focus-visible:ring focus-visible:ring-white/40 sm:inline-flex"
+          activeClassName="shadow-sm"
+          inactiveClassName=""
+        >
+          {t('nav.login')}
+        </NavLink>
+        <Link
+          href={getStartOrderHref()}
+          className={clsx(
+            'btn btn-order',
+            scrolled ? 'btn-primary' : 'btn-outline',
+          )}
+          data-cta="start-order"
+        >
+          <span className="md:hidden lg:inline">{t('nav.startOrder')}</span>
+          <span className="hidden md:inline lg:hidden">{t('nav.startOrder')}</span>
+        </Link>
       </div>
-    </header>
+    </div>
   );
 }

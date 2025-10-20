@@ -24,10 +24,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Suspense fallback={null}>
           <I18nProvider>
             <SkipLink />
-            <header role="banner">
+            <header
+              role="banner"
+              className="fixed top-0 inset-x-0 z-50 bg-[#0B1220] text-white border-b border-white/10"
+            >
               <HeaderNav />
             </header>
-            <main id="main-content" tabIndex={-1} className="flex-1">
+            <main
+              id="main-content"
+              tabIndex={-1}
+              className="flex-1"
+              style={{ paddingTop: 'var(--header-offset)' }}
+            >
               {children}
             </main>
             <Footer />
