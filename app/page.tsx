@@ -228,16 +228,14 @@ export default function Page() {
 
       <TopProductsTabs />
 
-      <section
+      <Section
         id="payments"
-        data-variant="muted"
-        className="relative isolate overflow-hidden bg-gray-50 py-12 sm:py-16"
+        bg="muted"
+        className="relative isolate overflow-hidden"
+        containerClassName={`${styles.paymentsSection} relative pt-6`}
       >
         <BackgroundHexSVG variant="section" hexR={20} className="opacity-100" />
-
-        <div
-          className={`relative z-10 mx-auto max-w-6xl px-4 ${styles.paymentsSection} pt-6`}
-        >
+        <div className="relative z-10">
           <div className={styles.paymentsHeader}>
             <h2 className={`${styles.paymentsTitle} text-2xl sm:text-3xl font-semibold tracking-tight`}>
               {copy.payments.title}
@@ -252,7 +250,7 @@ export default function Page() {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
     </div>
   );
 }
