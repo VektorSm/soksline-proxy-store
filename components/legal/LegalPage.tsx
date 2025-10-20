@@ -1,5 +1,7 @@
 'use client';
 import { Fragment, ReactNode } from 'react';
+import Link from 'next/link';
+import PolicyMeta from '@/components/PolicyMeta';
 import Section from '@/components/layout/Section';
 import Toc from './Toc';
 
@@ -18,6 +20,11 @@ type LegalDict = {
   title: string;
   disclaimer?: string;
   intro?: string;
+  lastUpdated?: {
+    iso: string;
+    text: string;
+    className?: string;
+  };
   sections: Section[];
   backToTopLabel?: string;
 };
@@ -69,11 +76,22 @@ function renderLineSegments(line: string, keyPrefix: string) {
 
     const linkKey = `${keyPrefix}-link-${segmentIndex++}`;
     const linkChildren = renderBoldSegments(match[1], `${linkKey}-content`);
-    elements.push(
-      <a key={linkKey} href={match[2]} className="text-blue-600 underline">
-        {linkChildren}
-      </a>,
-    );
+    const href = match[2];
+    const linkClass = 'text-blue-600 hover:underline';
+
+    if (href.startsWith('/')) {
+      elements.push(
+        <Link key={linkKey} href={href} className={linkClass}>
+          {linkChildren}
+        </Link>,
+      );
+    } else {
+      elements.push(
+        <a key={linkKey} href={href} className={linkClass}>
+          {linkChildren}
+        </a>,
+      );
+    }
 
     lastIndex = linkPattern.lastIndex;
   }
@@ -142,13 +160,23 @@ export default function LegalPage({ dict }: { dict: LegalDict }) {
       <div className="mx-auto max-w-5xl space-y-6" id="top">
         <div>
           <h1 className="text-3xl font-semibold mb-4">{dict.title}</h1>
+          {dict.lastUpdated ? (
+            <PolicyMeta
+              iso={dict.lastUpdated.iso}
+              className={dict.lastUpdated.className}
+            >
+              {dict.lastUpdated.text}
+            </PolicyMeta>
+          ) : null}
           {dict.disclaimer && (
             <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-700">
               {dict.disclaimer}
             </p>
           )}
 
-          {dict.intro && <p className="mt-4 opacity-80">{dict.intro}</p>}
+          {dict.intro && (
+            <p className="mt-4 opacity-80">{renderRichText(dict.intro)}</p>
+          )}
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
