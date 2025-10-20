@@ -19,8 +19,8 @@ export default function BackgroundHexSVG({
   className = "",
 }: Props) {
   // Цвет/прозрачность линии и маска в зависимости от варианта
-  const stroke = variant === "hero" ? "rgba(28,144,255,0.12)" : "rgba(28,144,255,0.08)";
-  const maskTopStop = variant === "hero" ? "70%" : "75%";
+  const stroke = variant === "hero" ? "rgba(28,144,255,0.12)" : "rgba(28,144,255,0.06)";
+  const maskTopStop = variant === "hero" ? "70%" : "80%";
 
   // геометрия гекса (pointy-top)
   const W = 1920;

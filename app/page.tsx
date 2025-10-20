@@ -231,20 +231,26 @@ export default function Page() {
       <Section
         id="payments"
         bg="muted"
-        containerClassName={`${styles.paymentsSection} pt-6`}
+        className="relative isolate overflow-hidden"
+        containerClassName="relative isolate overflow-hidden max-w-none px-0"
       >
-        <div className={styles.paymentsHeader}>
-          <h2 className={`${styles.paymentsTitle} text-2xl sm:text-3xl font-semibold tracking-tight`}>
-            {copy.payments.title}
-          </h2>
-          <p className={styles.paymentsDescription}>{copy.payments.description}</p>
-        </div>
-        <div className={`${styles.paymentsList} mt-4`}>
-          {copy.payments.methods.map((method) => (
-            <span key={method} className={styles.paymentBadge}>
-              {method}
-            </span>
-          ))}
+        <BackgroundHexSVG variant="section" hexR={20} className="opacity-100" />
+        <div className="relative z-10 mx-auto max-w-6xl px-4 pt-6">
+          <div className={styles.paymentsSection}>
+            <div className={styles.paymentsHeader}>
+              <h2 className={`${styles.paymentsTitle} text-2xl sm:text-3xl font-semibold tracking-tight`}>
+                {copy.payments.title}
+              </h2>
+              <p className={styles.paymentsDescription}>{copy.payments.description}</p>
+            </div>
+            <div className={`${styles.paymentsList} mt-4`}>
+              {copy.payments.methods.map((method) => (
+                <span key={method} className={styles.paymentBadge}>
+                  {method}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </Section>
     </div>
